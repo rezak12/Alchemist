@@ -1,4 +1,4 @@
-﻿namespace Code.Infrastructures.Services
+﻿namespace Code.Infrastructures.Services.RandomServices
 {
     public interface IRandomService
     {
