@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e02d14008b64d7889ffe0d55743ed29, type: 3}
+  m_Name: Hard
+  m_EditorClassIdentifier: 
+  _name: Hard
+  _requirementCharacteristicsAmount: 4
+  _minRequirementCharacteristicPoints: 35
+  _maxRequirementCharacteristicPoints: 50
+  _minCoinsAmountReward: 70
+  _maxCoinsAmountReward: 120
+  _minReputationAmountReward: 50
+  _maxReputationAmountReward: 100
+  _ingredientAsRewardChance: 70
