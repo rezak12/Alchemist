@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
+using Code.Logic.Potions;
 using Code.StaticData;
 
-namespace Code.Logic.Potions
+namespace Code.Infrastructure.Services.Factories
 {
     public interface IPotionFactory
     {

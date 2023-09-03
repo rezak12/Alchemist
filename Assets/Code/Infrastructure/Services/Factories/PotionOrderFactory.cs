@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Code.Infrastructure.Services.RandomServices;
 using Code.Logic.Orders;
 using Code.Logic.Potions;
 using Code.StaticData;
 
-namespace Code.Infrastructures.Services
+namespace Code.Infrastructure.Services.Factories
 {
     public class PotionOrderFactory : IPotionOrderFactory
     {

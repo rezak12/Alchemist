@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Code.Logic.Potions;
 using Code.StaticData;
 
-namespace Code.Logic.Potions
+namespace Code.Infrastructure.Services.Factories
 {
     public class PotionFactory : IPotionFactory
     {
