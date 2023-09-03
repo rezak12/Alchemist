@@ -1,7 +1,7 @@
 ﻿using Code.Logic.Orders;
 using Code.StaticData;
 
-namespace Code.Infrastructures.Services.Factories
+namespace Code.Infrastructure.Services.Factories
 {
     public interface IPotionOrderFactory
     {
