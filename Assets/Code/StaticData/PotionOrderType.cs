@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 namespace Code.StaticData
 {
@@ -7,11 +8,12 @@ namespace Code.StaticData
     public class PotionOrderType : ScriptableObject
     {
         [SerializeField] private string _name;
-        [SerializeField] private List<PotionCharacteristic> _requirementPotionCharacteristics;
-        [SerializeField] private List<IngredientData> _possibleRewardIngredients;
+        [SerializeField] private List<AssetReferenceT<PotionCharacteristic>> _requirementPotionCharacteristics;
+        [SerializeField] private List<AssetReferenceT<IngredientData>> _possibleRewardIngredients;
 
         public string Name => _name;
-        public List<PotionCharacteristic> RequirementPotionCharacteristics => _requirementPotionCharacteristics;
-        public List<IngredientData> PossibleRewardIngredients => _possibleRewardIngredients;
+        public List<AssetReferenceT<PotionCharacteristic>> RequirementPotionCharacteristicsReferences => 
+            _requirementPotionCharacteristics;
+        public List<AssetReferenceT<IngredientData>> PossibleRewardIngredientsReferences => _possibleRewardIngredients;
     }
 }

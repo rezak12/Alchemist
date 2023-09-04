@@ -10,24 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Default Local Group
+  m_Name: Ingredients
   m_EditorClassIdentifier: 
-  m_GroupName: Default Local Group
+  m_GroupName: Ingredients
   m_Data:
     m_SerializedData: []
-  m_GUID: 4c97a0005525758448950cb2045555cc
+  m_GUID: d7564a8a3b9f7b44281cce7519ec7bb2
   m_SerializeEntries:
-  - m_GUID: 8d3affa544e212a4480fcd4536254f3c
-    m_Address: StaticData/PotionCharacteristics/Blessing
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 7c0cabd78e1a52c47b8f9c72d20f462b
-    m_Address: StaticData/PotionCharacteristics/Heal
+  - m_GUID: 1276afffdbf147a48ad5d82e8c7ceee8
+    m_Address: Mint
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 57256fe3aec1a7d4a8b5958d52870f88, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: b0099c7ef4a225549a5b45f057a673b4, type: 2}
-    - {fileID: 11400000, guid: 95a6ab130ff00cd4488d4fa178a411e7, type: 2}
+    - {fileID: 11400000, guid: a159ea786c28d6d4596aeadda28cf2b1, type: 2}
+    - {fileID: 11400000, guid: 82f39d901b2b7e541a1ea732d595f239, type: 2}

@@ -14,6 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _name: Poison
   _requirementPotionCharacteristics:
-  - {fileID: 11400000, guid: 7c0cabd78e1a52c47b8f9c72d20f462b, type: 2}
+  - m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
   _possibleRewardIngredients:
-  - {fileID: 11400000, guid: 1276afffdbf147a48ad5d82e8c7ceee8, type: 2}
+  - m_AssetGUID: 1276afffdbf147a48ad5d82e8c7ceee8
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
