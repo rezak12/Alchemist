@@ -13,7 +13,15 @@ MonoBehaviour:
   m_Name: Mint
   m_EditorClassIdentifier: 
   _characteristics:
-  - _characteristic: {fileID: 11400000, guid: 7c0cabd78e1a52c47b8f9c72d20f462b, type: 2}
+  - _characteristic:
+      m_AssetGUID: 8d3affa544e212a4480fcd4536254f3c
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
     _amount: 16
-  - _characteristic: {fileID: 11400000, guid: 8d3affa544e212a4480fcd4536254f3c, type: 2}
+  - _characteristic:
+      m_AssetGUID: 7c0cabd78e1a52c47b8f9c72d20f462b
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
     _amount: 12

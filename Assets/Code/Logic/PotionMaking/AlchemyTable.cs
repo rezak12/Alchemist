@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Code.Infrastructure.Services.Factories;
 using Code.Logic.Potions;
 using Code.StaticData;
@@ -38,7 +39,7 @@ namespace Code.Logic.PotionMaking
             ReleaseLastSlot();
         }
 
-        public void HandleResult()
+        public async Task HandleResult()
         {
             var ingredients = new List<IngredientData>(_filledSlots.Count);
             
@@ -49,7 +50,7 @@ namespace Code.Logic.PotionMaking
             }
             Cleanup();
 
-            PotionInfo potionInfo = _potionFactory.CreatePotion(ingredients);
+            PotionInfo potionInfo = await _potionFactory.CreatePotionAsync(ingredients);
         }
 
         private void ReleaseLastSlot()
@@ -62,12 +63,6 @@ namespace Code.Logic.PotionMaking
             FilledSlotsCountChanged?.Invoke();
         }
 
-        private void InitializeTableSlotsCollection()
-        {
-            _freeSlots = new Stack<AlchemyTableSlot>(_freeSlots);
-            _filledSlots = new Stack<AlchemyTableSlot>(_freeSlots.Count);
-        }
-
         private void FillSlot(IngredientData ingredient)
         {
             AlchemyTableSlot slot = _freeSlots.Pop();
@@ -76,6 +71,12 @@ namespace Code.Logic.PotionMaking
             _filledSlots.Push(slot);
             
             FilledSlotsCountChanged?.Invoke();
+        }
+
+        private void InitializeTableSlotsCollection()
+        {
+            _freeSlots = new Stack<AlchemyTableSlot>(_freeSlots);
+            _filledSlots = new Stack<AlchemyTableSlot>(_freeSlots.Count);
         }
 
         private void Cleanup()

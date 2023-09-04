@@ -12,11 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
   m_Name: PotionCharacteristics
   m_EditorClassIdentifier: 
-  m_GroupName: Packed Assets
+  m_GroupName: PotionCharacteristics
   m_Data:
     m_SerializedData: []
   m_GUID: bdb67a6fc49837f44abaf803f4c48595
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: 8d3affa544e212a4480fcd4536254f3c
+    m_Address: Blessing
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 7c0cabd78e1a52c47b8f9c72d20f462b
+    m_Address: Heal
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 57256fe3aec1a7d4a8b5958d52870f88, type: 2}
   m_SchemaSet:

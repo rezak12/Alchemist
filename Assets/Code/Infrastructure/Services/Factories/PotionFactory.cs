@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using Code.Infrastructure.Services.AssetProvider;
 using Code.Logic.Potions;
 using Code.StaticData;
 
@@ -7,23 +9,33 @@ namespace Code.Infrastructure.Services.Factories
 {
     public class PotionFactory : IPotionFactory
     {
-        public PotionInfo CreatePotion(IEnumerable<IngredientData> ingredients)
+
+        private readonly IAssetProvider _assetProvider;
+
+        public PotionFactory(IAssetProvider assetProvider)
         {
-            List<PotionCharacteristicAmountPair> characteristics = CalculatePotionCharacteristics(ingredients);
+            _assetProvider = assetProvider;
+        }
+
+        public async Task<PotionInfo> CreatePotionAsync(IEnumerable<IngredientData> ingredients)
+        {
+            List<PotionCharacteristicAmountPair> characteristics = await CalculatePotionCharacteristicsAsync(ingredients);
 
             return new PotionInfo(characteristics);
         }
 
-        private List<PotionCharacteristicAmountPair> CalculatePotionCharacteristics(IEnumerable<IngredientData> ingredients)
+        private async Task<List<PotionCharacteristicAmountPair>> CalculatePotionCharacteristicsAsync
+            (IEnumerable<IngredientData> ingredients)
         {
-            var characteristics = ingredients
-                .SelectMany(ingredient => ingredient.Characteristics).ToList();
+            var characteristicsReferences = ingredients
+                .SelectMany(ingredient => ingredient.Characteristics);
 
             var characteristicPointsGroupedByCharacteristic = new Dictionary<PotionCharacteristic, int>();
-            foreach (PotionCharacteristicAmountPair potionCharacteristicAmountPair in characteristics)
+            foreach (IngredientCharacteristicAmountPair potionCharacteristicAmountPair in characteristicsReferences)
             {
-                PotionCharacteristic potionCharacteristic = potionCharacteristicAmountPair.Characteristic;
                 int characteristicPointsAmount = potionCharacteristicAmountPair.PointsAmount;
+                PotionCharacteristic potionCharacteristic = await _assetProvider
+                    .LoadAsync<PotionCharacteristic>(potionCharacteristicAmountPair.CharacteristicReference);
 
                 if (characteristicPointsGroupedByCharacteristic.ContainsKey(potionCharacteristic))
                 {
@@ -35,7 +47,7 @@ namespace Code.Infrastructure.Services.Factories
                 }
             }
 
-            characteristics = characteristicPointsGroupedByCharacteristic
+            var characteristics = characteristicPointsGroupedByCharacteristic
                 .Select(pair => new PotionCharacteristicAmountPair(pair.Key, pair.Value))
                 .ToList();
             return characteristics;

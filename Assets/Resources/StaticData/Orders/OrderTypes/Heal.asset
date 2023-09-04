@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _name: Heal
   _requirementPotionCharacteristics:
-  - m_AssetGUID: 
+  - m_AssetGUID: 8d3affa544e212a4480fcd4536254f3c
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
-  - m_AssetGUID: 
+  - m_AssetGUID: 7c0cabd78e1a52c47b8f9c72d20f462b
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0

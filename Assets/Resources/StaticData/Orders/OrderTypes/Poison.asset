@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _name: Poison
   _requirementPotionCharacteristics:
-  - m_AssetGUID: 
+  - m_AssetGUID: 8d3affa544e212a4480fcd4536254f3c
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0

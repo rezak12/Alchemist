@@ -16,15 +16,7 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: 4c97a0005525758448950cb2045555cc
-  m_SerializeEntries:
-  - m_GUID: 8d3affa544e212a4480fcd4536254f3c
-    m_Address: StaticData/PotionCharacteristics/Blessing
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 7c0cabd78e1a52c47b8f9c72d20f462b
-    m_Address: StaticData/PotionCharacteristics/Heal
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+  m_SerializeEntries: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 57256fe3aec1a7d4a8b5958d52870f88, type: 2}
   m_SchemaSet:
