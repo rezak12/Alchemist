@@ -1,5 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Code.StaticData;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 namespace Code.Infrastructure.Services.ProgressServices
 {
@@ -7,17 +11,25 @@ namespace Code.Infrastructure.Services.ProgressServices
     {
         public int CoinsAmount => _playerProgress.CoinsAmount;
         public int ReputationAmount => _playerProgress.ReputationAmount;
+        public HashSet<AssetReferenceT<IngredientData>> PlayerIngredientsAssetReferences { get; private set; }
 
         public event Action CoinsAmountChanged;
         public event Action ReputationAmountChanged;
         
-        private readonly PlayerProgress _playerProgress;
+        private PlayerProgress _playerProgress;
 
-        public PersistentProgressService(PlayerProgress playerProgress)
+        public void Initialize(PlayerProgress progress)
         {
-            _playerProgress = playerProgress;
+            _playerProgress = progress;
+            PlayerIngredientsAssetReferences =
+                progress.PlayerIngredientsGUIDs.Select(guid => new AssetReferenceT<IngredientData>(guid)).ToHashSet();
         }
 
+        public PlayerProgress GetProgress()
+        {
+            return _playerProgress;
+        }
+        
         public void AddCoins(int amount)
         {
             if (amount < 0)
@@ -42,6 +54,12 @@ namespace Code.Infrastructure.Services.ProgressServices
             ReputationAmountChanged?.Invoke();
         }
 
+        public void AddNewIngredient(AssetReferenceT<IngredientData> ingredientReference)
+        {
+            PlayerIngredientsAssetReferences.Add(ingredientReference);
+            _playerProgress.PlayerIngredientsGUIDs.Add(ingredientReference.AssetGUID);
+        }
+
         public bool IsCoinsEnoughFor(int itemPrice)
         {
             return CoinsAmount >= itemPrice;
@@ -49,19 +67,7 @@ namespace Code.Infrastructure.Services.ProgressServices
         
         public bool IsReputationEnoughFor(int itemPrice)
         {
-            return CoinsAmount >= itemPrice;
-        }
-    }
-
-    public class PlayerProgress
-    {
-        public int CoinsAmount;
-        public int ReputationAmount;
-
-        public PlayerProgress(int coinsAmount, int reputationAmount)
-        {
-            CoinsAmount = coinsAmount;
-            ReputationAmount = reputationAmount;
+            return ReputationAmount >= itemPrice;
         }
     }
 }

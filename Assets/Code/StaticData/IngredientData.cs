@@ -1,35 +1,19 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-using Code.Logic.Potions;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Code.StaticData
 {
     [CreateAssetMenu(fileName = "IngredientData", menuName = "StaticData/Ingredient")]
     public class IngredientData : ScriptableObject
     {
-        [SerializeField] private List<IngredientCharacteristicAmountPair> _characteristics;
+        [SerializeField] private Sprite _icon;
+        [SerializeField] private string _name;
+        [FormerlySerializedAs("_characteristics")] 
+        [SerializeField] private List<IngredientCharacteristicAmountPair> _characteristicAmountPairs;
 
-        private List<PotionCharacteristicAmountPair> _convertedCharacteristics;
-        public List<PotionCharacteristicAmountPair> Characteristics
-        {
-            get
-            {
-                if (_convertedCharacteristics == null)
-                {
-                    ConvertInputToCharacteristicAmountPairList();
-                }
-
-                return _convertedCharacteristics;
-            }
-        }
-
-        private void ConvertInputToCharacteristicAmountPairList()
-        {
-            _convertedCharacteristics = _characteristics
-                .Select(characteristic =>
-                new PotionCharacteristicAmountPair(characteristic.Characteristic, characteristic.Amount))
-                .ToList();
-        }
+        public Sprite Icon => _icon;
+        public string Name => _name;
+        public IEnumerable<IngredientCharacteristicAmountPair> CharacteristicAmountPairs => _characteristicAmountPairs;
     }
 }
