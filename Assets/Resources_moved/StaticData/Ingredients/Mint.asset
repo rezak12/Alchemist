@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a63dcd5ebafc4719949f509766ae6076, type: 3}
   m_Name: Mint
   m_EditorClassIdentifier: 
-  _characteristics:
+  _icon: {fileID: 0}
+  _name: Mint
+  _characteristicAmountPairs:
   - _characteristic:
       m_AssetGUID: 8d3affa544e212a4480fcd4536254f3c
       m_SubObjectName: 
