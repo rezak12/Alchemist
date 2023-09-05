@@ -4,12 +4,12 @@ using System.Threading.Tasks;
 using Code.Infrastructure.Services.AssetProvider;
 using Code.Logic.Potions;
 using Code.StaticData;
+using UnityEngine.AddressableAssets;
 
 namespace Code.Infrastructure.Services.Factories
 {
     public class PotionFactory : IPotionFactory
     {
-
         private readonly IAssetProvider _assetProvider;
 
         public PotionFactory(IAssetProvider assetProvider)
@@ -19,38 +19,57 @@ namespace Code.Infrastructure.Services.Factories
 
         public async Task<PotionInfo> CreatePotionAsync(IEnumerable<IngredientData> ingredients)
         {
-            List<PotionCharacteristicAmountPair> characteristics = await CalculatePotionCharacteristicsAsync(ingredients);
-
+            PotionCharacteristicAmountPair[] characteristics =
+                await CalculatePotionCharacteristicsAsync(ingredients);
             return new PotionInfo(characteristics);
         }
 
-        private async Task<List<PotionCharacteristicAmountPair>> CalculatePotionCharacteristicsAsync
+        private async Task<PotionCharacteristicAmountPair[]> CalculatePotionCharacteristicsAsync
             (IEnumerable<IngredientData> ingredients)
         {
-            var characteristicsReferences = ingredients
-                .SelectMany(ingredient => ingredient.Characteristics);
+            var groupedCharacteristics = GroupCharacteristics(ingredients);
+            var characteristicAmountPairs =
+                await CreateCharacteristicAmountPairsAsync(groupedCharacteristics);
 
-            var characteristicPointsGroupedByCharacteristic = new Dictionary<PotionCharacteristic, int>();
-            foreach (IngredientCharacteristicAmountPair potionCharacteristicAmountPair in characteristicsReferences)
+            return characteristicAmountPairs;
+        }
+
+        private Dictionary<AssetReferenceT<PotionCharacteristic>, int> GroupCharacteristics(
+            IEnumerable<IngredientData> ingredients)
+        {
+            var groupedCharacteristics = new Dictionary<AssetReferenceT<PotionCharacteristic>, int>();
+
+            foreach (IngredientData ingredient in ingredients)
             {
-                int characteristicPointsAmount = potionCharacteristicAmountPair.PointsAmount;
-                PotionCharacteristic potionCharacteristic = await _assetProvider
-                    .LoadAsync<PotionCharacteristic>(potionCharacteristicAmountPair.CharacteristicReference);
+                foreach (IngredientCharacteristicAmountPair pair in ingredient.CharacteristicAmountPairs)
+                {
+                    var characteristicReference = pair.CharacteristicReference;
+                    var pointsAmount = pair.PointsAmount;
 
-                if (characteristicPointsGroupedByCharacteristic.ContainsKey(potionCharacteristic))
-                {
-                    characteristicPointsGroupedByCharacteristic[potionCharacteristic] += characteristicPointsAmount;
-                }
-                else
-                {
-                    characteristicPointsGroupedByCharacteristic.Add(potionCharacteristic, characteristicPointsAmount);
+                    if (groupedCharacteristics.ContainsKey(characteristicReference))
+                    {
+                        groupedCharacteristics[characteristicReference] += pointsAmount;
+                    }
+                    else
+                    {
+                        groupedCharacteristics.Add(characteristicReference, pointsAmount);
+                    }
                 }
             }
 
-            var characteristics = characteristicPointsGroupedByCharacteristic
-                .Select(pair => new PotionCharacteristicAmountPair(pair.Key, pair.Value))
-                .ToList();
-            return characteristics;
+            return groupedCharacteristics;
+        }
+
+        private async Task<PotionCharacteristicAmountPair[]> CreateCharacteristicAmountPairsAsync(
+            Dictionary<AssetReferenceT<PotionCharacteristic>, int> groupedCharacteristics)
+        {
+            var tasks = groupedCharacteristics.Select(async pair =>
+            {
+                var characteristic = await _assetProvider.LoadAsync<PotionCharacteristic>(pair.Key);
+                return new PotionCharacteristicAmountPair(characteristic, pair.Value);
+            });
+
+            return await Task.WhenAll(tasks);
         }
     }
 }
