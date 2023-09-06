@@ -4,11 +4,11 @@ namespace Code.Logic.Potions
 {
     public class PotionInfo
     {
-        public PotionCharacteristicAmountPair[] Characteristics { get; }
+        public PotionCharacteristicAmountPair[] CharacteristicsAmountPairs { get; }
 
-        public PotionInfo(PotionCharacteristicAmountPair[] characteristics)
+        public PotionInfo(PotionCharacteristicAmountPair[] characteristicsAmountPairs)
         {
-            Characteristics = characteristics;
+            CharacteristicsAmountPairs = characteristicsAmountPairs;
         }
     }
 }

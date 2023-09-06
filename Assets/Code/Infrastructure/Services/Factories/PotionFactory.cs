@@ -2,8 +2,10 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Code.Infrastructure.Services.AssetProvider;
+using Code.Infrastructure.Services.ProgressServices;
 using Code.Logic.Potions;
 using Code.StaticData;
+using UnityEngine;
 using UnityEngine.AddressableAssets;
 
 namespace Code.Infrastructure.Services.Factories
@@ -11,16 +13,30 @@ namespace Code.Infrastructure.Services.Factories
     public class PotionFactory : IPotionFactory
     {
         private readonly IAssetProvider _assetProvider;
+        private readonly IPersistentProgressService _progressService;
 
-        public PotionFactory(IAssetProvider assetProvider)
+        public PotionFactory(IAssetProvider assetProvider, IPersistentProgressService progressService)
         {
             _assetProvider = assetProvider;
+            _progressService = progressService;
         }
 
-        public async Task<PotionInfo> CreatePotionAsync(IEnumerable<IngredientData> ingredients)
+        public async Task<Potion> CreatePotionAsync(IEnumerable<IngredientData> ingredients, Vector3 position)
+        {
+            PotionInfo potionInfo = await CreatePotionInfo(ingredients);
+            Potion potionPrefab = await LoadPlayerPotionPrefab();
+
+            Potion potion = Object.Instantiate(potionPrefab, position, Quaternion.identity);
+            potion.Initialize(potionInfo);
+            
+            return potion;
+        }
+
+        private async Task<PotionInfo> CreatePotionInfo(IEnumerable<IngredientData> ingredients)
         {
             PotionCharacteristicAmountPair[] characteristics =
                 await CalculatePotionCharacteristicsAsync(ingredients);
+            
             return new PotionInfo(characteristics);
         }
 
@@ -70,6 +86,13 @@ namespace Code.Infrastructure.Services.Factories
             });
 
             return await Task.WhenAll(tasks);
+        }
+
+        private async Task<Potion> LoadPlayerPotionPrefab()
+        {
+            AssetReferenceT<Potion> potionPrefabReference = _progressService.CurrentPlayerPotionPrefabReference;
+            var potionPrefab = await _assetProvider.LoadAsync<Potion>(potionPrefabReference);
+            return potionPrefab;
         }
     }
 }
