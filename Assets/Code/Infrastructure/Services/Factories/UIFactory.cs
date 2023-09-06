@@ -59,10 +59,8 @@ namespace Code.Infrastructure.Services.Factories
 
             IngredientItemUI item = Object.Instantiate(prefab, parent);
             await item.InitializeAsync(
-                ingredient.Name, 
-                ingredient.Icon, 
-                ingredient.CharacteristicAmountPairs.ToList(), 
-                () => alchemyTable.AddIngredient(ingredient), 
+                ingredient,
+                alchemyTable, 
                 this);
 
             return item;
