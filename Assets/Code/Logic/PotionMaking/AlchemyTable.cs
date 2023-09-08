@@ -19,6 +19,7 @@ namespace Code.Logic.PotionMaking
         
         public event Action FilledSlotsAmountChanged;
         public bool IsAllSlotsFilled => _freeSlots.Count < 1;
+        public bool IsAllSlotsFree => _filledSlots.Count < 1;
         
         private Stack<AlchemyTableSlot> _freeSlots;
         private Stack<AlchemyTableSlot> _filledSlots;
@@ -57,14 +58,14 @@ namespace Code.Logic.PotionMaking
             StartCoroutine(CreateAndAnimatePotion(ingredients));
         }
 
-        private IEnumerator CreateAndAnimatePotion(IEnumerable<IngredientData> ingredients)
+        private void FillSlot(IngredientData ingredient)
         {
-            var task = _potionFactory.CreatePotionAsync(ingredients, _potionSpawnPoint.position);
-            yield return task;
-            Potion potion = task.Result;
-
-            var potionAnimator = potion.GetComponent<PotionAnimator>();
-            //potion animation call will be here
+            AlchemyTableSlot slot = _freeSlots.Pop();
+            
+            slot.Fill(ingredient);
+            _filledSlots.Push(slot);
+            
+            FilledSlotsAmountChanged?.Invoke();
         }
 
         private void ReleaseLastSlot()
@@ -77,19 +78,35 @@ namespace Code.Logic.PotionMaking
             FilledSlotsAmountChanged?.Invoke();
         }
 
-        private void FillSlot(IngredientData ingredient)
+        private IEnumerable<IngredientData> TakeAllIngredients()
         {
-            AlchemyTableSlot slot = _freeSlots.Pop();
+            var ingredients = new List<IngredientData>(_filledSlots.Count);
+
+            foreach (AlchemyTableSlot slot in _filledSlots)
+            {
+                ingredients.Add(slot.CurrentIngredient);
+                slot.Release();
+            }
+
+            return ingredients;
+        }
+
+        private IEnumerator CreateAndAnimatePotion(IEnumerable<IngredientData> ingredients)
+        {
+            var task = _potionFactory.CreatePotionAsync(ingredients, _potionSpawnPoint.position);
+            yield return task;
+            Potion potion = task.Result;
+
+            var potionAnimator = potion.GetComponent<PotionAnimator>();
+            potionAnimator.PresentAfterCreating();
             
-            slot.Fill(ingredient);
-            _filledSlots.Push(slot);
-            
-            FilledSlotsAmountChanged?.Invoke();
+            //give it to next game step
         }
 
         private IEnumerator CreateIngredientPrefabAndMoveToSlot(IngredientData ingredientData, Transform slotTransform)
         {
-            var task = _ingredientFactory.CreateIngredientAsync(ingredientData.PrefabReference, _ingredientsSpawnPoint.position);
+            var task = _ingredientFactory.CreateIngredientAsync(
+                ingredientData.PrefabReference, _ingredientsSpawnPoint.position);
             
             yield return task;
 
@@ -105,19 +122,6 @@ namespace Code.Logic.PotionMaking
             {
                 RemoveIngredientFromSlotThenDestroy(ingredientAnimator, _potionSpawnPoint);
             }
-        }
-
-        private IEnumerable<IngredientData> TakeAllIngredients()
-        {
-            var ingredients = new List<IngredientData>(_filledSlots.Count);
-
-            foreach (AlchemyTableSlot slot in _filledSlots)
-            {
-                ingredients.Add(slot.CurrentIngredient);
-                slot.Release();
-            }
-
-            return ingredients;
         }
 
         private void RemoveIngredientPrefabFromSlot()
