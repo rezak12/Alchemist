@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Code.Logic.Potions;
 using Code.StaticData;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -12,6 +13,7 @@ namespace Code.Infrastructure.Services.ProgressServices
         public int CoinsAmount => _playerProgress.CoinsAmount;
         public int ReputationAmount => _playerProgress.ReputationAmount;
         public HashSet<AssetReferenceT<IngredientData>> PlayerIngredientsAssetReferences { get; private set; }
+        public AssetReferenceT<Potion> CurrentPlayerPotionPrefabReference { get; private set; }
 
         public event Action CoinsAmountChanged;
         public event Action ReputationAmountChanged;
@@ -21,8 +23,13 @@ namespace Code.Infrastructure.Services.ProgressServices
         public void Initialize(PlayerProgress progress)
         {
             _playerProgress = progress;
-            PlayerIngredientsAssetReferences =
-                progress.PlayerIngredientsGUIDs.Select(guid => new AssetReferenceT<IngredientData>(guid)).ToHashSet();
+            
+            PlayerIngredientsAssetReferences = progress
+                .PlayerIngredientsGUIDs
+                .Select(guid => new AssetReferenceT<IngredientData>(guid))
+                .ToHashSet();
+
+            CurrentPlayerPotionPrefabReference = new AssetReferenceT<Potion>(progress.PlayerPotionPrefabGUID);
         }
 
         public PlayerProgress GetProgress()

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine.Serialization;
 
 namespace Code.Infrastructure.Services.ProgressServices
 {
@@ -9,12 +10,18 @@ namespace Code.Infrastructure.Services.ProgressServices
         public int CoinsAmount;
         public int ReputationAmount;
         public List<string> PlayerIngredientsGUIDs;
+        public string PlayerPotionPrefabGUID;
 
-        public PlayerProgress(int coinsAmount, int reputationAmount, IEnumerable<string> playerIngredientsGUIDs)
+        public PlayerProgress(
+            int coinsAmount, 
+            int reputationAmount, 
+            IEnumerable<string> playerIngredientsGUIDs, 
+            string playerPotionPrefabGuid)
         {
             CoinsAmount = coinsAmount;
             ReputationAmount = reputationAmount;
             PlayerIngredientsGUIDs = new List<string>(playerIngredientsGUIDs);
+            PlayerPotionPrefabGUID = playerPotionPrefabGuid;
         }
     }
 }

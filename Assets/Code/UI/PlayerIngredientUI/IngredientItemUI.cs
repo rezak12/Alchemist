@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Code.Infrastructure.Services.Factories;
+using Code.Logic.PotionMaking;
 using Code.StaticData;
 using TMPro;
 using UnityEngine;
@@ -16,27 +17,58 @@ namespace Code.UI.PlayerIngredientUI
         [SerializeField] private Image _iconImage;
         [SerializeField] private Transform _characteristicInfoItemsContainer;
         [SerializeField] private Button _useButton;
+        
+        private IngredientData _ingredient;
+        private AlchemyTable _alchemyTable;
 
-        public async Task InitializeAsync
-            (string ingredientName, 
-            Sprite ingredientIcon, 
-            List<IngredientCharacteristicAmountPair> characteristicAmountPairs, 
-            Action onUseButtonClickCallback, 
-            IUIFactory uiFactory)
+        public async Task InitializeAsync(IngredientData ingredient, AlchemyTable alchemyTable, IUIFactory uiFactory)
         {
-            _nameText.text = ingredientName;
-            _iconImage.sprite = ingredientIcon;
+            _ingredient = ingredient;
+            _alchemyTable = alchemyTable;
+            
+            _nameText.text = ingredient.Name;
+            _iconImage.sprite = ingredient.Icon;
+            
+            await CreateIngredientCharacteristicItemsAsync(ingredient, uiFactory);
 
-            var tasks = new List<Task>(characteristicAmountPairs.Count);
-            foreach (IngredientCharacteristicAmountPair characteristicAmountPair in characteristicAmountPairs)
-            { 
+            _alchemyTable.FilledSlotsAmountChanged += FilledSlotAmountChanged;
+            _useButton.onClick.AddListener(UseIngredient);
+        }
+
+        private void OnDestroy()
+        {
+            _alchemyTable.FilledSlotsAmountChanged -= FilledSlotAmountChanged;
+            _useButton.onClick.RemoveListener(UseIngredient);
+        }
+
+        private async Task CreateIngredientCharacteristicItemsAsync(IngredientData ingredient, IUIFactory uiFactory)
+        {
+            var tasks = new List<Task>(ingredient.CharacteristicAmountPairs.Count);
+            foreach (IngredientCharacteristicAmountPair characteristicAmountPair in ingredient.CharacteristicAmountPairs)
+            {
                 Task task = uiFactory.CreateIngredientCharacteristicItemUIAsync(
                     characteristicAmountPair, _characteristicInfoItemsContainer);
                 tasks.Add(task);
             }
+
             await Task.WhenAll(tasks);
-            
-            _useButton.onClick.AddListener(new UnityAction(onUseButtonClickCallback));
+        }
+
+        private void FilledSlotAmountChanged()
+        {
+            if (_alchemyTable.IsAllSlotsFilled)
+            {
+                _useButton.interactable = false;
+            }
+            else if (!_useButton.interactable)
+            {
+                _useButton.interactable = true;
+            }
+        }
+
+        private void UseIngredient()
+        {
+            _alchemyTable.AddIngredient(_ingredient);
         }
     }
 }
