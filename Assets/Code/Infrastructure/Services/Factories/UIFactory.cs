@@ -36,7 +36,7 @@ namespace Code.Infrastructure.Services.Factories
 
         public async Task<PlayerIngredientsPanel> CreatePlayerIngredientsPanelAsync(AlchemyTable alchemyTable)
         {
-            WindowConfig config = _staticDataService.ForWindowByType(WindowType.PlayerIngredientsPanel);
+            WindowConfig config = _staticDataService.GetWindowByType(WindowType.PlayerIngredientsPanel);
             PlayerIngredientsPanel panelPrefab = await _assetProvider
                 .LoadAsync<PlayerIngredientsPanel>(config.PrefabReference);
 
