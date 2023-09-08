@@ -11,9 +11,9 @@ namespace Code.UI.PlayerIngredientUI
     {
         [SerializeField] private Transform _ingredientItemsContainer;
         
-        public async Task InitializeAsync(List<IngredientData> playerIngredients, AlchemyTable alchemyTable, IUIFactory uiFactory)
+        public async Task InitializeAsync(IEnumerable<IngredientData> playerIngredients, AlchemyTable alchemyTable, IUIFactory uiFactory)
         {
-            var tasks = new List<Task>(playerIngredients.Count);
+            var tasks = new List<Task>();
             foreach (IngredientData ingredient in playerIngredients)
             {
                 var task = uiFactory.CreateIngredientItemUIAsync(ingredient, alchemyTable, _ingredientItemsContainer);

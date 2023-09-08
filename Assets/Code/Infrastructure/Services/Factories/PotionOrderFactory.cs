@@ -6,6 +6,7 @@ using Code.Infrastructure.Services.RandomServices;
 using Code.Logic.Orders;
 using Code.Logic.Potions;
 using Code.StaticData;
+using UnityEngine.AddressableAssets;
 
 namespace Code.Infrastructure.Services.Factories
 {
@@ -37,13 +38,14 @@ namespace Code.Infrastructure.Services.Factories
             (PotionOrderDifficulty orderDifficulty, PotionOrderType orderType)
         {
             var characteristicsAmount = orderDifficulty.RequirementCharacteristicsAmount;
-            var characteristicsReferences = orderType
+            List<AssetReferenceT<PotionCharacteristic>> characteristicsReferences = orderType
                 .RequirementPotionCharacteristicsReferences
-                .Take(characteristicsAmount);
-
-            var characteristics = await _assetProvider
-                .LoadAsync<IEnumerable<PotionCharacteristic>>(characteristicsReferences);
+                .Take(characteristicsAmount)
+                .ToList();
             
+            var characteristics = await _assetProvider
+                .LoadAsync<PotionCharacteristic>(characteristicsReferences);
+
             var result = new List<PotionCharacteristicAmountPair>(characteristicsAmount);
             foreach (PotionCharacteristic characteristic in characteristics)
             {
@@ -76,7 +78,8 @@ namespace Code.Infrastructure.Services.Factories
             else
             {
                 var reference = orderType
-                    .PossibleRewardIngredientsReferences[_randomService.Next(0, orderType.PossibleRewardIngredientsReferences.Count)];
+                    .PossibleRewardIngredientsReferences[
+                        _randomService.Next(0, orderType.PossibleRewardIngredientsReferences.Count)];
                 ingredient = await _assetProvider.LoadAsync<IngredientData>(reference);
             }
 

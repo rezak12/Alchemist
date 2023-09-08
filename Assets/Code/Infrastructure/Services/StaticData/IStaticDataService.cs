@@ -5,6 +5,8 @@ namespace Code.Infrastructure.Services.StaticData
 {
     public interface IStaticDataService
     {
-        public WindowConfig ForWindowByType(WindowType type);
+        public WindowConfig GetWindowByType(WindowType type);
+        public PotionOrderType GetRandomPotionOrderType();
+        public PotionOrderDifficulty GetRandomPotionOrderDifficulty();
     }
 }
