@@ -41,11 +41,11 @@ namespace Code.Infrastructure.Services.Factories
                 .LoadAsync<PlayerIngredientsPanel>(config.PrefabReference);
 
             var ingredientsReferences = _progressService.PlayerIngredientsAssetReferences;
-            var ingredients = await _assetProvider
-                .LoadAsync<IEnumerable<IngredientData>>(ingredientsReferences);
 
+            var ingredients = await _assetProvider.LoadAsync<IngredientData>(ingredientsReferences);
+            
             PlayerIngredientsPanel panel = Object.Instantiate(panelPrefab);
-            await panel.InitializeAsync(ingredients.ToList(), alchemyTable, this);
+            await panel.InitializeAsync(ingredients, alchemyTable, this);
 
             return panel;
         }
