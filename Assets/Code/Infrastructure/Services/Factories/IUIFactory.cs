@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Code.Logic.PotionMaking;
 using Code.StaticData;
-using Code.UI.PlayerIngredientUI;
+using Code.UI.PlayerIngredientsUI;
 using UnityEngine;
 
 namespace Code.Infrastructure.Services.Factories

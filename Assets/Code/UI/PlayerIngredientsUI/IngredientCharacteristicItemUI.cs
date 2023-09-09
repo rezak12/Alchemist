@@ -1,9 +1,8 @@
-﻿using Code.StaticData;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Code.UI.PlayerIngredientUI
+namespace Code.UI.PlayerIngredientsUI
 {
     public class IngredientCharacteristicItemUI : MonoBehaviour
     {

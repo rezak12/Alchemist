@@ -5,7 +5,7 @@ using Code.Logic.PotionMaking;
 using Code.StaticData;
 using UnityEngine;
 
-namespace Code.UI.PlayerIngredientUI
+namespace Code.UI.PlayerIngredientsUI
 {
     public class PlayerIngredientsPanel : MonoBehaviour
     {

@@ -5,7 +5,7 @@ using Code.Infrastructure.Services.StaticData;
 using Code.Logic.PotionMaking;
 using Code.StaticData;
 using Code.UI;
-using Code.UI.PlayerIngredientUI;
+using Code.UI.PlayerIngredientsUI;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
