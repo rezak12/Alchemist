@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace Code.UI.PlayerIngredientsUI
 {
-    public class IngredientCharacteristicItemUI : MonoBehaviour
+    public class PotionCharacteristicItemUI : MonoBehaviour
     {
         [SerializeField] private Image _iconImage;
         [SerializeField] private TextMeshProUGUI _pointsAmountText;
