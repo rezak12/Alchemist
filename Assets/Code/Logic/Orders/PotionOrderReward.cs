@@ -2,13 +2,13 @@
 
 namespace Code.Logic.Orders
 {
-    public class OrderReward
+    public class PotionOrderReward
     {
         public int CoinsAmount { get; }
         public int ReputationAmount { get; }
         public IngredientData Ingredient { get; }
 
-        public OrderReward(int coinsAmount, int reputationAmount, IngredientData ingredient)
+        public PotionOrderReward(int coinsAmount, int reputationAmount, IngredientData ingredient)
         {
             CoinsAmount = coinsAmount;
             ReputationAmount = reputationAmount;
