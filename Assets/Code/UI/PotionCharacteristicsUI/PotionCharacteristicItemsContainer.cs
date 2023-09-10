@@ -20,7 +20,7 @@ namespace Code.UI.PotionCharacteristicsUI
             var tasks = new List<Task<PotionCharacteristicItemUI>>(characteristicAmountPairs.Count);
             foreach (IngredientCharacteristicAmountPair characteristicAmountPair in characteristicAmountPairs)
             {
-                var task = uiFactory.CreateIngredientCharacteristicItemUIAsync(
+                var task = uiFactory.CreatePotionCharacteristicItemUIAsync(
                     characteristicAmountPair, transform);
                 tasks.Add(task);
             }
@@ -40,7 +40,7 @@ namespace Code.UI.PotionCharacteristicsUI
             var tasks = new List<Task>(characteristicAmountPairs.Count);
             foreach (PotionCharacteristicAmountPair characteristicAmountPair in characteristicAmountPairs)
             {
-                Task task = uiFactory.CreateIngredientCharacteristicItemUIAsync(
+                Task task = uiFactory.CreatePotionCharacteristicItemUIAsync(
                     characteristicAmountPair, transform);
                 tasks.Add(task);
             }

@@ -1,13 +1,17 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Code.Infrastructure.Services.AssetProvider;
 using Code.Infrastructure.Services.ProgressServices;
 using Code.Infrastructure.Services.StaticData;
 using Code.Logic.PotionMaking;
+using Code.Logic.Potions;
 using Code.StaticData;
 using Code.UI;
 using Code.UI.PlayerIngredientsUI;
+using Code.UI.Store;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using Object = UnityEngine.Object;
 
 namespace Code.Infrastructure.Services.Factories
 {
@@ -49,6 +53,11 @@ namespace Code.Infrastructure.Services.Factories
             return panel;
         }
 
+        public Task<StoreWindow> CreateStoreWindow()
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<IngredientItemUI> CreateIngredientItemUIAsync(
             IngredientData ingredient, 
             AlchemyTable alchemyTable,
@@ -65,19 +74,32 @@ namespace Code.Infrastructure.Services.Factories
             return item;
         }
 
-        public async Task<IngredientCharacteristicItemUI> CreateIngredientCharacteristicItemUIAsync(
+        public async Task<PotionCharacteristicItemUI> CreatePotionCharacteristicItemUIAsync(
             IngredientCharacteristicAmountPair characteristicAmountPair,
             Transform parent)
         {
-            var prefab = await _assetProvider.LoadAsync<IngredientCharacteristicItemUI>
+            var prefab = await _assetProvider.LoadAsync<PotionCharacteristicItemUI>
                 (_ingredientCharacteristicItemUIReference);
             
             var characteristic = await _assetProvider
                 .LoadAsync<PotionCharacteristic>(characteristicAmountPair.CharacteristicReference);
             
-            IngredientCharacteristicItemUI item = Object.Instantiate(prefab, parent);
+            PotionCharacteristicItemUI item = Object.Instantiate(prefab, parent);
             item.Initialize(characteristic.Icon, characteristicAmountPair.PointsAmount);
 
+            return item;
+        }
+
+        public async Task<PotionCharacteristicItemUI> CreatePotionCharacteristicItemUIAsync(
+            PotionCharacteristicAmountPair characteristicAmountPair,
+            Transform parent)
+        {
+            var prefab = await _assetProvider.LoadAsync<PotionCharacteristicItemUI>
+                (_ingredientCharacteristicItemUIReference);
+            
+            PotionCharacteristicItemUI item = Object.Instantiate(prefab, parent);
+            item.Initialize(characteristicAmountPair.Characteristic.Icon, characteristicAmountPair.PointsAmount);
+            
             return item;
         }
     }
