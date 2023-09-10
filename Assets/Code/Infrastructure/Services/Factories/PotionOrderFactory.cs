@@ -29,7 +29,7 @@ namespace Code.Infrastructure.Services.Factories
             List<PotionCharacteristicAmountPair> requirementCharacteristics = 
                 await CreateRequirementCharacteristicsAsync(orderDifficulty, orderType);
             
-            OrderReward reward = await CreateRewardAsync(orderDifficulty, orderType);
+            PotionOrderReward reward = await CreateRewardAsync(orderDifficulty, orderType);
 
             return new PotionOrder(orderDifficultyName, orderTypeName, requirementCharacteristics, reward);
         }
@@ -38,7 +38,8 @@ namespace Code.Infrastructure.Services.Factories
             (PotionOrderDifficulty orderDifficulty, PotionOrderType orderType)
         {
             var characteristicsAmount = orderDifficulty.RequirementCharacteristicsAmount;
-            List<AssetReferenceT<PotionCharacteristic>> characteristicsReferences = orderType
+            
+            var characteristicsReferences = orderType
                 .RequirementPotionCharacteristicsReferences
                 .Take(characteristicsAmount)
                 .ToList();
@@ -62,7 +63,7 @@ namespace Code.Infrastructure.Services.Factories
             return result;
         }
 
-        private async Task<OrderReward> CreateRewardAsync(PotionOrderDifficulty orderDifficulty, PotionOrderType orderType)
+        private async Task<PotionOrderReward> CreateRewardAsync(PotionOrderDifficulty orderDifficulty, PotionOrderType orderType)
         {
             var coinsAmount = _randomService
                 .Next(orderDifficulty.MinCoinsAmountReward, orderDifficulty.MaxCoinsAmountReward);
@@ -83,7 +84,7 @@ namespace Code.Infrastructure.Services.Factories
                 ingredient = await _assetProvider.LoadAsync<IngredientData>(reference);
             }
 
-            return new OrderReward(coinsAmount, reputationAmount, ingredient);
+            return new PotionOrderReward(coinsAmount, reputationAmount, ingredient);
         }
     }
 }
