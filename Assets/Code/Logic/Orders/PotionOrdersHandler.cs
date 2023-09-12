@@ -14,13 +14,17 @@ namespace Code.Logic.Orders
         
         private readonly IPotionOrderFactory _potionOrderFactory;
         private readonly IStaticDataService _staticDataService;
-        private ICoroutineRunner _coroutineRunner;
+        private readonly ICoroutineRunner _coroutineRunner;
 
 
-        public PotionOrdersHandler(IPotionOrderFactory potionOrderFactory, IStaticDataService staticDataService)
+        public PotionOrdersHandler(
+            IPotionOrderFactory potionOrderFactory, 
+            IStaticDataService staticDataService, 
+            ICoroutineRunner coroutineRunner)
         {
             _potionOrderFactory = potionOrderFactory;
             _staticDataService = staticDataService;
+            _coroutineRunner = coroutineRunner;
         }
 
         public void HandleNewOrder()
