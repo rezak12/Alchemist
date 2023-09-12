@@ -31,14 +31,14 @@ namespace Code.UI.OrdersViewUI
             _button.onClick.AddListener(SkipOrder);
         }
 
-        private void SkipOrder()
-        {
-            _ordersHandler.HandleNewOrder();
-        }
-
         private void OnDestroy()
         {
             _progressService.ReputationAmountChanged -= OnReputationAmountChanged;
+        }
+
+        private void SkipOrder()
+        {
+            _ordersHandler.HandleNewOrder();
         }
 
         private void OnReputationAmountChanged()
