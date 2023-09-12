@@ -3,14 +3,17 @@ using System.Threading.Tasks;
 using Code.Infrastructure.Services.AssetProvider;
 using Code.Infrastructure.Services.ProgressServices;
 using Code.Infrastructure.Services.StaticData;
+using Code.Logic.Orders;
 using Code.Logic.PotionMaking;
 using Code.Logic.Potions;
 using Code.StaticData;
 using Code.UI;
+using Code.UI.OrdersViewUI;
 using Code.UI.PlayerIngredientsUI;
 using Code.UI.Store;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using Zenject;
 using Object = UnityEngine.Object;
 
 namespace Code.Infrastructure.Services.Factories
@@ -19,17 +22,20 @@ namespace Code.Infrastructure.Services.Factories
     {
         private readonly AssetReference _ingredientItemUIReference;
         private readonly AssetReference _ingredientCharacteristicItemUIReference;
-        
+        private readonly IInstantiator _instantiator;
         private readonly IAssetProvider _assetProvider;
         private readonly IPersistentProgressService _progressService;
         private readonly IStaticDataService _staticDataService;
 
-        public UIFactory(IAssetProvider assetProvider, 
+        public UIFactory(
+            IInstantiator instantiator,
+            IAssetProvider assetProvider, 
             IPersistentProgressService progressService, 
             IStaticDataService staticDataService, 
             AssetReference ingredientItemUIReference, 
             AssetReference ingredientCharacteristicItemUIReference)
         {
+            _instantiator = instantiator;
             _assetProvider = assetProvider;
             _progressService = progressService;
             _staticDataService = staticDataService;
@@ -37,10 +43,22 @@ namespace Code.Infrastructure.Services.Factories
             _ingredientCharacteristicItemUIReference = ingredientCharacteristicItemUIReference;
         }
 
+        public async Task<SelectPotionOrderWindow> CreateSelectPotionOrderPopup(PotionOrdersHandler potionOrdersHandler)
+        {
+            WindowConfig config = _staticDataService.GetWindowByType(WindowType.SelectPotionOrderPopup);
+            var panelPrefab = await _assetProvider
+                .LoadAsync<SelectPotionOrderWindow>(config.PrefabReference);
+
+            var prefab = _instantiator.InstantiatePrefabForComponent<SelectPotionOrderWindow>(panelPrefab);
+            prefab.Initialize(potionOrdersHandler);
+
+            return prefab;
+        }
+
         public async Task<PlayerIngredientsPanel> CreatePlayerIngredientsPanelAsync(AlchemyTable alchemyTable)
         {
             WindowConfig config = _staticDataService.GetWindowByType(WindowType.PlayerIngredientsPanel);
-            PlayerIngredientsPanel panelPrefab = await _assetProvider
+            var panelPrefab = await _assetProvider
                 .LoadAsync<PlayerIngredientsPanel>(config.PrefabReference);
 
             var ingredientsReferences = _progressService.PlayerIngredientsAssetReferences;
