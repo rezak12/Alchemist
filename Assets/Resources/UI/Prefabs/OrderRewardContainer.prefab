@@ -699,7 +699,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _coinsAmountText: {fileID: 1220829825203700730}
   _reputationAmountText: {fileID: 1220829823493479909}
-  _ingredientContainer: {fileID: 0}
+  _ingredientContainer: {fileID: 7908316588831290189}
   _ingredientIcon: {fileID: 1220829824210710617}
   _ingredientNameText: {fileID: 1220829825101909764}
 --- !u!1 &1220829825101909762
@@ -795,8 +795,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 52
-  m_fontSizeBase: 52
+  m_fontSize: 68
+  m_fontSizeBase: 68
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

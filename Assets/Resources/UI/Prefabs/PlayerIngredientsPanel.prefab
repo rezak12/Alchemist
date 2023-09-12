@@ -355,11 +355,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2530379860354185207, guid: f2773cdee543cc143bff2a1e25611d72, type: 3}
       propertyPath: m_text
-      value: CHOSE INGREDIENTS
+      value: CHOOSE INGREDIENTS
       objectReference: {fileID: 0}
     - target: {fileID: 2530379860354185207, guid: f2773cdee543cc143bff2a1e25611d72, type: 3}
       propertyPath: m_fontSize
-      value: 61.8
+      value: 71.45
       objectReference: {fileID: 0}
     - target: {fileID: 3166200786257226549, guid: f2773cdee543cc143bff2a1e25611d72, type: 3}
       propertyPath: m_Sprite

@@ -1833,7 +1833,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _button: {fileID: 1609102678687719710}
-  _skipCostText: {fileID: 0}
+  _skipCostText: {fileID: 1609102678334529167}
 --- !u!114 &1609102678687719708
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2104,7 +2104,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1220829825101909764, guid: e8f9081dc9c06484db4032b5e7948d64, type: 3}
       propertyPath: m_fontSize
-      value: 27.7
+      value: 52
+      objectReference: {fileID: 0}
+    - target: {fileID: 1220829825101909764, guid: e8f9081dc9c06484db4032b5e7948d64, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 52
       objectReference: {fileID: 0}
     - target: {fileID: 1220829825203700731, guid: e8f9081dc9c06484db4032b5e7948d64, type: 3}
       propertyPath: m_AnchoredPosition.x

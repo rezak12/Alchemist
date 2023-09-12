@@ -5,7 +5,6 @@ using Code.Logic.Orders;
 using Code.UI.PotionCharacteristicsUI;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Code.UI.OrdersViewUI
 {
