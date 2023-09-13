@@ -43,14 +43,16 @@ namespace Code.Infrastructure.Services.Factories
             _ingredientCharacteristicItemUIReference = ingredientCharacteristicItemUIReference;
         }
 
-        public async Task<SelectPotionOrderWindow> CreateSelectPotionOrderPopup(PotionOrdersHandler potionOrdersHandler)
+        public async Task<SelectPotionOrderWindow> CreateSelectPotionOrderPopup(
+            PotionOrdersHandler potionOrdersHandler,
+            ChosenPotionOrderSender potionOrdersSender)
         {
             WindowConfig config = _staticDataService.GetWindowByType(WindowType.SelectPotionOrderPopup);
             var panelPrefab = await _assetProvider
                 .LoadAsync<SelectPotionOrderWindow>(config.PrefabReference);
 
             var prefab = _instantiator.InstantiatePrefabForComponent<SelectPotionOrderWindow>(panelPrefab);
-            prefab.Initialize(potionOrdersHandler);
+            prefab.Initialize(potionOrdersHandler, potionOrdersSender);
 
             return prefab;
         }

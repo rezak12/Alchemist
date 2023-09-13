@@ -8,11 +8,22 @@ namespace Code.UI.OrdersViewUI
     {
         [SerializeField] private Button _button;
 
-        private PotionOrdersHandler _ordersHandler;
+        private ChosenPotionOrderSender _ordersSender;
 
-        public void Initialize(PotionOrdersHandler ordersHandler)
+        public void Initialize(ChosenPotionOrderSender orderSender)
         {
-            _ordersHandler = ordersHandler;
+            _ordersSender = orderSender;
+            _button.onClick.AddListener(OnButtonClicked);
+        }
+
+        private void OnDestroy()
+        {
+            _button.onClick.RemoveListener(OnButtonClicked);
+        }
+
+        private void OnButtonClicked()
+        {
+            _ordersSender.SendChosenOrderToGameState();
         }
     }
 }

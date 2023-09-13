@@ -21,8 +21,6 @@ namespace Code.UI.OrdersViewUI
         private IUIFactory _uiFactory;
         private IPersistentProgressService _progressService;
         
-        private PotionOrdersHandler _ordersHandler;
-
         [Inject]
         private void Construct(IUIFactory uiFactory, IPersistentProgressService progressService)
         {
@@ -30,13 +28,11 @@ namespace Code.UI.OrdersViewUI
             _progressService = progressService;
         }
 
-        public void Initialize(PotionOrdersHandler ordersHandler)
+        public void Initialize(PotionOrdersHandler ordersHandler, ChosenPotionOrderSender orderSender)
         {
-            _ordersHandler = ordersHandler;
-            
             _orderDetailsPanel.Initialize(ordersHandler, _uiFactory);
             _progressViewItem.Initialize(_progressService);
-            _takeOrderButton.Initialize(ordersHandler);
+            _takeOrderButton.Initialize(orderSender);
             _skipOrderButton.Initialize(ordersHandler, _progressService, _skipOrderCostInReputation);
             
             _openStoreButton.onClick.AddListener(OpenStore);
