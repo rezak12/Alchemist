@@ -9,13 +9,20 @@ namespace Code.Logic.Orders
         public string OrderTypeName { get; }
         public List<PotionCharacteristicAmountPair> RequirementCharacteristics { get; }
         public PotionOrderReward Reward { get; }
+        public PotionOrderPunishment Punishment { get; }
 
-        public PotionOrder(string orderDifficultyName, string orderTypeName, List<PotionCharacteristicAmountPair> requirementCharacteristics, PotionOrderReward reward)
+        public PotionOrder(
+            string orderDifficultyName, 
+            string orderTypeName, 
+            List<PotionCharacteristicAmountPair> requirementCharacteristics, 
+            PotionOrderReward reward, 
+            PotionOrderPunishment punishment)
         {
             OrderDifficultyName = orderDifficultyName;
             OrderTypeName = orderTypeName;
             RequirementCharacteristics = requirementCharacteristics;
             Reward = reward;
+            Punishment = punishment;
         }
     }
 }

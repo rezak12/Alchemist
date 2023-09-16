@@ -29,9 +29,10 @@ namespace Code.Infrastructure.Services.Factories
             List<PotionCharacteristicAmountPair> requirementCharacteristics = 
                 await CreateRequirementCharacteristicsAsync(orderDifficulty, orderType);
             
-            PotionOrderReward reward = await CreateRewardAsync(orderDifficulty, orderType);
+            PotionOrderReward reward = CreateReward(orderDifficulty, orderType);
+            PotionOrderPunishment punishment = CreatePunishment(orderDifficulty);
 
-            return new PotionOrder(orderDifficultyName, orderTypeName, requirementCharacteristics, reward);
+            return new PotionOrder(orderDifficultyName, orderTypeName, requirementCharacteristics, reward, punishment);
         }
 
         private async Task<List<PotionCharacteristicAmountPair>> CreateRequirementCharacteristicsAsync
@@ -63,7 +64,7 @@ namespace Code.Infrastructure.Services.Factories
             return result;
         }
 
-        private async Task<PotionOrderReward> CreateRewardAsync(PotionOrderDifficulty orderDifficulty, PotionOrderType orderType)
+        private PotionOrderReward CreateReward(PotionOrderDifficulty orderDifficulty, PotionOrderType orderType)
         {
             var coinsAmount = _randomService
                 .Next(orderDifficulty.MinCoinsAmountReward, orderDifficulty.MaxCoinsAmountReward);
@@ -71,20 +72,27 @@ namespace Code.Infrastructure.Services.Factories
             var reputationAmount = _randomService
                 .Next(orderDifficulty.MinReputationAmountReward, orderDifficulty.MaxReputationAmountReward);
             
-            IngredientData ingredient;
+            AssetReferenceT<IngredientData> ingredientReference;
             if (_randomService.Next(0, 100) >= orderDifficulty.IngredientAsRewardChance)
             {
-                ingredient = null;
+                ingredientReference = null;
             }
             else
             {
-                var reference = orderType
-                    .PossibleRewardIngredientsReferences[
-                        _randomService.Next(0, orderType.PossibleRewardIngredientsReferences.Count)];
-                ingredient = await _assetProvider.LoadAsync<IngredientData>(reference);
+                ingredientReference = orderType
+                    .PossibleRewardIngredientsReferences[_randomService
+                        .Next(0, orderType.PossibleRewardIngredientsReferences.Count)];
             }
 
-            return new PotionOrderReward(coinsAmount, reputationAmount, ingredient);
+            return new PotionOrderReward(coinsAmount, reputationAmount, ingredientReference);
+        }
+
+        private PotionOrderPunishment CreatePunishment(PotionOrderDifficulty orderDifficulty)
+        {
+            var reputationAmount = _randomService
+                .Next(orderDifficulty.MinReputationAmountPunishment, orderDifficulty.MaxReputationAmountPunishment);
+
+            return new PotionOrderPunishment(reputationAmount);
         }
     }
 }

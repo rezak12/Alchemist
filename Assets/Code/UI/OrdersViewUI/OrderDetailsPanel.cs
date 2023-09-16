@@ -14,6 +14,7 @@ namespace Code.UI.OrdersViewUI
         [SerializeField] private TextMeshProUGUI _orderTypeNameText;
         [SerializeField] private PotionCharacteristicItemsContainer _requirementCharacteristicsContainer;
         [SerializeField] private PotionOrderRewardItemUI _rewardItem;
+        [SerializeField] private PotionOrderPunishmentItemUi _punishmentItem;
         
         private PotionOrdersHandler _ordersHandler;
         private IUIFactory _uiFactory;
@@ -26,10 +27,12 @@ namespace Code.UI.OrdersViewUI
             _ordersHandler.NewOrderHandled += UpdateOrderDifficultyLevelAndTypeNames;
             _ordersHandler.NewOrderHandled += UpdateRequirementCharacteristics;
             _ordersHandler.NewOrderHandled += UpdateReward;
+            _ordersHandler.NewOrderHandled += UpdatePunishment;
             
             UpdateOrderDifficultyLevelAndTypeNames();
             UpdateRequirementCharacteristics();
             UpdateReward();
+            UpdatePunishment();
         }
 
         private void OnDestroy()
@@ -37,7 +40,7 @@ namespace Code.UI.OrdersViewUI
             _ordersHandler.NewOrderHandled -= UpdateOrderDifficultyLevelAndTypeNames;
             _ordersHandler.NewOrderHandled -= UpdateRequirementCharacteristics;
             _ordersHandler.NewOrderHandled -= UpdateReward;
-
+            _ordersHandler.NewOrderHandled -= UpdatePunishment;
         }
 
         private void UpdateOrderDifficultyLevelAndTypeNames()
@@ -46,14 +49,19 @@ namespace Code.UI.OrdersViewUI
             _orderTypeNameText.text = _ordersHandler.CurrentOrder.OrderTypeName.ToUpper();
         }
 
-        private void UpdateRequirementCharacteristics()
-        {
-            StartCoroutine(UpdateRequirementCharacteristicsCoroutine());
-        }
-
         private void UpdateReward()
         {
             _rewardItem.SetReward(_ordersHandler.CurrentOrder.Reward);
+        }
+
+        private void UpdatePunishment()
+        {
+            _punishmentItem.SetPunishment(_ordersHandler.CurrentOrder.Punishment);
+        }
+
+        private void UpdateRequirementCharacteristics()
+        {
+            StartCoroutine(UpdateRequirementCharacteristicsCoroutine());
         }
 
         private IEnumerator UpdateRequirementCharacteristicsCoroutine()
