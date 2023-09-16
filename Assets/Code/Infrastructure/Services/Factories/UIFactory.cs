@@ -43,7 +43,7 @@ namespace Code.Infrastructure.Services.Factories
             _ingredientCharacteristicItemUIReference = ingredientCharacteristicItemUIReference;
         }
 
-        public async Task<SelectPotionOrderWindow> CreateSelectPotionOrderPopup(
+        public async Task<SelectPotionOrderWindow> CreateSelectPotionOrderPopupAsync(
             PotionOrdersHandler potionOrdersHandler,
             ChosenPotionOrderSender potionOrdersSender)
         {
@@ -121,6 +121,11 @@ namespace Code.Infrastructure.Services.Factories
             item.Initialize(characteristicAmountPair.Characteristic.Icon, characteristicAmountPair.PointsAmount);
             
             return item;
+        }
+
+        public Task CreateOrderCompletedPopupAsync()
+        {
+            throw new NotImplementedException();
         }
     }
 }
