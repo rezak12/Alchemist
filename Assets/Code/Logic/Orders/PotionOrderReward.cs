@@ -1,4 +1,5 @@
 ﻿using Code.StaticData;
+using UnityEngine.AddressableAssets;
 
 namespace Code.Logic.Orders
 {
@@ -6,13 +7,16 @@ namespace Code.Logic.Orders
     {
         public int CoinsAmount { get; }
         public int ReputationAmount { get; }
-        public IngredientData Ingredient { get; }
+        public AssetReferenceT<IngredientData> IngredientReference { get; }
 
-        public PotionOrderReward(int coinsAmount, int reputationAmount, IngredientData ingredient)
+        public PotionOrderReward(
+            int coinsAmount, 
+            int reputationAmount, 
+            AssetReferenceT<IngredientData> ingredientReference)
         {
             CoinsAmount = coinsAmount;
             ReputationAmount = reputationAmount;
-            Ingredient = ingredient;
+            IngredientReference = ingredientReference;
         }
     }
 }
