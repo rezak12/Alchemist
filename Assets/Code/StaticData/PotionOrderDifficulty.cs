@@ -22,6 +22,10 @@ namespace Code.StaticData
         [SerializeField] private int _maxReputationAmountReward;
         [SerializeField, Range(0, 100)] private int _ingredientAsRewardChance;
 
+        [Space, Header("Order Punishment")] 
+        [SerializeField] private int _minReputationAmountPunishment;
+        [SerializeField] private int _maxReputationAmountPunishment;
+
         public string Name => _name;
         
         public int RequirementCharacteristicsAmount => _requirementCharacteristicsAmount;
@@ -33,5 +37,8 @@ namespace Code.StaticData
         public int MinReputationAmountReward => _minReputationAmountReward;
         public int MaxReputationAmountReward => _maxReputationAmountReward;
         public int IngredientAsRewardChance => _ingredientAsRewardChance;
+
+        public int MinReputationAmountPunishment => _minReputationAmountPunishment;
+        public int MaxReputationAmountPunishment => _maxReputationAmountPunishment;
     }
 }

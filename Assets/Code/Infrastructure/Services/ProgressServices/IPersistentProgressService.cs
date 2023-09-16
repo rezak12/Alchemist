@@ -22,6 +22,10 @@ namespace Code.Infrastructure.Services.ProgressServices
         void AddCoins(int amount);
         void AddReputation(int amount);
         void AddNewIngredient(AssetReferenceT<IngredientData> ingredient);
+
+        void RemoveCoins(int amount);
+        void RemoveReputation(int amount);
+        
         bool IsCoinsEnoughFor(int itemPrice);
         bool IsReputationEnoughFor(int itemPrice);
     }

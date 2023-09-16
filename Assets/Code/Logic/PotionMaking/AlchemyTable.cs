@@ -33,7 +33,10 @@ namespace Code.Logic.PotionMaking
         {
             _potionFactory = potionFactory;
             _ingredientFactory = ingredientFactory;
+        }
 
+        public void Initialize()
+        {
             InitializeTableSlotsCollection();
         }
 
@@ -100,7 +103,7 @@ namespace Code.Logic.PotionMaking
             var potionAnimator = potion.GetComponent<PotionAnimator>();
             potionAnimator.PresentAfterCreating();
             
-            //give it to next game step
+            
         }
 
         private IEnumerator CreateIngredientPrefabAndMoveToSlot(IngredientData ingredientData, Transform slotTransform)

@@ -67,6 +67,28 @@ namespace Code.Infrastructure.Services.ProgressServices
             _playerProgress.PlayerIngredientsGUIDs.Add(ingredientReference.AssetGUID);
         }
 
+        public void RemoveCoins(int amount)
+        {
+            if (!IsCoinsEnoughFor(amount))
+            {
+                Debug.LogError("Incorrect coins amount transferred!");
+            }
+
+            _playerProgress.CoinsAmount -= amount;
+            CoinsAmountChanged?.Invoke();
+        }
+
+        public void RemoveReputation(int amount)
+        {
+            if (!IsReputationEnoughFor(amount))
+            {
+                Debug.LogError("Incorrect reputation amount transferred!");
+            }
+
+            _playerProgress.ReputationAmount -= amount;
+            ReputationAmountChanged?.Invoke();
+        }
+
         public bool IsCoinsEnoughFor(int itemPrice)
         {
             return CoinsAmount >= itemPrice;
