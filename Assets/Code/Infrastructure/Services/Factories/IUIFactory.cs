@@ -13,7 +13,7 @@ namespace Code.Infrastructure.Services.Factories
 {
     public interface IUIFactory
     {
-        Task<SelectPotionOrderWindow> CreateSelectPotionOrderPopupAsync(
+        Task<SelectPotionOrderPopup> CreateSelectPotionOrderPopupAsync(
             PotionOrdersHandler potionOrdersHandler,
             ChosenPotionOrderSender potionOrdersSender);
         Task<PlayerIngredientsPanel> CreatePlayerIngredientsPanelAsync(AlchemyTable alchemyTable);

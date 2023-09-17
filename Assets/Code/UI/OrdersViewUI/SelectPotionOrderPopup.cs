@@ -8,7 +8,7 @@ using Zenject;
 
 namespace Code.UI.OrdersViewUI
 {
-    public class SelectPotionOrderWindow : MonoBehaviour
+    public class SelectPotionOrderPopup : MonoBehaviour
     {
         [SerializeField, Range(0, 100)] private int _skipOrderCostInReputation;
         [Space]
