@@ -40,7 +40,7 @@ namespace Code.Infrastructure.GameStates
             }
 
             SaveProgress();
-            CreateUIWindow();
+            CreateUIWindow(payload1, payload2, isRequirementsMatched);
         }
 
         public void Exit()
@@ -68,9 +68,9 @@ namespace Code.Infrastructure.GameStates
             _saveLoadService.SaveProgress(_progressService.GetProgress());
         }
 
-        private void CreateUIWindow()
+        private void CreateUIWindow(PotionOrder order, Potion resultPotion, bool isCharacteristicsMatched)
         {
-            _uiFactory.CreateOrderCompletedPopupAsync();
+            _uiFactory.CreateOrderCompletedPopupAsync(resultPotion, order, isCharacteristicsMatched);
         }
     }
 }
