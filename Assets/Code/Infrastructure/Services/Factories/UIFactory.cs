@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Code.Infrastructure.Services.AssetProvider;
 using Code.Infrastructure.Services.ProgressServices;
@@ -8,6 +9,7 @@ using Code.Logic.PotionMaking;
 using Code.Logic.Potions;
 using Code.StaticData;
 using Code.UI;
+using Code.UI.OrderCompletedUI;
 using Code.UI.OrdersViewUI;
 using Code.UI.PlayerIngredientsUI;
 using Code.UI.Store;
@@ -43,15 +45,15 @@ namespace Code.Infrastructure.Services.Factories
             _ingredientCharacteristicItemUIReference = ingredientCharacteristicItemUIReference;
         }
 
-        public async Task<SelectPotionOrderWindow> CreateSelectPotionOrderPopupAsync(
+        public async Task<SelectPotionOrderPopup> CreateSelectPotionOrderPopupAsync(
             PotionOrdersHandler potionOrdersHandler,
             ChosenPotionOrderSender potionOrdersSender)
         {
             WindowConfig config = _staticDataService.GetWindowByType(WindowType.SelectPotionOrderPopup);
             var panelPrefab = await _assetProvider
-                .LoadAsync<SelectPotionOrderWindow>(config.PrefabReference);
+                .LoadAsync<SelectPotionOrderPopup>(config.PrefabReference);
 
-            var prefab = _instantiator.InstantiatePrefabForComponent<SelectPotionOrderWindow>(panelPrefab);
+            var prefab = _instantiator.InstantiatePrefabForComponent<SelectPotionOrderPopup>(panelPrefab);
             prefab.Initialize(potionOrdersHandler, potionOrdersSender);
 
             return prefab;
@@ -71,6 +73,34 @@ namespace Code.Infrastructure.Services.Factories
             await panel.InitializeAsync(ingredients, alchemyTable, this);
 
             return panel;
+        }
+
+        public async Task<OrderCompletedPopup> CreateOrderCompletedPopupAsync(
+            Potion result, 
+            PotionOrder order,
+            bool isCharacteristicsMatched)
+        {
+            WindowConfig config = _staticDataService.GetWindowByType(WindowType.OrderCompletedPopup);
+            var prefab = await _assetProvider
+                .LoadAsync<OrderCompletedPopup>(config.PrefabReference);
+
+            var resultCharacteristicsList = result.CharacteristicAmountPairs.ToList();
+            var requirementCharacteristicsList = order.RequirementCharacteristics;
+            
+            var popup = _instantiator.InstantiatePrefabForComponent<OrderCompletedPopup>(prefab);
+            
+            Task task;
+            if (isCharacteristicsMatched)
+            {
+                task = popup.InitializeAsync(resultCharacteristicsList, requirementCharacteristicsList, order.Reward);
+            }
+            else
+            {
+                task = popup.InitializeAsync(resultCharacteristicsList, requirementCharacteristicsList, order.Punishment);
+            }
+            await task;
+
+            return popup;
         }
 
         public Task<StoreWindow> CreateStoreWindow()
@@ -121,11 +151,6 @@ namespace Code.Infrastructure.Services.Factories
             item.Initialize(characteristicAmountPair.Characteristic.Icon, characteristicAmountPair.PointsAmount);
             
             return item;
-        }
-
-        public Task CreateOrderCompletedPopupAsync()
-        {
-            throw new NotImplementedException();
         }
     }
 }

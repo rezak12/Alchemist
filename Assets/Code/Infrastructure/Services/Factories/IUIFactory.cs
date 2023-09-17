@@ -3,6 +3,7 @@ using Code.Logic.Orders;
 using Code.Logic.PotionMaking;
 using Code.Logic.Potions;
 using Code.StaticData;
+using Code.UI.OrderCompletedUI;
 using Code.UI.OrdersViewUI;
 using Code.UI.PlayerIngredientsUI;
 using Code.UI.Store;
@@ -12,11 +13,16 @@ namespace Code.Infrastructure.Services.Factories
 {
     public interface IUIFactory
     {
-        Task<SelectPotionOrderWindow> CreateSelectPotionOrderPopupAsync(
+        Task<SelectPotionOrderPopup> CreateSelectPotionOrderPopupAsync(
             PotionOrdersHandler potionOrdersHandler,
             ChosenPotionOrderSender potionOrdersSender);
         Task<PlayerIngredientsPanel> CreatePlayerIngredientsPanelAsync(AlchemyTable alchemyTable);
-        
+
+        Task<OrderCompletedPopup> CreateOrderCompletedPopupAsync(
+            Potion result, 
+            PotionOrder order, 
+            bool isCharacteristicsMatched);
+
         Task<StoreWindow> CreateStoreWindow();
 
         Task<IngredientItemUI> CreateIngredientItemUIAsync(
@@ -31,7 +37,5 @@ namespace Code.Infrastructure.Services.Factories
         Task<PotionCharacteristicItemUI> CreatePotionCharacteristicItemUIAsync(
             PotionCharacteristicAmountPair characteristicAmountPair,
             Transform parent);
-
-        Task CreateOrderCompletedPopupAsync();
     }
 }
