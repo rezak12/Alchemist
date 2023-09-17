@@ -49,7 +49,7 @@ namespace Code.Logic.PotionMaking
         public void RemoveLastIngredient()
         {
             ReleaseLastSlot();
-            RemoveIngredientPrefabFromSlot();
+            RemoveLastIngredientPrefabFromSlot();
         }
 
         public void HandleResult()
@@ -127,7 +127,7 @@ namespace Code.Logic.PotionMaking
             }
         }
 
-        private void RemoveIngredientPrefabFromSlot()
+        private void RemoveLastIngredientPrefabFromSlot()
         {
             IngredientAnimator ingredientAnimator = _ingredientsAnimators.Pop();
             RemoveIngredientFromSlotThenDestroy(ingredientAnimator, _ingredientsRemoveFromSlotPoint);
