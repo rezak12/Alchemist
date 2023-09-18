@@ -42,8 +42,7 @@ namespace Code.Infrastructure.Services.Factories
             
             var characteristicsReferences = orderType
                 .RequirementPotionCharacteristicsReferences
-                .Take(characteristicsAmount)
-                .ToList();
+                .Take(characteristicsAmount);
             
             var characteristics = await _assetProvider
                 .LoadAsync<PotionCharacteristic>(characteristicsReferences);
@@ -73,15 +72,15 @@ namespace Code.Infrastructure.Services.Factories
                 .Next(orderDifficulty.MinReputationAmountReward, orderDifficulty.MaxReputationAmountReward);
             
             AssetReferenceT<IngredientData> ingredientReference;
-            if (_randomService.Next(0, 100) >= orderDifficulty.IngredientAsRewardChance)
-            {
-                ingredientReference = null;
-            }
-            else
+            if (_randomService.Next(0, 100) < orderDifficulty.IngredientAsRewardChance)
             {
                 ingredientReference = orderType
                     .PossibleRewardIngredientsReferences[_randomService
                         .Next(0, orderType.PossibleRewardIngredientsReferences.Count)];
+            }
+            else
+            {
+                ingredientReference = null;
             }
 
             return new PotionOrderReward(coinsAmount, reputationAmount, ingredientReference);
