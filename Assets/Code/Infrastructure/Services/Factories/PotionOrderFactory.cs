@@ -41,7 +41,7 @@ namespace Code.Infrastructure.Services.Factories
             var characteristicsAmount = orderDifficulty.RequirementCharacteristicsAmount;
             
             var characteristicsReferences = orderType
-                .RequirementPotionCharacteristicsReferences
+                .PossibleRequirementPotionCharacteristicsReferences
                 .Take(characteristicsAmount);
             
             var characteristics = await _assetProvider
