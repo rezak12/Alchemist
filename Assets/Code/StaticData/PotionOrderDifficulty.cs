@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Code.StaticData
 {
@@ -8,12 +9,17 @@ namespace Code.StaticData
         [SerializeField] private string _name;
         
         [Space, Header("Order Requirements")]
+        
         [Tooltip("Total sum of all requirement characteristics for potion")]
         [SerializeField] private int _requirementCharacteristicsAmount;
+        
         [Tooltip("The minimum possible amount of requirement characteristic points for each characteristic")]
-        [SerializeField] private int _minRequirementCharacteristicPoints;
+        [FormerlySerializedAs("_minRequirementCharacteristicPoints")]
+        [SerializeField] private int _minRequirementCharacteristicPointsAmount;
+        
         [Tooltip("The maximum possible amount of requirement characteristic points for each characteristic")]
-        [SerializeField] private int _maxRequirementCharacteristicPoints;
+        [FormerlySerializedAs("_maxRequirementCharacteristicPoints")]
+        [SerializeField] private int _maxRequirementCharacteristicPointsAmount;
         
         [Space, Header("Order Reward")]
         [SerializeField] private int _minCoinsAmountReward;
@@ -29,8 +35,8 @@ namespace Code.StaticData
         public string Name => _name;
         
         public int RequirementCharacteristicsAmount => _requirementCharacteristicsAmount;
-        public int MinRequirementCharacteristicPoints => _minRequirementCharacteristicPoints;
-        public int MaxRequirementCharacteristicPoints => _maxRequirementCharacteristicPoints;
+        public int MinRequirementCharacteristicPointsAmount => _minRequirementCharacteristicPointsAmount;
+        public int MaxRequirementCharacteristicPointsAmount => _maxRequirementCharacteristicPointsAmount;
         
         public int MinCoinsAmountReward => _minCoinsAmountReward;
         public int MaxCoinsAmountReward => _maxCoinsAmountReward;

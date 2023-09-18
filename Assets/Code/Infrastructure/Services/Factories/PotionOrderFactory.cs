@@ -52,8 +52,8 @@ namespace Code.Infrastructure.Services.Factories
             foreach (PotionCharacteristic characteristic in characteristics)
             {
                 var characteristicPointsAmount = _randomService.Next(
-                    orderDifficulty.MinRequirementCharacteristicPoints,
-                    orderDifficulty.MaxRequirementCharacteristicPoints);
+                    orderDifficulty.MinRequirementCharacteristicPointsAmount,
+                    orderDifficulty.MaxRequirementCharacteristicPointsAmount);
 
                 var characteristicAmountPair =
                     new PotionCharacteristicAmountPair(characteristic, characteristicPointsAmount);
