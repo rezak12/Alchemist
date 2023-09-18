@@ -42,6 +42,7 @@ namespace Code.Infrastructure.Services.Factories
             
             var characteristicsReferences = orderType
                 .PossibleRequirementPotionCharacteristicsReferences
+                .OrderBy( reference => _randomService.Next(0, 100))
                 .Take(characteristicsAmount);
             
             var characteristics = await _assetProvider
