@@ -17,9 +17,9 @@ namespace Tests.UnitTests
     [TestFixture]
     public class PotionOrderFactoryTest
     {
-        private const string OrderDifficultyPath = "TestOrderConfigs/TestOrderDifficulty";
-        private const string OrderTypePath = "TestOrderConfigs/TestOrderType";
-        private const string CharacteristicsPath = "TestPotionCharacteristics";
+        private const string OrderDifficultyPath = "PotionOrderFactoryTest/TestOrderDifficulty";
+        private const string OrderTypePath = "PotionOrderFactoryTest/TestOrderType";
+        private const string CharacteristicsPath = "PotionOrderFactoryTest/Characteristics";
 
         private PotionOrderDifficulty _difficulty;
         private PotionOrderType _type;
