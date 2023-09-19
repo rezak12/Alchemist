@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Code.Animations;
 using Code.Infrastructure.Services.Factories;
 using Code.Logic.Potions;
@@ -25,13 +26,18 @@ namespace Code.Logic.PotionMaking
         private Stack<AlchemyTableSlot> _filledSlots;
         private Stack<IngredientAnimator> _ingredientsAnimators;
         
+        private IPotionInfoFactory _potionInfoFactory;
         private IPotionFactory _potionFactory;
         private IIngredientFactory _ingredientFactory;
 
         [Inject]
-        private void Construct(IPotionFactory potionFactory, IIngredientFactory ingredientFactory)
+        private void Construct(
+            IPotionInfoFactory potionInfoFactory, 
+            IIngredientFactory ingredientFactory,
+            IPotionFactory potionFactory)
         {
             _potionFactory = potionFactory;
+            _potionInfoFactory = potionInfoFactory;
             _ingredientFactory = ingredientFactory;
         }
 
@@ -96,7 +102,7 @@ namespace Code.Logic.PotionMaking
 
         private IEnumerator CreateAndAnimatePotion(IEnumerable<IngredientData> ingredients)
         {
-            var task = _potionFactory.CreatePotionAsync(ingredients, _potionSpawnPoint.position);
+            var task = CreatePotion(ingredients);
             yield return task;
             Potion potion = task.Result;
 
@@ -117,6 +123,14 @@ namespace Code.Logic.PotionMaking
             _ingredientsAnimators.Push(ingredientAnimator);
             
             ingredientAnimator.MoveToSlot(slotTransform);
+        }
+
+        public async Task<Potion> CreatePotion(IEnumerable<IngredientData> ingredients)
+        {
+            PotionInfo potionInfo = await _potionInfoFactory.CreatePotionInfoAsync(ingredients);
+            Potion potion = await _potionFactory.CreatePotionAsync(potionInfo, _potionSpawnPoint.position);
+            
+            return potion;
         }
 
         private void MoveAllIngredientsToBoiler()
