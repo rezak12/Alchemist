@@ -25,6 +25,10 @@ MonoBehaviour:
     m_Address: Heal
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 3f7e3e27950b1c34996dab158d291426
+    m_Address: Poisoning
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 57256fe3aec1a7d4a8b5958d52870f88, type: 2}
   m_SchemaSet:
