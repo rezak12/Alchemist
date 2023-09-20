@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Code.Infrastructure.Services.AssetProvider;
-using Code.Infrastructure.Services.ProgressServices;
 using Code.Logic.Potions;
 using Code.StaticData;
 using UnityEngine.AddressableAssets;
@@ -12,12 +11,10 @@ namespace Code.Infrastructure.Services.Factories
     public class PotionInfoFactory : IPotionInfoFactory
     {
         private readonly IAssetProvider _assetProvider;
-        private readonly IPersistentProgressService _progressService;
 
-        public PotionInfoFactory(IAssetProvider assetProvider, IPersistentProgressService progressService)
+        public PotionInfoFactory(IAssetProvider assetProvider)
         {
             _assetProvider = assetProvider;
-            _progressService = progressService;
         }
 
         public async Task<PotionInfo> CreatePotionInfoAsync(IEnumerable<IngredientData> ingredients)
@@ -30,35 +27,34 @@ namespace Code.Infrastructure.Services.Factories
             (IEnumerable<IngredientData> ingredients)
         {
             var groupedCharacteristics = GroupCharacteristics(ingredients);
-            var characteristicAmountPairs =
-                await CreateCharacteristicAmountPairsAsync(groupedCharacteristics);
-
-            return characteristicAmountPairs;
+            return await CreateCharacteristicAmountPairsAsync(groupedCharacteristics);;
         }
 
         private Dictionary<AssetReferenceT<PotionCharacteristic>, int> GroupCharacteristics(
             IEnumerable<IngredientData> ingredients)
         {
-            var groupedCharacteristics = new Dictionary<AssetReferenceT<PotionCharacteristic>, int>();
-
+            var characteristicGuidAmountPairs = new Dictionary<string, int>();
             foreach (IngredientData ingredient in ingredients)
             {
                 foreach (IngredientCharacteristicAmountPair pair in ingredient.CharacteristicAmountPairs)
                 {
-                    var characteristicReference = pair.CharacteristicReference;
+                    var characteristicGuid = pair.CharacteristicReference.AssetGUID;
                     var pointsAmount = pair.PointsAmount;
 
-                    if (groupedCharacteristics.ContainsKey(characteristicReference))
+                    if (characteristicGuidAmountPairs.ContainsKey(characteristicGuid))
                     {
-                        groupedCharacteristics[characteristicReference] += pointsAmount;
+                        characteristicGuidAmountPairs[characteristicGuid] += pointsAmount;
                     }
                     else
                     {
-                        groupedCharacteristics.Add(characteristicReference, pointsAmount);
+                        characteristicGuidAmountPairs.Add(characteristicGuid, pointsAmount);
                     }
                 }
             }
 
+            var groupedCharacteristics = characteristicGuidAmountPairs
+                .ToDictionary(pair => new AssetReferenceT<PotionCharacteristic>(pair.Key), pair => pair.Value);
+                
             return groupedCharacteristics;
         }
 
