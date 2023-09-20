@@ -27,14 +27,8 @@ MonoBehaviour:
       m_EditorAssetChanged: 0
     _amount: 3
   - _characteristic:
-      m_AssetGUID: 8d3affa544e212a4480fcd4536254f3c
+      m_AssetGUID: 3f7e3e27950b1c34996dab158d291426
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
-    _amount: 7
-  - _characteristic:
-      m_AssetGUID: 8d3affa544e212a4480fcd4536254f3c
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-    _amount: 99
+    _amount: 4
