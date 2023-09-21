@@ -10,7 +10,7 @@ namespace Code.Infrastructure.Services.ProgressServices
     {
         int CoinsAmount { get; }
         int ReputationAmount { get; }
-        HashSet<AssetReferenceT<IngredientData>> PlayerIngredientsAssetReferences { get; }
+        List<AssetReferenceT<IngredientData>> PlayerIngredientsAssetReferences { get; }
         AssetReferenceT<Potion> CurrentPlayerPotionPrefabReference { get; }
 
         event Action CoinsAmountChanged;
