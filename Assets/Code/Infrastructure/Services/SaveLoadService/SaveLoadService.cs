@@ -1,5 +1,6 @@
 ﻿using Code.Data;
 using Code.Infrastructure.Services.ProgressServices;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace Code.Infrastructure.Services.SaveLoadService
@@ -11,6 +12,7 @@ namespace Code.Infrastructure.Services.SaveLoadService
             PlayerPrefs.SetString("Progress", progress.ToJson());
         }
         
+        [CanBeNull]
         public PlayerProgress LoadProgress()
         {
             return PlayerPrefs.GetString("Progress")?.FromJson<PlayerProgress>();
