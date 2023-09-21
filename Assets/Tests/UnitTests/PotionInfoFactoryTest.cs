@@ -60,7 +60,7 @@ namespace Tests.UnitTests
         }
 
         [UnityTest]
-        public IEnumerator WhenCreatingPotion_AndPuttedMoreThanOneIngredientsWithUniqueCharacteristics_ThenPutThemAllToPotionInstance()
+        public IEnumerator WhenCreatingPotion_AndAllIngredientsHaveUniqueCharacteristics_ThenPutThemAllToPotionInstance()
         {
             // Arrange.
             IngredientData firstIngredient = _ingredientWithOneCharacteristic;
