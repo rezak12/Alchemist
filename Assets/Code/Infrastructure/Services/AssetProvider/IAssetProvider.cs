@@ -9,5 +9,6 @@ namespace Code.Infrastructure.Services.AssetProvider
         Task<T> LoadAsync<T>(AssetReference assetReference) where T : class;
         Task<T> LoadAsync<T>(string address) where T : class;
         Task<T[]> LoadAsync<T>(IEnumerable<AssetReference> assetReferences) where T : class;
+        Task InitializeAsync();
     }
 }
