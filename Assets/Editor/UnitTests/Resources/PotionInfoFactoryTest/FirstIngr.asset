@@ -21,13 +21,13 @@ MonoBehaviour:
     m_EditorAssetChanged: 0
   _characteristicAmountPairs:
   - _characteristic:
-      m_AssetGUID: 7c0cabd78e1a52c47b8f9c72d20f462b
+      m_AssetGUID: 2cf8ac6647ea4784896ce9bd00746860
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
     _amount: 10
   - _characteristic:
-      m_AssetGUID: 8d3affa544e212a4480fcd4536254f3c
+      m_AssetGUID: ee6aa45fa61f8f44fa8ff24f8a8b1c42
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
