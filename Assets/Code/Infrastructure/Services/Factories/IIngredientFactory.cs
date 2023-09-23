@@ -8,7 +8,7 @@ namespace Code.Infrastructure.Services.Factories
     public interface IIngredientFactory
     {
         Task<IngredientAnimator> CreateIngredientAsync(
-            AssetReferenceT<IngredientAnimator> ingredientDataPrefabReference,
+            AssetReferenceGameObject ingredientDataPrefabReference,
             Vector3 position);
     }
 }

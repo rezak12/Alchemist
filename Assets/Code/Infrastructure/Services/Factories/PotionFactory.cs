@@ -9,8 +9,14 @@ namespace Code.Infrastructure.Services.Factories
 {
     public class PotionFactory : IPotionFactory
     {
-        private IPersistentProgressService _progressService;
-        private IAssetProvider _assetProvider;
+        private readonly IPersistentProgressService _progressService;
+        private readonly IAssetProvider _assetProvider;
+
+        public PotionFactory(IPersistentProgressService progressService, IAssetProvider assetProvider)
+        {
+            _progressService = progressService;
+            _assetProvider = assetProvider;
+        }
 
         public async Task<Potion> CreatePotionAsync(PotionInfo potionInfo, Vector3 position)
         {
@@ -24,9 +30,10 @@ namespace Code.Infrastructure.Services.Factories
         
         private async Task<Potion> LoadPlayerPotionPrefab()
         {
-            AssetReferenceT<Potion> potionPrefabReference = _progressService.CurrentPlayerPotionPrefabReference;
-            var potionPrefab = await _assetProvider.LoadAsync<Potion>(potionPrefabReference);
-            return potionPrefab;
+            AssetReferenceGameObject potionPrefabReference = _progressService.CurrentPlayerPotionPrefabReference;
+            var potionPrefab = await _assetProvider.LoadAsync<GameObject>(potionPrefabReference);
+            
+            return potionPrefab.GetComponent<Potion>();
         }
     }
 }

@@ -16,11 +16,12 @@ namespace Code.Infrastructure.Services.Factories
         }
 
         public async Task<IngredientAnimator> CreateIngredientAsync(
-            AssetReferenceT<IngredientAnimator> ingredientDataPrefabReference, Vector3 position)
+            AssetReferenceGameObject ingredientDataPrefabReference, Vector3 position)
         {
-            var prefab = await _assetProvider.LoadAsync<IngredientAnimator>(ingredientDataPrefabReference);
-            IngredientAnimator ingredientAnimator = Object.Instantiate(prefab, position, Quaternion.identity);
-            return ingredientAnimator;
+            var prefab = await _assetProvider.LoadAsync<GameObject>(ingredientDataPrefabReference);
+            GameObject ingredientGameObject = Object.Instantiate(prefab, position, Quaternion.identity);
+            
+            return ingredientGameObject.GetComponent<IngredientAnimator>();
         }
     }
 }

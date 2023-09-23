@@ -11,13 +11,13 @@ namespace Code.StaticData
     {
         [SerializeField] private Sprite _icon;
         [SerializeField] private string _name;
-        [SerializeField] private AssetReferenceT<IngredientAnimator> _prefabReference;
+        [SerializeField] private AssetReferenceGameObject _prefabReference;
         [FormerlySerializedAs("_characteristics")] 
         [SerializeField] private List<IngredientCharacteristicAmountPair> _characteristicAmountPairs;
 
         public Sprite Icon => _icon;
         public string Name => _name;
-        public AssetReferenceT<IngredientAnimator> PrefabReference => _prefabReference;
+        public AssetReferenceGameObject PrefabReference => _prefabReference;
         public List<IngredientCharacteristicAmountPair> CharacteristicAmountPairs => _characteristicAmountPairs;
     }
 }
