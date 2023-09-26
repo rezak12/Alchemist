@@ -1,8 +1,8 @@
-﻿using System.Collections;
-using System.Threading.Tasks;
+﻿using System;
 using Code.Infrastructure.Services.Factories;
 using Code.Logic.Orders;
 using Code.UI.PotionCharacteristicsUI;
+using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 
@@ -18,19 +18,22 @@ namespace Code.UI.OrdersViewUI
         
         private PotionOrdersHandler _ordersHandler;
         private IUIFactory _uiFactory;
+        
+        private Action _updateRequirementCharacteristicsActionInstance;
 
         public void Initialize(PotionOrdersHandler ordersHandler, IUIFactory uiFactory)
         {
             _uiFactory = uiFactory;
             _ordersHandler = ordersHandler;
+            _updateRequirementCharacteristicsActionInstance = UniTask.Action(UpdateRequirementCharacteristics);
             
             _ordersHandler.NewOrderHandled += UpdateOrderDifficultyLevelAndTypeNames;
-            _ordersHandler.NewOrderHandled += UpdateRequirementCharacteristics;
+            _ordersHandler.NewOrderHandled += _updateRequirementCharacteristicsActionInstance;
             _ordersHandler.NewOrderHandled += UpdateReward;
             _ordersHandler.NewOrderHandled += UpdatePunishment;
             
             UpdateOrderDifficultyLevelAndTypeNames();
-            UpdateRequirementCharacteristics();
+            UpdateRequirementCharacteristics().Forget();
             UpdateReward();
             UpdatePunishment();
         }
@@ -38,7 +41,7 @@ namespace Code.UI.OrdersViewUI
         private void OnDestroy()
         {
             _ordersHandler.NewOrderHandled -= UpdateOrderDifficultyLevelAndTypeNames;
-            _ordersHandler.NewOrderHandled -= UpdateRequirementCharacteristics;
+            _ordersHandler.NewOrderHandled -= _updateRequirementCharacteristicsActionInstance;
             _ordersHandler.NewOrderHandled -= UpdateReward;
             _ordersHandler.NewOrderHandled -= UpdatePunishment;
         }
@@ -51,7 +54,7 @@ namespace Code.UI.OrdersViewUI
 
         private void UpdateReward()
         {
-            _rewardItem.SetReward(_ordersHandler.CurrentOrder.Reward);
+            _rewardItem.SetReward(_ordersHandler.CurrentOrder.Reward).Forget();
         }
 
         private void UpdatePunishment()
@@ -59,18 +62,11 @@ namespace Code.UI.OrdersViewUI
             _punishmentItem.SetPunishment(_ordersHandler.CurrentOrder.Punishment);
         }
 
-        private void UpdateRequirementCharacteristics()
+        private async UniTaskVoid UpdateRequirementCharacteristics()
         {
-            StartCoroutine(UpdateRequirementCharacteristicsCoroutine());
-        }
-
-        private IEnumerator UpdateRequirementCharacteristicsCoroutine()
-        {
-            Task task = _requirementCharacteristicsContainer.CreateCharacteristicItemsAsync(
+            await _requirementCharacteristicsContainer.CreateCharacteristicItemsAsync(
                 _ordersHandler.CurrentOrder.RequirementCharacteristics,
                 _uiFactory);
-
-            yield return task;
         }
     }
 }

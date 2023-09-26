@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Code.Infrastructure.Services.Factories;
 using Code.Logic.PotionMaking;
 using Code.StaticData;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace Code.UI.PlayerIngredientsUI
@@ -11,16 +12,16 @@ namespace Code.UI.PlayerIngredientsUI
     {
         [SerializeField] private Transform _ingredientItemsContainer;
         
-        public async Task InitializeAsync(IEnumerable<IngredientData> playerIngredients, AlchemyTable alchemyTable, IUIFactory uiFactory)
+        public async UniTask InitializeAsync(IEnumerable<IngredientData> playerIngredients, AlchemyTable alchemyTable, IUIFactory uiFactory)
         {
-            var tasks = new List<Task>();
+            var tasks = new List<UniTask>();
             foreach (IngredientData ingredient in playerIngredients)
             {
                 var task = uiFactory.CreateIngredientItemUIAsync(ingredient, alchemyTable, _ingredientItemsContainer);
                 tasks.Add(task);
             }
 
-            await Task.WhenAll(tasks);
+            await UniTask.WhenAll(tasks);
         }
     }
 }
