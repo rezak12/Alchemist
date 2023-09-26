@@ -1,11 +1,11 @@
-﻿using System.Threading.Tasks;
-using Code.Logic.Orders;
+﻿using Code.Logic.Orders;
 using Code.StaticData;
+using Cysharp.Threading.Tasks;
 
 namespace Code.Infrastructure.Services.Factories
 {
     public interface IPotionOrderFactory
     {
-        Task<PotionOrder> CreateOrderAsync(PotionOrderDifficulty orderDifficulty, PotionOrderType orderType);
+        UniTask<PotionOrder> CreateOrderAsync(PotionOrderDifficulty orderDifficulty, PotionOrderType orderType);
     }
 }

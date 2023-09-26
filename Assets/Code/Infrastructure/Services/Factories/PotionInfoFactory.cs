@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Code.Infrastructure.Services.AssetProvider;
 using Code.Logic.Potions;
 using Code.StaticData;
+using Cysharp.Threading.Tasks;
 using UnityEngine.AddressableAssets;
 
 namespace Code.Infrastructure.Services.Factories
@@ -17,13 +17,13 @@ namespace Code.Infrastructure.Services.Factories
             _assetProvider = assetProvider;
         }
 
-        public async Task<PotionInfo> CreatePotionInfoAsync(IEnumerable<IngredientData> ingredients)
+        public async UniTask<PotionInfo> CreatePotionInfoAsync(IEnumerable<IngredientData> ingredients)
         {
             var characteristics = await CalculatePotionCharacteristicsAsync(ingredients);
             return new PotionInfo(characteristics);
         }
         
-        private async Task<PotionCharacteristicAmountPair[]> CalculatePotionCharacteristicsAsync
+        private async UniTask<PotionCharacteristicAmountPair[]> CalculatePotionCharacteristicsAsync
             (IEnumerable<IngredientData> ingredients)
         {
             var groupedCharacteristics = GroupCharacteristics(ingredients);
@@ -58,16 +58,22 @@ namespace Code.Infrastructure.Services.Factories
             return groupedCharacteristics;
         }
 
-        private async Task<PotionCharacteristicAmountPair[]> CreateCharacteristicAmountPairsAsync(
+        private async UniTask<PotionCharacteristicAmountPair[]> CreateCharacteristicAmountPairsAsync(
             Dictionary<AssetReferenceT<PotionCharacteristic>, int> groupedCharacteristics)
         {
-            var tasks = groupedCharacteristics.Select(async pair =>
-            {
-                var characteristic = await _assetProvider.LoadAsync<PotionCharacteristic>(pair.Key);
-                return new PotionCharacteristicAmountPair(characteristic, pair.Value);
-            });
+            var characteristics = await UniTask.WhenAll(groupedCharacteristics
+                .Select(pair => _assetProvider.LoadAsync<PotionCharacteristic>(pair.Key)));
+            
+            var pointAmountForEachPair = groupedCharacteristics.Select(pair => pair.Value).ToArray();
 
-            return await Task.WhenAll(tasks);
+            var result = new PotionCharacteristicAmountPair[characteristics.Length];
+            for (var i = 0; i < groupedCharacteristics.Count; i++)
+            {
+                PotionCharacteristic characteristic = characteristics[i];
+                var pointsAmount = pointAmountForEachPair[i];
+                result[i] = new PotionCharacteristicAmountPair(characteristic, pointsAmount);
+            }
+            return result;
         }
     }
 }

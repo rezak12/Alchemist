@@ -1,6 +1,6 @@
-using System.Threading.Tasks;
 using Code.Animations;
 using Code.Infrastructure.Services.AssetProvider;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
@@ -15,7 +15,7 @@ namespace Code.Infrastructure.Services.Factories
             _assetProvider = assetProvider;
         }
 
-        public async Task<IngredientAnimator> CreateIngredientAsync(
+        public async UniTask<IngredientAnimator> CreateIngredientAsync(
             AssetReferenceGameObject ingredientDataPrefabReference, Vector3 position)
         {
             var prefab = await _assetProvider.LoadAsync<GameObject>(ingredientDataPrefabReference);

@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Code.Infrastructure.Services.AssetProvider;
 using Code.Infrastructure.Services.RandomServices;
 using Code.Logic.Orders;
 using Code.Logic.Potions;
 using Code.StaticData;
+using Cysharp.Threading.Tasks;
 using UnityEngine.AddressableAssets;
 
 namespace Code.Infrastructure.Services.Factories
@@ -21,7 +21,7 @@ namespace Code.Infrastructure.Services.Factories
             _assetProvider = assetProvider;
         }
 
-        public async Task<PotionOrder> CreateOrderAsync(PotionOrderDifficulty orderDifficulty, PotionOrderType orderType)
+        public async UniTask<PotionOrder> CreateOrderAsync(PotionOrderDifficulty orderDifficulty, PotionOrderType orderType)
         {
             var orderDifficultyName = orderDifficulty.Name;
             var orderTypeName = orderType.Name;
@@ -35,11 +35,12 @@ namespace Code.Infrastructure.Services.Factories
             return new PotionOrder(orderDifficultyName, orderTypeName, requirementCharacteristics, reward, punishment);
         }
 
-        private async Task<List<PotionCharacteristicAmountPair>> CreateRequirementCharacteristicsAsync
+        private async UniTask<List<PotionCharacteristicAmountPair>> CreateRequirementCharacteristicsAsync
             (PotionOrderDifficulty orderDifficulty, PotionOrderType orderType)
         {
             var characteristicsAmount = orderDifficulty.RequirementCharacteristicsAmount;
             
+            //TODO: use shuffle extension instead of OrderBy() here
             var characteristicsReferences = orderType
                 .PossibleRequirementPotionCharacteristicsReferences
                 .OrderBy( reference => _randomService.Next(0, 100))
