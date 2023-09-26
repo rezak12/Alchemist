@@ -41,7 +41,7 @@ namespace Code.Infrastructure.Services.AssetProvider
                 address);
         }
 
-        public UniTask<T[]> LoadAsync<T>(IEnumerable<AssetReference> assetReferences) where T : class
+        public async UniTask<T[]> LoadAsync<T>(IEnumerable<AssetReference> assetReferences) where T : class
         {
             var tasks = new List<UniTask<T>>();
             foreach (AssetReference reference in assetReferences)
@@ -50,7 +50,7 @@ namespace Code.Infrastructure.Services.AssetProvider
                 tasks.Add(task);
             }
 
-            return UniTask.WhenAll(tasks);
+            return await UniTask.WhenAll(tasks);
         }
 
         private async UniTask<T> RunWithCacheOnComplete<T>(AsyncOperationHandle<T> handle, string cacheKey) where T : class
