@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using Code.Animations;
 using Code.Infrastructure.Services.Factories;
 using Code.Logic.Potions;
 using Code.StaticData;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Zenject;
 
@@ -49,7 +48,7 @@ namespace Code.Logic.PotionMaking
         public void AddIngredient(IngredientData ingredient)
         {
             FillSlot(ingredient);
-            StartCoroutine(MoveNewIngredientToSlot(ingredient, _filledSlots.Peek().transform));
+            MoveNewIngredientToSlot(ingredient, _filledSlots.Peek().transform).Forget();
         }
 
         public void RemoveLastIngredient()
@@ -58,28 +57,20 @@ namespace Code.Logic.PotionMaking
             RemoveLastIngredientPrefabFromSlot();
         }
 
-        public void HandleResult()
-        {
-            StartCoroutine(HandleResultCoroutine());
-        }
-
-        private IEnumerator HandleResultCoroutine()
+        public async UniTaskVoid HandleResult()
         {
             var ingredients = TakeAllIngredients();
             MoveAllIngredientsToPotionCreatingPoint();
             
-            var task = CreatePotion(ingredients);
-            yield return task;
-            Potion potion = task.Result;
+            Potion potion = await CreatePotion(ingredients);
 
             var potionAnimator = potion.GetComponent<PotionAnimator>();
             potionAnimator.PresentAfterCreating();
             
             Cleanup();
-            
         }
 
-        private async Task<Potion> CreatePotion(IEnumerable<IngredientData> ingredients)
+        private async UniTask<Potion> CreatePotion(IEnumerable<IngredientData> ingredients)
         {
             PotionInfo potionInfo = await _potionInfoFactory.CreatePotionInfoAsync(ingredients);
             Potion potion = await _potionFactory.CreatePotionAsync(potionInfo, _potionSpawnPoint.position);
@@ -120,14 +111,11 @@ namespace Code.Logic.PotionMaking
             return ingredients;
         }
 
-        private IEnumerator MoveNewIngredientToSlot(IngredientData ingredientData, Transform slotTransform)
+        private async UniTaskVoid MoveNewIngredientToSlot(IngredientData ingredientData, Transform slotTransform)
         {
-            var task = _ingredientFactory.CreateIngredientAsync(
+            IngredientAnimator ingredientAnimator = await _ingredientFactory.CreateIngredientAsync(
                 ingredientData.PrefabReference, _ingredientsSpawnPoint.position);
             
-            yield return task;
-
-            IngredientAnimator ingredientAnimator = task.Result;
             _ingredientsAnimators.Push(ingredientAnimator);
             
             ingredientAnimator.MoveToSlot(slotTransform);
