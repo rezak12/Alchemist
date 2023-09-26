@@ -33,8 +33,8 @@ namespace Code.UI.OrderCompletedUI
         }
 
         public async Task InitializeAsync(
-            List<PotionCharacteristicAmountPair> resultCharacteristics,
-            List<PotionCharacteristicAmountPair> requirementCharacteristics,
+            IEnumerable<PotionCharacteristicAmountPair> resultCharacteristics,
+            IEnumerable<PotionCharacteristicAmountPair> requirementCharacteristics,
             PotionOrderReward reward)
         {
             Task fillCharacteristicsTask = FillCharacteristicItemsContainers(
@@ -47,8 +47,8 @@ namespace Code.UI.OrderCompletedUI
         }
 
         public async Task InitializeAsync(
-            List<PotionCharacteristicAmountPair> resultCharacteristics,
-            List<PotionCharacteristicAmountPair> requirementCharacteristics,
+            IEnumerable<PotionCharacteristicAmountPair> resultCharacteristics,
+            IEnumerable<PotionCharacteristicAmountPair> requirementCharacteristics,
             PotionOrderPunishment punishment
             )
         {
@@ -67,8 +67,8 @@ namespace Code.UI.OrderCompletedUI
         }
 
         private async Task FillCharacteristicItemsContainers(
-            List<PotionCharacteristicAmountPair> resultCharacteristics, 
-            List<PotionCharacteristicAmountPair> requirementCharacteristics)
+            IEnumerable<PotionCharacteristicAmountPair> resultCharacteristics, 
+            IEnumerable<PotionCharacteristicAmountPair> requirementCharacteristics)
         {
             Task resultCharacteristicItemsTask = _resultCharacteristics
                 .CreateCharacteristicItemsAsync(resultCharacteristics, _uiFactory);

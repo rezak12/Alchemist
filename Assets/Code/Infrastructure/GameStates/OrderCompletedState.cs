@@ -7,7 +7,7 @@ using Code.Logic.Potions;
 
 namespace Code.Infrastructure.GameStates
 {
-    public class OrderCompletedState : IPayloadState<PotionOrder, Potion>
+    public class OrderCompletedState : IPayloadState<Potion, PotionOrder>
     {
         private readonly ResultPotionRater _potionRater;
         private readonly IPersistentProgressService _progressService;
@@ -26,17 +26,17 @@ namespace Code.Infrastructure.GameStates
             _uiFactory = uiFactory;
         }
 
-        public void Enter(PotionOrder payload1, Potion payload2)
+        public void Enter(Potion payload1, PotionOrder payload2)
         {
-            var isRequirementsMatched = _potionRater.RatePotionByOrderRequirementCharacteristics(payload1, payload2);
+            var isRequirementsMatched = _potionRater.IsPotionSatisfyingRequirements(payload1, payload2);
 
             if (isRequirementsMatched)
             {
-                GiveReward(payload1.Reward);
+                GiveReward(payload2.Reward);
             }
             else
             {
-                GivePunishment(payload1.Punishment);
+                GivePunishment(payload2.Punishment);
             }
 
             SaveProgress();
@@ -68,7 +68,7 @@ namespace Code.Infrastructure.GameStates
             _saveLoadService.SaveProgress(_progressService.GetProgress());
         }
 
-        private void CreateUIWindow(PotionOrder order, Potion resultPotion, bool isCharacteristicsMatched)
+        private void CreateUIWindow(Potion resultPotion, PotionOrder order, bool isCharacteristicsMatched)
         {
             _uiFactory.CreateOrderCompletedPopupAsync(resultPotion, order, isCharacteristicsMatched);
         }

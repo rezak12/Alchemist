@@ -6,14 +6,14 @@ using Zenject;
 
 namespace Code.Infrastructure.Services.AssetProvider
 {
-    public class AssetProvider : IAssetProvider, IInitializable
+    public class AssetProvider : IAssetProvider
     {
         private readonly Dictionary<string, AsyncOperationHandle> _completedCache = new();
         private readonly Dictionary<string, List<AsyncOperationHandle>> _handles = new();
 
-        void IInitializable.Initialize()
+        public async Task InitializeAsync()
         {
-            Addressables.InitializeAsync();
+            await Addressables.InitializeAsync().Task;
         }
         
         public async Task<T> LoadAsync<T>(AssetReference assetReference) where T : class

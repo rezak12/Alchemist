@@ -12,8 +12,8 @@ namespace Code.Infrastructure.Services.ProgressServices
     {
         public int CoinsAmount => _playerProgress.CoinsAmount;
         public int ReputationAmount => _playerProgress.ReputationAmount;
-        public HashSet<AssetReferenceT<IngredientData>> PlayerIngredientsAssetReferences { get; private set; }
-        public AssetReferenceT<Potion> CurrentPlayerPotionPrefabReference { get; private set; }
+        public List<AssetReferenceT<IngredientData>> PlayerIngredientsAssetReferences { get; private set; }
+        public AssetReferenceGameObject CurrentPlayerPotionPrefabReference { get; private set; }
 
         public event Action CoinsAmountChanged;
         public event Action ReputationAmountChanged;
@@ -27,9 +27,9 @@ namespace Code.Infrastructure.Services.ProgressServices
             PlayerIngredientsAssetReferences = progress
                 .PlayerIngredientsGUIDs
                 .Select(guid => new AssetReferenceT<IngredientData>(guid))
-                .ToHashSet();
+                .ToList();
 
-            CurrentPlayerPotionPrefabReference = new AssetReferenceT<Potion>(progress.PlayerPotionPrefabGUID);
+            CurrentPlayerPotionPrefabReference = new AssetReferenceGameObject(progress.PlayerPotionPrefabGUID);
         }
 
         public PlayerProgress GetProgress()
@@ -63,8 +63,13 @@ namespace Code.Infrastructure.Services.ProgressServices
 
         public void AddNewIngredient(AssetReferenceT<IngredientData> ingredientReference)
         {
-            PlayerIngredientsAssetReferences.Add(ingredientReference);
+            if (_playerProgress.PlayerIngredientsGUIDs.Contains(ingredientReference.AssetGUID))
+            {
+                return;
+            }
+            
             _playerProgress.PlayerIngredientsGUIDs.Add(ingredientReference.AssetGUID);
+            PlayerIngredientsAssetReferences.Add(ingredientReference);
         }
 
         public void RemoveCoins(int amount)

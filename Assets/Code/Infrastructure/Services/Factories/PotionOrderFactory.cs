@@ -41,9 +41,9 @@ namespace Code.Infrastructure.Services.Factories
             var characteristicsAmount = orderDifficulty.RequirementCharacteristicsAmount;
             
             var characteristicsReferences = orderType
-                .RequirementPotionCharacteristicsReferences
-                .Take(characteristicsAmount)
-                .ToList();
+                .PossibleRequirementPotionCharacteristicsReferences
+                .OrderBy( reference => _randomService.Next(0, 100))
+                .Take(characteristicsAmount);
             
             var characteristics = await _assetProvider
                 .LoadAsync<PotionCharacteristic>(characteristicsReferences);
@@ -52,8 +52,8 @@ namespace Code.Infrastructure.Services.Factories
             foreach (PotionCharacteristic characteristic in characteristics)
             {
                 var characteristicPointsAmount = _randomService.Next(
-                    orderDifficulty.MinRequirementCharacteristicPoints,
-                    orderDifficulty.MaxRequirementCharacteristicPoints);
+                    orderDifficulty.MinRequirementCharacteristicPointsAmount,
+                    orderDifficulty.MaxRequirementCharacteristicPointsAmount);
 
                 var characteristicAmountPair =
                     new PotionCharacteristicAmountPair(characteristic, characteristicPointsAmount);
@@ -73,15 +73,15 @@ namespace Code.Infrastructure.Services.Factories
                 .Next(orderDifficulty.MinReputationAmountReward, orderDifficulty.MaxReputationAmountReward);
             
             AssetReferenceT<IngredientData> ingredientReference;
-            if (_randomService.Next(0, 100) >= orderDifficulty.IngredientAsRewardChance)
-            {
-                ingredientReference = null;
-            }
-            else
+            if (_randomService.Next(0, 100) < orderDifficulty.IngredientAsRewardChance)
             {
                 ingredientReference = orderType
                     .PossibleRewardIngredientsReferences[_randomService
                         .Next(0, orderType.PossibleRewardIngredientsReferences.Count)];
+            }
+            else
+            {
+                ingredientReference = null;
             }
 
             return new PotionOrderReward(coinsAmount, reputationAmount, ingredientReference);

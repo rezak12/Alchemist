@@ -4,9 +4,9 @@ namespace Code.Logic.Potions
 {
     public class PotionInfo
     {
-        public PotionCharacteristicAmountPair[] CharacteristicsAmountPairs { get; }
+        public IEnumerable<PotionCharacteristicAmountPair> CharacteristicsAmountPairs { get; }
 
-        public PotionInfo(PotionCharacteristicAmountPair[] characteristicsAmountPairs)
+        public PotionInfo(IEnumerable<PotionCharacteristicAmountPair> characteristicsAmountPairs)
         {
             CharacteristicsAmountPairs = characteristicsAmountPairs;
         }

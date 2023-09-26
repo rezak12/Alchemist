@@ -12,12 +12,12 @@ namespace Code.UI.PotionCharacteristicsUI
     {
         private readonly List<PotionCharacteristicItemUI> _items = new();
         public async Task CreateCharacteristicItemsAsync(
-            List<IngredientCharacteristicAmountPair> characteristicAmountPairs,
+            IEnumerable<IngredientCharacteristicAmountPair> characteristicAmountPairs,
             IUIFactory uiFactory)
         {
             Cleanup();
             
-            var tasks = new List<Task<PotionCharacteristicItemUI>>(characteristicAmountPairs.Count);
+            var tasks = new List<Task<PotionCharacteristicItemUI>>();
             foreach (IngredientCharacteristicAmountPair characteristicAmountPair in characteristicAmountPairs)
             {
                 var task = uiFactory.CreatePotionCharacteristicItemUIAsync(
@@ -34,10 +34,10 @@ namespace Code.UI.PotionCharacteristicsUI
         }
 
         public async Task CreateCharacteristicItemsAsync(
-            List<PotionCharacteristicAmountPair> characteristicAmountPairs,
+            IEnumerable<PotionCharacteristicAmountPair> characteristicAmountPairs,
             IUIFactory uiFactory)
         {
-            var tasks = new List<Task>(characteristicAmountPairs.Count);
+            var tasks = new List<Task>();
             foreach (PotionCharacteristicAmountPair characteristicAmountPair in characteristicAmountPairs)
             {
                 Task task = uiFactory.CreatePotionCharacteristicItemUIAsync(

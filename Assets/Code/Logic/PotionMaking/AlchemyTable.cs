@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Code.Animations;
 using Code.Infrastructure.Services.Factories;
 using Code.Logic.Potions;
@@ -25,25 +26,30 @@ namespace Code.Logic.PotionMaking
         private Stack<AlchemyTableSlot> _filledSlots;
         private Stack<IngredientAnimator> _ingredientsAnimators;
         
+        private IPotionInfoFactory _potionInfoFactory;
         private IPotionFactory _potionFactory;
         private IIngredientFactory _ingredientFactory;
 
         [Inject]
-        private void Construct(IPotionFactory potionFactory, IIngredientFactory ingredientFactory)
+        private void Construct(
+            IPotionInfoFactory potionInfoFactory, 
+            IIngredientFactory ingredientFactory,
+            IPotionFactory potionFactory)
         {
             _potionFactory = potionFactory;
+            _potionInfoFactory = potionInfoFactory;
             _ingredientFactory = ingredientFactory;
         }
 
         public void Initialize()
         {
-            InitializeTableSlotsCollection();
+            InitializeSlotsCollections();
         }
 
         public void AddIngredient(IngredientData ingredient)
         {
             FillSlot(ingredient);
-            StartCoroutine(CreateIngredientPrefabAndMoveToSlot(ingredient, _filledSlots.Peek().transform));
+            StartCoroutine(MoveNewIngredientToSlot(ingredient, _filledSlots.Peek().transform));
         }
 
         public void RemoveLastIngredient()
@@ -54,11 +60,31 @@ namespace Code.Logic.PotionMaking
 
         public void HandleResult()
         {
-            var ingredients = TakeAllIngredients();
-            MoveAllIngredientsToBoiler();
-            Cleanup();
+            StartCoroutine(HandleResultCoroutine());
+        }
 
-            StartCoroutine(CreateAndAnimatePotion(ingredients));
+        private IEnumerator HandleResultCoroutine()
+        {
+            var ingredients = TakeAllIngredients();
+            MoveAllIngredientsToPotionCreatingPoint();
+            
+            var task = CreatePotion(ingredients);
+            yield return task;
+            Potion potion = task.Result;
+
+            var potionAnimator = potion.GetComponent<PotionAnimator>();
+            potionAnimator.PresentAfterCreating();
+            
+            Cleanup();
+            
+        }
+
+        private async Task<Potion> CreatePotion(IEnumerable<IngredientData> ingredients)
+        {
+            PotionInfo potionInfo = await _potionInfoFactory.CreatePotionInfoAsync(ingredients);
+            Potion potion = await _potionFactory.CreatePotionAsync(potionInfo, _potionSpawnPoint.position);
+            
+            return potion;
         }
 
         private void FillSlot(IngredientData ingredient)
@@ -94,19 +120,7 @@ namespace Code.Logic.PotionMaking
             return ingredients;
         }
 
-        private IEnumerator CreateAndAnimatePotion(IEnumerable<IngredientData> ingredients)
-        {
-            var task = _potionFactory.CreatePotionAsync(ingredients, _potionSpawnPoint.position);
-            yield return task;
-            Potion potion = task.Result;
-
-            var potionAnimator = potion.GetComponent<PotionAnimator>();
-            potionAnimator.PresentAfterCreating();
-            
-            
-        }
-
-        private IEnumerator CreateIngredientPrefabAndMoveToSlot(IngredientData ingredientData, Transform slotTransform)
+        private IEnumerator MoveNewIngredientToSlot(IngredientData ingredientData, Transform slotTransform)
         {
             var task = _ingredientFactory.CreateIngredientAsync(
                 ingredientData.PrefabReference, _ingredientsSpawnPoint.position);
@@ -119,7 +133,7 @@ namespace Code.Logic.PotionMaking
             ingredientAnimator.MoveToSlot(slotTransform);
         }
 
-        private void MoveAllIngredientsToBoiler()
+        private void MoveAllIngredientsToPotionCreatingPoint()
         {
             foreach (IngredientAnimator ingredientAnimator in _ingredientsAnimators)
             {
@@ -135,11 +149,10 @@ namespace Code.Logic.PotionMaking
 
         private void RemoveIngredientFromSlotThenDestroy(IngredientAnimator ingredientAnimator, Transform to)
         {
-            ingredientAnimator.RemoveFromSlot(to,
-                () => Destroy(ingredientAnimator.gameObject));
+            ingredientAnimator.RemoveFromSlot(to, () => Destroy(ingredientAnimator.gameObject));
         }
 
-        private void InitializeTableSlotsCollection()
+        private void InitializeSlotsCollections()
         {
             _freeSlots = new Stack<AlchemyTableSlot>(_tableSlots);
             _filledSlots = new Stack<AlchemyTableSlot>(_freeSlots.Count);
