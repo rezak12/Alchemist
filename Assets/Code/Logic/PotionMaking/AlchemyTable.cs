@@ -61,13 +61,12 @@ namespace Code.Logic.PotionMaking
         {
             var ingredients = TakeAllIngredients();
             MoveAllIngredientsToPotionCreatingPoint();
+            Cleanup();
             
             Potion potion = await CreatePotion(ingredients);
 
             var potionAnimator = potion.GetComponent<PotionAnimator>();
             potionAnimator.PresentAfterCreating();
-            
-            Cleanup();
         }
 
         private async UniTask<Potion> CreatePotion(IEnumerable<IngredientData> ingredients)

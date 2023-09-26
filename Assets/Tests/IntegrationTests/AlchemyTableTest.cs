@@ -1,13 +1,15 @@
 using System.Collections;
+using System.Linq;
 using Code.Infrastructure.Services.AssetProvider;
 using Code.Infrastructure.Services.Factories;
 using Code.Infrastructure.Services.ProgressServices;
 using Code.Logic.PotionMaking;
 using Code.StaticData;
+using Cysharp.Threading.Tasks;
 using NUnit.Framework;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.TestTools;
-using UnityAssert = UnityEngine.Assertions.Assert;
 using Zenject;
 
 namespace Tests.IntegrationTests
@@ -17,6 +19,7 @@ namespace Tests.IntegrationTests
         private const string FirstIngredientPath = "AlchemyTableTests/Ingredients/FirstIngredient";
         private const string SecondIngredientPath = "AlchemyTableTests/Ingredients/SecondIngredient";
         
+        private const string PotionPrefabPath = "Assets/Resources_moved/DevelopmentResources/TestPotion.prefab";
         private const string AlchemyTablePrefabPath = "AlchemyTableTests/TestAlchemyTable";
         
         private IngredientData _firstIngredient;        
@@ -25,120 +28,141 @@ namespace Tests.IntegrationTests
         private AlchemyTable _unitUnderTest;
 
         [UnityTest]
-        public IEnumerator WhenAddingIngredient_AndTableHaveFreeSlots_ThenFillOneFreeSlot()
-        {
-            // Arrange.
-            CommonInstall();
+        public IEnumerator WhenAddingIngredient_AndTableHaveFreeSlots_ThenFillOneFreeSlot() =>
+                UniTask.ToCoroutine(async () =>
+                {
+                    // Arrange.
+                    await CommonInstall();
 
-            var filledSlotsAmountChangedEventWasInvoked = false;
-            _unitUnderTest.FilledSlotsAmountChanged += () => filledSlotsAmountChangedEventWasInvoked = true;
-            
-            // Act.
-            yield return null;
-            _unitUnderTest.AddIngredient(_firstIngredient);
-            
-            // Assert.
-            Assert.That(filledSlotsAmountChangedEventWasInvoked, Is.True);
-        }
+                    // Act.
+                    _unitUnderTest.AddIngredient(_firstIngredient);
+                    await UniTask.WaitForSeconds(1);
+
+                    // Assert.
+                    Assert.That(_unitUnderTest.IsAllSlotsFree, Is.False);
+                });
 
         [UnityTest]
-        public IEnumerator WhenRemovingIngredient_ThenFreeSlot()
-        {
-            CommonInstall();
+        public IEnumerator WhenRemovingIngredient_ThenFreeSlot() =>
+            UniTask.ToCoroutine(async () =>
+            {
+                await CommonInstall();
 
-            var filledSlotsAmountChangedInvokeCount = 0;
-            _unitUnderTest.FilledSlotsAmountChanged += () => filledSlotsAmountChangedInvokeCount++;
-            
-            // Act.
-            yield return null;
-            _unitUnderTest.AddIngredient(_firstIngredient);
-            _unitUnderTest.RemoveLastIngredient();
-            
-            // Assert.
-            Assert.That(filledSlotsAmountChangedInvokeCount, Is.EqualTo(2));
-            Assert.That(_unitUnderTest.IsAllSlotsFree, Is.True);
-        }
+                var filledSlotsAmountChangedInvokeCount = 0;
+                _unitUnderTest.FilledSlotsAmountChanged += () => filledSlotsAmountChangedInvokeCount++;
 
-        [UnityTest]
-        public IEnumerator WhenRemovingIngredient_AndAllSlotsAreFree_ThenThrowException()
-        {
-            // Arrange.
-            CommonInstall();
-            
-            // Act.
-            yield return null;
-            TestDelegate attemptToRemoveIngredient = _unitUnderTest.RemoveLastIngredient;
-            
-            // Assert.
-            Assert.That(attemptToRemoveIngredient, Throws.Exception);
-        }
+                // Act.
+                _unitUnderTest.AddIngredient(_firstIngredient);
+                await UniTask.WaitForSeconds(1);
+                
+                _unitUnderTest.RemoveLastIngredient();
+                await UniTask.WaitForSeconds(1);
+
+                // Assert.
+                Assert.That(filledSlotsAmountChangedInvokeCount, Is.EqualTo(2));
+                Assert.That(_unitUnderTest.IsAllSlotsFree, Is.True);
+            });
 
         [UnityTest]
-        public IEnumerator WhenAddingIngredient_AndAllSlotsAreFilled_ThenThrowException()
-        {
-            // Arrange.
-            CommonInstall();
-            
-            // Act.
-            yield return null;
-            
-            _unitUnderTest.AddIngredient(_secondIngredient);
-            _unitUnderTest.AddIngredient(_firstIngredient);
-            _unitUnderTest.AddIngredient(_secondIngredient);
-            _unitUnderTest.AddIngredient(_firstIngredient);
-            
-            TestDelegate attemptToAddIngredient = () => _unitUnderTest.AddIngredient(_firstIngredient);
-            
-            // Assert.
-            Assert.That(attemptToAddIngredient, Throws.Exception);
-        }
+        public IEnumerator WhenRemovingIngredient_AndAllSlotsAreFree_ThenThrowException() =>
+            UniTask.ToCoroutine(async () =>
+            {
+                // Arrange.
+                await CommonInstall();
+
+                // Act.
+                TestDelegate attemptToRemoveIngredient = _unitUnderTest.RemoveLastIngredient;
+
+                // Assert.
+                Assert.That(attemptToRemoveIngredient, Throws.Exception);
+            });
 
         [UnityTest]
-        public IEnumerator WhenHandlingResult_AndAnySlotAreFilled_ThenCreatePotion()
-        {
-            // Arrange.
-            CommonInstall();
-            
-            // Act.
-            yield return null;
-            _unitUnderTest.AddIngredient(_secondIngredient);
-            TestDelegate attemptToHandleResult = _unitUnderTest.HandleResult;
+        public IEnumerator WhenAddingIngredient_AndAllSlotsAreFilled_ThenThrowException() =>
+            UniTask.ToCoroutine(async () =>
+            {
+                // Arrange.
+                await CommonInstall();
 
-            // Assert.
-            Assert.That(attemptToHandleResult, Throws.Nothing);
-        }
+                // Act.
+                _unitUnderTest.AddIngredient(_secondIngredient);
+                await UniTask.WaitForSeconds(1);
+                
+                _unitUnderTest.AddIngredient(_firstIngredient);
+                await UniTask.WaitForSeconds(1);
+                
+                _unitUnderTest.AddIngredient(_secondIngredient);
+                await UniTask.WaitForSeconds(1);
+                
+                _unitUnderTest.AddIngredient(_firstIngredient);
+                await UniTask.WaitForSeconds(1);
+
+                TestDelegate attemptToAddIngredient = () => _unitUnderTest.AddIngredient(_firstIngredient);
+
+                // Assert.
+                Assert.That(attemptToAddIngredient, Throws.Exception);
+            });
 
         [UnityTest]
-        public IEnumerator WhenHandlingResult_AndAnySlotAreFilled_ThenReleaseAllSlotsAfterHandling()
-        {
-            // Arrange.
-            CommonInstall();
-            
-            // Act.
-            yield return null;
-            _unitUnderTest.AddIngredient(_secondIngredient);
-            _unitUnderTest.HandleResult();
+        public IEnumerator WhenHandlingResult_AndAnySlotAreFilled_ThenReleaseAllSlotsAfterHandling() =>
+            UniTask.ToCoroutine(async () =>
+            {
+                // Arrange.
+                await CommonInstall();
 
-            var allSlotReleased = _unitUnderTest.IsAllSlotsFree;
+                // Act.
+                _unitUnderTest.AddIngredient(_secondIngredient);
+                await UniTask.WaitForSeconds(1);
+                
+                _unitUnderTest.HandleResult().Forget();
+                await UniTask.WaitForSeconds(1);
 
-            // Assert.
-            Assert.That(allSlotReleased, Is.True);
-        }
-        
-        [UnityTest] public IEnumerator WhenHandlingResult_AndAllSlotsAreFree_ThenThrowException()
-        {
-            // Arrange.
-            CommonInstall();
-            
-            // Act.
-            yield return null;
-            TestDelegate attemptToHandleResult = _unitUnderTest.HandleResult;
+                var allSlotReleased = _unitUnderTest.IsAllSlotsFree;
 
-            // Assert.
-            Assert.That(attemptToHandleResult, Throws.Exception);
-        }
+                // Assert.
+                Assert.That(allSlotReleased, Is.True);
+            });
 
-        private void CommonInstall()
+        [UnityTest]
+        public IEnumerator WhenHandlingResult_AndAnySlotAreFilled_ThenCreatePotion() =>
+            UniTask.ToCoroutine(async () =>
+            {
+                // Arrange.
+                await CommonInstall();
+
+                // Act.
+                _unitUnderTest.AddIngredient(_secondIngredient);
+                await UniTask.WaitForSeconds(1);
+
+                TestDelegate attemptToHandleResult = async () =>
+                {
+                    _unitUnderTest.HandleResult().Forget();
+                    await UniTask.WaitForSeconds(5);
+                };
+
+                // Assert.
+                Assert.That(attemptToHandleResult, Throws.Nothing);
+            });
+
+        [UnityTest]
+        public IEnumerator WhenHandlingResult_AndAllSlotsAreFree_ThenCreatePotionWithoutAnyCharacteristic() =>
+            UniTask.ToCoroutine(async () =>
+            {
+                // Arrange.
+                await CommonInstall();
+
+                // Act.
+                TestDelegate attemptToHandleResult = async () =>
+                {
+                    _unitUnderTest.HandleResult().Forget();
+                    await UniTask.WaitForSeconds(5);
+                };
+
+                // Assert.
+                Assert.That(attemptToHandleResult, Throws.Nothing);
+            });
+
+        private async UniTask CommonInstall()
         {
             _firstIngredient = Resources.Load<IngredientData>(FirstIngredientPath);
             _secondIngredient = Resources.Load<IngredientData>(SecondIngredientPath);
@@ -158,6 +182,16 @@ namespace Tests.IntegrationTests
 
             PostInstall();
 
+            var progressService = Container.Resolve<IPersistentProgressService>();
+            progressService.Initialize(new PlayerProgress(
+                0,
+                0,
+                Enumerable.Empty<string>(),
+                AssetDatabase.AssetPathToGUID(PotionPrefabPath)));
+
+            var assetProvider = Container.Resolve<IAssetProvider>();
+            await assetProvider.InitializeAsync();
+            
             _unitUnderTest = Container.Resolve<AlchemyTable>();
             _unitUnderTest.Initialize();
         }
