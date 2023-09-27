@@ -81,7 +81,7 @@ namespace Code.UI.OrderCompletedUI
 
         private void FillRewardItem(PotionOrderReward reward)
         {
-            _rewardItem.SetReward(reward);
+            _rewardItem.SetReward(reward).Forget();
             _rewardItem.gameObject.SetActive(true);
             _punishmentItem.gameObject.SetActive(false);
         }
