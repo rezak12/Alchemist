@@ -5,12 +5,12 @@ using UnityEngine.AddressableAssets;
 namespace Code.StaticData
 {
     [CreateAssetMenu(fileName = "WindowConfig", menuName = "StaticData/Windows/WindowConfig")]
-    public class WindowConfig : ScriptableObject
+    public class PopupConfig : ScriptableObject
     {
-        [SerializeField] private WindowType _type;
+        [SerializeField] private PopupType _type;
         [SerializeField] private AssetReferenceGameObject _prefabReference;
 
-        public WindowType Type => _type;
+        public PopupType Type => _type;
         public AssetReferenceGameObject PrefabReference => _prefabReference;
     }
 }

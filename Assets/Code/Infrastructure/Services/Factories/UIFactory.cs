@@ -11,6 +11,7 @@ using Code.UI;
 using Code.UI.OrderCompletedUI;
 using Code.UI.OrdersViewUI;
 using Code.UI.PlayerIngredientsUI;
+using Code.UI.PotionMakingUI;
 using Code.UI.Store;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -49,30 +50,29 @@ namespace Code.Infrastructure.Services.Factories
             PotionOrdersHandler potionOrdersHandler,
             ChosenPotionOrderSender potionOrdersSender)
         {
-            WindowConfig config = _staticDataService.GetWindowByType(WindowType.SelectPotionOrderPopup);
-            var panelPrefab = await _assetProvider
+            PopupConfig config = _staticDataService.GetPopupByType(PopupType.SelectPotionOrderPopup);
+            var popupPrefab = await _assetProvider
                 .LoadAsync<SelectPotionOrderPopup>(config.PrefabReference);
 
-            var prefab = _instantiator.InstantiatePrefabForComponent<SelectPotionOrderPopup>(panelPrefab);
-            prefab.Initialize(potionOrdersHandler, potionOrdersSender);
+            var popup = _instantiator.InstantiatePrefabForComponent<SelectPotionOrderPopup>(popupPrefab);
+            popup.Initialize(potionOrdersHandler, potionOrdersSender);
 
-            return prefab;
+            return popup;
         }
 
-        public async UniTask<PlayerIngredientsPanel> CreatePlayerIngredientsPanelAsync(AlchemyTable alchemyTable)
+        public async UniTask<PotionMakingPopup> CreatePotionMakingPopup(AlchemyTable alchemyTable)
         {
-            WindowConfig config = _staticDataService.GetWindowByType(WindowType.PlayerIngredientsPanel);
-            var panelPrefab = await _assetProvider
-                .LoadAsync<PlayerIngredientsPanel>(config.PrefabReference);
+            PopupConfig config = _staticDataService.GetPopupByType(PopupType.PotionMakingPopup);
+            var popupPrefab = await _assetProvider
+                .LoadAsync<PotionMakingPopup>(config.PrefabReference);
 
             var ingredientsReferences = _progressService.PlayerIngredientsAssetReferences;
-
             var ingredients = await _assetProvider.LoadAsync<IngredientData>(ingredientsReferences);
             
-            PlayerIngredientsPanel panel = Object.Instantiate(panelPrefab);
-            await panel.InitializeAsync(ingredients, alchemyTable, this);
+            PotionMakingPopup popup = Object.Instantiate(popupPrefab);
+            await popup.InitializeAsync(ingredients, alchemyTable, this);
 
-            return panel;
+            return popup;
         }
 
         public async UniTask<OrderCompletedPopup> CreateOrderCompletedPopupAsync(
@@ -80,14 +80,14 @@ namespace Code.Infrastructure.Services.Factories
             PotionOrder order,
             bool isCharacteristicsMatched)
         {
-            WindowConfig config = _staticDataService.GetWindowByType(WindowType.OrderCompletedPopup);
-            var prefab = await _assetProvider
+            PopupConfig config = _staticDataService.GetPopupByType(PopupType.OrderCompletedPopup);
+            var popupPrefab = await _assetProvider
                 .LoadAsync<OrderCompletedPopup>(config.PrefabReference);
 
             var resultCharacteristicsList = result.CharacteristicAmountPairs.ToList();
             var requirementCharacteristicsList = order.RequirementCharacteristics;
             
-            var popup = _instantiator.InstantiatePrefabForComponent<OrderCompletedPopup>(prefab);
+            var popup = _instantiator.InstantiatePrefabForComponent<OrderCompletedPopup>(popupPrefab);
             
             UniTask task;
             if (isCharacteristicsMatched)
@@ -103,7 +103,7 @@ namespace Code.Infrastructure.Services.Factories
             return popup;
         }
 
-        public UniTask<StoreWindow> CreateStoreWindow()
+        public UniTask<StoreWindow> CreateStorePopup()
         {
             throw new NotImplementedException();
         }

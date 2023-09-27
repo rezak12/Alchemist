@@ -16,7 +16,7 @@ namespace Code.Infrastructure.Services.StaticData
         private const string OrderDifficultiesPath = "StaticData/Orders/OrderDifficulties";
 
 
-        private Dictionary<WindowType, WindowConfig> _windowConfigsCache;
+        private Dictionary<PopupType, PopupConfig> _popupConfigsCache;
         private PotionOrderType[] _orderTypesCache;
         private PotionOrderDifficulty[] _orderDifficultiesCache;
         
@@ -29,14 +29,14 @@ namespace Code.Infrastructure.Services.StaticData
         
         void IInitializable.Initialize()
         {
-            LoadWindowConfigs();
+            LoadPopupConfigs();
             LoadOrderTypes();
             LoadOrderDifficulties();
         }
 
-        public WindowConfig GetWindowByType(WindowType type)
+        public PopupConfig GetPopupByType(PopupType type)
         {
-            if (_windowConfigsCache.TryGetValue(type, out WindowConfig config))
+            if (_popupConfigsCache.TryGetValue(type, out PopupConfig config))
             {
                 return config;
             }
@@ -53,10 +53,10 @@ namespace Code.Infrastructure.Services.StaticData
             return _orderDifficultiesCache[_randomService.Next(0, _orderDifficultiesCache.Length)];
         }
 
-        private void LoadWindowConfigs()
+        private void LoadPopupConfigs()
         {
-            _windowConfigsCache = Resources
-                .LoadAll<WindowConfig>(WindowConfigsPath)
+            _popupConfigsCache = Resources
+                .LoadAll<PopupConfig>(WindowConfigsPath)
                 .ToDictionary(config => config.Type, config => config);
         }
 

@@ -5,6 +5,7 @@ using Code.StaticData;
 using Code.UI.OrderCompletedUI;
 using Code.UI.OrdersViewUI;
 using Code.UI.PlayerIngredientsUI;
+using Code.UI.PotionMakingUI;
 using Code.UI.Store;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -16,14 +17,14 @@ namespace Code.Infrastructure.Services.Factories
         UniTask<SelectPotionOrderPopup> CreateSelectPotionOrderPopupAsync(
             PotionOrdersHandler potionOrdersHandler,
             ChosenPotionOrderSender potionOrdersSender);
-        UniTask<PlayerIngredientsPanel> CreatePlayerIngredientsPanelAsync(AlchemyTable alchemyTable);
+        UniTask<PotionMakingPopup> CreatePotionMakingPopup(AlchemyTable alchemyTable);
 
         UniTask<OrderCompletedPopup> CreateOrderCompletedPopupAsync(
             Potion result, 
             PotionOrder order, 
             bool isCharacteristicsMatched);
 
-        UniTask<StoreWindow> CreateStoreWindow();
+        UniTask<StoreWindow> CreateStorePopup();
 
         UniTask<IngredientItemUI> CreateIngredientItemUIAsync(
             IngredientData ingredient, 
