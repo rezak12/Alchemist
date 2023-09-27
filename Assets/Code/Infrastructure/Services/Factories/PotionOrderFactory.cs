@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Code.Data;
 using Code.Infrastructure.Services.AssetProvider;
 using Code.Infrastructure.Services.RandomServices;
 using Code.Logic.Orders;
@@ -40,10 +41,9 @@ namespace Code.Infrastructure.Services.Factories
         {
             var characteristicsAmount = orderDifficulty.RequirementCharacteristicsAmount;
             
-            //TODO: use shuffle extension instead of OrderBy() here
             var characteristicsReferences = orderType
                 .PossibleRequirementPotionCharacteristicsReferences
-                .OrderBy( reference => _randomService.Next(0, 100))
+                .Shuffle()
                 .Take(characteristicsAmount);
             
             var characteristics = await _assetProvider
