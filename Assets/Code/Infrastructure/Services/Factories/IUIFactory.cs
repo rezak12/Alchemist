@@ -24,7 +24,7 @@ namespace Code.Infrastructure.Services.Factories
             PotionOrder order, 
             bool isCharacteristicsMatched);
 
-        UniTask<StoreWindow> CreateStoreWindow();
+        UniTask<StoreWindow> CreateStorePopup();
 
         UniTask<IngredientItemUI> CreateIngredientItemUIAsync(
             IngredientData ingredient, 
