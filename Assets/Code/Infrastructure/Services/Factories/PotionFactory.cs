@@ -1,7 +1,7 @@
-﻿using System.Threading.Tasks;
-using Code.Infrastructure.Services.AssetProvider;
+﻿using Code.Infrastructure.Services.AssetProvider;
 using Code.Infrastructure.Services.ProgressServices;
 using Code.Logic.Potions;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
@@ -18,7 +18,7 @@ namespace Code.Infrastructure.Services.Factories
             _assetProvider = assetProvider;
         }
 
-        public async Task<Potion> CreatePotionAsync(PotionInfo potionInfo, Vector3 position)
+        public async UniTask<Potion> CreatePotionAsync(PotionInfo potionInfo, Vector3 position)
         {
             Potion potionPrefab = await LoadPlayerPotionPrefab();
 
@@ -28,7 +28,7 @@ namespace Code.Infrastructure.Services.Factories
             return potion;
         }
         
-        private async Task<Potion> LoadPlayerPotionPrefab()
+        private async UniTask<Potion> LoadPlayerPotionPrefab()
         {
             AssetReferenceGameObject potionPrefabReference = _progressService.CurrentPlayerPotionPrefabReference;
             var potionPrefab = await _assetProvider.LoadAsync<GameObject>(potionPrefabReference);

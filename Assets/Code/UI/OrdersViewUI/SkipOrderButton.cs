@@ -1,5 +1,4 @@
-﻿using System;
-using Code.Infrastructure.Services.ProgressServices;
+﻿using Code.Infrastructure.Services.ProgressServices;
 using Code.Logic.Orders;
 using TMPro;
 using UnityEngine;
@@ -38,7 +37,7 @@ namespace Code.UI.OrdersViewUI
 
         private void SkipOrder()
         {
-            _ordersHandler.HandleNewOrder();
+            _ordersHandler.HandleNewOrder().Forget();
         }
 
         private void OnReputationAmountChanged()

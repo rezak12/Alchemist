@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
-using System.Threading.Tasks;
 using Code.Infrastructure.GameStates;
 using Code.Infrastructure.Services.Factories;
 using Code.Logic.Orders;
 using Code.Logic.Potions;
 using Code.UI.OrdersViewUI;
 using Code.UI.PotionCharacteristicsUI;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
@@ -32,12 +32,12 @@ namespace Code.UI.OrderCompletedUI
             _gameStateMachine = stateMachine;
         }
 
-        public async Task InitializeAsync(
+        public async UniTask InitializeAsync(
             IEnumerable<PotionCharacteristicAmountPair> resultCharacteristics,
             IEnumerable<PotionCharacteristicAmountPair> requirementCharacteristics,
             PotionOrderReward reward)
         {
-            Task fillCharacteristicsTask = FillCharacteristicItemsContainers(
+            UniTask fillCharacteristicsTask = FillCharacteristicItemsContainers(
                 resultCharacteristics, requirementCharacteristics);
             
             InitializeOpenMenuButton();
@@ -46,13 +46,13 @@ namespace Code.UI.OrderCompletedUI
             await fillCharacteristicsTask;
         }
 
-        public async Task InitializeAsync(
+        public async UniTask InitializeAsync(
             IEnumerable<PotionCharacteristicAmountPair> resultCharacteristics,
             IEnumerable<PotionCharacteristicAmountPair> requirementCharacteristics,
             PotionOrderPunishment punishment
             )
         {
-            Task fillCharacteristicsTask = FillCharacteristicItemsContainers(
+            UniTask fillCharacteristicsTask = FillCharacteristicItemsContainers(
                 resultCharacteristics, requirementCharacteristics);
             
             InitializeOpenMenuButton();
@@ -66,22 +66,22 @@ namespace Code.UI.OrderCompletedUI
             _openMenuButton.onClick.RemoveListener(OpenMenu);
         }
 
-        private async Task FillCharacteristicItemsContainers(
+        private async UniTask FillCharacteristicItemsContainers(
             IEnumerable<PotionCharacteristicAmountPair> resultCharacteristics, 
             IEnumerable<PotionCharacteristicAmountPair> requirementCharacteristics)
         {
-            Task resultCharacteristicItemsTask = _resultCharacteristics
+            UniTask resultCharacteristicItemsTask = _resultCharacteristics
                 .CreateCharacteristicItemsAsync(resultCharacteristics, _uiFactory);
 
-            Task requirementCharacteristicItemsTask = _requirementCharacteristics
+            UniTask requirementCharacteristicItemsTask = _requirementCharacteristics
                 .CreateCharacteristicItemsAsync(requirementCharacteristics, _uiFactory);
 
-            await Task.WhenAll(resultCharacteristicItemsTask, requirementCharacteristicItemsTask);
+            await UniTask.WhenAll(resultCharacteristicItemsTask, requirementCharacteristicItemsTask);
         }
 
         private void FillRewardItem(PotionOrderReward reward)
         {
-            _rewardItem.SetReward(reward);
+            _rewardItem.SetReward(reward).Forget();
             _rewardItem.gameObject.SetActive(true);
             _punishmentItem.gameObject.SetActive(false);
         }

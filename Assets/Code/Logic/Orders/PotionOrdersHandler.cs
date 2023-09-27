@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Collections;
 using Code.Infrastructure.Services.CoroutineRunner;
 using Code.Infrastructure.Services.Factories;
 using Code.Infrastructure.Services.StaticData;
 using Code.StaticData;
+using Cysharp.Threading.Tasks;
 
 namespace Code.Logic.Orders
 {
@@ -14,9 +14,7 @@ namespace Code.Logic.Orders
         
         private readonly IPotionOrderFactory _potionOrderFactory;
         private readonly IStaticDataService _staticDataService;
-        private readonly ICoroutineRunner _coroutineRunner;
-
-
+        
         public PotionOrdersHandler(
             IPotionOrderFactory potionOrderFactory, 
             IStaticDataService staticDataService, 
@@ -24,23 +22,14 @@ namespace Code.Logic.Orders
         {
             _potionOrderFactory = potionOrderFactory;
             _staticDataService = staticDataService;
-            _coroutineRunner = coroutineRunner;
         }
 
-        public void HandleNewOrder()
-        {
-            _coroutineRunner.StartCoroutine(HandleNewOrderCoroutine());
-        }
-
-        private IEnumerator HandleNewOrderCoroutine()
+        public async UniTaskVoid HandleNewOrder()
         {
             PotionOrderDifficulty difficulty = _staticDataService.GetRandomPotionOrderDifficulty();
             PotionOrderType type = _staticDataService.GetRandomPotionOrderType();
 
-            var task = _potionOrderFactory.CreateOrderAsync(difficulty, type);
-            yield return task;
-
-            CurrentOrder = task.Result;
+            CurrentOrder = await _potionOrderFactory.CreateOrderAsync(difficulty, type);
             NewOrderHandled?.Invoke();
         }
     }

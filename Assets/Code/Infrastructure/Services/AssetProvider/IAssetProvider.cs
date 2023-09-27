@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine.AddressableAssets;
 
 namespace Code.Infrastructure.Services.AssetProvider
 {
     public interface IAssetProvider
     {
-        Task<T> LoadAsync<T>(AssetReference assetReference) where T : class;
-        Task<T> LoadAsync<T>(string address) where T : class;
-        Task<T[]> LoadAsync<T>(IEnumerable<AssetReference> assetReferences) where T : class;
-        Task InitializeAsync();
+        UniTask InitializeAsync();
+        UniTask<T> LoadAsync<T>(AssetReference assetReference) where T : class;
+        UniTask<T> LoadAsync<T>(string address) where T : class;
+        UniTask<T[]> LoadAsync<T>(IEnumerable<AssetReference> assetReferences) where T : class;
     }
 }

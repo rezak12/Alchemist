@@ -1,5 +1,5 @@
-using System.Threading.Tasks;
 using Code.Animations;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
@@ -7,7 +7,7 @@ namespace Code.Infrastructure.Services.Factories
 {
     public interface IIngredientFactory
     {
-        Task<IngredientAnimator> CreateIngredientAsync(
+        UniTask<IngredientAnimator> CreateIngredientAsync(
             AssetReferenceGameObject ingredientDataPrefabReference,
             Vector3 position);
     }

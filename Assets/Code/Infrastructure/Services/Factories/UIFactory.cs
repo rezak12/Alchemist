@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Threading.Tasks;
 using Code.Infrastructure.Services.AssetProvider;
 using Code.Infrastructure.Services.ProgressServices;
 using Code.Infrastructure.Services.StaticData;
@@ -13,6 +12,7 @@ using Code.UI.OrderCompletedUI;
 using Code.UI.OrdersViewUI;
 using Code.UI.PlayerIngredientsUI;
 using Code.UI.Store;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using Zenject;
@@ -45,7 +45,7 @@ namespace Code.Infrastructure.Services.Factories
             _ingredientCharacteristicItemUIReference = ingredientCharacteristicItemUIReference;
         }
 
-        public async Task<SelectPotionOrderPopup> CreateSelectPotionOrderPopupAsync(
+        public async UniTask<SelectPotionOrderPopup> CreateSelectPotionOrderPopupAsync(
             PotionOrdersHandler potionOrdersHandler,
             ChosenPotionOrderSender potionOrdersSender)
         {
@@ -59,7 +59,7 @@ namespace Code.Infrastructure.Services.Factories
             return prefab;
         }
 
-        public async Task<PlayerIngredientsPanel> CreatePlayerIngredientsPanelAsync(AlchemyTable alchemyTable)
+        public async UniTask<PlayerIngredientsPanel> CreatePlayerIngredientsPanelAsync(AlchemyTable alchemyTable)
         {
             WindowConfig config = _staticDataService.GetWindowByType(WindowType.PlayerIngredientsPanel);
             var panelPrefab = await _assetProvider
@@ -75,7 +75,7 @@ namespace Code.Infrastructure.Services.Factories
             return panel;
         }
 
-        public async Task<OrderCompletedPopup> CreateOrderCompletedPopupAsync(
+        public async UniTask<OrderCompletedPopup> CreateOrderCompletedPopupAsync(
             Potion result, 
             PotionOrder order,
             bool isCharacteristicsMatched)
@@ -89,7 +89,7 @@ namespace Code.Infrastructure.Services.Factories
             
             var popup = _instantiator.InstantiatePrefabForComponent<OrderCompletedPopup>(prefab);
             
-            Task task;
+            UniTask task;
             if (isCharacteristicsMatched)
             {
                 task = popup.InitializeAsync(resultCharacteristicsList, requirementCharacteristicsList, order.Reward);
@@ -103,12 +103,12 @@ namespace Code.Infrastructure.Services.Factories
             return popup;
         }
 
-        public Task<StoreWindow> CreateStoreWindow()
+        public UniTask<StoreWindow> CreateStoreWindow()
         {
             throw new NotImplementedException();
         }
 
-        public async Task<IngredientItemUI> CreateIngredientItemUIAsync(
+        public async UniTask<IngredientItemUI> CreateIngredientItemUIAsync(
             IngredientData ingredient, 
             AlchemyTable alchemyTable,
             Transform parent)
@@ -124,7 +124,7 @@ namespace Code.Infrastructure.Services.Factories
             return item;
         }
 
-        public async Task<PotionCharacteristicItemUI> CreatePotionCharacteristicItemUIAsync(
+        public async UniTask<PotionCharacteristicItemUI> CreatePotionCharacteristicItemUIAsync(
             IngredientCharacteristicAmountPair characteristicAmountPair,
             Transform parent)
         {
@@ -140,7 +140,7 @@ namespace Code.Infrastructure.Services.Factories
             return item;
         }
 
-        public async Task<PotionCharacteristicItemUI> CreatePotionCharacteristicItemUIAsync(
+        public async UniTask<PotionCharacteristicItemUI> CreatePotionCharacteristicItemUIAsync(
             PotionCharacteristicAmountPair characteristicAmountPair,
             Transform parent)
         {

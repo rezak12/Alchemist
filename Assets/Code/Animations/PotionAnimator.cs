@@ -1,18 +1,20 @@
-﻿using DG.Tweening;
+﻿using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using UnityEngine;
 
 namespace Code.Animations
 {
     public class PotionAnimator : MonoBehaviour
     {
-        [SerializeField] private float _moveUpPoints;
+        [SerializeField] private float _moveUpPoints = 5f;
 
-        public void PresentAfterCreating()
+        public async UniTaskVoid PresentAfterCreating()
         {
             Vector3 transformPosition = transform.position;
-            _moveUpPoints = 5f;
             var posToMove = new Vector3(transformPosition.x, transformPosition.y + _moveUpPoints, transformPosition.z);
-            transform.DORotate(posToMove, -1f, RotateMode.Fast);
+            
+            await transform.DORotate(posToMove, -1f, RotateMode.Fast)
+                .WithCancellation(this.GetCancellationTokenOnDestroy());
         }
     }
 }

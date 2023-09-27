@@ -1,6 +1,7 @@
 ﻿using Code.Infrastructure.Services.AssetProvider;
 using Code.Logic.Orders;
 using Code.StaticData;
+using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -25,7 +26,7 @@ namespace Code.UI.OrdersViewUI
             _assetProvider = assetProvider;
         }
         
-        public async void SetReward(PotionOrderReward reward)
+        public async UniTaskVoid SetReward(PotionOrderReward reward)
         {
             _coinsAmountText.text = reward.CoinsAmount.ToString();
             _reputationAmountText.text = reward.ReputationAmount.ToString();

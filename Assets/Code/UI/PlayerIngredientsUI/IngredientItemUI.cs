@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using Code.Infrastructure.Services.Factories;
+﻿using Code.Infrastructure.Services.Factories;
 using Code.Logic.PotionMaking;
 using Code.StaticData;
 using Code.UI.PotionCharacteristicsUI;
+using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,7 +19,7 @@ namespace Code.UI.PlayerIngredientsUI
         private IngredientData _ingredient;
         private AlchemyTable _alchemyTable;
 
-        public async Task InitializeAsync(IngredientData ingredient, AlchemyTable alchemyTable, IUIFactory uiFactory)
+        public async UniTask InitializeAsync(IngredientData ingredient, AlchemyTable alchemyTable, IUIFactory uiFactory)
         {
             _ingredient = ingredient;
             _alchemyTable = alchemyTable;
@@ -32,17 +31,17 @@ namespace Code.UI.PlayerIngredientsUI
                 ingredient.CharacteristicAmountPairs, 
                 uiFactory);
 
-            _alchemyTable.FilledSlotsAmountChanged += FilledSlotAmountChanged;
+            _alchemyTable.FilledSlotsAmountChanged += OnFilledSlotAmountChanged;
             _useButton.onClick.AddListener(UseIngredient);
         }
 
         private void OnDestroy()
         {
-            _alchemyTable.FilledSlotsAmountChanged -= FilledSlotAmountChanged;
+            _alchemyTable.FilledSlotsAmountChanged -= OnFilledSlotAmountChanged;
             _useButton.onClick.RemoveListener(UseIngredient);
         }
 
-        private void FilledSlotAmountChanged()
+        private void OnFilledSlotAmountChanged()
         {
             if (_alchemyTable.IsAllSlotsFilled)
             {

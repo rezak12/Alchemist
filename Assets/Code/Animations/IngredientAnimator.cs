@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections;
+using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
 
@@ -9,24 +9,19 @@ namespace Code.Animations
     {
         [SerializeField] private float _removeDurationInSeconds = 10f;
 
-        public void MoveToSlot(Transform slotTransform)
+        public async UniTaskVoid MoveToSlot(Transform slotTransform)
         {
-            transform.DOMove(slotTransform.position, 10f, false);
+            await transform.DOMove(slotTransform.position, 10f, false)
+                .WithCancellation(this.GetCancellationTokenOnDestroy());
         }
 
-        public void RemoveFromSlot(Transform to, Action onRemoved = null)
+        public async UniTaskVoid RemoveFromSlotThenDestroy(Transform to, Action onRemoved = null)
         {
-            if (onRemoved != null)
-            {
-                StartCoroutine(DoAfterRemoveFromSlot(onRemoved));
-            }
-            transform.DOJump(to.position, 5f, 1, _removeDurationInSeconds, false);
-        }
-
-        private IEnumerator DoAfterRemoveFromSlot(Action onRemoved)
-        {
-            yield return new WaitForSeconds(_removeDurationInSeconds);
-            onRemoved.Invoke();
+            await transform.DOJump(to.position, 5f, 1, _removeDurationInSeconds, false)
+                .WithCancellation(this.GetCancellationTokenOnDestroy());
+            
+            onRemoved?.Invoke();
+            Destroy(gameObject);
         }
     }
 }
