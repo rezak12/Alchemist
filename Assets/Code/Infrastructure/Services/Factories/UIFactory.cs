@@ -11,6 +11,7 @@ using Code.UI;
 using Code.UI.OrderCompletedUI;
 using Code.UI.OrdersViewUI;
 using Code.UI.PlayerIngredientsUI;
+using Code.UI.PotionMakingUI;
 using Code.UI.Store;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -59,17 +60,16 @@ namespace Code.Infrastructure.Services.Factories
             return prefab;
         }
 
-        public async UniTask<PlayerIngredientsPanel> CreatePlayerIngredientsPanelAsync(AlchemyTable alchemyTable)
+        public async UniTask<PotionMakingPopup> CreatePotionMakingPopup(AlchemyTable alchemyTable)
         {
-            WindowConfig config = _staticDataService.GetWindowByType(WindowType.PlayerIngredientsPanel);
+            WindowConfig config = _staticDataService.GetWindowByType(WindowType.PotionMakingPopup);
             var panelPrefab = await _assetProvider
-                .LoadAsync<PlayerIngredientsPanel>(config.PrefabReference);
+                .LoadAsync<PotionMakingPopup>(config.PrefabReference);
 
             var ingredientsReferences = _progressService.PlayerIngredientsAssetReferences;
-
             var ingredients = await _assetProvider.LoadAsync<IngredientData>(ingredientsReferences);
             
-            PlayerIngredientsPanel panel = Object.Instantiate(panelPrefab);
+            PotionMakingPopup panel = Object.Instantiate(panelPrefab);
             await panel.InitializeAsync(ingredients, alchemyTable, this);
 
             return panel;
