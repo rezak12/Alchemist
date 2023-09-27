@@ -5,6 +5,7 @@ using Code.Infrastructure.Services.AssetProvider;
 using Code.Infrastructure.Services.Factories;
 using Code.Logic.Potions;
 using Code.StaticData;
+using Cysharp.Threading.Tasks;
 using NSubstitute;
 using NUnit.Framework;
 using UnityEngine;
@@ -23,8 +24,6 @@ namespace Tests.UnitTests
         private IngredientData _secondIngredientWithTwoCharacteristics;
         
         private PotionInfoFactory _unitUnderTest;
-        
-        private PotionInfo _createdPotion;
 
         [SetUp]
         public void Setup()
@@ -38,81 +37,79 @@ namespace Tests.UnitTests
             
             var assetProviderStub = Substitute.For<IAssetProvider>();
             _unitUnderTest = new PotionInfoFactory(assetProviderStub);
-
-            _createdPotion = null;
         }
 
         [UnityTest]
-        public IEnumerator WhenCreatingPotion_AndPuttedOneIngredientWithOneCharacteristic_ThenPutOnlyThisCharacteristicToPotionInstance()
-        {
-            // Arrange.
-            IngredientData ingredient = _ingredientWithOneCharacteristic;
-            var ingredients = new List<IngredientData>() { ingredient };
+        public IEnumerator
+            WhenCreatingPotion_AndPuttedOneIngredientWithOneCharacteristic_ThenPutOnlyThisCharacteristicToPotionInstance() =>
+            UniTask.ToCoroutine(async () =>
+            {
+                // Arrange.
+                IngredientData ingredient = _ingredientWithOneCharacteristic;
+                var ingredients = new List<IngredientData>() { ingredient };
 
-            // Act.
-            yield return CreatePotionInfo(ingredients);
+                // Act.
+                var createdPotion = await _unitUnderTest.CreatePotionInfoAsync(ingredients);
 
-            // Assert.
-            var characteristicsAmountPairs = _createdPotion
-                .CharacteristicsAmountPairs.ToHashSet();
-            
-            Assert.That(characteristicsAmountPairs, Has.Count.EqualTo(1));
-        }
+                // Assert.
+                var characteristicsAmountPairs = createdPotion
+                    .CharacteristicsAmountPairs.ToHashSet();
 
-        [UnityTest]
-        public IEnumerator WhenCreatingPotion_AndAllIngredientsHaveUniqueCharacteristics_ThenPutThemAllToPotionInstance()
-        {
-            // Arrange.
-            IngredientData firstIngredient = _ingredientWithOneCharacteristic;
-            IngredientData secondIngredient = _secondIngredientWithTwoCharacteristics;
-            var ingredients = new List<IngredientData>() { firstIngredient, secondIngredient };
-
-            // Act.
-            yield return CreatePotionInfo(ingredients);
-
-            // Assert.
-            var potionCharacteristics = _createdPotion
-                .CharacteristicsAmountPairs
-                .ToList();
-
-            var puttedUniqueCharacteristicsAmount = 3;
-
-            Assert.That(potionCharacteristics, Has.Count.EqualTo(puttedUniqueCharacteristicsAmount));
-        }
+                Assert.That(characteristicsAmountPairs, Has.Count.EqualTo(1));
+            });
 
         [UnityTest]
-        public IEnumerator WhenCreatingPotion_AndPuttedIngredientsWithSomeEqualCharacteristics_ThenCombineEqualCharacteristicsPoints()
-        {
-            // Arrange.
-            IngredientData firstIngredient = _ingredientWithOneCharacteristic;
-            IngredientData secondIngredient = _ingredientWithTwoCharacteristics;
-            var ingredients = new List<IngredientData>() { firstIngredient, secondIngredient };
-            
-            // Act.
-            yield return CreatePotionInfo(ingredients);
-            
-            // Assert.
-            var createdCharacteristicsAmountPairs = _createdPotion
-                .CharacteristicsAmountPairs
-                .ToHashSet();
+        public IEnumerator
+            WhenCreatingPotion_AndAllIngredientsHaveUniqueCharacteristics_ThenPutThemAllToPotionInstance() =>
+            UniTask.ToCoroutine(async () =>
+            {
+                // Arrange.
+                IngredientData firstIngredient = _ingredientWithOneCharacteristic;
+                IngredientData secondIngredient = _secondIngredientWithTwoCharacteristics;
+                var ingredients = new List<IngredientData>() { firstIngredient, secondIngredient };
 
-            var expectedCollectionCount = 2;
-            
-            PotionCharacteristicAmountPair characteristicWithCombinedPoints = createdCharacteristicsAmountPairs.First();
+                // Act.
+                var createdPotion = await _unitUnderTest.CreatePotionInfoAsync(ingredients);
 
-            var charPointsFromFirstIngredient = firstIngredient.CharacteristicAmountPairs.First().PointsAmount;
-            var charPointsFromSecondIngredient = secondIngredient.CharacteristicAmountPairs.First().PointsAmount;
-            var expectedPointsAmount = charPointsFromFirstIngredient + charPointsFromSecondIngredient;
-            
-            Assert.That(createdCharacteristicsAmountPairs, Has.Count.EqualTo(expectedCollectionCount));
-            Assert.That(characteristicWithCombinedPoints.PointsAmount, Is.EqualTo(expectedPointsAmount));
-        }
+                // Assert.
+                var potionCharacteristics = createdPotion
+                    .CharacteristicsAmountPairs
+                    .ToHashSet();
 
-        private IEnumerator CreatePotionInfo(IEnumerable<IngredientData> ingredients)
-        {
-            var task = _unitUnderTest.CreatePotionInfoAsync(ingredients);
-            yield return task.AsIEnumeratorReturnNull();
-            _createdPotion = task.Result;
-        }
+                var puttedUniqueCharacteristicsAmount = 3;
+
+                Assert.That(potionCharacteristics, Has.Count.EqualTo(puttedUniqueCharacteristicsAmount));
+            });
+
+        [UnityTest]
+        public IEnumerator
+            WhenCreatingPotion_AndPuttedIngredientsWithSomeEqualCharacteristics_ThenCombineEqualCharacteristicsPoints() =>
+            UniTask.ToCoroutine(async () =>
+            {
+                // Arrange.
+                IngredientData firstIngredient = _ingredientWithOneCharacteristic;
+                IngredientData secondIngredient = _ingredientWithTwoCharacteristics;
+                var ingredients = new List<IngredientData>() { firstIngredient, secondIngredient };
+
+                // Act.
+                var createdPotion = await _unitUnderTest.CreatePotionInfoAsync(ingredients);
+
+                // Assert.
+                var createdCharacteristicsAmountPairs = createdPotion
+                    .CharacteristicsAmountPairs
+                    .ToHashSet();
+
+                var expectedCollectionCount = 2;
+
+                PotionCharacteristicAmountPair characteristicWithCombinedPoints =
+                    createdCharacteristicsAmountPairs.First();
+
+                var charPointsFromFirstIngredient = firstIngredient.CharacteristicAmountPairs.First().PointsAmount;
+                var charPointsFromSecondIngredient = secondIngredient.CharacteristicAmountPairs.First().PointsAmount;
+                var expectedPointsAmount = charPointsFromFirstIngredient + charPointsFromSecondIngredient;
+
+                Assert.That(createdCharacteristicsAmountPairs, Has.Count.EqualTo(expectedCollectionCount));
+                Assert.That(characteristicWithCombinedPoints.PointsAmount, Is.EqualTo(expectedPointsAmount));
+            });
     }
 }
