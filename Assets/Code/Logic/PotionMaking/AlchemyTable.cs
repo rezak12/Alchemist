@@ -66,7 +66,7 @@ namespace Code.Logic.PotionMaking
             Potion potion = await CreatePotion(ingredients);
 
             var potionAnimator = potion.GetComponent<PotionAnimator>();
-            potionAnimator.PresentAfterCreating();
+            potionAnimator.PresentAfterCreating().Forget();
         }
 
         private async UniTask<Potion> CreatePotion(IEnumerable<IngredientData> ingredients)
@@ -117,26 +117,21 @@ namespace Code.Logic.PotionMaking
             
             _ingredientsAnimators.Push(ingredientAnimator);
             
-            ingredientAnimator.MoveToSlot(slotTransform);
+            ingredientAnimator.MoveToSlot(slotTransform).Forget();
         }
 
         private void MoveAllIngredientsToPotionCreatingPoint()
         {
             foreach (IngredientAnimator ingredientAnimator in _ingredientsAnimators)
             {
-                RemoveIngredientFromSlotThenDestroy(ingredientAnimator, _potionSpawnPoint);
+                ingredientAnimator.RemoveFromSlotThenDestroy(_potionSpawnPoint).Forget();
             }
         }
 
         private void RemoveLastIngredientPrefabFromSlot()
         {
             IngredientAnimator ingredientAnimator = _ingredientsAnimators.Pop();
-            RemoveIngredientFromSlotThenDestroy(ingredientAnimator, _ingredientsRemoveFromSlotPoint);
-        }
-
-        private void RemoveIngredientFromSlotThenDestroy(IngredientAnimator ingredientAnimator, Transform to)
-        {
-            ingredientAnimator.RemoveFromSlot(to, () => Destroy(ingredientAnimator.gameObject));
+            ingredientAnimator.RemoveFromSlotThenDestroy(_ingredientsRemoveFromSlotPoint).Forget();
         }
 
         private void InitializeSlotsCollections()
