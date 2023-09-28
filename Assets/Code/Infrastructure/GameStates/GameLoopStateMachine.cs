@@ -1,7 +1,4 @@
 ﻿namespace Code.Infrastructure.GameStates
 {
-    public class GameLoopStateMachine
-    {
-        
-    }
+    public class GameLoopStateMachine : StateMachine { }
 }
