@@ -4,6 +4,7 @@ using Code.Infrastructure.Services.SaveLoadService;
 using Code.Logic.Orders;
 using Code.Logic.PotionMaking;
 using Code.Logic.Potions;
+using Cysharp.Threading.Tasks;
 
 namespace Code.Infrastructure.GameStates
 {
@@ -13,6 +14,8 @@ namespace Code.Infrastructure.GameStates
         private readonly IPersistentProgressService _progressService;
         private readonly ISaveLoadService _saveLoadService;
         private readonly IUIFactory _uiFactory;
+        
+        private UniTaskCompletionSource _taskCompletionSource;
 
         public OrderCompletedState(
             ResultPotionRater potionRater, 
@@ -26,8 +29,10 @@ namespace Code.Infrastructure.GameStates
             _uiFactory = uiFactory;
         }
 
-        public void Enter(Potion payload1, PotionOrder payload2)
+        public UniTask Enter(Potion payload1, PotionOrder payload2)
         {
+            _taskCompletionSource = new UniTaskCompletionSource();
+            
             var isRequirementsMatched = _potionRater.IsPotionSatisfyingRequirements(payload1, payload2);
 
             if (isRequirementsMatched)
@@ -41,11 +46,13 @@ namespace Code.Infrastructure.GameStates
 
             SaveProgress();
             CreateUIWindow(payload1, payload2, isRequirementsMatched);
+
+            return _taskCompletionSource.Task;
         }
 
-        public void Exit()
+        public UniTask Exit()
         {
-            
+            return default;
         }
 
         private void GiveReward(PotionOrderReward reward)
