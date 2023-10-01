@@ -4,12 +4,12 @@ using System.Linq;
 using Code.Infrastructure.Services.RandomServices;
 using Code.StaticData;
 using Code.UI;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
-using Zenject;
 
 namespace Code.Infrastructure.Services.StaticData
 {
-    public class StaticDataService : IStaticDataService, IInitializable
+    public class StaticDataService : IStaticDataService
     {
         private const string WindowConfigsPath = "StaticData/Windows/WindowConfigs";
         private const string OrderTypesPath = "StaticData/Orders/OrderTypes";
@@ -22,16 +22,20 @@ namespace Code.Infrastructure.Services.StaticData
         
         private readonly IRandomService _randomService;
 
+        private UniTaskCompletionSource _taskCompletionSource;
+
         public StaticDataService(IRandomService randomService)
         {
             _randomService = randomService;
         }
         
-        void IInitializable.Initialize()
+        public UniTask InitializeAsync()
         {
+            _taskCompletionSource = new UniTaskCompletionSource();
             LoadPopupConfigs();
             LoadOrderTypes();
             LoadOrderDifficulties();
+            return _taskCompletionSource.Task;
         }
 
         public PopupConfig GetPopupByType(PopupType type)
