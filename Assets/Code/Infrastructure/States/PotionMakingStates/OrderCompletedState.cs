@@ -6,7 +6,7 @@ using Code.Logic.PotionMaking;
 using Code.Logic.Potions;
 using Cysharp.Threading.Tasks;
 
-namespace Code.Infrastructure.GameStates
+namespace Code.Infrastructure.States.PotionMakingStates
 {
     public class OrderCompletedState : IPayloadState<Potion, PotionOrder>
     {

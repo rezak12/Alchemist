@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 
-namespace Code.Infrastructure.GameStates
+namespace Code.Infrastructure.States
 {
     public abstract class StateMachine
     {

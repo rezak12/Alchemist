@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using Code.Infrastructure.GameStates;
 using Code.Infrastructure.Services.Factories;
+using Code.Infrastructure.States.GameStates;
 using Code.Logic.Orders;
 using Code.Logic.Potions;
 using Code.UI.OrdersViewUI;
