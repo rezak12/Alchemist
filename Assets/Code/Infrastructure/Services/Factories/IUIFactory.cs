@@ -2,6 +2,7 @@
 using Code.Logic.PotionMaking;
 using Code.Logic.Potions;
 using Code.StaticData;
+using Code.UI.MainMenuUI;
 using Code.UI.OrderCompletedUI;
 using Code.UI.OrdersViewUI;
 using Code.UI.PlayerIngredientsUI;
@@ -24,7 +25,9 @@ namespace Code.Infrastructure.Services.Factories
             PotionOrder order, 
             bool isCharacteristicsMatched);
 
-        UniTask<StoreWindow> CreateStorePopup();
+        UniTask<StorePopup> CreateStorePopupAsync();
+        
+        UniTask<MainMenuPopup> CreateMainMenuPopupAsync();
 
         UniTask<IngredientItemUI> CreateIngredientItemUIAsync(
             IngredientData ingredient, 

@@ -45,7 +45,7 @@ namespace Code.UI.OrdersViewUI
         
         private void OpenStore()
         {
-            _uiFactory.CreateStorePopup();
+            _uiFactory.CreateStorePopupAsync();
         }
     }
 }

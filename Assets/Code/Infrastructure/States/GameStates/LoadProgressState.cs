@@ -8,15 +8,30 @@ namespace Code.Infrastructure.States.GameStates
 {
     public class LoadProgressState : IState
     {
-        private IAssetProvider _assetProvider;
         private const string NewSaveDataAddress = "NewSaveData";
+        private readonly IAssetProvider _assetProvider;
         
-        private ISaveLoadService _saveLoadService;
-        private IPersistentProgressService _progressService;
+        private readonly ISaveLoadService _saveLoadService;
+        private readonly IPersistentProgressService _progressService;
+
+        private readonly GameStateMachine _stateMachine;
+
+        public LoadProgressState(
+            IAssetProvider assetProvider, 
+            ISaveLoadService saveLoadService, 
+            IPersistentProgressService progressService, 
+            GameStateMachine stateMachine)
+        {
+            _assetProvider = assetProvider;
+            _saveLoadService = saveLoadService;
+            _progressService = progressService;
+            _stateMachine = stateMachine;
+        }
 
         public async UniTask Enter()
         {
             _progressService.Initialize(await LoadOrCreateNewSave());
+            await _stateMachine.Enter<MainMenuState>();
         }
 
         public UniTask Exit()

@@ -8,6 +8,7 @@ using Code.Logic.PotionMaking;
 using Code.Logic.Potions;
 using Code.StaticData;
 using Code.UI;
+using Code.UI.MainMenuUI;
 using Code.UI.OrderCompletedUI;
 using Code.UI.OrdersViewUI;
 using Code.UI.PlayerIngredientsUI;
@@ -103,7 +104,12 @@ namespace Code.Infrastructure.Services.Factories
             return popup;
         }
 
-        public UniTask<StoreWindow> CreateStorePopup()
+        public UniTask<StorePopup> CreateStorePopupAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        public UniTask<MainMenuPopup> CreateMainMenuPopupAsync()
         {
             throw new NotImplementedException();
         }

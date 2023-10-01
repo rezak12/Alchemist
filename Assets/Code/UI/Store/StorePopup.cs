@@ -2,7 +2,7 @@
 
 namespace Code.UI.Store
 {
-    public class StoreWindow : MonoBehaviour
+    public class StorePopup : MonoBehaviour
     {
         
     }
