@@ -5,6 +5,7 @@ using Code.UI.PotionCharacteristicsUI;
 using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
+using Zenject;
 
 namespace Code.UI.OrdersViewUI
 {
@@ -17,18 +18,16 @@ namespace Code.UI.OrdersViewUI
         [SerializeField] private PotionOrderPunishmentItemUi _punishmentItem;
         
         private PotionOrdersHandler _ordersHandler;
-        private IUIFactory _uiFactory;
         
-        private Action _updateRequirementCharacteristicsActionInstance;
-
-        public void Initialize(PotionOrdersHandler ordersHandler, IUIFactory uiFactory)
+        private Action _updateRequirementCharacteristicsAction;
+        
+        public void Initialize(PotionOrdersHandler ordersHandler)
         {
-            _uiFactory = uiFactory;
             _ordersHandler = ordersHandler;
-            _updateRequirementCharacteristicsActionInstance = UniTask.Action(UpdateRequirementCharacteristics);
+            _updateRequirementCharacteristicsAction = UniTask.Action(UpdateRequirementCharacteristics);
             
             _ordersHandler.NewOrderHandled += UpdateOrderDifficultyLevelAndTypeNames;
-            _ordersHandler.NewOrderHandled += _updateRequirementCharacteristicsActionInstance;
+            _ordersHandler.NewOrderHandled += _updateRequirementCharacteristicsAction;
             _ordersHandler.NewOrderHandled += UpdateReward;
             _ordersHandler.NewOrderHandled += UpdatePunishment;
             
@@ -41,7 +40,7 @@ namespace Code.UI.OrdersViewUI
         private void OnDestroy()
         {
             _ordersHandler.NewOrderHandled -= UpdateOrderDifficultyLevelAndTypeNames;
-            _ordersHandler.NewOrderHandled -= _updateRequirementCharacteristicsActionInstance;
+            _ordersHandler.NewOrderHandled -= _updateRequirementCharacteristicsAction;
             _ordersHandler.NewOrderHandled -= UpdateReward;
             _ordersHandler.NewOrderHandled -= UpdatePunishment;
         }
@@ -65,8 +64,7 @@ namespace Code.UI.OrdersViewUI
         private async UniTaskVoid UpdateRequirementCharacteristics()
         {
             await _requirementCharacteristicsContainer.CreateCharacteristicItemsAsync(
-                _ordersHandler.CurrentOrder.RequirementCharacteristics,
-                _uiFactory);
+                _ordersHandler.CurrentOrder.RequirementCharacteristics);
         }
     }
 }

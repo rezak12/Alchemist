@@ -71,10 +71,10 @@ namespace Code.UI.OrderCompletedUI
             IEnumerable<PotionCharacteristicAmountPair> requirementCharacteristics)
         {
             UniTask resultCharacteristicItemsTask = _resultCharacteristics
-                .CreateCharacteristicItemsAsync(resultCharacteristics, _uiFactory);
+                .CreateCharacteristicItemsAsync(resultCharacteristics);
 
             UniTask requirementCharacteristicItemsTask = _requirementCharacteristics
-                .CreateCharacteristicItemsAsync(requirementCharacteristics, _uiFactory);
+                .CreateCharacteristicItemsAsync(requirementCharacteristics);
 
             await UniTask.WhenAll(resultCharacteristicItemsTask, requirementCharacteristicItemsTask);
         }

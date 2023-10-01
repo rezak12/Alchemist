@@ -5,6 +5,7 @@ using Code.Logic.PotionMaking;
 using Code.StaticData;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using Zenject;
 
 namespace Code.UI.PlayerIngredientsUI
 {
@@ -12,12 +13,22 @@ namespace Code.UI.PlayerIngredientsUI
     {
         [SerializeField] private Transform _ingredientItemsContainer;
         
-        public async UniTask InitializeAsync(IEnumerable<IngredientData> playerIngredients, AlchemyTable alchemyTable, IUIFactory uiFactory)
+        private IUIFactory _uiFactory;
+
+        [Inject]
+        private void Construct(IUIFactory uiFactory)
+        {
+            _uiFactory = uiFactory;
+        }
+        
+        public async UniTask InitializeAsync(
+            IEnumerable<IngredientData> playerIngredients, 
+            AlchemyTable alchemyTable)
         {
             var tasks = new List<UniTask>();
             foreach (IngredientData ingredient in playerIngredients)
             {
-                var task = uiFactory.CreateIngredientItemUIAsync(ingredient, alchemyTable, _ingredientItemsContainer);
+                var task = _uiFactory.CreateIngredientItemUIAsync(ingredient, alchemyTable, _ingredientItemsContainer);
                 tasks.Add(task);
             }
 

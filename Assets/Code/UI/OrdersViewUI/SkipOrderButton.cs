@@ -3,6 +3,7 @@ using Code.Logic.Orders;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 namespace Code.UI.OrdersViewUI
 {
@@ -15,15 +16,19 @@ namespace Code.UI.OrdersViewUI
         private IPersistentProgressService _progressService;
         private int _skipOrderCostInReputation;
 
+        [Inject]
+        private void Construct(IPersistentProgressService progressService)
+        {
+            _progressService = progressService;
+        }
+
         public void Initialize(
             PotionOrdersHandler ordersHandler, 
-            IPersistentProgressService progressService, 
             int skipOrderCostInReputation)
         {
             _skipOrderCostInReputation = skipOrderCostInReputation;
             _skipCostText.text = skipOrderCostInReputation.ToString();
             
-            _progressService = progressService;
             _progressService.ReputationAmountChanged += OnReputationAmountChanged;
             
             _ordersHandler = ordersHandler;

@@ -19,21 +19,17 @@ namespace Code.UI.OrdersViewUI
         [SerializeField] private SkipOrderButton _skipOrderButton;
         
         private IUIFactory _uiFactory;
-        private IPersistentProgressService _progressService;
         
         [Inject]
-        private void Construct(IUIFactory uiFactory, IPersistentProgressService progressService)
+        private void Construct(IUIFactory uiFactory)
         {
             _uiFactory = uiFactory;
-            _progressService = progressService;
         }
 
-        public void Initialize(PotionOrdersHandler ordersHandler, ChosenPotionOrderSender orderSender)
+        public void Initialize(PotionOrdersHandler ordersHandler)
         {
-            _orderDetailsPanel.Initialize(ordersHandler, _uiFactory);
-            _progressViewItem.Initialize(_progressService);
-            _takeOrderButton.Initialize(orderSender);
-            _skipOrderButton.Initialize(ordersHandler, _progressService, _skipOrderCostInReputation);
+            _orderDetailsPanel.Initialize(ordersHandler);
+            _skipOrderButton.Initialize(ordersHandler, _skipOrderCostInReputation);
             
             _openStoreButton.onClick.AddListener(OpenStore);
         }

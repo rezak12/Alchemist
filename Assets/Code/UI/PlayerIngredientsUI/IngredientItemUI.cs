@@ -19,7 +19,7 @@ namespace Code.UI.PlayerIngredientsUI
         private IngredientData _ingredient;
         private AlchemyTable _alchemyTable;
 
-        public async UniTask InitializeAsync(IngredientData ingredient, AlchemyTable alchemyTable, IUIFactory uiFactory)
+        public async UniTask InitializeAsync(IngredientData ingredient, AlchemyTable alchemyTable)
         {
             _ingredient = ingredient;
             _alchemyTable = alchemyTable;
@@ -28,8 +28,7 @@ namespace Code.UI.PlayerIngredientsUI
             _iconImage.sprite = ingredient.Icon;
             
             await _characteristicItemsContainer.CreateCharacteristicItemsAsync(
-                ingredient.CharacteristicAmountPairs, 
-                uiFactory);
+                ingredient.CharacteristicAmountPairs);
 
             _alchemyTable.FilledSlotsAmountChanged += OnFilledSlotAmountChanged;
             _useButton.onClick.AddListener(UseIngredient);

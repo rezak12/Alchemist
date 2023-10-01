@@ -12,13 +12,13 @@ using Code.UI.MainMenuUI;
 using Code.UI.OrderCompletedUI;
 using Code.UI.OrdersViewUI;
 using Code.UI.PlayerIngredientsUI;
+using Code.UI.PotionCharacteristicsUI;
 using Code.UI.PotionMakingUI;
 using Code.UI.Store;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using Zenject;
-using Object = UnityEngine.Object;
 
 namespace Code.Infrastructure.Services.Factories
 {
@@ -48,15 +48,14 @@ namespace Code.Infrastructure.Services.Factories
         }
 
         public async UniTask<SelectPotionOrderPopup> CreateSelectPotionOrderPopupAsync(
-            PotionOrdersHandler potionOrdersHandler,
-            ChosenPotionOrderSender potionOrdersSender)
+            PotionOrdersHandler potionOrdersHandler)
         {
             PopupConfig config = _staticDataService.GetPopupByType(PopupType.SelectPotionOrderPopup);
             var popupPrefab = await _assetProvider
                 .LoadAsync<SelectPotionOrderPopup>(config.PrefabReference);
 
             var popup = _instantiator.InstantiatePrefabForComponent<SelectPotionOrderPopup>(popupPrefab);
-            popup.Initialize(potionOrdersHandler, potionOrdersSender);
+            popup.Initialize(potionOrdersHandler);
 
             return popup;
         }
@@ -70,8 +69,8 @@ namespace Code.Infrastructure.Services.Factories
             var ingredientsReferences = _progressService.PlayerIngredientsAssetReferences;
             var ingredients = await _assetProvider.LoadAsync<IngredientData>(ingredientsReferences);
             
-            PotionMakingPopup popup = Object.Instantiate(popupPrefab);
-            await popup.InitializeAsync(ingredients, alchemyTable, this);
+            var popup = _instantiator.InstantiatePrefabForComponent<PotionMakingPopup>(popupPrefab);
+            await popup.InitializeAsync(ingredients, alchemyTable);
 
             return popup;
         }
@@ -121,11 +120,10 @@ namespace Code.Infrastructure.Services.Factories
         {
             var prefab = await _assetProvider.LoadAsync<IngredientItemUI>(_ingredientItemUIReference);
 
-            IngredientItemUI item = Object.Instantiate(prefab, parent);
+            var item = _instantiator.InstantiatePrefabForComponent<IngredientItemUI>(prefab, parent);
             await item.InitializeAsync(
                 ingredient,
-                alchemyTable, 
-                this);
+                alchemyTable);
 
             return item;
         }
@@ -140,7 +138,7 @@ namespace Code.Infrastructure.Services.Factories
             var characteristic = await _assetProvider
                 .LoadAsync<PotionCharacteristic>(characteristicAmountPair.CharacteristicReference);
             
-            PotionCharacteristicItemUI item = Object.Instantiate(prefab, parent);
+            var item = _instantiator.InstantiatePrefabForComponent<PotionCharacteristicItemUI>(prefab, parent);
             item.Initialize(characteristic.Icon, characteristicAmountPair.PointsAmount);
 
             return item;
@@ -153,7 +151,7 @@ namespace Code.Infrastructure.Services.Factories
             var prefab = await _assetProvider.LoadAsync<PotionCharacteristicItemUI>
                 (_ingredientCharacteristicItemUIReference);
             
-            PotionCharacteristicItemUI item = Object.Instantiate(prefab, parent);
+            var item = _instantiator.InstantiatePrefabForComponent<PotionCharacteristicItemUI>(prefab, parent);
             item.Initialize(characteristicAmountPair.Characteristic.Icon, characteristicAmountPair.PointsAmount);
             
             return item;

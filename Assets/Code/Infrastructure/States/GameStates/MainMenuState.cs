@@ -29,7 +29,5 @@ namespace Code.Infrastructure.States.GameStates
         {
             return default;
         }
-
-        
     }
 }

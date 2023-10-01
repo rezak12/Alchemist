@@ -1,6 +1,8 @@
-﻿using Code.Logic.Orders;
+﻿using Code.Infrastructure.States.GameStates;
+using Code.Logic.Orders;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 namespace Code.UI.OrdersViewUI
 {
@@ -8,22 +10,27 @@ namespace Code.UI.OrdersViewUI
     {
         [SerializeField] private Button _button;
 
-        private ChosenPotionOrderSender _ordersSender;
+        private GameStateMachine _stateMachine;
 
-        public void Initialize(ChosenPotionOrderSender orderSender)
+        [Inject]
+        private void Construct(GameStateMachine stateMachine)
         {
-            _ordersSender = orderSender;
-            _button.onClick.AddListener(OnButtonClicked);
+            _stateMachine = stateMachine;
+        }
+        
+        private void Start()
+        {
+            _button.onClick.AddListener(EnterPotionMakingState);
         }
 
         private void OnDestroy()
         {
-            _button.onClick.RemoveListener(OnButtonClicked);
+            _button.onClick.RemoveListener(EnterPotionMakingState);
         }
 
-        private void OnButtonClicked()
+        private void EnterPotionMakingState()
         {
-            _ordersSender.SendChosenOrderToGameState();
+            // _stateMachine;
         }
     }
 }

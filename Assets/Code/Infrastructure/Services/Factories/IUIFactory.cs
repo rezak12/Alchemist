@@ -6,6 +6,7 @@ using Code.UI.MainMenuUI;
 using Code.UI.OrderCompletedUI;
 using Code.UI.OrdersViewUI;
 using Code.UI.PlayerIngredientsUI;
+using Code.UI.PotionCharacteristicsUI;
 using Code.UI.PotionMakingUI;
 using Code.UI.Store;
 using Cysharp.Threading.Tasks;
@@ -16,8 +17,7 @@ namespace Code.Infrastructure.Services.Factories
     public interface IUIFactory
     {
         UniTask<SelectPotionOrderPopup> CreateSelectPotionOrderPopupAsync(
-            PotionOrdersHandler potionOrdersHandler,
-            ChosenPotionOrderSender potionOrdersSender);
+            PotionOrdersHandler potionOrdersHandler);
         UniTask<PotionMakingPopup> CreatePotionMakingPopup(AlchemyTable alchemyTable);
 
         UniTask<OrderCompletedPopup> CreateOrderCompletedPopupAsync(

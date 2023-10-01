@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Code.UI.PlayerIngredientsUI
+namespace Code.UI.PotionCharacteristicsUI
 {
     public class PotionCharacteristicItemUI : MonoBehaviour
     {

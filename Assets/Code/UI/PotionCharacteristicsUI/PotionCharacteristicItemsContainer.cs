@@ -2,25 +2,33 @@
 using Code.Infrastructure.Services.Factories;
 using Code.Logic.Potions;
 using Code.StaticData;
-using Code.UI.PlayerIngredientsUI;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using Zenject;
 
 namespace Code.UI.PotionCharacteristicsUI
 {
     public class PotionCharacteristicItemsContainer : MonoBehaviour
     {
         private readonly List<PotionCharacteristicItemUI> _items = new();
+        
+        private IUIFactory _uiFactory;
+
+        [Inject]
+        private void Construct(IUIFactory uiFactory)
+        {
+            _uiFactory = uiFactory;
+        }
+        
         public async UniTask CreateCharacteristicItemsAsync(
-            IEnumerable<IngredientCharacteristicAmountPair> characteristicAmountPairs,
-            IUIFactory uiFactory)
+            IEnumerable<IngredientCharacteristicAmountPair> characteristicAmountPairs)
         {
             Cleanup();
             
             var tasks = new List<UniTask>();
             foreach (IngredientCharacteristicAmountPair characteristicAmountPair in characteristicAmountPairs)
             {
-                UniTask task = uiFactory.CreatePotionCharacteristicItemUIAsync(
+                UniTask task = _uiFactory.CreatePotionCharacteristicItemUIAsync(
                     characteristicAmountPair, transform).ContinueWith(item => _items.Add(item));
                 tasks.Add(task);
             }
@@ -29,13 +37,12 @@ namespace Code.UI.PotionCharacteristicsUI
         }
 
         public async UniTask CreateCharacteristicItemsAsync(
-            IEnumerable<PotionCharacteristicAmountPair> characteristicAmountPairs,
-            IUIFactory uiFactory)
+            IEnumerable<PotionCharacteristicAmountPair> characteristicAmountPairs)
         {
             var tasks = new List<UniTask>();
             foreach (PotionCharacteristicAmountPair characteristicAmountPair in characteristicAmountPairs)
             {
-                UniTask task = uiFactory.CreatePotionCharacteristicItemUIAsync(
+                UniTask task = _uiFactory.CreatePotionCharacteristicItemUIAsync(
                     characteristicAmountPair, transform).ContinueWith(item => _items.Add(item));
                 tasks.Add(task);
             }
@@ -49,6 +56,7 @@ namespace Code.UI.PotionCharacteristicsUI
             {
                 Destroy(item.gameObject);
             }
+            
             _items.Clear();
         }
     }
