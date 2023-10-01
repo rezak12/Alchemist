@@ -1,5 +1,4 @@
 ﻿using System;
-using Code.Infrastructure.Services.CoroutineRunner;
 using Code.Infrastructure.Services.Factories;
 using Code.Infrastructure.Services.StaticData;
 using Code.StaticData;
@@ -17,8 +16,7 @@ namespace Code.Logic.Orders
         
         public PotionOrdersHandler(
             IPotionOrderFactory potionOrderFactory, 
-            IStaticDataService staticDataService, 
-            ICoroutineRunner coroutineRunner)
+            IStaticDataService staticDataService)
         {
             _potionOrderFactory = potionOrderFactory;
             _staticDataService = staticDataService;

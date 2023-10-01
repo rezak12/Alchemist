@@ -1,5 +1,4 @@
 using Code.Infrastructure.Services.AssetProvider;
-using Code.Infrastructure.Services.CoroutineRunner;
 using Code.Infrastructure.Services.Factories;
 using Code.Infrastructure.Services.ProgressServices;
 using Code.Infrastructure.Services.RandomServices;
@@ -19,7 +18,6 @@ namespace Code.Infrastructure.Installers
         public override void InstallBindings()
         {
             BindAssetProvider();
-            BindCoroutineRunner();
             BindPersistentProgressService();
             BindRandomService();
             BindSaveLoadService();
@@ -33,11 +31,6 @@ namespace Code.Infrastructure.Installers
         private void BindAssetProvider()
         {
             Container.BindInterfacesTo<AssetProvider>().AsSingle();
-        }
-
-        private void BindCoroutineRunner()
-        {
-            Container.BindInterfacesTo<CoroutineRunner>().FromNewComponentOnNewGameObject().AsSingle();
         }
 
         private void BindPersistentProgressService()
