@@ -25,8 +25,8 @@ namespace Code.Infrastructure.States.GameStates
             await UniTask.WhenAll(
                 _assetProvider.InitializeAsync(), 
                 _staticDataService.InitializeAsync());
-            
-            
+
+            await _stateMachine.Enter<LoadProgressState>();
         }
 
         public UniTask Exit()

@@ -1,4 +1,6 @@
-﻿using Code.Logic.Potions;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Code.Logic.Potions;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
@@ -14,7 +16,7 @@ namespace Code.StaticData
 
         public int CoinsAmount => _coinsAmount;
         public int ReputationAmount => _reputationAmount;
-        public AssetReferenceT<IngredientData>[] Ingredients => _ingredients;
-        public AssetReferenceT<Potion> PotionPrefabReference => _potionPrefabReference;
+        public IEnumerable<string> IngredientsGUIDs => _ingredients.Select(reference => reference.AssetGUID);
+        public string PotionPrefabGUID => _potionPrefabReference.AssetGUID;
     }
 }
