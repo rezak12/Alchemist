@@ -14,33 +14,45 @@ namespace Code.Infrastructure.Services.StaticData
         private const string WindowConfigsPath = "StaticData/Windows/WindowConfigs";
         private const string OrderTypesPath = "StaticData/Orders/OrderTypes";
         private const string OrderDifficultiesPath = "StaticData/Orders/OrderDifficulties";
-
+        private const string LevelConfigsPath = "StaticData/LevelConfigs";
 
         private Dictionary<PopupType, PopupConfig> _popupConfigsCache;
         private PotionOrderType[] _orderTypesCache;
         private PotionOrderDifficulty[] _orderDifficultiesCache;
-        
+        private Dictionary<string,LevelConfig> _levelConfigsCache;
+
         private readonly IRandomService _randomService;
 
         private UniTaskCompletionSource _taskCompletionSource;
+
 
         public StaticDataService(IRandomService randomService)
         {
             _randomService = randomService;
         }
-        
+
         public UniTask InitializeAsync()
         {
             _taskCompletionSource = new UniTaskCompletionSource();
             LoadPopupConfigs();
             LoadOrderTypes();
             LoadOrderDifficulties();
+            LoadLevelConfigs();
             return _taskCompletionSource.Task;
         }
 
         public PopupConfig GetPopupByType(PopupType type)
         {
             if (_popupConfigsCache.TryGetValue(type, out PopupConfig config))
+            {
+                return config;
+            }
+            throw new NullReferenceException();
+        }
+
+        public LevelConfig GetLevelConfigBySceneName(string sceneName)
+        {
+            if (_levelConfigsCache.TryGetValue(sceneName, out LevelConfig config))
             {
                 return config;
             }
@@ -72,6 +84,13 @@ namespace Code.Infrastructure.Services.StaticData
         private void LoadOrderDifficulties()
         {
             _orderDifficultiesCache = Resources.LoadAll<PotionOrderDifficulty>(OrderDifficultiesPath);
+        }
+
+        private void LoadLevelConfigs()
+        {
+            _levelConfigsCache = Resources
+                .LoadAll<LevelConfig>(LevelConfigsPath)
+                .ToDictionary(config => config.SceneName, config => config);
         }
     }
 }
