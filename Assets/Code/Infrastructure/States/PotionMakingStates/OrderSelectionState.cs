@@ -1,39 +1,38 @@
 using Code.Infrastructure.Services.Factories;
-using Code.Infrastructure.Services.SceneLoader;
 using Code.Infrastructure.Services.StaticData;
 using Code.Logic.Orders;
+using Code.UI.SelectionPotionOrderUI;
 using Cysharp.Threading.Tasks;
+using UnityEngine;
 
-namespace Code.Infrastructure.States.GameStates
+namespace Code.Infrastructure.States.PotionMakingStates
 {
     public class OrderSelectionState : IState
     {
-        private const string OrderSelectionSceneAddress = "SelectPotionOrder";
-        
         private readonly IUIFactory _uiFactory;
-        private readonly ISceneLoader _sceneLoader;
         private readonly PotionOrdersHandler _potionOrdersHandler;
-
+        
+        private SelectPotionOrderPopup _selectPotionOrderPopup;
+        private UniTaskCompletionSource _taskCompletionSource;
 
         public OrderSelectionState(IUIFactory uiFactory, 
-            ISceneLoader sceneLoader, 
             IPotionOrderFactory potionOrderFactory, 
             IStaticDataService staticDataService)
         {
             _uiFactory = uiFactory;
-            _sceneLoader = sceneLoader;
             _potionOrdersHandler = new PotionOrdersHandler(potionOrderFactory, staticDataService);
         }
 
         public async UniTask Enter()
         {
-            await _sceneLoader.LoadAsync(OrderSelectionSceneAddress);
-            await _uiFactory.CreateSelectPotionOrderPopupAsync(_potionOrdersHandler);
+            _selectPotionOrderPopup = await _uiFactory.CreateSelectPotionOrderPopupAsync(_potionOrdersHandler);
         }
 
         public UniTask Exit()
         {
-            return default;
+            _taskCompletionSource = new UniTaskCompletionSource();
+            Object.Destroy(_selectPotionOrderPopup.gameObject);
+            return _taskCompletionSource.Task;
         }
     }
 }

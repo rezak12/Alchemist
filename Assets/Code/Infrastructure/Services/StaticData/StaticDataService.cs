@@ -24,8 +24,7 @@ namespace Code.Infrastructure.Services.StaticData
         private readonly IRandomService _randomService;
 
         private UniTaskCompletionSource _taskCompletionSource;
-
-
+        
         public StaticDataService(IRandomService randomService)
         {
             _randomService = randomService;

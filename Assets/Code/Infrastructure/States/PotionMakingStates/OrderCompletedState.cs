@@ -8,9 +8,10 @@ using Cysharp.Threading.Tasks;
 
 namespace Code.Infrastructure.States.PotionMakingStates
 {
-    public class OrderCompletedState : IPayloadState<Potion, PotionOrder>
+    public class OrderCompletedState : IPayloadState<Potion>
     {
         private readonly ResultPotionRater _potionRater;
+        private readonly SelectedPotionOrderHolder _orderHolder;
         private readonly IPersistentProgressService _progressService;
         private readonly ISaveLoadService _saveLoadService;
         private readonly IUIFactory _uiFactory;
@@ -18,34 +19,36 @@ namespace Code.Infrastructure.States.PotionMakingStates
         private UniTaskCompletionSource _taskCompletionSource;
 
         public OrderCompletedState(
-            ResultPotionRater potionRater, 
+            SelectedPotionOrderHolder orderHolder, 
             IPersistentProgressService progressService, 
             ISaveLoadService saveLoadService,
             IUIFactory uiFactory)
         {
-            _potionRater = potionRater;
+            _potionRater = new ResultPotionRater();
+            _orderHolder = orderHolder;
             _progressService = progressService;
             _saveLoadService = saveLoadService;
             _uiFactory = uiFactory;
         }
 
-        public UniTask Enter(Potion payload1, PotionOrder payload2)
+        public UniTask Enter(Potion payload1)
         {
             _taskCompletionSource = new UniTaskCompletionSource();
-            
-            var isRequirementsMatched = _potionRater.IsPotionSatisfyingRequirements(payload1, payload2);
+
+            PotionOrder order = _orderHolder.SelectedOrder;
+            var isRequirementsMatched = _potionRater.IsPotionSatisfyingRequirements(payload1, order);
 
             if (isRequirementsMatched)
             {
-                GiveReward(payload2.Reward);
+                GiveReward(order.Reward);
             }
             else
             {
-                GivePunishment(payload2.Punishment);
+                GivePunishment(order.Punishment);
             }
 
             SaveProgress();
-            CreateUIWindow(payload1, payload2, isRequirementsMatched);
+            CreateUIWindow(payload1, order, isRequirementsMatched);
 
             return _taskCompletionSource.Task;
         }

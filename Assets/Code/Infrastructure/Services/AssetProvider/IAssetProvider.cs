@@ -10,5 +10,6 @@ namespace Code.Infrastructure.Services.AssetProvider
         UniTask<T> LoadAsync<T>(AssetReference assetReference) where T : class;
         UniTask<T> LoadAsync<T>(string address) where T : class;
         UniTask<T[]> LoadAsync<T>(IEnumerable<AssetReference> assetReferences) where T : class;
+        void Cleanup();
     }
 }

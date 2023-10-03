@@ -10,5 +10,6 @@ namespace Code.Infrastructure.Services.StaticData
         public PopupConfig GetPopupByType(PopupType type);
         public PotionOrderType GetRandomPotionOrderType();
         public PotionOrderDifficulty GetRandomPotionOrderDifficulty();
+        LevelConfig GetLevelConfigBySceneName(string sceneName);
     }
 }
