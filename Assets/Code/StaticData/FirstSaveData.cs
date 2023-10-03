@@ -7,14 +7,14 @@ using UnityEngine.AddressableAssets;
 
 namespace Code.StaticData
 {
-    [CreateAssetMenu(fileName = "firstSave", menuName = "StaticData/FirstSaveData")]
+    [CreateAssetMenu(fileName = "FirstSave", menuName = "StaticData/FirstSaveData")]
     public class FirstSaveData : ScriptableObject
     {
         [SerializeField] private int _coinsAmount;
         [SerializeField] private int _reputationAmount;
         [SerializeField] private AssetReferenceT<IngredientData>[] _ingredients;
-        [SerializeField] private AssetReferenceT<Potion> _potionPrefabReference;
-        [SerializeField] private AssetReferenceT<AlchemyTable> _alchemyTablePrefabReference;
+        [SerializeField] private AssetReferenceGameObject _potionPrefabReference;
+        [SerializeField] private AssetReferenceGameObject _alchemyTablePrefabReference;
 
         public int CoinsAmount => _coinsAmount;
         public int ReputationAmount => _reputationAmount;

@@ -7,7 +7,7 @@ namespace Code.Data
         public const string OrderDifficultiesPath = "StaticData/Orders/OrderDifficulties";
         public const string LevelConfigsPath = "StaticData/LevelConfigs";
 
-        public const string NewSaveDataAddress = "NewSaveData";
+        public const string NewSaveDataAddress = "FirstSaveData";
         public const string IngredientItemUIAddress = "IngredientItem";
         public const string PotionCharacteristicItemUIAddress = "PotionCharacteristicItem";
 
