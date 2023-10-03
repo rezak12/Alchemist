@@ -33,7 +33,7 @@ namespace Code.Infrastructure.Installers
 
         private void BindPotionFactory()
         {
-            Container.BindInterfacesTo<PotionInfoFactory>().AsSingle();
+            Container.BindInterfacesTo<PotionFactory>().AsSingle();
         }
 
         private void BindPotionOrderFactory()
