@@ -1,8 +1,11 @@
+using System;
 using System.Collections;
 using System.Linq;
 using Code.Infrastructure.Services.AssetProvider;
 using Code.Infrastructure.Services.Factories;
 using Code.Infrastructure.Services.ProgressServices;
+using Code.Infrastructure.States.PotionMakingStates;
+using Code.Logic.Orders;
 using Code.Logic.PotionMaking;
 using Code.StaticData;
 using Cysharp.Threading.Tasks;
@@ -178,16 +181,22 @@ namespace Tests.IntegrationTests
             Container.BindInterfacesTo<IngredientFactory>().AsSingle();
             Container.BindInterfacesTo<PotionFactory>().AsSingle();
 
+            Container.Bind<PotionMakingLevelStateMachine>().AsSingle();
+            Container.Bind<SelectedPotionOrderHolder>().AsSingle();
             Container.Bind<AlchemyTable>().FromComponentInNewPrefab(tablePrefab).AsSingle();
 
             PostInstall();
 
+            var stateMachine = Container.Resolve<PotionMakingLevelStateMachine>();
+            stateMachine.RegisterState(Container.Instantiate<OrderCompletedState>());
+            
             var progressService = Container.Resolve<IPersistentProgressService>();
             progressService.Initialize(new PlayerProgress(
                 0,
                 0,
                 Enumerable.Empty<string>(),
-                AssetDatabase.AssetPathToGUID(PotionPrefabPath)));
+                AssetDatabase.AssetPathToGUID(PotionPrefabPath),
+                string.Empty));
 
             var assetProvider = Container.Resolve<IAssetProvider>();
             await assetProvider.InitializeAsync();
