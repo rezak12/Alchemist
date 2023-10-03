@@ -102,9 +102,15 @@ namespace Code.Infrastructure.Services.Factories
             throw new NotImplementedException();
         }
 
-        public UniTask<MainMenuPopup> CreateMainMenuPopupAsync()
+        public async UniTask<MainMenuPopup> CreateMainMenuPopupAsync()
         {
-            throw new NotImplementedException();
+            PopupConfig config = _staticDataService.GetPopupByType(PopupType.MainMenuPopup);
+
+            var prefab = await _assetProvider.LoadAsync<MainMenuPopup>(config.PrefabReference);
+            var popup = _instantiator.InstantiatePrefabForComponent<MainMenuPopup>(prefab);
+            
+            popup.Initialize();
+            return popup;
         }
 
         public async UniTask<IngredientItemUI> CreateIngredientItemUIAsync(

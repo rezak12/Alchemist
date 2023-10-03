@@ -7,5 +7,6 @@
         SelectPotionOrderPopup = 2,
         OrderCompletedPopup = 3,
         StorePopup = 4,
+        MainMenuPopup = 5,
     }
 }

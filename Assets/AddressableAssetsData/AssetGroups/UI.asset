@@ -69,6 +69,10 @@ MonoBehaviour:
     m_Address: OrderCompletedPopup
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: c181fc871ab9b3742a22fd07f8ae1db3
+    m_Address: MainMenuPopup
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 57256fe3aec1a7d4a8b5958d52870f88, type: 2}
   m_SchemaSet:
