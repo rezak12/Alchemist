@@ -2,7 +2,7 @@
 using TMPro;
 using UnityEngine;
 
-namespace Code.UI.OrdersViewUI
+namespace Code.UI.SelectionPotionOrderUI
 {
     public class PotionOrderPunishmentItemUi : MonoBehaviour
     {

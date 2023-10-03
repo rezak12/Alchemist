@@ -1,13 +1,11 @@
 ﻿using System;
-using Code.Infrastructure.Services.Factories;
 using Code.Logic.Orders;
 using Code.UI.PotionCharacteristicsUI;
 using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
-using Zenject;
 
-namespace Code.UI.OrdersViewUI
+namespace Code.UI.SelectionPotionOrderUI
 {
     public class OrderDetailsPanel : MonoBehaviour
     {

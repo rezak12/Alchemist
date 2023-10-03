@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
-namespace Code.UI.OrdersViewUI
+namespace Code.UI.SelectionPotionOrderUI
 {
     public class SkipOrderButton : MonoBehaviour
     {

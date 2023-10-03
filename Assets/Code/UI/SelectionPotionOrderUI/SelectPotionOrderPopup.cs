@@ -1,12 +1,11 @@
 ﻿using Code.Infrastructure.Services.Factories;
-using Code.Infrastructure.Services.ProgressServices;
 using Code.Logic.Orders;
 using Code.UI.Store;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
-namespace Code.UI.OrdersViewUI
+namespace Code.UI.SelectionPotionOrderUI
 {
     public class SelectPotionOrderPopup : MonoBehaviour
     {
@@ -29,6 +28,7 @@ namespace Code.UI.OrdersViewUI
         public void Initialize(PotionOrdersHandler ordersHandler)
         {
             _orderDetailsPanel.Initialize(ordersHandler);
+            _takeOrderButton.Initialize(ordersHandler);
             _skipOrderButton.Initialize(ordersHandler, _skipOrderCostInReputation);
             
             _openStoreButton.onClick.AddListener(OpenStore);

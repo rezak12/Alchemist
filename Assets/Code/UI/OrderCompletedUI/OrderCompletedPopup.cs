@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
-using Code.Infrastructure.Services.Factories;
 using Code.Infrastructure.States.GameStates;
 using Code.Logic.Orders;
 using Code.Logic.Potions;
-using Code.UI.OrdersViewUI;
 using Code.UI.PotionCharacteristicsUI;
+using Code.UI.SelectionPotionOrderUI;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 using Zenject;
 
@@ -23,12 +23,11 @@ namespace Code.UI.OrderCompletedUI
         [SerializeField] private Button _openMenuButton;
         
         private GameStateMachine _gameStateMachine;
-        private IUIFactory _uiFactory;
+        private UnityAction _openMenuAction;
 
         [Inject]
-        private void Construct(GameStateMachine stateMachine, IUIFactory uiFactory)
+        private void Construct(GameStateMachine stateMachine)
         {
-            _uiFactory = uiFactory;
             _gameStateMachine = stateMachine;
         }
 
@@ -63,7 +62,7 @@ namespace Code.UI.OrderCompletedUI
 
         private void OnDestroy()
         {
-            _openMenuButton.onClick.RemoveListener(OpenMenu);
+            _openMenuButton.onClick.RemoveListener(_openMenuAction);
         }
 
         private async UniTask FillCharacteristicItemsContainers(
@@ -95,12 +94,13 @@ namespace Code.UI.OrderCompletedUI
 
         private void InitializeOpenMenuButton()
         {
-            _openMenuButton.onClick.AddListener(OpenMenu);
+            _openMenuAction = UniTask.UnityAction(OpenMenu);
+            _openMenuButton.onClick.AddListener(_openMenuAction);
         }
 
-        private void OpenMenu()
+        private async UniTaskVoid OpenMenu()
         {
-            //switch gameStateMachineState
+            await _gameStateMachine.Enter<MainMenuState>();
         }
     }
 }
