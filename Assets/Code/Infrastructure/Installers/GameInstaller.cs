@@ -3,12 +3,14 @@ using Code.Infrastructure.Services.Factories;
 using Code.Infrastructure.Services.ProgressServices;
 using Code.Infrastructure.Services.RandomServices;
 using Code.Infrastructure.Services.SaveLoadService;
+using Code.Infrastructure.Services.SceneLoader;
 using Code.Infrastructure.Services.StaticData;
+using Code.Infrastructure.States.GameStates;
 using Zenject;
 
 namespace Code.Infrastructure.Installers
 {
-    public class ServicesInstaller : MonoInstaller
+    public class GameInstaller : MonoInstaller
     {
         public override void InstallBindings()
         {
@@ -16,11 +18,11 @@ namespace Code.Infrastructure.Installers
             BindPersistentProgressService();
             BindRandomService();
             BindSaveLoadService();
+            BindSceneLoader();
             BindStaticDataService();
-            BindIngredientFactory();
-            BindPotionFactory();
-            BindPotionOrderFactory();
+            BindStatesFactory();
             BindUIFactory();
+            BindGameStateMachine();
         }
 
         private void BindAssetProvider()
@@ -43,29 +45,29 @@ namespace Code.Infrastructure.Installers
             Container.BindInterfacesTo<SaveLoadService>().AsSingle();
         }
 
+        private void BindSceneLoader()
+        {
+            Container.BindInterfacesTo<SceneLoader>().AsSingle();
+        }
+
         private void BindStaticDataService()
         {
             Container.BindInterfacesTo<StaticDataService>().AsSingle();
         }
 
-        private void BindIngredientFactory()
+        private void BindStatesFactory()
         {
-            Container.BindInterfacesTo<IngredientFactory>().AsSingle();
-        }
-
-        private void BindPotionFactory()
-        {
-            Container.BindInterfacesTo<PotionInfoFactory>().AsSingle();
-        }
-
-        private void BindPotionOrderFactory()
-        {
-            Container.BindInterfacesTo<PotionOrderFactory>().AsSingle();
+            Container.BindInterfacesTo<StatesFactory>().AsSingle();
         }
 
         private void BindUIFactory()
         {
             Container.BindInterfacesTo<UIFactory>().AsSingle();
+        }
+
+        private void BindGameStateMachine()
+        {
+            Container.Bind<GameStateMachine>().AsSingle();
         }
     }
 }
