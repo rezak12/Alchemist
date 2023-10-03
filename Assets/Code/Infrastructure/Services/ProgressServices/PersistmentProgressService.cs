@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Code.Logic.PotionMaking;
 using Code.Logic.Potions;
 using Code.StaticData;
 using UnityEngine;
@@ -13,7 +14,8 @@ namespace Code.Infrastructure.Services.ProgressServices
         public int CoinsAmount => _playerProgress.CoinsAmount;
         public int ReputationAmount => _playerProgress.ReputationAmount;
         public List<AssetReferenceT<IngredientData>> PlayerIngredientsAssetReferences { get; private set; }
-        public AssetReferenceGameObject CurrentPlayerPotionPrefabReference { get; private set; }
+        public AssetReferenceGameObject ChosenPotionPrefabReference { get; private set; }
+        public AssetReferenceGameObject ChosenAlchemyTablePrefabReference { get; private set; }
 
         public event Action CoinsAmountChanged;
         public event Action ReputationAmountChanged;
@@ -29,7 +31,8 @@ namespace Code.Infrastructure.Services.ProgressServices
                 .Select(guid => new AssetReferenceT<IngredientData>(guid))
                 .ToList();
 
-            CurrentPlayerPotionPrefabReference = new AssetReferenceGameObject(progress.PlayerPotionPrefabGUID);
+            ChosenPotionPrefabReference = new AssetReferenceGameObject(progress.PlayerPotionPrefabGUID);
+            ChosenAlchemyTablePrefabReference = new AssetReferenceGameObject(progress.PlayerAlchemyTablePrefabGUID);
         }
 
         public PlayerProgress GetProgress()
