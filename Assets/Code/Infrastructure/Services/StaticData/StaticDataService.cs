@@ -67,7 +67,7 @@ namespace Code.Infrastructure.Services.StaticData
         private void LoadPopupConfigs()
         {
             _popupConfigsCache = Resources
-                .LoadAll<PopupConfig>(ResourcesPaths.WindowConfigsPath)
+                .LoadAll<PopupConfig>(ResourcesPaths.PopupConfigsPath)
                 .ToDictionary(config => config.Type, config => config);
         }
 

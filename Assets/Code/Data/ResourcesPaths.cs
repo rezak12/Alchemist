@@ -2,7 +2,7 @@ namespace Code.Data
 {
     public class ResourcesPaths
     {
-        public const string WindowConfigsPath = "StaticData/Windows/WindowConfigs";
+        public const string PopupConfigsPath = "StaticData/PopupConfigs";
         public const string OrderTypesPath = "StaticData/Orders/OrderTypes";
         public const string OrderDifficultiesPath = "StaticData/Orders/OrderDifficulties";
         public const string LevelConfigsPath = "StaticData/LevelConfigs";
