@@ -30,7 +30,7 @@ namespace Code.Infrastructure.Services.Factories
         
         private async UniTask<Potion> LoadPlayerPotionPrefab()
         {
-            AssetReferenceGameObject potionPrefabReference = _progressService.CurrentPlayerPotionPrefabReference;
+            AssetReferenceGameObject potionPrefabReference = _progressService.ChosenPotionPrefabReference;
             var potionPrefab = await _assetProvider.LoadAsync<GameObject>(potionPrefabReference);
             
             return potionPrefab.GetComponent<Potion>();
