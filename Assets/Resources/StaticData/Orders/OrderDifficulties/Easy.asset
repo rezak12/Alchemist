@@ -14,10 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _name: Easy
   _requirementCharacteristicsAmount: 2
-  _minRequirementCharacteristicPoints: 10
-  _maxRequirementCharacteristicPoints: 20
+  _minRequirementCharacteristicPointsAmount: 10
+  _maxRequirementCharacteristicPointsAmount: 20
   _minCoinsAmountReward: 20
   _maxCoinsAmountReward: 50
   _minReputationAmountReward: 10
   _maxReputationAmountReward: 25
   _ingredientAsRewardChance: 20
+  _minReputationAmountPunishment: 10
+  _maxReputationAmountPunishment: 15
