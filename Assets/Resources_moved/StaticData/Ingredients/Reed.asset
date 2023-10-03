@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a63dcd5ebafc4719949f509766ae6076, type: 3}
-  m_Name: Mint
+  m_Name: Reed
   m_EditorClassIdentifier: 
-  _icon: {fileID: 21300000, guid: f26fa8880b3aeef4b8516c82dc12f2a5, type: 3}
-  _name: Mint
+  _icon: {fileID: 21300000, guid: e9d4143c19529834981ac6821a04aecd, type: 3}
+  _name: Reed
   _prefabReference:
     m_AssetGUID: bd83c39de64dac04294b0cd51d8fed4f
     m_SubObjectName: 
@@ -21,14 +21,8 @@ MonoBehaviour:
     m_EditorAssetChanged: 0
   _characteristicAmountPairs:
   - _characteristic:
-      m_AssetGUID: 8d3affa544e212a4480fcd4536254f3c
+      m_AssetGUID: 413ae81cc3964ab439c73e8e76955b52
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
-    _amount: 16
-  - _characteristic:
-      m_AssetGUID: 7c0cabd78e1a52c47b8f9c72d20f462b
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-    _amount: 12
+    _amount: 5
