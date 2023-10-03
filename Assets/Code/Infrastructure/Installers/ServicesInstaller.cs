@@ -4,17 +4,12 @@ using Code.Infrastructure.Services.ProgressServices;
 using Code.Infrastructure.Services.RandomServices;
 using Code.Infrastructure.Services.SaveLoadService;
 using Code.Infrastructure.Services.StaticData;
-using UnityEngine;
-using UnityEngine.AddressableAssets;
 using Zenject;
 
 namespace Code.Infrastructure.Installers
 {
     public class ServicesInstaller : MonoInstaller
     {
-        [SerializeField] private AssetReference _ingredientItemUIReference;
-        [SerializeField] private AssetReference _ingredientCharacteristicItemUIReference;
-
         public override void InstallBindings()
         {
             BindAssetProvider();
@@ -70,8 +65,7 @@ namespace Code.Infrastructure.Installers
 
         private void BindUIFactory()
         {
-            Container.BindInterfacesTo<UIFactory>().AsSingle().WithArguments(
-                _ingredientItemUIReference, _ingredientCharacteristicItemUIReference);
+            Container.BindInterfacesTo<UIFactory>().AsSingle();
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Code.Data;
 using Code.Infrastructure.Services.AssetProvider;
 using Code.Infrastructure.Services.ProgressServices;
 using Code.Infrastructure.Services.StaticData;
@@ -17,15 +18,12 @@ using Code.UI.SelectionPotionOrderUI;
 using Code.UI.Store;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using Zenject;
 
 namespace Code.Infrastructure.Services.Factories
 {
     public class UIFactory : IUIFactory
     {
-        private readonly AssetReference _ingredientItemUIReference;
-        private readonly AssetReference _ingredientCharacteristicItemUIReference;
         private readonly IInstantiator _instantiator;
         private readonly IAssetProvider _assetProvider;
         private readonly IPersistentProgressService _progressService;
@@ -35,16 +33,12 @@ namespace Code.Infrastructure.Services.Factories
             IInstantiator instantiator,
             IAssetProvider assetProvider, 
             IPersistentProgressService progressService, 
-            IStaticDataService staticDataService, 
-            AssetReference ingredientItemUIReference, 
-            AssetReference ingredientCharacteristicItemUIReference)
+            IStaticDataService staticDataService)
         {
             _instantiator = instantiator;
             _assetProvider = assetProvider;
             _progressService = progressService;
             _staticDataService = staticDataService;
-            _ingredientItemUIReference = ingredientItemUIReference;
-            _ingredientCharacteristicItemUIReference = ingredientCharacteristicItemUIReference;
         }
 
         public async UniTask<SelectPotionOrderPopup> CreateSelectPotionOrderPopupAsync(
@@ -118,7 +112,7 @@ namespace Code.Infrastructure.Services.Factories
             AlchemyTable alchemyTable,
             Transform parent)
         {
-            var prefab = await _assetProvider.LoadAsync<IngredientItemUI>(_ingredientItemUIReference);
+            var prefab = await _assetProvider.LoadAsync<IngredientItemUI>(ResourcesPaths.IngredientItemUIAddress);
 
             var item = _instantiator.InstantiatePrefabForComponent<IngredientItemUI>(prefab, parent);
             await item.InitializeAsync(
@@ -133,7 +127,7 @@ namespace Code.Infrastructure.Services.Factories
             Transform parent)
         {
             var prefab = await _assetProvider.LoadAsync<PotionCharacteristicItemUI>
-                (_ingredientCharacteristicItemUIReference);
+                (ResourcesPaths.PotionCharacteristicItemUIAddress);
             
             var characteristic = await _assetProvider
                 .LoadAsync<PotionCharacteristic>(characteristicAmountPair.CharacteristicReference);
@@ -149,7 +143,7 @@ namespace Code.Infrastructure.Services.Factories
             Transform parent)
         {
             var prefab = await _assetProvider.LoadAsync<PotionCharacteristicItemUI>
-                (_ingredientCharacteristicItemUIReference);
+                (ResourcesPaths.PotionCharacteristicItemUIAddress);
             
             var item = _instantiator.InstantiatePrefabForComponent<PotionCharacteristicItemUI>(prefab, parent);
             item.Initialize(characteristicAmountPair.Characteristic.Icon, characteristicAmountPair.PointsAmount);

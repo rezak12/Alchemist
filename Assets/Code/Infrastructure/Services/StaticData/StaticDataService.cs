@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Code.Data;
 using Code.Infrastructure.Services.RandomServices;
 using Code.StaticData;
 using Code.UI;
@@ -11,11 +12,6 @@ namespace Code.Infrastructure.Services.StaticData
 {
     public class StaticDataService : IStaticDataService
     {
-        private const string WindowConfigsPath = "StaticData/Windows/WindowConfigs";
-        private const string OrderTypesPath = "StaticData/Orders/OrderTypes";
-        private const string OrderDifficultiesPath = "StaticData/Orders/OrderDifficulties";
-        private const string LevelConfigsPath = "StaticData/LevelConfigs";
-
         private Dictionary<PopupType, PopupConfig> _popupConfigsCache;
         private PotionOrderType[] _orderTypesCache;
         private PotionOrderDifficulty[] _orderDifficultiesCache;
@@ -71,24 +67,24 @@ namespace Code.Infrastructure.Services.StaticData
         private void LoadPopupConfigs()
         {
             _popupConfigsCache = Resources
-                .LoadAll<PopupConfig>(WindowConfigsPath)
+                .LoadAll<PopupConfig>(ResourcesPaths.WindowConfigsPath)
                 .ToDictionary(config => config.Type, config => config);
         }
 
         private void LoadOrderTypes()
         {
-            _orderTypesCache = Resources.LoadAll<PotionOrderType>(OrderTypesPath);
+            _orderTypesCache = Resources.LoadAll<PotionOrderType>(ResourcesPaths.OrderTypesPath);
         }
 
         private void LoadOrderDifficulties()
         {
-            _orderDifficultiesCache = Resources.LoadAll<PotionOrderDifficulty>(OrderDifficultiesPath);
+            _orderDifficultiesCache = Resources.LoadAll<PotionOrderDifficulty>(ResourcesPaths.OrderDifficultiesPath);
         }
 
         private void LoadLevelConfigs()
         {
             _levelConfigsCache = Resources
-                .LoadAll<LevelConfig>(LevelConfigsPath)
+                .LoadAll<LevelConfig>(ResourcesPaths.LevelConfigsPath)
                 .ToDictionary(config => config.SceneName, config => config);
         }
     }

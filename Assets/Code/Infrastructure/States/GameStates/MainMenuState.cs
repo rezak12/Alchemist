@@ -1,4 +1,5 @@
-﻿using Code.Infrastructure.Services.Factories;
+﻿using Code.Data;
+using Code.Infrastructure.Services.Factories;
 using Code.Infrastructure.Services.SceneLoader;
 using Cysharp.Threading.Tasks;
 
@@ -21,7 +22,7 @@ namespace Code.Infrastructure.States.GameStates
 
         public async UniTask Enter()
         {
-            await _sceneLoader.LoadAsync(MainMenuSceneAddress);
+            await _sceneLoader.LoadAsync(ResourcesPaths.MainMenuSceneAddress);
             await _uiFactory.CreateStorePopupAsync();
         }
 

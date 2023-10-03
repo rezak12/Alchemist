@@ -1,4 +1,5 @@
-﻿using Code.Infrastructure.Services.AssetProvider;
+﻿using Code.Data;
+using Code.Infrastructure.Services.AssetProvider;
 using Code.Infrastructure.Services.SceneLoader;
 using Cysharp.Threading.Tasks;
 
@@ -6,8 +7,6 @@ namespace Code.Infrastructure.States.GameStates
 {
     public class PotionMakingState : IState
     {
-        private const string PotionMakingScene = "PotionMaking";
-        
         private readonly ISceneLoader _sceneLoader;
         private readonly IAssetProvider _assetProvider;
         
@@ -20,7 +19,7 @@ namespace Code.Infrastructure.States.GameStates
         }
         public async UniTask Enter()
         {
-            await _sceneLoader.LoadAsync(PotionMakingScene);
+            await _sceneLoader.LoadAsync(ResourcesPaths.PotionMakingSceneAddress);
         }
 
         public UniTask Exit()

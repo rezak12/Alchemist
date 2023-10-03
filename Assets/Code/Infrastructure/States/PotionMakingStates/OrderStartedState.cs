@@ -1,4 +1,5 @@
-﻿using Code.Infrastructure.Services.Factories;
+﻿using Code.Data;
+using Code.Infrastructure.Services.Factories;
 using Code.Infrastructure.Services.StaticData;
 using Code.Logic.Orders;
 using Code.Logic.PotionMaking;
@@ -11,7 +12,6 @@ namespace Code.Infrastructure.States.PotionMakingStates
 {
     public class OrderStartedState : IPayloadState<PotionOrder>
     {
-        private const string PotionMakingScene = "PotionMaking";
         private readonly SelectedPotionOrderHolder _selectedOrderHolder;
         private readonly IStaticDataService _staticDataService;
         private readonly IAlchemyTableFactory _tableFactory;
@@ -35,7 +35,7 @@ namespace Code.Infrastructure.States.PotionMakingStates
         public async UniTask Enter(PotionOrder payload)
         {
             _selectedOrderHolder.Initialize(payload);
-            LevelConfig levelConfig = _staticDataService.GetLevelConfigBySceneName(PotionMakingScene);
+            LevelConfig levelConfig = _staticDataService.GetLevelConfigBySceneName(ResourcesPaths.PotionMakingSceneAddress);
             _alchemyTable = await _tableFactory.CreateTableAsync(levelConfig.TablePosition);
             _potionMakingPopup = await _uiFactory.CreatePotionMakingPopup(_alchemyTable);
         }

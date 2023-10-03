@@ -1,4 +1,5 @@
-﻿using Code.Infrastructure.Services.AssetProvider;
+﻿using Code.Data;
+using Code.Infrastructure.Services.AssetProvider;
 using Code.Infrastructure.Services.ProgressServices;
 using Code.Infrastructure.Services.SaveLoadService;
 using Code.StaticData;
@@ -8,7 +9,6 @@ namespace Code.Infrastructure.States.GameStates
 {
     public class LoadProgressState : IState
     {
-        private const string NewSaveDataAddress = "NewSaveData";
         private readonly IAssetProvider _assetProvider;
         
         private readonly ISaveLoadService _saveLoadService;
@@ -44,7 +44,7 @@ namespace Code.Infrastructure.States.GameStates
             PlayerProgress progress = _saveLoadService.LoadProgress();
             if (progress != null) return progress;
             
-            var newSaveData = await _assetProvider.LoadAsync<FirstSaveData>(NewSaveDataAddress);
+            var newSaveData = await _assetProvider.LoadAsync<FirstSaveData>(ResourcesPaths.NewSaveDataAddress);
             progress = new PlayerProgress(
                 newSaveData.CoinsAmount,
                 newSaveData.ReputationAmount,
