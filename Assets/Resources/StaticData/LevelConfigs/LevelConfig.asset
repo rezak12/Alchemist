@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63c43ea270f74d21aad2954912d8d06f, type: 3}
   m_Name: LevelConfig
   m_EditorClassIdentifier: 
-  _sceneName: PrototypeScene
+  _sceneName: PotionMaking
   _tablePosition: {x: 0, y: 0, z: 0}
