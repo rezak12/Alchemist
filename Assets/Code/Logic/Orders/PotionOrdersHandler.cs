@@ -22,7 +22,7 @@ namespace Code.Logic.Orders
             _staticDataService = staticDataService;
         }
 
-        public async UniTaskVoid HandleNewOrder()
+        public async UniTask HandleNewOrder()
         {
             PotionOrderDifficulty difficulty = _staticDataService.GetRandomPotionOrderDifficulty();
             PotionOrderType type = _staticDataService.GetRandomPotionOrderType();

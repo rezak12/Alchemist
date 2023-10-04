@@ -39,6 +39,8 @@ namespace Code.UI.PotionCharacteristicsUI
         public async UniTask CreateCharacteristicItemsAsync(
             IEnumerable<PotionCharacteristicAmountPair> characteristicAmountPairs)
         {
+            Cleanup();
+            
             var tasks = new List<UniTask>();
             foreach (PotionCharacteristicAmountPair characteristicAmountPair in characteristicAmountPairs)
             {

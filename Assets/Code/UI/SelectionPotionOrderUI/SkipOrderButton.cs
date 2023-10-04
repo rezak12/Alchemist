@@ -1,7 +1,9 @@
 ﻿using Code.Infrastructure.Services.ProgressServices;
 using Code.Logic.Orders;
+using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 using Zenject;
 
@@ -15,6 +17,7 @@ namespace Code.UI.SelectionPotionOrderUI
         private PotionOrdersHandler _ordersHandler;
         private IPersistentProgressService _progressService;
         private int _skipOrderCostInReputation;
+        private UnityAction _skipOrderAction;
 
         [Inject]
         private void Construct(IPersistentProgressService progressService)
@@ -32,17 +35,22 @@ namespace Code.UI.SelectionPotionOrderUI
             _progressService.ReputationAmountChanged += OnReputationAmountChanged;
             
             _ordersHandler = ordersHandler;
-            _button.onClick.AddListener(SkipOrder);
+            
+            _skipOrderAction = UniTask.UnityAction(async () => await SkipOrder());
+            _button.onClick.AddListener(_skipOrderAction);
         }
 
         private void OnDestroy()
         {
             _progressService.ReputationAmountChanged -= OnReputationAmountChanged;
+            _button.onClick.RemoveListener(_skipOrderAction);
         }
 
-        private void SkipOrder()
+        private async UniTask SkipOrder()
         {
-            _ordersHandler.HandleNewOrder().Forget();
+            _button.interactable = false;
+            await _ordersHandler.HandleNewOrder();
+            _button.interactable = true;
         }
 
         private void OnReputationAmountChanged()

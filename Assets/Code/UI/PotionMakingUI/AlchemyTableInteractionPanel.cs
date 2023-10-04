@@ -20,6 +20,9 @@ namespace Code.UI.PotionMakingUI
             
             _removeLastIngredientButton.onClick.AddListener(RemoveLastIngredient);
             _createPotionButton.onClick.AddListener(CreatePotion);
+
+            UpdateRemoveButtonInteractableState();
+            UpdateCreatePotionButtonInteractableState();
         }
 
         private void OnDestroy()

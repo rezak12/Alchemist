@@ -88,11 +88,6 @@ namespace Code.Infrastructure.Services.ProgressServices
 
         public void RemoveReputation(int amount)
         {
-            if (!IsReputationEnoughFor(amount))
-            {
-                Debug.LogError("Incorrect reputation amount transferred!");
-            }
-
             _playerProgress.ReputationAmount -= amount;
             ReputationAmountChanged?.Invoke();
         }
