@@ -26,14 +26,13 @@ namespace Code.Infrastructure.Services.StaticData
             _randomService = randomService;
         }
 
-        public UniTask InitializeAsync()
+        public async UniTask InitializeAsync()
         {
-            _taskCompletionSource = new UniTaskCompletionSource();
+            await UniTask.Yield();
             LoadPopupConfigs();
             LoadOrderTypes();
             LoadOrderDifficulties();
             LoadLevelConfigs();
-            return _taskCompletionSource.Task;
         }
 
         public PopupConfig GetPopupByType(PopupType type)

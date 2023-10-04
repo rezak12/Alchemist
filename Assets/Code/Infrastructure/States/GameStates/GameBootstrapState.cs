@@ -1,6 +1,7 @@
 ﻿using Code.Infrastructure.Services.AssetProvider;
 using Code.Infrastructure.Services.StaticData;
 using Cysharp.Threading.Tasks;
+using UnityEngine;
 
 namespace Code.Infrastructure.States.GameStates
 {
@@ -22,10 +23,9 @@ namespace Code.Infrastructure.States.GameStates
 
         public async UniTask Enter()
         {
-            await UniTask.WhenAll(
-                _assetProvider.InitializeAsync(), 
-                _staticDataService.InitializeAsync());
-
+            await _assetProvider.InitializeAsync();
+            await _staticDataService.InitializeAsync();
+            
             await _stateMachine.Enter<LoadProgressState>();
         }
 

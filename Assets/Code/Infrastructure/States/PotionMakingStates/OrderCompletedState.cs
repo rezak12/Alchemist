@@ -15,8 +15,6 @@ namespace Code.Infrastructure.States.PotionMakingStates
         private readonly IPersistentProgressService _progressService;
         private readonly ISaveLoadService _saveLoadService;
         private readonly IUIFactory _uiFactory;
-        
-        private UniTaskCompletionSource _taskCompletionSource;
 
         public OrderCompletedState(
             SelectedPotionOrderHolder orderHolder, 
@@ -31,9 +29,9 @@ namespace Code.Infrastructure.States.PotionMakingStates
             _uiFactory = uiFactory;
         }
 
-        public UniTask Enter(Potion payload1)
+        public async UniTask Enter(Potion payload1)
         {
-            _taskCompletionSource = new UniTaskCompletionSource();
+            await UniTask.Yield();
 
             PotionOrder order = _orderHolder.SelectedOrder;
             var isRequirementsMatched = _potionRater.IsPotionSatisfyingRequirements(payload1, order);
@@ -49,8 +47,6 @@ namespace Code.Infrastructure.States.PotionMakingStates
 
             SaveProgress();
             CreateUIWindow(payload1, order, isRequirementsMatched);
-
-            return _taskCompletionSource.Task;
         }
 
         public UniTask Exit()

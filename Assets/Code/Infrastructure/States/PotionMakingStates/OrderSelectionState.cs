@@ -13,11 +13,10 @@ namespace Code.Infrastructure.States.PotionMakingStates
         private readonly PotionOrdersHandler _potionOrdersHandler;
         
         private SelectPotionOrderPopup _selectPotionOrderPopup;
-        private UniTaskCompletionSource _taskCompletionSource;
 
         public OrderSelectionState(IUIFactory uiFactory, 
-            IPotionOrderFactory potionOrderFactory, 
-            IStaticDataService staticDataService)
+            IStaticDataService staticDataService, 
+            IPotionOrderFactory potionOrderFactory)
         {
             _uiFactory = uiFactory;
             _potionOrdersHandler = new PotionOrdersHandler(potionOrderFactory, staticDataService);
@@ -25,14 +24,14 @@ namespace Code.Infrastructure.States.PotionMakingStates
 
         public async UniTask Enter()
         {
+            await _potionOrdersHandler.HandleNewOrder();
             _selectPotionOrderPopup = await _uiFactory.CreateSelectPotionOrderPopupAsync(_potionOrdersHandler);
         }
 
-        public UniTask Exit()
+        public async UniTask Exit()
         {
-            _taskCompletionSource = new UniTaskCompletionSource();
+            await UniTask.Yield();
             Object.Destroy(_selectPotionOrderPopup.gameObject);
-            return _taskCompletionSource.Task;
         }
     }
 }

@@ -19,8 +19,6 @@ namespace Code.Infrastructure.States.PotionMakingStates
         
         private PotionMakingPopup _potionMakingPopup;
         private AlchemyTable _alchemyTable;
-        
-        private UniTaskCompletionSource _taskCompletionSource;
 
         public OrderStartedState(IStaticDataService staticDataService, 
             IAlchemyTableFactory tableFactory,
@@ -40,12 +38,11 @@ namespace Code.Infrastructure.States.PotionMakingStates
             _potionMakingPopup = await _uiFactory.CreatePotionMakingPopup(_alchemyTable);
         }
 
-        public UniTask Exit()
+        public async UniTask Exit()
         {
-            _taskCompletionSource = new UniTaskCompletionSource();
+            await UniTask.Yield();
             Object.Destroy(_alchemyTable.gameObject);
             Object.Destroy(_potionMakingPopup.gameObject);
-            return _taskCompletionSource.Task;
         }
     }
 }

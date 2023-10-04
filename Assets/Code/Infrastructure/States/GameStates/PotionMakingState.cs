@@ -9,8 +9,6 @@ namespace Code.Infrastructure.States.GameStates
     {
         private readonly ISceneLoader _sceneLoader;
         private readonly IAssetProvider _assetProvider;
-        
-        private UniTaskCompletionSource _taskCompletionSource;
 
         public PotionMakingState(ISceneLoader sceneLoader, IAssetProvider assetProvider)
         {
@@ -22,11 +20,10 @@ namespace Code.Infrastructure.States.GameStates
             await _sceneLoader.LoadAsync(ResourcesPaths.PotionMakingSceneAddress);
         }
 
-        public UniTask Exit()
+        public async UniTask Exit()
         {
-            _taskCompletionSource = new UniTaskCompletionSource();
+            await UniTask.Yield();
             _assetProvider.Cleanup();
-            return _taskCompletionSource.Task;
         }
     }
 }

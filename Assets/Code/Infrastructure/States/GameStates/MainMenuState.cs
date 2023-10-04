@@ -1,34 +1,34 @@
 ﻿using Code.Data;
 using Code.Infrastructure.Services.Factories;
 using Code.Infrastructure.Services.SceneLoader;
+using Code.UI.MainMenuUI;
 using Cysharp.Threading.Tasks;
+using UnityEngine;
 
 namespace Code.Infrastructure.States.GameStates
 {
     public class MainMenuState : IState
     {
-        private const string MainMenuSceneAddress = "MainMenu";
-        
         private readonly ISceneLoader _sceneLoader;
         private readonly IUIFactory _uiFactory;
-        private readonly GameStateMachine _stateMachine;
+        private MainMenuPopup _mainMenuPopup;
 
-        public MainMenuState(ISceneLoader sceneLoader, IUIFactory uiFactory, GameStateMachine stateMachine)
+        public MainMenuState(ISceneLoader sceneLoader, IUIFactory uiFactory)
         {
             _sceneLoader = sceneLoader;
             _uiFactory = uiFactory;
-            _stateMachine = stateMachine;
         }
 
         public async UniTask Enter()
         {
             await _sceneLoader.LoadAsync(ResourcesPaths.MainMenuSceneAddress);
-            await _uiFactory.CreateStorePopupAsync();
+            _mainMenuPopup = await _uiFactory.CreateMainMenuPopupAsync();
         }
 
-        public UniTask Exit()
+        public async UniTask Exit()
         {
-            return default;
+            await UniTask.Yield();
+            Object.Destroy(_mainMenuPopup.gameObject);
         }
     }
 }
