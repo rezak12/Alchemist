@@ -29,6 +29,7 @@ namespace Code.Infrastructure.Services.Factories
                 .LoadAsync<GameObject>(_progressService.ChosenAlchemyTablePrefabReference);
 
             var table = _instantiator.InstantiatePrefabForComponent<AlchemyTable>(prefab, position, Quaternion.identity, null);
+            table.Initialize();
             
             return table;
         }
