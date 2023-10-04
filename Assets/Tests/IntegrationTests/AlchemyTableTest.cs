@@ -1,12 +1,16 @@
-using System;
 using System.Collections;
 using System.Linq;
 using Code.Infrastructure.Services.AssetProvider;
 using Code.Infrastructure.Services.Factories;
 using Code.Infrastructure.Services.ProgressServices;
+using Code.Infrastructure.Services.RandomServices;
+using Code.Infrastructure.Services.SaveLoadService;
+using Code.Infrastructure.Services.StaticData;
+using Code.Infrastructure.States.GameStates;
 using Code.Infrastructure.States.PotionMakingStates;
 using Code.Logic.Orders;
 using Code.Logic.PotionMaking;
+using Code.Logic.Potions;
 using Code.StaticData;
 using Cysharp.Threading.Tasks;
 using NUnit.Framework;
@@ -17,7 +21,8 @@ using Zenject;
 
 namespace Tests.IntegrationTests
 {
-    public class AlchemyTableTest : ZenjectIntegrationTestFixture
+    [TestFixture]
+    public class AlchemyTableTest : ZenjectUnitTestFixture
     {
         private const string FirstIngredientPath = "AlchemyTableTests/Ingredients/FirstIngredient";
         private const string SecondIngredientPath = "AlchemyTableTests/Ingredients/SecondIngredient";
@@ -29,7 +34,7 @@ namespace Tests.IntegrationTests
         private IngredientData _secondIngredient;
         
         private AlchemyTable _unitUnderTest;
-
+        
         [UnityTest]
         public IEnumerator WhenAddingIngredient_AndTableHaveFreeSlots_ThenFillOneFreeSlot() =>
                 UniTask.ToCoroutine(async () =>
@@ -169,38 +174,44 @@ namespace Tests.IntegrationTests
         {
             _firstIngredient = Resources.Load<IngredientData>(FirstIngredientPath);
             _secondIngredient = Resources.Load<IngredientData>(SecondIngredientPath);
-            
             var tablePrefab = Resources.Load<AlchemyTable>(AlchemyTablePrefabPath);
-            
-            PreInstall();
-            
+
+            Container.BindInterfacesTo<UnityRandomService>().AsSingle();
             Container.BindInterfacesTo<PersistentProgressService>().AsSingle();
+            Container.BindInterfacesTo<SaveLoadService>().AsSingle();
             Container.BindInterfacesTo<AssetProvider>().AsSingle();
+            Container.BindInterfacesTo<StaticDataService>().AsSingle();
+            Container.BindInterfacesTo<UIFactory>().AsSingle();
 
             Container.BindInterfacesTo<PotionInfoFactory>().AsSingle();
             Container.BindInterfacesTo<IngredientFactory>().AsSingle();
             Container.BindInterfacesTo<PotionFactory>().AsSingle();
 
-            Container.Bind<PotionMakingLevelStateMachine>().AsSingle();
             Container.Bind<SelectedPotionOrderHolder>().AsSingle();
+            Container.Bind<GameStateMachine>().AsSingle();
+            Container.Bind<PotionMakingLevelStateMachine>().AsSingle();
             Container.Bind<AlchemyTable>().FromComponentInNewPrefab(tablePrefab).AsSingle();
 
-            PostInstall();
+            await Container.Resolve<IAssetProvider>().InitializeAsync();
+            await Container.Resolve<IStaticDataService>().InitializeAsync();
 
-            var stateMachine = Container.Resolve<PotionMakingLevelStateMachine>();
-            stateMachine.RegisterState(Container.Instantiate<OrderCompletedState>());
-            
-            var progressService = Container.Resolve<IPersistentProgressService>();
-            progressService.Initialize(new PlayerProgress(
+            Container.Resolve<IPersistentProgressService>().Initialize(new PlayerProgress(
                 0,
                 0,
                 Enumerable.Empty<string>(),
                 AssetDatabase.AssetPathToGUID(PotionPrefabPath),
                 string.Empty));
 
-            var assetProvider = Container.Resolve<IAssetProvider>();
-            await assetProvider.InitializeAsync();
-            
+            Container.Resolve<SelectedPotionOrderHolder>().Initialize(new PotionOrder(
+                string.Empty, 
+                string.Empty, 
+                Enumerable.Empty<PotionCharacteristicAmountPair>(),
+                new PotionOrderReward(0,0, null),
+                new PotionOrderPunishment(1)));
+
+            Container.Resolve<PotionMakingLevelStateMachine>()
+                .RegisterState(Container.Instantiate<OrderCompletedState>());
+
             _unitUnderTest = Container.Resolve<AlchemyTable>();
             _unitUnderTest.Initialize();
         }
