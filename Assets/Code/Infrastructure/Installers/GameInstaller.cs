@@ -1,3 +1,4 @@
+using Code.Infrastructure.Bootstrappers;
 using Code.Infrastructure.Services.AssetProvider;
 using Code.Infrastructure.Services.Factories;
 using Code.Infrastructure.Services.ProgressServices;
@@ -23,6 +24,7 @@ namespace Code.Infrastructure.Installers
             BindStatesFactory();
             BindUIFactory();
             BindGameStateMachine();
+            BindBootstrapper();
         }
 
         private void BindAssetProvider()
@@ -68,6 +70,11 @@ namespace Code.Infrastructure.Installers
         private void BindGameStateMachine()
         {
             Container.Bind<GameStateMachine>().AsSingle();
+        }
+
+        private void BindBootstrapper()
+        {
+            Container.BindInterfacesAndSelfTo<GameBootstrapper>().AsSingle().NonLazy();
         }
     }
 }

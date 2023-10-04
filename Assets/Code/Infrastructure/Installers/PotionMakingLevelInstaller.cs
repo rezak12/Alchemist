@@ -1,5 +1,7 @@
+using Code.Infrastructure.Bootstrappers;
 using Code.Infrastructure.Services.Factories;
 using Code.Infrastructure.States.PotionMakingStates;
+using Code.Logic.Orders;
 using Zenject;
 
 namespace Code.Infrastructure.Installers
@@ -8,12 +10,26 @@ namespace Code.Infrastructure.Installers
     {
         public override void InstallBindings()
         {
+            BindStatesFactory();
+            BindSelectedPotionOrderHolder();
             BindAlchemyTableFactory();
             BindIngredientFactory();
             BindPotionInfoFactory();
             BindPotionFactory();
             BindPotionOrderFactory();
+            BindUIFactory();
             BindStateMachine();
+            BindBootstrapper();
+        }
+
+        private void BindStatesFactory()
+        {
+            Container.BindInterfacesTo<StatesFactory>().AsSingle();
+        }
+
+        private void BindSelectedPotionOrderHolder()
+        {
+            Container.BindInterfacesAndSelfTo<SelectedPotionOrderHolder>().AsSingle();
         }
 
         private void BindAlchemyTableFactory()
@@ -41,9 +57,19 @@ namespace Code.Infrastructure.Installers
             Container.BindInterfacesTo<PotionOrderFactory>().AsSingle();
         }
 
+        private void BindUIFactory()
+        {
+            Container.BindInterfacesTo<UIFactory>().AsSingle();
+        }
+
         private void BindStateMachine()
         {
             Container.Bind<PotionMakingLevelStateMachine>().AsSingle();
+        }
+
+        private void BindBootstrapper()
+        {
+            Container.BindInterfacesAndSelfTo<PotionMakingLevelBootstrapper>().AsSingle().NonLazy();
         }
     }
 }

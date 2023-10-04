@@ -1,26 +1,22 @@
-using System;
-using Code.Infrastructure.Services.Factories;
-using Code.Infrastructure.States.GameStates;
+﻿using Code.Infrastructure.Services.Factories;
 using Code.Infrastructure.States.PotionMakingStates;
 using Cysharp.Threading.Tasks;
-using UnityEngine;
 using Zenject;
 
 namespace Code.Infrastructure.Bootstrappers
 {
-    public class PotionMakingLevelBootstrapper : MonoBehaviour
+    public class PotionMakingLevelBootstrapper : IInitializable
     {
-        private PotionMakingLevelStateMachine _stateMachine;
-        private IStatesFactory _statesFactory;
+        private readonly PotionMakingLevelStateMachine _stateMachine;
+        private readonly IStatesFactory _statesFactory;
 
-        [Inject]
-        private void Construct(PotionMakingLevelStateMachine stateMachine, IStatesFactory statesFactory)
+        public PotionMakingLevelBootstrapper(PotionMakingLevelStateMachine stateMachine, IStatesFactory statesFactory)
         {
             _stateMachine = stateMachine;
             _statesFactory = statesFactory;
         }
 
-        private void Awake()
+        public void Initialize()
         {
             _stateMachine.RegisterState(_statesFactory.Create<OrderSelectionState>());
             _stateMachine.RegisterState(_statesFactory.Create<OrderStartedState>());
