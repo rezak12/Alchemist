@@ -8,7 +8,7 @@ namespace Code.Animations
     {
         [SerializeField] private float _moveUpPoints = 5f;
 
-        public async UniTaskVoid PresentAfterCreating()
+        public async UniTask PresentAfterCreating()
         {
             Vector3 transformPosition = transform.position;
             var posToMove = new Vector3(transformPosition.x, transformPosition.y + _moveUpPoints, transformPosition.z);

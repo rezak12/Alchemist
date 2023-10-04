@@ -7,7 +7,8 @@
         "Alchemist",
         "Zenject",
         "Zenject-TestFramework",
-        "UniTask"
+        "UniTask",
+        "Unity.Addressables"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

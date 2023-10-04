@@ -1,5 +1,4 @@
 ﻿using System;
-using Code.Infrastructure.Services.CoroutineRunner;
 using Code.Infrastructure.Services.Factories;
 using Code.Infrastructure.Services.StaticData;
 using Code.StaticData;
@@ -17,14 +16,13 @@ namespace Code.Logic.Orders
         
         public PotionOrdersHandler(
             IPotionOrderFactory potionOrderFactory, 
-            IStaticDataService staticDataService, 
-            ICoroutineRunner coroutineRunner)
+            IStaticDataService staticDataService)
         {
             _potionOrderFactory = potionOrderFactory;
             _staticDataService = staticDataService;
         }
 
-        public async UniTaskVoid HandleNewOrder()
+        public async UniTask HandleNewOrder()
         {
             PotionOrderDifficulty difficulty = _staticDataService.GetRandomPotionOrderDifficulty();
             PotionOrderType type = _staticDataService.GetRandomPotionOrderType();

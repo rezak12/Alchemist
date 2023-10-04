@@ -1,6 +1,7 @@
 ﻿using Code.Infrastructure.Services.ProgressServices;
 using TMPro;
 using UnityEngine;
+using Zenject;
 
 namespace Code.UI.Store
 {
@@ -11,10 +12,14 @@ namespace Code.UI.Store
         
         private IPersistentProgressService _progressService;
 
-        public void Initialize(IPersistentProgressService progressService)
+        [Inject]
+        private void Construct(IPersistentProgressService progressService)
         {
             _progressService = progressService;
-
+        }
+        
+        private void Start()
+        {
             _progressService.CoinsAmountChanged += OnCoinsAmountChanged;
             _progressService.ReputationAmountChanged += OnReputationAmountChanged;
             

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Code.Infrastructure.Services.Factories;
 using Code.Logic.PotionMaking;
 using Code.StaticData;
 using Code.UI.PlayerIngredientsUI;
@@ -15,10 +14,9 @@ namespace Code.UI.PotionMakingUI
 
         public async UniTask InitializeAsync(
             IEnumerable<IngredientData> playerIngredients, 
-            AlchemyTable alchemyTable,
-            IUIFactory uiFactory)
+            AlchemyTable alchemyTable)
         {
-            await _ingredientsPanel.InitializeAsync(playerIngredients, alchemyTable, uiFactory);
+            await _ingredientsPanel.InitializeAsync(playerIngredients, alchemyTable);
             _alchemyTableInteractionPanel.Initialize(alchemyTable);
         }
     }

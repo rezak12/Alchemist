@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Code.Animations;
 using Code.Infrastructure.Services.Factories;
+using Code.Infrastructure.States.PotionMakingStates;
 using Code.Logic.Potions;
 using Code.StaticData;
 using Cysharp.Threading.Tasks;
@@ -28,16 +29,19 @@ namespace Code.Logic.PotionMaking
         private IPotionInfoFactory _potionInfoFactory;
         private IPotionFactory _potionFactory;
         private IIngredientFactory _ingredientFactory;
+        private PotionMakingLevelStateMachine _stateMachine;
 
         [Inject]
         private void Construct(
             IPotionInfoFactory potionInfoFactory, 
             IIngredientFactory ingredientFactory,
-            IPotionFactory potionFactory)
+            IPotionFactory potionFactory,
+            PotionMakingLevelStateMachine stateMachine)
         {
             _potionFactory = potionFactory;
             _potionInfoFactory = potionInfoFactory;
             _ingredientFactory = ingredientFactory;
+            _stateMachine = stateMachine;
         }
 
         public void Initialize()
@@ -66,7 +70,9 @@ namespace Code.Logic.PotionMaking
             Potion potion = await CreatePotion(ingredients);
 
             var potionAnimator = potion.GetComponent<PotionAnimator>();
-            potionAnimator.PresentAfterCreating().Forget();
+            await potionAnimator.PresentAfterCreating();
+
+            await _stateMachine.Enter<OrderCompletedState, Potion>(potion);
         }
 
         private async UniTask<Potion> CreatePotion(IEnumerable<IngredientData> ingredients)

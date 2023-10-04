@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Code.Logic.PotionMaking;
 using Code.Logic.Potions;
 using Code.StaticData;
 using UnityEngine.AddressableAssets;
@@ -11,7 +12,8 @@ namespace Code.Infrastructure.Services.ProgressServices
         int CoinsAmount { get; }
         int ReputationAmount { get; }
         List<AssetReferenceT<IngredientData>> PlayerIngredientsAssetReferences { get; }
-        AssetReferenceGameObject CurrentPlayerPotionPrefabReference { get; }
+        AssetReferenceGameObject ChosenPotionPrefabReference { get; }
+        AssetReferenceGameObject ChosenAlchemyTablePrefabReference { get; }
 
         event Action CoinsAmountChanged;
         event Action ReputationAmountChanged;

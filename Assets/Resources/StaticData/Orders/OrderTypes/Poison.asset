@@ -13,8 +13,16 @@ MonoBehaviour:
   m_Name: Poison
   m_EditorClassIdentifier: 
   _name: Poison
-  _requirementPotionCharacteristics:
-  - m_AssetGUID: 8d3affa544e212a4480fcd4536254f3c
+  _possibleRequirementPotionCharacteristics:
+  - m_AssetGUID: 3f7e3e27950b1c34996dab158d291426
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  - m_AssetGUID: 413ae81cc3964ab439c73e8e76955b52
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  - m_AssetGUID: 0a341f286ee933e4f8a1f62d3c1c3d06
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0

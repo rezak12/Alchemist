@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Heal
   m_EditorClassIdentifier: 
   _name: Heal
-  _requirementPotionCharacteristics:
+  _possibleRequirementPotionCharacteristics:
   - m_AssetGUID: 8d3affa544e212a4480fcd4536254f3c
     m_SubObjectName: 
     m_SubObjectType: 
@@ -23,7 +23,11 @@ MonoBehaviour:
     m_SubObjectType: 
     m_EditorAssetChanged: 0
   _possibleRewardIngredients:
-  - m_AssetGUID: 1276afffdbf147a48ad5d82e8c7ceee8
+  - m_AssetGUID: bfd0b883c42aecc45b5f5d2ef637100d
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  - m_AssetGUID: b81578e330ff9c243a0288f1bd162017
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
