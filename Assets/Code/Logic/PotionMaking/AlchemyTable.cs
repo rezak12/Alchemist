@@ -68,10 +68,6 @@ namespace Code.Logic.PotionMaking
             Cleanup();
             
             Potion potion = await CreatePotion(ingredients);
-
-            var potionAnimator = potion.GetComponent<PotionAnimator>();
-            await potionAnimator.PresentAfterCreating();
-
             await _stateMachine.Enter<OrderCompletedState, Potion>(potion);
         }
 

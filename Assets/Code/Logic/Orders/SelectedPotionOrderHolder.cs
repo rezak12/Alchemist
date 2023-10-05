@@ -4,7 +4,7 @@
     {
         public PotionOrder SelectedOrder { get; private set; }
 
-        public void Initialize(PotionOrder selectedOrder)
+        public void PutOrder(PotionOrder selectedOrder)
         {
             SelectedOrder = selectedOrder;
         }

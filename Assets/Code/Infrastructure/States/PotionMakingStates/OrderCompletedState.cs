@@ -1,10 +1,13 @@
-﻿using Code.Infrastructure.Services.Factories;
+﻿using Code.Animations;
+using Code.Infrastructure.Services.Factories;
 using Code.Infrastructure.Services.ProgressServices;
 using Code.Infrastructure.Services.SaveLoadService;
 using Code.Logic.Orders;
 using Code.Logic.PotionMaking;
 using Code.Logic.Potions;
+using Code.UI.OrderCompletedUI;
 using Cysharp.Threading.Tasks;
+using UnityEngine;
 
 namespace Code.Infrastructure.States.PotionMakingStates
 {
@@ -15,6 +18,7 @@ namespace Code.Infrastructure.States.PotionMakingStates
         private readonly IPersistentProgressService _progressService;
         private readonly ISaveLoadService _saveLoadService;
         private readonly IUIFactory _uiFactory;
+        private OrderCompletedPopup _orderCompletedPopup;
 
         public OrderCompletedState(
             SelectedPotionOrderHolder orderHolder, 
@@ -31,7 +35,8 @@ namespace Code.Infrastructure.States.PotionMakingStates
 
         public async UniTask Enter(Potion payload1)
         {
-            await UniTask.Yield();
+            var potionAnimator = payload1.GetComponent<PotionAnimator>();
+            await potionAnimator.PresentAfterCreating();
 
             PotionOrder order = _orderHolder.SelectedOrder;
             var isRequirementsMatched = _potionRater.IsPotionSatisfyingRequirements(payload1, order);
@@ -44,14 +49,17 @@ namespace Code.Infrastructure.States.PotionMakingStates
             {
                 GivePunishment(order.Punishment);
             }
-
             SaveProgress();
-            CreateUIWindow(payload1, order, isRequirementsMatched);
+            
+            await CreateUIWindow(payload1, order, isRequirementsMatched);
+            
+            Object.Destroy(potionAnimator.gameObject);
         }
 
-        public UniTask Exit()
+        public async UniTask Exit()
         {
-            return default;
+            await UniTask.Yield();
+            Object.Destroy(_orderCompletedPopup.gameObject);
         }
 
         private void GiveReward(PotionOrderReward reward)
@@ -74,9 +82,10 @@ namespace Code.Infrastructure.States.PotionMakingStates
             _saveLoadService.SaveProgress(_progressService.GetProgress());
         }
 
-        private void CreateUIWindow(Potion resultPotion, PotionOrder order, bool isCharacteristicsMatched)
+        private async UniTask CreateUIWindow(Potion resultPotion, PotionOrder order, bool isCharacteristicsMatched)
         {
-            _uiFactory.CreateOrderCompletedPopupAsync(resultPotion, order, isCharacteristicsMatched);
+            _orderCompletedPopup = await _uiFactory
+                .CreateOrderCompletedPopupAsync(resultPotion, order, isCharacteristicsMatched);
         }
     }
 }

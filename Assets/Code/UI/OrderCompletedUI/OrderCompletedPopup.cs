@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Code.Infrastructure.States.GameStates;
+using Code.Infrastructure.States.PotionMakingStates;
 using Code.Logic.Orders;
 using Code.Logic.Potions;
 using Code.UI.PotionCharacteristicsUI;
@@ -22,11 +22,11 @@ namespace Code.UI.OrderCompletedUI
         
         [SerializeField] private Button _openMenuButton;
         
-        private GameStateMachine _gameStateMachine;
+        private PotionMakingLevelStateMachine _gameStateMachine;
         private UnityAction _openMenuAction;
 
         [Inject]
-        private void Construct(GameStateMachine stateMachine)
+        private void Construct(PotionMakingLevelStateMachine stateMachine)
         {
             _gameStateMachine = stateMachine;
         }
@@ -94,13 +94,13 @@ namespace Code.UI.OrderCompletedUI
 
         private void InitializeOpenMenuButton()
         {
-            _openMenuAction = UniTask.UnityAction(OpenMenu);
+            _openMenuAction = UniTask.UnityAction(OpenOrderSelectionState);
             _openMenuButton.onClick.AddListener(_openMenuAction);
         }
 
-        private async UniTaskVoid OpenMenu()
+        private async UniTaskVoid OpenOrderSelectionState()
         {
-            await _gameStateMachine.Enter<MainMenuState>();
+            await _gameStateMachine.Enter<OrderSelectionState>();
         }
     }
 }

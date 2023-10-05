@@ -202,7 +202,7 @@ namespace Tests.IntegrationTests
                 AssetDatabase.AssetPathToGUID(PotionPrefabPath),
                 string.Empty));
 
-            Container.Resolve<SelectedPotionOrderHolder>().Initialize(new PotionOrder(
+            Container.Resolve<SelectedPotionOrderHolder>().PutOrder(new PotionOrder(
                 string.Empty, 
                 string.Empty, 
                 Enumerable.Empty<PotionCharacteristicAmountPair>(),

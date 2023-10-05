@@ -543,7 +543,7 @@ GameObject:
   - component: {fileID: 1609102677166141959}
   - component: {fileID: 1609102677166141963}
   m_Layer: 5
-  m_Name: OrdersSelectorPopup
+  m_Name: OrderSelectionPopup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2983,6 +2983,10 @@ PrefabInstance:
     - target: {fileID: 7596740457028063313, guid: 012e7d42759c15b4f9ee1b4560a6a8b8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7910875628657336989, guid: 012e7d42759c15b4f9ee1b4560a6a8b8, type: 3}
+      propertyPath: m_fontSize
+      value: 27.75
       objectReference: {fileID: 0}
     - target: {fileID: 8099380350095816789, guid: 012e7d42759c15b4f9ee1b4560a6a8b8, type: 3}
       propertyPath: m_AnchorMax.y
