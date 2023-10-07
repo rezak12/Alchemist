@@ -1835,7 +1835,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _button: {fileID: 1609102678687719710}
-  _skipCostText: {fileID: 1609102678334529167}
+  _skipCostText: {fileID: 1609102678538060088}
 --- !u!114 &1609102678687719708
 MonoBehaviour:
   m_ObjectHideFlags: 0
