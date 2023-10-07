@@ -64,8 +64,9 @@ namespace Code.Logic.PotionMaking
         public async UniTaskVoid HandleResult()
         {
             var ingredients = TakeAllIngredients();
-            await MoveAllIngredientsToPotionCreatingPoint();
             Cleanup();
+            
+            await MoveAllIngredientsToPotionCreatingPoint();
             
             Potion potion = await CreatePotion(ingredients);
             await _stateMachine.Enter<OrderCompletedState, Potion>(potion);

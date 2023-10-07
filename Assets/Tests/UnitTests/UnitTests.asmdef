@@ -6,7 +6,9 @@
         "UnityEditor.TestRunner",
         "Alchemist",
         "Unity.Addressables",
-        "UniTask"
+        "UniTask",
+        "Zenject",
+        "Zenject-TestFramework"
     ],
     "includePlatforms": [
         "Editor"
