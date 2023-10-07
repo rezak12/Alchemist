@@ -58,13 +58,13 @@ namespace Code.Logic.PotionMaking
         public void RemoveLastIngredient()
         {
             ReleaseLastSlot();
-            RemoveLastIngredientPrefabFromSlot();
+            RemoveLastIngredientPrefabFromSlot().Forget();
         }
 
         public async UniTaskVoid HandleResult()
         {
             var ingredients = TakeAllIngredients();
-            MoveAllIngredientsToPotionCreatingPoint();
+            await MoveAllIngredientsToPotionCreatingPoint();
             Cleanup();
             
             Potion potion = await CreatePotion(ingredients);
@@ -119,21 +119,25 @@ namespace Code.Logic.PotionMaking
             
             _ingredientsAnimators.Push(ingredientAnimator);
             
-            ingredientAnimator.MoveToSlot(slotTransform).Forget();
+            await ingredientAnimator.MoveToSlot(slotTransform);
         }
 
-        private void MoveAllIngredientsToPotionCreatingPoint()
+        private async UniTask MoveAllIngredientsToPotionCreatingPoint()
         {
+            var tasks = new List<UniTask>(_ingredientsAnimators.Count);
+            
             foreach (IngredientAnimator ingredientAnimator in _ingredientsAnimators)
             {
-                ingredientAnimator.RemoveFromSlotThenDestroy(_potionSpawnPoint).Forget();
+                tasks.Add(ingredientAnimator.RemoveFromSlotThenDestroy(_potionSpawnPoint));
             }
+
+            await UniTask.WhenAll(tasks);
         }
 
-        private void RemoveLastIngredientPrefabFromSlot()
+        private async UniTaskVoid RemoveLastIngredientPrefabFromSlot()
         {
             IngredientAnimator ingredientAnimator = _ingredientsAnimators.Pop();
-            ingredientAnimator.RemoveFromSlotThenDestroy(_ingredientsRemoveFromSlotPoint).Forget();
+            await ingredientAnimator.RemoveFromSlotThenDestroy(_ingredientsRemoveFromSlotPoint);
         }
 
         private void InitializeSlotsCollections()
