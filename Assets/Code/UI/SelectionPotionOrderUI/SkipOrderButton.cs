@@ -32,30 +32,32 @@ namespace Code.UI.SelectionPotionOrderUI
             _skipOrderCostInReputation = skipOrderCostInReputation;
             _skipCostText.text = skipOrderCostInReputation.ToString();
             
-            _progressService.ReputationAmountChanged += OnReputationAmountChanged;
-            
             _ordersHandler = ordersHandler;
             
             _skipOrderAction = UniTask.UnityAction(async () => await SkipOrder());
             _button.onClick.AddListener(_skipOrderAction);
+
+            _progressService.ReputationAmountChanged += OnReputationAmountChanged;
+            OnReputationAmountChanged();
         }
 
         private void OnDestroy()
         {
-            _progressService.ReputationAmountChanged -= OnReputationAmountChanged;
             _button.onClick.RemoveListener(_skipOrderAction);
+            _progressService.ReputationAmountChanged -= OnReputationAmountChanged;
         }
 
         private async UniTask SkipOrder()
         {
             _button.interactable = false;
+            
+            _progressService.RemoveReputation(_skipOrderCostInReputation);
             await _ordersHandler.HandleNewOrder();
-            _button.interactable = true;
         }
 
         private void OnReputationAmountChanged()
         {
-            _button.interactable = _progressService.ReputationAmount >= _skipOrderCostInReputation;
+            _button.interactable = _progressService.IsReputationEnoughFor(_skipOrderCostInReputation);
         }
     }
 }
