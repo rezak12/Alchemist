@@ -15,7 +15,7 @@ namespace Code.UI.AwaitingOverlays
 
         public async UniTask InitializeAsync()
         {
-            await _uiFactory.CreateAwaitingOverlay();
+            _overlay = await _uiFactory.CreateAwaitingOverlay();
         }
 
         public void Show(string message = "")
