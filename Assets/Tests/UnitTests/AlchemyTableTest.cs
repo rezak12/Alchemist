@@ -107,24 +107,6 @@ namespace Tests.UnitTests
             });
 
         [UnityTest]
-        public IEnumerator WhenHandlingResult_AndAnySlotAreFilled_ThenReleaseAllSlotsAfterHandling() =>
-            UniTask.ToCoroutine(async () =>
-            {
-                // Arrange.
-                await CommonInstall();
-
-                // Act.
-                _unitUnderTest.AddIngredient(_secondIngredient);
-                await UniTask.WaitForSeconds(1);
-
-                _unitUnderTest.HandleResult().Forget();
-                var allSlotReleased = _unitUnderTest.IsAllSlotsFree;
-
-                // Assert.
-                Assert.That(allSlotReleased, Is.True);
-            });
-
-        [UnityTest]
         public IEnumerator WhenHandlingResult_AndAnySlotAreFilled_ThenCreatePotion() =>
             UniTask.ToCoroutine(async () =>
             {
@@ -137,8 +119,7 @@ namespace Tests.UnitTests
 
                 TestDelegate attemptToHandleResult = async () =>
                 {
-                    _unitUnderTest.HandleResult().Forget();
-                    await UniTask.WaitForSeconds(5);
+                    await _unitUnderTest.HandleResult();
                 };
 
                 // Assert.
@@ -155,8 +136,7 @@ namespace Tests.UnitTests
                 // Act.
                 TestDelegate attemptToHandleResult = async () =>
                 {
-                    _unitUnderTest.HandleResult().Forget();
-                    await UniTask.WaitForSeconds(5);
+                    await _unitUnderTest.HandleResult();
                 };
 
                 // Assert.

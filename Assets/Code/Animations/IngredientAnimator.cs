@@ -1,8 +1,6 @@
-﻿using System;
-using Cysharp.Threading.Tasks;
+﻿using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Code.Animations
 {
@@ -17,13 +15,10 @@ namespace Code.Animations
                 .WithCancellation(this.GetCancellationTokenOnDestroy());
         }
 
-        public async UniTask RemoveFromSlotThenDestroy(Transform to, Action onRemoved = null)
+        public async UniTask RemoveFromSlot(Transform to)
         {
             await transform.DOJump(to.position, _jumpPowerWhileRemoving, 1, _moveDurationInSeconds, false)
                 .WithCancellation(this.GetCancellationTokenOnDestroy());
-            
-            onRemoved?.Invoke();
-            Destroy(gameObject);
         }
     }
 }
