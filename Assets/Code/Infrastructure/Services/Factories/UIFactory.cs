@@ -9,6 +9,7 @@ using Code.Logic.PotionMaking;
 using Code.Logic.Potions;
 using Code.StaticData;
 using Code.UI;
+using Code.UI.AwaitingOverlays;
 using Code.UI.MainMenuUI;
 using Code.UI.OrderCompletedUI;
 using Code.UI.PlayerIngredientsUI;
@@ -155,6 +156,14 @@ namespace Code.Infrastructure.Services.Factories
             item.Initialize(characteristicAmountPair.Characteristic.Icon, characteristicAmountPair.PointsAmount);
             
             return item;
+        }
+
+        public async UniTask<IAwaitingOverlay> CreateAwaitingOverlay()
+        {
+            var prefab = await _assetProvider.LoadAsync<GameObject>(ResourcesPaths.AwaitingOverlayAddress);
+            var overlay = _instantiator.InstantiatePrefabForComponent<AwaitingOverlay>(prefab);
+
+            return overlay;
         }
     }
 }

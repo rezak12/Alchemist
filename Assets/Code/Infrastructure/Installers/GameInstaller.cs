@@ -7,6 +7,7 @@ using Code.Infrastructure.Services.SaveLoadService;
 using Code.Infrastructure.Services.SceneLoader;
 using Code.Infrastructure.Services.StaticData;
 using Code.Infrastructure.States.GameStates;
+using Code.UI.AwaitingOverlays;
 using Zenject;
 
 namespace Code.Infrastructure.Installers
@@ -23,6 +24,7 @@ namespace Code.Infrastructure.Installers
             BindStaticDataService();
             BindStatesFactory();
             BindUIFactory();
+            BindAwaitingOverlayProxy();
             BindGameStateMachine();
             BindBootstrapper();
         }
@@ -65,6 +67,11 @@ namespace Code.Infrastructure.Installers
         private void BindUIFactory()
         {
             Container.BindInterfacesTo<UIFactory>().AsSingle();
+        }
+
+        private void BindAwaitingOverlayProxy()
+        {
+            Container.BindInterfacesAndSelfTo<AwaitingOverlayProxy>().AsSingle();
         }
 
         private void BindGameStateMachine()

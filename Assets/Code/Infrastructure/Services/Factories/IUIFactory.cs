@@ -2,6 +2,7 @@
 using Code.Logic.PotionMaking;
 using Code.Logic.Potions;
 using Code.StaticData;
+using Code.UI.AwaitingOverlays;
 using Code.UI.MainMenuUI;
 using Code.UI.OrderCompletedUI;
 using Code.UI.PlayerIngredientsUI;
@@ -41,5 +42,7 @@ namespace Code.Infrastructure.Services.Factories
         UniTask<PotionCharacteristicItemUI> CreatePotionCharacteristicItemUIAsync(
             PotionCharacteristicAmountPair characteristicAmountPair,
             Transform parent);
+
+        UniTask<IAwaitingOverlay> CreateAwaitingOverlay();
     }
 }
