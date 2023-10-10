@@ -42,7 +42,5 @@ namespace Code.Infrastructure.Services.Factories
         UniTask<PotionCharacteristicItemUI> CreatePotionCharacteristicItemUIAsync(
             PotionCharacteristicAmountPair characteristicAmountPair,
             Transform parent);
-
-        UniTask<IAwaitingOverlay> CreateAwaitingOverlay();
     }
 }

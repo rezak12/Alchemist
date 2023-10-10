@@ -1,5 +1,7 @@
+using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
+using Zenject;
 
 namespace Code.UI.AwaitingOverlays
 {
@@ -23,5 +25,7 @@ namespace Code.UI.AwaitingOverlays
         {
             _canvas.enabled = false;
         }
+        
+        public class Factory : PlaceholderFactory<string, UniTask<AwaitingOverlay>> { }
     }
 }

@@ -157,13 +157,5 @@ namespace Code.Infrastructure.Services.Factories
             
             return item;
         }
-
-        public async UniTask<IAwaitingOverlay> CreateAwaitingOverlay()
-        {
-            var prefab = await _assetProvider.LoadAsync<GameObject>(ResourcesPaths.AwaitingOverlayPath);
-            var overlay = _instantiator.InstantiatePrefabForComponent<AwaitingOverlay>(prefab);
-
-            return overlay;
-        }
     }
 }

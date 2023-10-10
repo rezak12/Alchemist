@@ -9,6 +9,7 @@ using Code.Infrastructure.Services.SceneLoader;
 using Code.Infrastructure.Services.StaticData;
 using Code.Infrastructure.States.GameStates;
 using Code.UI.AwaitingOverlays;
+using Cysharp.Threading.Tasks;
 using Zenject;
 
 namespace Code.Infrastructure.Installers
@@ -72,9 +73,11 @@ namespace Code.Infrastructure.Installers
 
         private void BindAwaitingOverlay()
         {
-            Container.BindInterfacesTo<AwaitingOverlay>()
-                .FromComponentInNewPrefabResource(ResourcesPaths.AwaitingOverlayPath)
-                .AsSingle();
+            Container
+                .BindFactory<string, UniTask<AwaitingOverlay>, AwaitingOverlay.Factory>()
+                .FromFactory<Services.AssetProvider.PrefabAsyncFactory<AwaitingOverlay>>();
+
+            Container.BindInterfacesAndSelfTo<AwaitingOverlayProxy>().AsSingle();
         }
 
         private void BindGameStateMachine()

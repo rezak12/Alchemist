@@ -9,13 +9,13 @@ namespace Code.Infrastructure.States.GameStates
     {
         private readonly IAssetProvider _assetProvider;
         private readonly IStaticDataService _staticDataService;
-        private readonly IAwaitingOverlay _awaitingOverlay;
+        private readonly AwaitingOverlayProxy _awaitingOverlay;
         private readonly GameStateMachine _stateMachine;
 
         public GameBootstrapState(
             IAssetProvider assetProvider, 
             IStaticDataService staticDataService,
-            IAwaitingOverlay awaitingOverlay,
+            AwaitingOverlayProxy awaitingOverlay,
             GameStateMachine stateMachine)
         {
             _awaitingOverlay = awaitingOverlay;
@@ -26,9 +26,9 @@ namespace Code.Infrastructure.States.GameStates
 
         public async UniTask Enter()
         {
-            _awaitingOverlay.Show("Loading...");
-            
             await _assetProvider.InitializeAsync();
+            await _awaitingOverlay.InitializeAsync();
+            _awaitingOverlay.Show("Loading...");
             await _staticDataService.InitializeAsync();
             
             await _stateMachine.Enter<LoadProgressState>();
