@@ -21,19 +21,16 @@ namespace Code.Infrastructure.States.GameStates
             IAssetProvider assetProvider, 
             ISaveLoadService saveLoadService, 
             IPersistentProgressService progressService,
-            IAwaitingOverlay awaitingOverlay,
             GameStateMachine stateMachine)
         {
             _assetProvider = assetProvider;
             _saveLoadService = saveLoadService;
             _progressService = progressService;
-            _awaitingOverlay = awaitingOverlay;
             _stateMachine = stateMachine;
         }
 
         public async UniTask Enter()
         {
-            _awaitingOverlay.Show("Loading...");
             _progressService.Initialize(await LoadOrCreateNewSave());
             await _stateMachine.Enter<MainMenuState>();
         }

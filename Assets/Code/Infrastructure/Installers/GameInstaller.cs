@@ -1,3 +1,4 @@
+using Code.Data;
 using Code.Infrastructure.Bootstrappers;
 using Code.Infrastructure.Services.AssetProvider;
 using Code.Infrastructure.Services.Factories;
@@ -24,7 +25,7 @@ namespace Code.Infrastructure.Installers
             BindStaticDataService();
             BindStatesFactory();
             BindUIFactory();
-            BindAwaitingOverlayProxy();
+            BindAwaitingOverlay();
             BindGameStateMachine();
             BindBootstrapper();
         }
@@ -69,9 +70,11 @@ namespace Code.Infrastructure.Installers
             Container.BindInterfacesTo<UIFactory>().AsSingle();
         }
 
-        private void BindAwaitingOverlayProxy()
+        private void BindAwaitingOverlay()
         {
-            Container.BindInterfacesAndSelfTo<AwaitingOverlayProxy>().AsSingle();
+            Container.BindInterfacesTo<AwaitingOverlay>()
+                .FromComponentInNewPrefabResource(ResourcesPaths.AwaitingOverlayPath)
+                .AsSingle();
         }
 
         private void BindGameStateMachine()
