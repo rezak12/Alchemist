@@ -1,3 +1,4 @@
+using Code.Data;
 using Code.Infrastructure.Bootstrappers;
 using Code.Infrastructure.Services.AssetProvider;
 using Code.Infrastructure.Services.Factories;
@@ -7,6 +8,8 @@ using Code.Infrastructure.Services.SaveLoadService;
 using Code.Infrastructure.Services.SceneLoader;
 using Code.Infrastructure.Services.StaticData;
 using Code.Infrastructure.States.GameStates;
+using Code.UI.AwaitingOverlays;
+using Cysharp.Threading.Tasks;
 using Zenject;
 
 namespace Code.Infrastructure.Installers
@@ -23,6 +26,7 @@ namespace Code.Infrastructure.Installers
             BindStaticDataService();
             BindStatesFactory();
             BindUIFactory();
+            BindAwaitingOverlay();
             BindGameStateMachine();
             BindBootstrapper();
         }
@@ -65,6 +69,15 @@ namespace Code.Infrastructure.Installers
         private void BindUIFactory()
         {
             Container.BindInterfacesTo<UIFactory>().AsSingle();
+        }
+
+        private void BindAwaitingOverlay()
+        {
+            Container
+                .BindFactory<string, UniTask<AwaitingOverlay>, AwaitingOverlay.Factory>()
+                .FromFactory<Services.AssetProvider.PrefabAsyncFactory<AwaitingOverlay>>();
+
+            Container.BindInterfacesAndSelfTo<AwaitingOverlayProxy>().AsSingle();
         }
 
         private void BindGameStateMachine()

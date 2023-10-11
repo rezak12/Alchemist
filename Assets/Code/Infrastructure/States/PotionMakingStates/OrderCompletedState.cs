@@ -5,6 +5,7 @@ using Code.Infrastructure.Services.SaveLoadService;
 using Code.Logic.Orders;
 using Code.Logic.PotionMaking;
 using Code.Logic.Potions;
+using Code.UI.AwaitingOverlays;
 using Code.UI.OrderCompletedUI;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -18,19 +19,23 @@ namespace Code.Infrastructure.States.PotionMakingStates
         private readonly IPersistentProgressService _progressService;
         private readonly ISaveLoadService _saveLoadService;
         private readonly IUIFactory _uiFactory;
+        private readonly IAwaitingOverlay _awaitingOverlay;
+        
         private OrderCompletedPopup _orderCompletedPopup;
 
         public OrderCompletedState(
             SelectedPotionOrderHolder orderHolder, 
             IPersistentProgressService progressService, 
             ISaveLoadService saveLoadService,
-            IUIFactory uiFactory)
+            IUIFactory uiFactory,
+            IAwaitingOverlay awaitingOverlay)
         {
             _potionRater = new ResultPotionRater();
             _orderHolder = orderHolder;
             _progressService = progressService;
             _saveLoadService = saveLoadService;
             _uiFactory = uiFactory;
+            _awaitingOverlay = awaitingOverlay;
         }
 
         public async UniTask Enter(Potion payload1)
@@ -58,6 +63,7 @@ namespace Code.Infrastructure.States.PotionMakingStates
 
         public async UniTask Exit()
         {
+            _awaitingOverlay.Show("Loading...");
             await UniTask.Yield();
             Object.Destroy(_orderCompletedPopup.gameObject);
         }

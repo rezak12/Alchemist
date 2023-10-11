@@ -73,6 +73,10 @@ MonoBehaviour:
     m_Address: MainMenuPopup
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 0c8d243db23ad204185fd8662997b2bb
+    m_Address: AwaitingOverlay
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 57256fe3aec1a7d4a8b5958d52870f88, type: 2}
   m_SchemaSet:

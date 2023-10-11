@@ -3,6 +3,7 @@ using Code.Infrastructure.Services.AssetProvider;
 using Code.Infrastructure.Services.ProgressServices;
 using Code.Infrastructure.Services.SaveLoadService;
 using Code.StaticData;
+using Code.UI.AwaitingOverlays;
 using Cysharp.Threading.Tasks;
 
 namespace Code.Infrastructure.States.GameStates
@@ -10,16 +11,16 @@ namespace Code.Infrastructure.States.GameStates
     public class LoadProgressState : IState
     {
         private readonly IAssetProvider _assetProvider;
-        
         private readonly ISaveLoadService _saveLoadService;
         private readonly IPersistentProgressService _progressService;
+        private readonly IAwaitingOverlay _awaitingOverlay;
 
         private readonly GameStateMachine _stateMachine;
 
         public LoadProgressState(
             IAssetProvider assetProvider, 
             ISaveLoadService saveLoadService, 
-            IPersistentProgressService progressService, 
+            IPersistentProgressService progressService,
             GameStateMachine stateMachine)
         {
             _assetProvider = assetProvider;

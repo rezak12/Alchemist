@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Code.Animations;
 using Code.Infrastructure.Services.Factories;
-using Code.Infrastructure.States.PotionMakingStates;
 using Code.Logic.Potions;
 using Code.StaticData;
 using Cysharp.Threading.Tasks;
@@ -24,24 +23,21 @@ namespace Code.Logic.PotionMaking
         
         private Stack<AlchemyTableSlot> _freeSlots;
         private Stack<AlchemyTableSlot> _filledSlots;
-        private Stack<IngredientAnimator> _ingredientsAnimators;
+        private Stack<IngredientAnimator> _ingredientAnimators;
         
         private IPotionInfoFactory _potionInfoFactory;
         private IPotionFactory _potionFactory;
         private IIngredientFactory _ingredientFactory;
-        private PotionMakingLevelStateMachine _stateMachine;
 
         [Inject]
         private void Construct(
             IPotionInfoFactory potionInfoFactory, 
             IIngredientFactory ingredientFactory,
-            IPotionFactory potionFactory,
-            PotionMakingLevelStateMachine stateMachine)
+            IPotionFactory potionFactory)
         {
             _potionFactory = potionFactory;
             _potionInfoFactory = potionInfoFactory;
             _ingredientFactory = ingredientFactory;
-            _stateMachine = stateMachine;
         }
 
         public void Initialize()
@@ -61,15 +57,15 @@ namespace Code.Logic.PotionMaking
             RemoveLastIngredientPrefabFromSlot().Forget();
         }
 
-        public async UniTaskVoid HandleResult()
+        public async UniTask<Potion> HandleResult()
         {
             var ingredients = TakeAllIngredients();
-            Cleanup();
-            
             await MoveAllIngredientsToPotionCreatingPoint();
             
+            Cleanup();
+            
             Potion potion = await CreatePotion(ingredients);
-            await _stateMachine.Enter<OrderCompletedState, Potion>(potion);
+            return potion;
         }
 
         private async UniTask<Potion> CreatePotion(IEnumerable<IngredientData> ingredients)
@@ -118,41 +114,45 @@ namespace Code.Logic.PotionMaking
             IngredientAnimator ingredientAnimator = await _ingredientFactory.CreateIngredientAsync(
                 ingredientData.PrefabReference, _ingredientsSpawnPoint.position);
             
-            _ingredientsAnimators.Push(ingredientAnimator);
+            _ingredientAnimators.Push(ingredientAnimator);
             
             await ingredientAnimator.MoveToSlot(slotTransform);
         }
 
         private async UniTask MoveAllIngredientsToPotionCreatingPoint()
         {
-            var tasks = new List<UniTask>(_ingredientsAnimators.Count);
-            
-            foreach (IngredientAnimator ingredientAnimator in _ingredientsAnimators)
+            var tasks = new List<UniTask>(_ingredientAnimators.Count);
+            foreach (IngredientAnimator ingredientAnimator in _ingredientAnimators)
             {
-                tasks.Add(ingredientAnimator.RemoveFromSlotThenDestroy(_potionSpawnPoint));
+                tasks.Add(ingredientAnimator.RemoveFromSlot(_potionSpawnPoint));
             }
-
             await UniTask.WhenAll(tasks);
+            
+            foreach (IngredientAnimator ingredientAnimator in _ingredientAnimators)
+            {
+                Destroy(ingredientAnimator.gameObject);
+            }
         }
 
         private async UniTaskVoid RemoveLastIngredientPrefabFromSlot()
         {
-            IngredientAnimator ingredientAnimator = _ingredientsAnimators.Pop();
-            await ingredientAnimator.RemoveFromSlotThenDestroy(_ingredientsRemoveFromSlotPoint);
+            IngredientAnimator ingredientAnimator = _ingredientAnimators.Pop();
+            await ingredientAnimator.RemoveFromSlot(_ingredientsRemoveFromSlotPoint);
+            Destroy(ingredientAnimator.gameObject);
         }
 
         private void InitializeSlotsCollections()
         {
             _freeSlots = new Stack<AlchemyTableSlot>(_tableSlots);
             _filledSlots = new Stack<AlchemyTableSlot>(_freeSlots.Count);
-            _ingredientsAnimators = new Stack<IngredientAnimator>(_freeSlots.Count);
+            _ingredientAnimators = new Stack<IngredientAnimator>(_freeSlots.Count);
         }
 
         private void Cleanup()
         {
             _filledSlots.Clear();
             _freeSlots.Clear();
-            _ingredientsAnimators.Clear();
+            _ingredientAnimators.Clear();
         }
     }
 }

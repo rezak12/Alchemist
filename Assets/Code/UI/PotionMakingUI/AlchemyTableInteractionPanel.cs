@@ -1,6 +1,12 @@
-﻿using Code.Logic.PotionMaking;
+﻿using System.Threading.Tasks;
+using Code.Infrastructure.States.PotionMakingStates;
+using Code.Logic.PotionMaking;
+using Code.Logic.Potions;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
+using Zenject;
 
 namespace Code.UI.PotionMakingUI
 {
@@ -10,6 +16,14 @@ namespace Code.UI.PotionMakingUI
         [SerializeField] private Button _createPotionButton;
 
         private AlchemyTable _table;
+        private PotionMakingLevelStateMachine _stateMachine;
+        private UnityAction _createPotionAction;
+
+        [Inject]
+        private void Construct(PotionMakingLevelStateMachine stateMachine)
+        {
+            _stateMachine = stateMachine;
+        }
 
         public void Initialize(AlchemyTable table)
         {
@@ -18,8 +32,9 @@ namespace Code.UI.PotionMakingUI
             _table.FilledSlotsAmountChanged += UpdateRemoveButtonInteractableState;
             _table.FilledSlotsAmountChanged += UpdateCreatePotionButtonInteractableState;
             
+            _createPotionAction = UniTask.UnityAction(CreatePotion);
             _removeLastIngredientButton.onClick.AddListener(RemoveLastIngredient);
-            _createPotionButton.onClick.AddListener(CreatePotion);
+            _createPotionButton.onClick.AddListener(_createPotionAction);
 
             UpdateRemoveButtonInteractableState();
             UpdateCreatePotionButtonInteractableState();
@@ -31,12 +46,13 @@ namespace Code.UI.PotionMakingUI
             _table.FilledSlotsAmountChanged -= UpdateCreatePotionButtonInteractableState;
             
             _removeLastIngredientButton.onClick.RemoveListener(RemoveLastIngredient);
-            _createPotionButton.onClick.RemoveListener(CreatePotion);
+            _createPotionButton.onClick.RemoveListener(_createPotionAction);
         }
 
-        private void CreatePotion()
+        private async UniTaskVoid CreatePotion()
         {
-            _table.HandleResult().Forget();
+            Potion potion = await _table.HandleResult();
+            _stateMachine.Enter<OrderCompletedState, Potion>(potion).Forget();
         }
 
         private void RemoveLastIngredient()
