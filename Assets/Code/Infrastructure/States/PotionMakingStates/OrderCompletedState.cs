@@ -40,7 +40,7 @@ namespace Code.Infrastructure.States.PotionMakingStates
 
         public async UniTask Enter(Potion payload1)
         {
-            var potionAnimator = payload1.GetComponent<PotionAnimator>();
+            var potionAnimator = payload1.GetComponent<PotionTweener>();
             await potionAnimator.PresentAfterCreating();
 
             PotionOrder order = _orderHolder.SelectedOrder;

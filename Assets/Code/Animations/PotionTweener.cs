@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Code.Animations
 {
-    public class PotionAnimator : MonoBehaviour
+    public class PotionTweener : MonoBehaviour
     {
         [SerializeField] private float _moveUpPoints = 5f;
         [SerializeField] private float _moveUpSpeedInSeconds = 5f;

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Code.Animations
 {
-    public class IngredientAnimator : MonoBehaviour
+    public class IngredientTweener : MonoBehaviour
     {
         [SerializeField] private float _moveDurationInSeconds = 1f;
         [SerializeField] private float _jumpPowerWhileRemoving = 2;
