@@ -6,18 +6,15 @@ namespace Code.Animations
 {
     public class IngredientTweener : MonoBehaviour
     {
-        [SerializeField] private float _moveDurationInSeconds = 1f;
-        [SerializeField] private float _jumpPowerWhileRemoving = 2;
+        [SerializeField] private float _jumpDurationInSeconds = 1f;
+        [SerializeField] private float _jumpPower = 2;
+        [SerializeField] private Ease _jumpingEase;
 
-        public async UniTask MoveToSlot(Transform slotTransform)
+        public async UniTask JumpTo(Transform to)
         {
-            await transform.DOMove(slotTransform.position, _moveDurationInSeconds, false)
-                .WithCancellation(this.GetCancellationTokenOnDestroy());
-        }
-
-        public async UniTask RemoveFromSlot(Transform to)
-        {
-            await transform.DOJump(to.position, _jumpPowerWhileRemoving, 1, _moveDurationInSeconds, false)
+            await transform
+                .DOJump(to.position, _jumpPower, 1, _jumpDurationInSeconds)
+                .SetEase(_jumpingEase)
                 .WithCancellation(this.GetCancellationTokenOnDestroy());
         }
     }

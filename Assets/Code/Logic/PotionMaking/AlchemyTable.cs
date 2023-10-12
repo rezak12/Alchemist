@@ -116,7 +116,7 @@ namespace Code.Logic.PotionMaking
             
             _ingredientAnimators.Push(ingredientTweener);
             
-            await ingredientTweener.MoveToSlot(slotTransform);
+            await ingredientTweener.JumpTo(slotTransform);
         }
 
         private async UniTask MoveAllIngredientsToPotionCreatingPoint()
@@ -124,7 +124,7 @@ namespace Code.Logic.PotionMaking
             var tasks = new List<UniTask>(_ingredientAnimators.Count);
             foreach (IngredientTweener ingredientAnimator in _ingredientAnimators)
             {
-                tasks.Add(ingredientAnimator.RemoveFromSlot(_potionSpawnPoint));
+                tasks.Add(ingredientAnimator.JumpTo(_potionSpawnPoint));
             }
             await UniTask.WhenAll(tasks);
             
@@ -137,7 +137,7 @@ namespace Code.Logic.PotionMaking
         private async UniTaskVoid RemoveLastIngredientPrefabFromSlot()
         {
             IngredientTweener ingredientTweener = _ingredientAnimators.Pop();
-            await ingredientTweener.RemoveFromSlot(_ingredientsRemoveFromSlotPoint);
+            await ingredientTweener.JumpTo(_ingredientsRemoveFromSlotPoint);
             Destroy(ingredientTweener.gameObject);
         }
 
