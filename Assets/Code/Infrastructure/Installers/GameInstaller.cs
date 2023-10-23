@@ -75,7 +75,7 @@ namespace Code.Infrastructure.Installers
         {
             Container
                 .BindFactory<string, UniTask<AwaitingOverlay>, AwaitingOverlay.Factory>()
-                .FromFactory<Services.AssetProvider.PrefabAsyncFactory<AwaitingOverlay>>();
+                .FromFactory<PrefabAsyncFactory<AwaitingOverlay>>();
 
             Container.BindInterfacesAndSelfTo<AwaitingOverlayProxy>().AsSingle();
         }

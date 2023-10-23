@@ -27,7 +27,7 @@ namespace Code.Infrastructure.States.GameStates
         {
             await _sceneLoader.LoadAsync(ResourcesPaths.MainMenuSceneAddress);
             _mainMenuPopup = await _uiFactory.CreateMainMenuPopupAsync();
-            _awaitingOverlay.Hide();
+            _awaitingOverlay.Hide().Forget();
         }
 
         public async UniTask Exit()

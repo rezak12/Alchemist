@@ -1,8 +1,10 @@
+using Cysharp.Threading.Tasks;
+
 namespace Code.UI.AwaitingOverlays
 {
     public interface IAwaitingOverlay
     {
-        public void Show(string message = "");
-        public void Hide();
+        public UniTask Show(string message = "");
+        public UniTask Hide();
     }
 }

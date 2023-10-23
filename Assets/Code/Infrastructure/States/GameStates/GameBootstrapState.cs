@@ -28,7 +28,7 @@ namespace Code.Infrastructure.States.GameStates
         {
             await _assetProvider.InitializeAsync();
             await _awaitingOverlay.InitializeAsync();
-            _awaitingOverlay.Show("Loading...");
+            _awaitingOverlay.Show("Loading...").Forget();
             await _staticDataService.InitializeAsync();
             
             await _stateMachine.Enter<LoadProgressState>();
