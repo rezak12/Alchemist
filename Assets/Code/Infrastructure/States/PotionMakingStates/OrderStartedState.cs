@@ -46,11 +46,11 @@ namespace Code.Infrastructure.States.PotionMakingStates
             _awaitingOverlay.Hide().Forget();
         }
 
-        public async UniTask Exit()
+        public UniTask Exit()
         {
-            await UniTask.Yield();
             Object.Destroy(_alchemyTable.gameObject);
             Object.Destroy(_potionMakingPopup.gameObject);
+            return UniTask.CompletedTask;
         }
     }
 }

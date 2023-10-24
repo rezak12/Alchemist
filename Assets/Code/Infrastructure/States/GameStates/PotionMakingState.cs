@@ -20,15 +20,14 @@ namespace Code.Infrastructure.States.GameStates
         }
         public async UniTask Enter()
         {
-            _awaitingOverlay.Show("Loading...").Forget();
             await _sceneLoader.LoadAsync(ResourcesPaths.PotionMakingSceneAddress);
         }
 
-        public async UniTask Exit()
+        public UniTask Exit()
         {
             _awaitingOverlay.Show("Loading...").Forget();
-            await UniTask.Yield();
             _assetProvider.Cleanup();
+            return UniTask.CompletedTask;
         }
     }
 }

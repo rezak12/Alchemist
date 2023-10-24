@@ -30,10 +30,11 @@ namespace Code.Infrastructure.States.GameStates
             _awaitingOverlay.Hide().Forget();
         }
 
-        public async UniTask Exit()
+        public UniTask Exit()
         {
-            await UniTask.Yield();
+            _awaitingOverlay.Show("Loading...").Forget();
             Object.Destroy(_mainMenuPopup.gameObject);
+            return UniTask.CompletedTask;
         }
     }
 }

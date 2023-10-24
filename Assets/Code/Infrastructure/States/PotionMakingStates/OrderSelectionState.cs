@@ -33,11 +33,11 @@ namespace Code.Infrastructure.States.PotionMakingStates
             _awaitingOverlay.Hide().Forget();
         }
 
-        public async UniTask Exit()
+        public UniTask Exit()
         {
             _awaitingOverlay.Show("Loading...").Forget();
-            await UniTask.Yield();
             Object.Destroy(_selectPotionOrderPopup.gameObject);
+            return UniTask.CompletedTask;
         }
     }
 }

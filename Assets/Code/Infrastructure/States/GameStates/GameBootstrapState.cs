@@ -28,15 +28,15 @@ namespace Code.Infrastructure.States.GameStates
         {
             await _assetProvider.InitializeAsync();
             await _awaitingOverlay.InitializeAsync();
-            _awaitingOverlay.Show("Loading...").Forget();
             await _staticDataService.InitializeAsync();
+            _awaitingOverlay.Show("Loading...").Forget();
             
             await _stateMachine.Enter<LoadProgressState>();
         }
 
         public UniTask Exit()
         {
-            return default;
+            return UniTask.CompletedTask;
         }
     }
 }

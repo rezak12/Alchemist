@@ -37,7 +37,7 @@ namespace Code.Infrastructure.States.GameStates
 
         public UniTask Exit()
         {
-            return default;
+            return UniTask.CompletedTask;
         }
 
         private async UniTask<PlayerProgress> LoadOrCreateNewSave()
