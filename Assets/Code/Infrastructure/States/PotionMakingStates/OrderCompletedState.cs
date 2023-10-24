@@ -61,11 +61,10 @@ namespace Code.Infrastructure.States.PotionMakingStates
             Object.Destroy(potionAnimator.gameObject);
         }
 
-        public UniTask Exit()
+        public async UniTask Exit()
         {
-            _awaitingOverlay.Show("Loading...").Forget();
+            await _awaitingOverlay.Show("Loading...");
             Object.Destroy(_orderCompletedPopup.gameObject);
-            return UniTask.CompletedTask;
         }
 
         private void GiveReward(PotionOrderReward reward)

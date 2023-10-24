@@ -16,7 +16,7 @@ namespace Code.UI.AwaitingOverlays
 
         private void Awake()
         {
-            Hide().Forget();
+            _canvas.enabled = false;
         }
 
         public async UniTask Show(string message = "")

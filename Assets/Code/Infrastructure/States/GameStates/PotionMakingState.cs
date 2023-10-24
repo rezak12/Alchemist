@@ -23,11 +23,10 @@ namespace Code.Infrastructure.States.GameStates
             await _sceneLoader.LoadAsync(ResourcesPaths.PotionMakingSceneAddress);
         }
 
-        public UniTask Exit()
+        public async UniTask Exit()
         {
-            _awaitingOverlay.Show("Loading...").Forget();
+            await _awaitingOverlay.Show("Loading...");
             _assetProvider.Cleanup();
-            return UniTask.CompletedTask;
         }
     }
 }
