@@ -25,7 +25,7 @@ namespace Code.Infrastructure.States.GameStates
 
         public async UniTask Exit()
         {
-            await _awaitingOverlay.Show("Loading...");
+            await _awaitingOverlay.Show();
             _assetProvider.Cleanup();
         }
     }

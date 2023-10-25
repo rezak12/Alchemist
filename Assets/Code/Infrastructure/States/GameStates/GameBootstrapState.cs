@@ -30,7 +30,7 @@ namespace Code.Infrastructure.States.GameStates
             await _awaitingOverlay.InitializeAsync();
             await _staticDataService.InitializeAsync();
             
-            await _awaitingOverlay.Show("Loading...");
+            await _awaitingOverlay.Show("Loading progress");
             await _stateMachine.Enter<LoadProgressState>();
         }
 

@@ -19,7 +19,7 @@ namespace Code.UI.AwaitingOverlays
             _canvas.enabled = false;
         }
 
-        public async UniTask Show(string message = "")
+        public async UniTask Show(string message = "Loading...")
         {
             _canvas.enabled = true;
             _messageText.text = message;

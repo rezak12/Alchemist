@@ -63,7 +63,7 @@ namespace Code.Infrastructure.States.PotionMakingStates
 
         public async UniTask Exit()
         {
-            await _awaitingOverlay.Show("Loading...");
+            await _awaitingOverlay.Show();
             Object.Destroy(_orderCompletedPopup.gameObject);
         }
 
