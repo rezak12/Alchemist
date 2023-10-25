@@ -7,7 +7,7 @@ namespace Code.Infrastructure.Services.Factories
 {
     public interface IIngredientFactory
     {
-        UniTask<IngredientAnimator> CreateIngredientAsync(
+        UniTask<IngredientTweener> CreateIngredientAsync(
             AssetReferenceGameObject ingredientDataPrefabReference,
             Vector3 position);
     }

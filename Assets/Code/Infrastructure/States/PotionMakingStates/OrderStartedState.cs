@@ -37,17 +37,20 @@ namespace Code.Infrastructure.States.PotionMakingStates
         public async UniTask Enter(PotionOrder payload)
         {
             _selectedOrderHolder.PutOrder(payload);
+            
             LevelConfig levelConfig = _staticDataService.GetLevelConfigBySceneName(ResourcesPaths.PotionMakingSceneAddress);
+            
             _alchemyTable = await _tableFactory.CreateTableAsync(levelConfig.TablePosition);
             _potionMakingPopup = await _uiFactory.CreatePotionMakingPopup(_alchemyTable);
-            _awaitingOverlay.Hide();
+           
+            _awaitingOverlay.Hide().Forget();
         }
 
-        public async UniTask Exit()
+        public UniTask Exit()
         {
-            await UniTask.Yield();
             Object.Destroy(_alchemyTable.gameObject);
             Object.Destroy(_potionMakingPopup.gameObject);
+            return UniTask.CompletedTask;
         }
     }
 }

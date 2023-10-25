@@ -30,13 +30,12 @@ namespace Code.Infrastructure.States.PotionMakingStates
         {
             await _potionOrdersHandler.HandleNewOrder();
             _selectPotionOrderPopup = await _uiFactory.CreateSelectPotionOrderPopupAsync(_potionOrdersHandler);
-            _awaitingOverlay.Hide();
+            await _awaitingOverlay.Hide();
         }
 
         public async UniTask Exit()
         {
-            _awaitingOverlay.Show("Loading...");
-            await UniTask.Yield();
+            await _awaitingOverlay.Show("Searching for your table...");
             Object.Destroy(_selectPotionOrderPopup.gameObject);
         }
     }

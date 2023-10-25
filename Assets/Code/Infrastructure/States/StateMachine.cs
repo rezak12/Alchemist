@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
-using UnityEngine;
 
 namespace Code.Infrastructure.States
 {
@@ -13,7 +12,6 @@ namespace Code.Infrastructure.States
         {
             var newState = await ChangeState<TState>();
             await newState.Enter();
-            Debug.Log($"{newState.GetType()} has been entered");
         }
 
         public async UniTask Enter<TState, TPayload>(TPayload payload) where TState : class, IPayloadState<TPayload>
