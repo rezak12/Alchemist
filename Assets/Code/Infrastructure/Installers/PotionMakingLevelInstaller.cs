@@ -1,7 +1,10 @@
 using Code.Infrastructure.Bootstrappers;
 using Code.Infrastructure.Services.Factories;
+using Code.Infrastructure.Services.FX;
 using Code.Infrastructure.States.PotionMakingStates;
 using Code.Logic.Orders;
+using Cysharp.Threading.Tasks;
+using UnityEngine.AddressableAssets;
 using Zenject;
 
 namespace Code.Infrastructure.Installers
@@ -18,6 +21,7 @@ namespace Code.Infrastructure.Installers
             BindPotionFactory();
             BindPotionOrderFactory();
             BindUIFactory();
+            BindVXFProvider();
             BindStateMachine();
             BindBootstrapper();
         }
@@ -60,6 +64,15 @@ namespace Code.Infrastructure.Installers
         private void BindUIFactory()
         {
             Container.BindInterfacesTo<UIFactory>().AsSingle();
+        }
+
+        private void BindVXFProvider()
+        {
+            Container
+                .BindFactory<AssetReferenceGameObject, UniTask<VFX>, VFX.Factory>()
+                .FromFactory<PrefabByReferenceAsyncFactory<VFX>>();
+
+            Container.BindInterfacesTo<VFXProvider>().AsSingle();
         }
 
         private void BindStateMachine()

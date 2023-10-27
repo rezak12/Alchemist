@@ -1,4 +1,3 @@
-using Code.Data;
 using Code.Infrastructure.Bootstrappers;
 using Code.Infrastructure.Services.AssetProvider;
 using Code.Infrastructure.Services.Factories;
@@ -75,7 +74,7 @@ namespace Code.Infrastructure.Installers
         {
             Container
                 .BindFactory<string, UniTask<AwaitingOverlay>, AwaitingOverlay.Factory>()
-                .FromFactory<PrefabAsyncFactory<AwaitingOverlay>>();
+                .FromFactory<PrefabByAddressAsyncFactory<AwaitingOverlay>>();
 
             Container.BindInterfacesAndSelfTo<AwaitingOverlayProxy>().AsSingle();
         }
