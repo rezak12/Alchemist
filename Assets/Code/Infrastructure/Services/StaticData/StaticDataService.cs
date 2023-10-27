@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Code.Data;
+using Code.Infrastructure.Services.FX;
 using Code.Infrastructure.Services.RandomServices;
 using Code.StaticData;
 using Code.UI;
@@ -13,26 +14,26 @@ namespace Code.Infrastructure.Services.StaticData
     public class StaticDataService : IStaticDataService
     {
         private Dictionary<PopupType, PopupConfig> _popupConfigsCache;
+        private Dictionary<string,LevelConfig> _levelConfigsCache;
+        private Dictionary<VFXType, VFXPoolObjectConfig> _vfxPoolObjectConfigsCache;
         private PotionOrderType[] _orderTypesCache;
         private PotionOrderDifficulty[] _orderDifficultiesCache;
-        private Dictionary<string,LevelConfig> _levelConfigsCache;
 
         private readonly IRandomService _randomService;
-
-        private UniTaskCompletionSource _taskCompletionSource;
         
         public StaticDataService(IRandomService randomService)
         {
             _randomService = randomService;
         }
 
-        public async UniTask InitializeAsync()
+        public UniTask InitializeAsync()
         {
-            await UniTask.Yield();
             LoadPopupConfigs();
+            LoadLevelConfigs();
+            LoadVFXObjectConfigs();
             LoadOrderTypes();
             LoadOrderDifficulties();
-            LoadLevelConfigs();
+            return UniTask.CompletedTask;
         }
 
         public PopupConfig GetPopupByType(PopupType type)
@@ -53,6 +54,11 @@ namespace Code.Infrastructure.Services.StaticData
             throw new NullReferenceException();
         }
 
+        public IEnumerable<KeyValuePair<VFXType, VFXPoolObjectConfig>> GetAllVFXPoolObjectConfigs()
+        {
+            return _vfxPoolObjectConfigsCache;
+        }
+
         public PotionOrderType GetRandomPotionOrderType()
         {
             return _orderTypesCache[_randomService.Next(0, _orderTypesCache.Length)];
@@ -70,6 +76,20 @@ namespace Code.Infrastructure.Services.StaticData
                 .ToDictionary(config => config.Type, config => config);
         }
 
+        private void LoadLevelConfigs()
+        {
+            _levelConfigsCache = Resources
+                .LoadAll<LevelConfig>(ResourcesPaths.LevelConfigsPath)
+                .ToDictionary(config => config.SceneName, config => config);
+        }
+
+        private void LoadVFXObjectConfigs()
+        {
+            _vfxPoolObjectConfigsCache = Resources
+                .LoadAll<VFXPoolObjectConfig>(ResourcesPaths.VFXObjectPoolConfigsPath)
+                .ToDictionary(config => config.Type, config => config);
+        }
+
         private void LoadOrderTypes()
         {
             _orderTypesCache = Resources.LoadAll<PotionOrderType>(ResourcesPaths.OrderTypesPath);
@@ -78,13 +98,6 @@ namespace Code.Infrastructure.Services.StaticData
         private void LoadOrderDifficulties()
         {
             _orderDifficultiesCache = Resources.LoadAll<PotionOrderDifficulty>(ResourcesPaths.OrderDifficultiesPath);
-        }
-
-        private void LoadLevelConfigs()
-        {
-            _levelConfigsCache = Resources
-                .LoadAll<LevelConfig>(ResourcesPaths.LevelConfigsPath)
-                .ToDictionary(config => config.SceneName, config => config);
         }
     }
 }

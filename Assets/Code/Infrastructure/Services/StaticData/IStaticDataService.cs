@@ -1,4 +1,6 @@
-﻿using Code.StaticData;
+﻿using System.Collections.Generic;
+using Code.Infrastructure.Services.FX;
+using Code.StaticData;
 using Code.UI;
 using Cysharp.Threading.Tasks;
 
@@ -11,5 +13,6 @@ namespace Code.Infrastructure.Services.StaticData
         public PotionOrderType GetRandomPotionOrderType();
         public PotionOrderDifficulty GetRandomPotionOrderDifficulty();
         LevelConfig GetLevelConfigBySceneName(string sceneName);
+        IEnumerable<KeyValuePair<VFXType, VFXPoolObjectConfig>> GetAllVFXPoolObjectConfigs();
     }
 }
