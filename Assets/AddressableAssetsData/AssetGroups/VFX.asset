@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: VFX
+  m_EditorClassIdentifier: 
+  m_GroupName: VFX
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 2b3840ec8ec237541844e1b115e51079
+  m_SerializeEntries:
+  - m_GUID: 33f77ca29bf05ee4590fc1ed5d1ab213
+    m_Address: IngredientVFX
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: bf0e56a097b1e8e41819c3d039977632
+    m_Address: PotionVFX
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 57256fe3aec1a7d4a8b5958d52870f88, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 15fb2f950e6157d488159442e39443bd, type: 2}
+    - {fileID: 11400000, guid: 3219c604c59656d46b25ce458f1854df, type: 2}
