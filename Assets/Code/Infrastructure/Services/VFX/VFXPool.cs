@@ -70,6 +70,7 @@ namespace Code.Infrastructure.Services.VFX
             newObject.gameObject.SetActive(false);
             newObject.transform.SetParent(_parent);
             newObject.transform.position = _parent.transform.position;
+            newObject.Initialize(this);
             
             _entries.Push(newObject);
         }
