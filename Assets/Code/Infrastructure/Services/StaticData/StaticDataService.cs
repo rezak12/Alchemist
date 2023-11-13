@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Code.Data;
-using Code.Infrastructure.Services.FX;
 using Code.Infrastructure.Services.RandomServices;
+using Code.Infrastructure.Services.VFX;
 using Code.StaticData;
 using Code.UI;
 using Cysharp.Threading.Tasks;

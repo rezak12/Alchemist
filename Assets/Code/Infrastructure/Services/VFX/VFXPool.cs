@@ -3,7 +3,7 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
-namespace Code.Infrastructure.Services.FX
+namespace Code.Infrastructure.Services.VFX
 {
     public class VFXPool
     {

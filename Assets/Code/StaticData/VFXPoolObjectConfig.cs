@@ -1,4 +1,4 @@
-﻿using Code.Infrastructure.Services.FX;
+﻿using Code.Infrastructure.Services.VFX;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 

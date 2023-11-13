@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using Zenject;
 
-namespace Code.Infrastructure.Services.FX
+namespace Code.Infrastructure.Services.VFX
 {
     public class VFX : MonoBehaviour
     {

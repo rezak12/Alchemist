@@ -1,4 +1,4 @@
-﻿namespace Code.Infrastructure.Services.FX
+﻿namespace Code.Infrastructure.Services.VFX
 {
     public enum VFXType
     {

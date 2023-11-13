@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Code.Infrastructure.Services.FX;
+using Code.Infrastructure.Services.VFX;
 using Code.StaticData;
 using Code.UI;
 using Cysharp.Threading.Tasks;

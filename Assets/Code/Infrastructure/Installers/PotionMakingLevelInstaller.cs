@@ -1,6 +1,6 @@
 using Code.Infrastructure.Bootstrappers;
 using Code.Infrastructure.Services.Factories;
-using Code.Infrastructure.Services.FX;
+using Code.Infrastructure.Services.VFX;
 using Code.Infrastructure.States.PotionMakingStates;
 using Code.Logic.Orders;
 using Cysharp.Threading.Tasks;

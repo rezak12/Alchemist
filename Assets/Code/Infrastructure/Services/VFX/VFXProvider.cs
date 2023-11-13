@@ -4,7 +4,7 @@ using Code.StaticData;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-namespace Code.Infrastructure.Services.FX
+namespace Code.Infrastructure.Services.VFX
 {
     public class VFXProvider : IVFXProvider
     {
