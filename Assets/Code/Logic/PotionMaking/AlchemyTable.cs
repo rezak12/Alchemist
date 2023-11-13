@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Code.Animations;
 using Code.Infrastructure.Services.Factories;
+using Code.Infrastructure.Services.VFX;
 using Code.Logic.Potions;
 using Code.StaticData;
 using Cysharp.Threading.Tasks;
@@ -28,16 +29,19 @@ namespace Code.Logic.PotionMaking
         private IPotionInfoFactory _potionInfoFactory;
         private IPotionFactory _potionFactory;
         private IIngredientFactory _ingredientFactory;
+        private IVFXProvider _vfxProvider;
 
         [Inject]
         private void Construct(
-            IPotionInfoFactory potionInfoFactory, 
+            IPotionInfoFactory potionInfoFactory,
             IIngredientFactory ingredientFactory,
-            IPotionFactory potionFactory)
+            IPotionFactory potionFactory, 
+            IVFXProvider vfxProvider)
         {
             _potionFactory = potionFactory;
             _potionInfoFactory = potionInfoFactory;
             _ingredientFactory = ingredientFactory;
+            _vfxProvider = vfxProvider;
         }
 
         public void Initialize()
@@ -115,8 +119,10 @@ namespace Code.Logic.PotionMaking
                 ingredientData.PrefabReference, _ingredientsSpawnPoint.position);
             
             _ingredientAnimators.Push(ingredientTweener);
-            
             await ingredientTweener.JumpTo(slotTransform);
+
+            VFX vfx = await _vfxProvider.Get(VFXType.Ingredient, slotTransform.position);
+            vfx.Play().Forget();
         }
 
         private async UniTask MoveAllIngredientsToPotionCreatingPoint()
