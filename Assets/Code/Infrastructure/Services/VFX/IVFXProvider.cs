@@ -1,4 +1,5 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using Code.Infrastructure.Services.Pool;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace Code.Infrastructure.Services.VFX
@@ -6,7 +7,7 @@ namespace Code.Infrastructure.Services.VFX
     public interface IVFXProvider
     {
         UniTask InitializeAsync();
-        UniTask<VFX> Get(VFXType type, Vector3 position);
-        void Return(VFXType type, VFX vfx);
+        UniTask<VFX> Get(PoolObjectType type, Vector3 position);
+        void Return(PoolObjectType type, VFX vfx);
     }
 }

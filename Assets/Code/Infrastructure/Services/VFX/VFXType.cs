@@ -1,9 +1,0 @@
-﻿namespace Code.Infrastructure.Services.VFX
-{
-    public enum VFXType
-    {
-        Unknown = 0,
-        Potion = 1,
-        Ingredient = 2,
-    }
-}

@@ -1,17 +1,18 @@
-﻿using Code.Infrastructure.Services.VFX;
+﻿using Code.Infrastructure.Services.Pool;
+using Code.Infrastructure.Services.VFX;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
 namespace Code.StaticData
 {
-    [CreateAssetMenu(fileName = "NewVFXPoolObjectData", menuName = "StaticData/VFXPoolObjectData")]
-    public class VFXPoolObjectConfig : ScriptableObject
+    [CreateAssetMenu(fileName = "NewPoolObjectData", menuName = "StaticData/PoolObjectData")]
+    public class PoolObjectConfig : ScriptableObject
     {
-        [SerializeField] private VFXType _type;
+        [SerializeField] private PoolObjectType _type;
         [SerializeField] private int _startCapacity;
         [SerializeField] private AssetReferenceGameObject _assetReference;
 
-        public VFXType Type => _type;
+        public PoolObjectType Type => _type;
         public int StartCapacity => _startCapacity;
         public AssetReferenceGameObject AssetReference => _assetReference;
     }

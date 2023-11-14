@@ -1,6 +1,6 @@
-﻿using System.Threading.Tasks;
-using Code.Animations;
+﻿using Code.Animations;
 using Code.Infrastructure.Services.Factories;
+using Code.Infrastructure.Services.Pool;
 using Code.Infrastructure.Services.ProgressServices;
 using Code.Infrastructure.Services.SaveLoadService;
 using Code.Infrastructure.Services.VFX;
@@ -75,10 +75,12 @@ namespace Code.Infrastructure.States.PotionMakingStates
         {
             var potionAnimator = potion.GetComponent<PotionTweener>();
 
-            VFX vfx = await _vfxProvider.Get(VFXType.Potion, potionAnimator.transform.position);
-            vfx.Play().Forget();
-
-            await potionAnimator.PresentAfterCreating();
+            VFX vfx = await _vfxProvider.Get(PoolObjectType.PotionVFX, potionAnimator.transform.position);
+            await UniTask.WhenAll(
+                vfx.Play(),
+                potionAnimator.PresentAfterCreating());
+            
+            _vfxProvider.Return(PoolObjectType.PotionVFX, vfx);
         }
 
         private void GiveReward(PotionOrderReward reward)

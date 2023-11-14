@@ -2,20 +2,21 @@
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using Zenject;
 
-namespace Code.Infrastructure.Services.VFX
+namespace Code.Infrastructure.Services.Pool
 {
-    public class VFXPool
+    public class Pool<T> where T : MonoBehaviour
     {
-        private readonly VFX.Factory _factory;
+        private readonly PlaceholderFactory<AssetReferenceGameObject, UniTask<T>> _factory;
         
-        public VFXType Type { get; private set; }
+        public PoolObjectType Type { get; private set; }
         private AssetReferenceGameObject _objectReference;
         private Transform _parent;
         
-        private Stack<VFX> _entries;
+        private Stack<T> _entries;
 
-        public VFXPool(VFX.Factory factory)
+        public Pool(PlaceholderFactory<AssetReferenceGameObject, UniTask<T>> factory)
         {
             _factory = factory;
         }
@@ -23,13 +24,13 @@ namespace Code.Infrastructure.Services.VFX
         public async UniTask InitializeAsync(
             AssetReferenceGameObject objectReference, 
             int startCapacity, 
-            VFXType type, 
+            PoolObjectType type, 
             Transform parent)
         {
             _objectReference = objectReference;
             Type = type;
             _parent = parent;
-            _entries = new Stack<VFX>(startCapacity);
+            _entries = new Stack<T>(startCapacity);
 
             var tasks = new List<UniTask>(startCapacity);
             for (int i = 0; i < startCapacity; i++)
@@ -40,14 +41,14 @@ namespace Code.Infrastructure.Services.VFX
             await UniTask.WhenAll(tasks);
         }
 
-        public async UniTask<VFX> Get(Vector3 position)
+        public async UniTask<T> Get(Vector3 position)
         {
             if (_entries.Count == 0)
             {
                 await AddObject();
             }
 
-            VFX poolObject= _entries.Pop();
+            T poolObject= _entries.Pop();
             
             poolObject.transform.position = position;
             poolObject.gameObject.SetActive(true);
@@ -55,7 +56,7 @@ namespace Code.Infrastructure.Services.VFX
             return poolObject;
         }
 
-        public void Return(VFX poolObject)
+        public void Return(T poolObject)
         {
             poolObject.gameObject.SetActive(false);
             poolObject.transform.position = _parent.transform.position;
@@ -65,12 +66,11 @@ namespace Code.Infrastructure.Services.VFX
 
         private async UniTask AddObject()
         {
-            VFX newObject = await _factory.Create(_objectReference);
+            T newObject = await _factory.Create(_objectReference);
             
             newObject.gameObject.SetActive(false);
             newObject.transform.SetParent(_parent);
             newObject.transform.position = _parent.transform.position;
-            newObject.Initialize(this);
             
             _entries.Push(newObject);
         }

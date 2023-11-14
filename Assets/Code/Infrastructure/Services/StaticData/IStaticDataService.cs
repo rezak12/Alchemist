@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Code.Infrastructure.Services.Pool;
 using Code.Infrastructure.Services.VFX;
 using Code.StaticData;
 using Code.UI;
@@ -13,6 +14,6 @@ namespace Code.Infrastructure.Services.StaticData
         public PotionOrderType GetRandomPotionOrderType();
         public PotionOrderDifficulty GetRandomPotionOrderDifficulty();
         LevelConfig GetLevelConfigBySceneName(string sceneName);
-        IEnumerable<KeyValuePair<VFXType, VFXPoolObjectConfig>> GetAllVFXPoolObjectConfigs();
+        IEnumerable<KeyValuePair<PoolObjectType, PoolObjectConfig>> GetAllVFXPoolObjectConfigs();
     }
 }

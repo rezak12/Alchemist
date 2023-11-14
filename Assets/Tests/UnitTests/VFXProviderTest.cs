@@ -2,6 +2,7 @@ using System.Collections;
 using System.Linq;
 using Code.Infrastructure.Services.AssetProvider;
 using Code.Infrastructure.Services.Factories;
+using Code.Infrastructure.Services.Pool;
 using Code.Infrastructure.Services.StaticData;
 using Code.Infrastructure.Services.VFX;
 using Code.StaticData;
@@ -24,7 +25,7 @@ namespace Tests.UnitTests
 
         public async UniTask CommonInstall()
         {
-            var vfxConfigs = Resources.LoadAll<VFXPoolObjectConfig>(PoolConfigsPath)
+            var vfxConfigs = Resources.LoadAll<PoolObjectConfig>(PoolConfigsPath)
                 .ToDictionary(config => config.Type, config => config);
 
             var staticDataServiceMock = Substitute.For<IStaticDataService>();
@@ -49,7 +50,7 @@ namespace Tests.UnitTests
                 await CommonInstall();
 
                 // Act.
-                VFX pooledObject = await _unitUnderTest.Get(VFXType.Potion, Vector3.zero);
+                VFX pooledObject = await _unitUnderTest.Get(PoolObjectType.PotionVFX, Vector3.zero);
 
                 // Assert.
                 Debug.Log(pooledObject.name);
@@ -65,8 +66,8 @@ namespace Tests.UnitTests
             
             // Act.
             // Start Capacity in test config is 1
-            VFX objectInUse = await _unitUnderTest.Get(VFXType.Potion, Vector3.zero);
-            VFX createdObject = await _unitUnderTest.Get(VFXType.Potion, Vector3.zero);
+            VFX objectInUse = await _unitUnderTest.Get(PoolObjectType.PotionVFX, Vector3.zero);
+            VFX createdObject = await _unitUnderTest.Get(PoolObjectType.PotionVFX, Vector3.zero);
             
             // Assert.
             UnityAssert.IsNotNull(createdObject);

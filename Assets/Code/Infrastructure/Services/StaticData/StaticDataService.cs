@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Code.Data;
+using Code.Infrastructure.Services.Pool;
 using Code.Infrastructure.Services.RandomServices;
-using Code.Infrastructure.Services.VFX;
 using Code.StaticData;
 using Code.UI;
 using Cysharp.Threading.Tasks;
@@ -15,7 +15,7 @@ namespace Code.Infrastructure.Services.StaticData
     {
         private Dictionary<PopupType, PopupConfig> _popupConfigsCache;
         private Dictionary<string,LevelConfig> _levelConfigsCache;
-        private Dictionary<VFXType, VFXPoolObjectConfig> _vfxPoolObjectConfigsCache;
+        private Dictionary<PoolObjectType, PoolObjectConfig> _vfxPoolObjectConfigsCache;
         private PotionOrderType[] _orderTypesCache;
         private PotionOrderDifficulty[] _orderDifficultiesCache;
 
@@ -30,7 +30,7 @@ namespace Code.Infrastructure.Services.StaticData
         {
             LoadPopupConfigs();
             LoadLevelConfigs();
-            LoadVFXObjectConfigs();
+            LoadVFXPoolConfigs();
             LoadOrderTypes();
             LoadOrderDifficulties();
             return UniTask.CompletedTask;
@@ -54,7 +54,7 @@ namespace Code.Infrastructure.Services.StaticData
             throw new NullReferenceException();
         }
 
-        public IEnumerable<KeyValuePair<VFXType, VFXPoolObjectConfig>> GetAllVFXPoolObjectConfigs()
+        public IEnumerable<KeyValuePair<PoolObjectType, PoolObjectConfig>> GetAllVFXPoolObjectConfigs()
         {
             return _vfxPoolObjectConfigsCache;
         }
@@ -83,10 +83,10 @@ namespace Code.Infrastructure.Services.StaticData
                 .ToDictionary(config => config.SceneName, config => config);
         }
 
-        private void LoadVFXObjectConfigs()
+        private void LoadVFXPoolConfigs()
         {
             _vfxPoolObjectConfigsCache = Resources
-                .LoadAll<VFXPoolObjectConfig>(ResourcesPaths.VFXObjectPoolConfigsPath)
+                .LoadAll<PoolObjectConfig>(ResourcesPaths.VFXObjectPoolConfigsPath)
                 .ToDictionary(config => config.Type, config => config);
         }
 

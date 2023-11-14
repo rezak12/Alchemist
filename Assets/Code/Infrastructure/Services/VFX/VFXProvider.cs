@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Code.Infrastructure.Services.Pool;
 using Code.Infrastructure.Services.StaticData;
 using Code.StaticData;
 using Cysharp.Threading.Tasks;
@@ -11,7 +12,7 @@ namespace Code.Infrastructure.Services.VFX
         private readonly VFX.Factory _factory;
         private readonly IStaticDataService _staticDataService;
 
-        private readonly Dictionary<VFXType, VFXPool> _pools = new();
+        private readonly Dictionary<PoolObjectType, Pool<VFX>> _pools = new();
         
         public VFXProvider(VFX.Factory factory, IStaticDataService staticDataService)
         {
@@ -25,9 +26,9 @@ namespace Code.Infrastructure.Services.VFX
 
             var tasks = new List<UniTask>();
             var configs = _staticDataService.GetAllVFXPoolObjectConfigs();
-            foreach ((VFXType key, VFXPoolObjectConfig config) in configs)
+            foreach ((PoolObjectType key, PoolObjectConfig config) in configs)
             {
-                var pool = new VFXPool(_factory);
+                var pool = new Pool<VFX>(_factory);
                 _pools.Add(key, pool);
 
                 UniTask task = pool.InitializeAsync(config.AssetReference, config.StartCapacity, config.Type, parent);
@@ -37,12 +38,12 @@ namespace Code.Infrastructure.Services.VFX
             await UniTask.WhenAll(tasks);
         }
 
-        public async UniTask<VFX> Get(VFXType type, Vector3 position)
+        public async UniTask<VFX> Get(PoolObjectType type, Vector3 position)
         {
             return await _pools[type].Get(position);
         }
         
-        public void Return(VFXType type, VFX vfx)
+        public void Return(PoolObjectType type, VFX vfx)
         {
             _pools[type].Return(vfx);
         }
