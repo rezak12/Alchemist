@@ -50,7 +50,7 @@ namespace Code.Infrastructure.States.GameStates
                 newSaveData.CoinsAmount,
                 newSaveData.ReputationAmount,
                 newSaveData.IngredientsGUIDs,
-                newSaveData.PotionPrefabGUID,
+                newSaveData.PotionDataGUID,
                 newSaveData.AlchemyTablePrefabGUID);
 
             return progress;

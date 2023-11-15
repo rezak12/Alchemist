@@ -15,7 +15,7 @@ namespace Code.UI.PotionMakingUI
         [SerializeField] private Button _removeLastIngredientButton;
         [SerializeField] private Button _createPotionButton;
 
-        private AlchemyTable _table;
+        private AlchemyTableComponent _table;
         private PotionMakingLevelStateMachine _stateMachine;
         private UnityAction _createPotionAction;
 
@@ -25,7 +25,7 @@ namespace Code.UI.PotionMakingUI
             _stateMachine = stateMachine;
         }
 
-        public void Initialize(AlchemyTable table)
+        public void Initialize(AlchemyTableComponent table)
         {
             _table = table;
             

@@ -10,20 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: PotionPrefabs
+  m_Name: VFX
   m_EditorClassIdentifier: 
-  m_GroupName: PotionPrefabs
+  m_GroupName: VFX
   m_Data:
     m_SerializedData: []
-  m_GUID: 73eceeb92f5aa564ea780157861353af
+  m_GUID: 2b3840ec8ec237541844e1b115e51079
   m_SerializeEntries:
-  - m_GUID: fe4a0890225f895438c8c1759cc2d213
-    m_Address: DeffaultPotionPrefab
+  - m_GUID: e859383d9fb42a7419df30c9afd4cf64
+    m_Address: IngredientVFX
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: bf0e56a097b1e8e41819c3d039977632
+    m_Address: PotionVFX
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 57256fe3aec1a7d4a8b5958d52870f88, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: 2e359ac4bc93ca14fbe43fdaf0c13980, type: 2}
-    - {fileID: 11400000, guid: ae943103ff2358c4c9ac9d8e9112edc0, type: 2}
+    - {fileID: 11400000, guid: 15fb2f950e6157d488159442e39443bd, type: 2}
+    - {fileID: 11400000, guid: 3219c604c59656d46b25ce458f1854df, type: 2}

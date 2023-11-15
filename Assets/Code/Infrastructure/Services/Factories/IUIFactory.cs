@@ -19,7 +19,7 @@ namespace Code.Infrastructure.Services.Factories
     {
         UniTask<SelectPotionOrderPopup> CreateSelectPotionOrderPopupAsync(
             PotionOrdersHandler potionOrdersHandler);
-        UniTask<PotionMakingPopup> CreatePotionMakingPopup(AlchemyTable alchemyTable);
+        UniTask<PotionMakingPopup> CreatePotionMakingPopup(AlchemyTableComponent alchemyTable);
 
         UniTask<OrderCompletedPopup> CreateOrderCompletedPopupAsync(
             Potion result, 
@@ -32,7 +32,7 @@ namespace Code.Infrastructure.Services.Factories
 
         UniTask<IngredientItemUI> CreateIngredientItemUIAsync(
             IngredientData ingredient, 
-            AlchemyTable alchemyTable, 
+            AlchemyTableComponent alchemyTable, 
             Transform parent);
 
         UniTask<PotionCharacteristicItemUI> CreatePotionCharacteristicItemUIAsync(

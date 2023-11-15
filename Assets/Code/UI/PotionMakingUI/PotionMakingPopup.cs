@@ -14,7 +14,7 @@ namespace Code.UI.PotionMakingUI
 
         public async UniTask InitializeAsync(
             IEnumerable<IngredientData> playerIngredients, 
-            AlchemyTable alchemyTable)
+            AlchemyTableComponent alchemyTable)
         {
             await _ingredientsPanel.InitializeAsync(playerIngredients, alchemyTable);
             _alchemyTableInteractionPanel.Initialize(alchemyTable);

@@ -27,8 +27,8 @@ MonoBehaviour:
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
-  _potionPrefabReference:
-    m_AssetGUID: fe4a0890225f895438c8c1759cc2d213
+  _potionDataReference:
+    m_AssetGUID: 613bc55897be8714b894a48215683b41
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0

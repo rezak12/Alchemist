@@ -10,20 +10,20 @@ namespace Code.Infrastructure.Services.ProgressServices
         public int CoinsAmount;
         public int ReputationAmount;
         public List<string> PlayerIngredientsGUIDs;
-        public string PlayerPotionPrefabGUID;
+        public string PlayerPotionDataGUID;
         public string PlayerAlchemyTablePrefabGUID;
 
         public PlayerProgress(
             int coinsAmount, 
             int reputationAmount, 
             IEnumerable<string> playerIngredientsGUIDs, 
-            string playerPotionPrefabGuid, 
+            string playerPotionDataGuid, 
             string playerAlchemyTablePrefabGuid)
         {
             CoinsAmount = coinsAmount;
             ReputationAmount = reputationAmount;
             PlayerIngredientsGUIDs = new List<string>(playerIngredientsGUIDs);
-            PlayerPotionPrefabGUID = playerPotionPrefabGuid;
+            PlayerPotionDataGUID = playerPotionDataGuid;
             PlayerAlchemyTablePrefabGUID = playerAlchemyTablePrefabGuid;
         }
     }
