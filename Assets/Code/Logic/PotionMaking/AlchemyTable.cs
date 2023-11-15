@@ -41,21 +41,19 @@ namespace Code.Logic.PotionMaking
         
         public async UniTask<PotionInfo> CreatePotionInfo()
         {
-            PotionInfo potionInfo = await _potionInfoFactory.CreatePotionInfoAsync(GetAllIngredients());
-            Cleanup();
-            
-            return potionInfo;
+            return await _potionInfoFactory.CreatePotionInfoAsync(GetAllIngredients());
         }
         
         private IEnumerable<IngredientData> GetAllIngredients()
         {
             var ingredients = new List<IngredientData>(_filledSlots.Count);
-
             foreach (AlchemyTableSlot slot in _filledSlots)
             {
                 ingredients.Add(slot.CurrentIngredient);
                 slot.Release();
             }
+            
+            Cleanup();
 
             return ingredients;
         }

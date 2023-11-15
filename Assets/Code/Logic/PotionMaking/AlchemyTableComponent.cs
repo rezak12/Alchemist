@@ -67,10 +67,12 @@ namespace Code.Logic.PotionMaking
 
         public async UniTask<Potion> HandleResult()
         {
+            PotionInfo potionInfo = await _alchemyTable.CreatePotionInfo();
+            FilledSlotsAmountChanged?.Invoke();
+            
             await MoveAllIngredientsToPotionCreatingPoint();
             Cleanup();
             
-            PotionInfo potionInfo = await _alchemyTable.CreatePotionInfo();
             return await CreatePotion(potionInfo);
         }
 
@@ -83,13 +85,13 @@ namespace Code.Logic.PotionMaking
         {
             IngredientTweener ingredientTweener = await _ingredientFactory.CreateIngredientAsync(
                 ingredientData.PrefabReference, _ingredientsSpawnPoint.position);
-            
             _ingredientTweeners.Push(ingredientTweener);
             
             VFX vfx = await _vfxProvider.Get(PoolObjectType.IngredientVFX, slotTransform.position);
-            await ingredientTweener.JumpTo(slotTransform);
             
+            await ingredientTweener.JumpTo(slotTransform);
             await vfx.Play();
+            
             _vfxProvider.Return(PoolObjectType.IngredientVFX, vfx);
         }
 
