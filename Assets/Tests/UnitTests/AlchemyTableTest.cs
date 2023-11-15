@@ -22,7 +22,7 @@ namespace Tests.UnitTests
         private const string FirstIngredientPath = "AlchemyTableTests/Ingredients/FirstIngredient";
         private const string SecondIngredientPath = "AlchemyTableTests/Ingredients/SecondIngredient";
 
-        private const string PotionPrefabPath = "Assets/Resources_moved/DevelopmentResources/TestPotion.prefab";
+        private const string PotionDataPath = "Assets/Resources_moved/DevelopmentResources/TestPotionData.asset";
         private const string AlchemyTablePrefabPath = "AlchemyTableTests/TestAlchemyTable";
 
         private IngredientData _firstIngredient;
@@ -162,8 +162,8 @@ namespace Tests.UnitTests
             Container.Bind<AlchemyTable>().FromComponentInNewPrefab(tablePrefab).AsSingle();
 
             await Container.Resolve<IAssetProvider>().InitializeAsync();
-            Container.Resolve<IPersistentProgressService>().ChosenPotionPrefabReference
-                .Returns(new AssetReferenceGameObject(AssetDatabase.AssetPathToGUID(PotionPrefabPath)));
+            Container.Resolve<IPersistentProgressService>().ChosenPotionDataReference
+                .Returns(new AssetReferenceT<PotionData>(AssetDatabase.AssetPathToGUID(PotionDataPath)));
 
             _unitUnderTest = Container.Resolve<AlchemyTable>();
             _unitUnderTest.Initialize();

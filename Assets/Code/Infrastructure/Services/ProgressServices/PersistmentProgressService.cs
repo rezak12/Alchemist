@@ -14,7 +14,7 @@ namespace Code.Infrastructure.Services.ProgressServices
         public int CoinsAmount => _playerProgress.CoinsAmount;
         public int ReputationAmount => _playerProgress.ReputationAmount;
         public List<AssetReferenceT<IngredientData>> PlayerIngredientsAssetReferences { get; private set; }
-        public AssetReferenceGameObject ChosenPotionPrefabReference { get; private set; }
+        public AssetReferenceT<PotionData> ChosenPotionDataReference { get; private set; }
         public AssetReferenceGameObject ChosenAlchemyTablePrefabReference { get; private set; }
 
         public event Action CoinsAmountChanged;
@@ -31,7 +31,7 @@ namespace Code.Infrastructure.Services.ProgressServices
                 .Select(guid => new AssetReferenceT<IngredientData>(guid))
                 .ToList();
 
-            ChosenPotionPrefabReference = new AssetReferenceGameObject(progress.PlayerPotionPrefabGUID);
+            ChosenPotionDataReference = new AssetReferenceT<PotionData>(progress.PlayerPotionDataGUID);
             ChosenAlchemyTablePrefabReference = new AssetReferenceGameObject(progress.PlayerAlchemyTablePrefabGUID);
         }
 

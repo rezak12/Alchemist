@@ -53,7 +53,6 @@ namespace Tests.UnitTests
                 VFX pooledObject = await _unitUnderTest.Get(PoolObjectType.PotionVFX, Vector3.zero);
 
                 // Assert.
-                Debug.Log(pooledObject.name);
                 UnityAssert.IsNotNull(pooledObject);
             });
 

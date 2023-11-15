@@ -1,5 +1,4 @@
 ﻿using Code.Infrastructure.Services.Pool;
-using Code.Infrastructure.Services.VFX;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
