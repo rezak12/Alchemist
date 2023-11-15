@@ -55,7 +55,7 @@ namespace Code.Infrastructure.Services.Factories
             return popup;
         }
 
-        public async UniTask<PotionMakingPopup> CreatePotionMakingPopup(AlchemyTable alchemyTable)
+        public async UniTask<PotionMakingPopup> CreatePotionMakingPopup(AlchemyTableComponent alchemyTable)
         {
             PopupConfig config = _staticDataService.GetPopupByType(PopupType.PotionMakingPopup);
             var popupPrefab = await _assetProvider
@@ -116,7 +116,7 @@ namespace Code.Infrastructure.Services.Factories
 
         public async UniTask<IngredientItemUI> CreateIngredientItemUIAsync(
             IngredientData ingredient, 
-            AlchemyTable alchemyTable,
+            AlchemyTableComponent alchemyTable,
             Transform parent)
         {
             var prefab = await _assetProvider.LoadAsync<GameObject>(ResourcesPaths.IngredientItemUIAddress);

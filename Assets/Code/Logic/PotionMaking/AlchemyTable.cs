@@ -1,107 +1,53 @@
-﻿using System;
-using System.Collections.Generic;
-using Code.Animations;
+﻿using System.Collections.Generic;
 using Code.Infrastructure.Services.Factories;
-using Code.Infrastructure.Services.Pool;
-using Code.Infrastructure.Services.VFX;
 using Code.Logic.Potions;
 using Code.StaticData;
 using Cysharp.Threading.Tasks;
-using UnityEngine;
-using Zenject;
 
 namespace Code.Logic.PotionMaking
 {
-    public class AlchemyTable : MonoBehaviour
+    public class AlchemyTable
     {
-        [SerializeField] private AlchemyTableSlot[] _tableSlots;
-        [SerializeField] private Transform _ingredientsSpawnPoint;
-        [SerializeField] private Transform _ingredientsRemoveFromSlotPoint;
-        [SerializeField] private Transform _potionSpawnPoint;
-        
-        public event Action FilledSlotsAmountChanged;
+        public AlchemyTableSlot LastFilledSlot => _filledSlots.Peek();
         public bool IsAllSlotsFilled => _freeSlots.Count < 1;
         public bool IsAllSlotsFree => _filledSlots.Count < 1;
         
-        private Stack<AlchemyTableSlot> _freeSlots;
-        private Stack<AlchemyTableSlot> _filledSlots;
-        private Stack<IngredientTweener> _ingredientTweeners;
-        
-        private IPotionInfoFactory _potionInfoFactory;
-        private IPotionFactory _potionFactory;
-        private IIngredientFactory _ingredientFactory;
-        private IVFXProvider _vfxProvider;
+        private readonly Stack<AlchemyTableSlot> _freeSlots;
+        private readonly Stack<AlchemyTableSlot> _filledSlots;
+        private readonly IPotionInfoFactory _potionInfoFactory;
 
-        [Inject]
-        private void Construct(
-            IPotionInfoFactory potionInfoFactory,
-            IIngredientFactory ingredientFactory,
-            IPotionFactory potionFactory, 
-            IVFXProvider vfxProvider)
+        public AlchemyTable(IPotionInfoFactory potionInfoFactory, IReadOnlyCollection<AlchemyTableSlot> slots)
         {
-            _potionFactory = potionFactory;
             _potionInfoFactory = potionInfoFactory;
-            _ingredientFactory = ingredientFactory;
-            _vfxProvider = vfxProvider;
+            _freeSlots = new Stack<AlchemyTableSlot>(slots);
+            _filledSlots = new Stack<AlchemyTableSlot>(slots.Count);
         }
-
-        public void Initialize()
-        {
-            InitializeSlotsCollections();
-        }
-
-        public void AddIngredient(IngredientData ingredient)
-        {
-            FillSlot(ingredient);
-            MoveNewIngredientToSlot(ingredient, _filledSlots.Peek().transform).Forget();
-        }
-
-        public void RemoveLastIngredient()
-        {
-            ReleaseLastSlot();
-            RemoveLastIngredientPrefabFromSlot().Forget();
-        }
-
-        public async UniTask<Potion> HandleResult()
-        {
-            var ingredients = TakeAllIngredients();
-            await MoveAllIngredientsToPotionCreatingPoint();
-            
-            Cleanup();
-            
-            Potion potion = await CreatePotion(ingredients);
-            return potion;
-        }
-
-        private async UniTask<Potion> CreatePotion(IEnumerable<IngredientData> ingredients)
-        {
-            PotionInfo potionInfo = await _potionInfoFactory.CreatePotionInfoAsync(ingredients);
-            Potion potion = await _potionFactory.CreatePotionAsync(potionInfo, _potionSpawnPoint.position);
-            
-            return potion;
-        }
-
-        private void FillSlot(IngredientData ingredient)
+        
+        public void FillSlot(IngredientData ingredient)
         {
             AlchemyTableSlot slot = _freeSlots.Pop();
             
             slot.Fill(ingredient);
             _filledSlots.Push(slot);
-            
-            FilledSlotsAmountChanged?.Invoke();
         }
-
-        private void ReleaseLastSlot()
+        
+        public void ReleaseLastSlot()
         {
             AlchemyTableSlot slot = _filledSlots.Pop();
             
             slot.Release();
             _freeSlots.Push(slot);
-            
-            FilledSlotsAmountChanged?.Invoke();
         }
-
-        private IEnumerable<IngredientData> TakeAllIngredients()
+        
+        public async UniTask<PotionInfo> CreatePotionInfo()
+        {
+            PotionInfo potionInfo = await _potionInfoFactory.CreatePotionInfoAsync(GetAllIngredients());
+            Cleanup();
+            
+            return potionInfo;
+        }
+        
+        private IEnumerable<IngredientData> GetAllIngredients()
         {
             var ingredients = new List<IngredientData>(_filledSlots.Count);
 
@@ -113,55 +59,11 @@ namespace Code.Logic.PotionMaking
 
             return ingredients;
         }
-
-        private async UniTaskVoid MoveNewIngredientToSlot(IngredientData ingredientData, Transform slotTransform)
-        {
-            IngredientTweener ingredientTweener = await _ingredientFactory.CreateIngredientAsync(
-                ingredientData.PrefabReference, _ingredientsSpawnPoint.position);
-            
-            _ingredientTweeners.Push(ingredientTweener);
-            
-            VFX vfx = await _vfxProvider.Get(PoolObjectType.IngredientVFX, slotTransform.position);
-            await ingredientTweener.JumpTo(slotTransform);
-            
-            await vfx.Play();
-            _vfxProvider.Return(PoolObjectType.IngredientVFX, vfx);
-        }
-
-        private async UniTask MoveAllIngredientsToPotionCreatingPoint()
-        {
-            var tasks = new List<UniTask>(_ingredientTweeners.Count);
-            foreach (IngredientTweener ingredientAnimator in _ingredientTweeners)
-            {
-                tasks.Add(ingredientAnimator.JumpTo(_potionSpawnPoint));
-            }
-            await UniTask.WhenAll(tasks);
-            
-            foreach (IngredientTweener ingredientAnimator in _ingredientTweeners)
-            {
-                Destroy(ingredientAnimator.gameObject);
-            }
-        }
-
-        private async UniTaskVoid RemoveLastIngredientPrefabFromSlot()
-        {
-            IngredientTweener ingredientTweener = _ingredientTweeners.Pop();
-            await ingredientTweener.JumpTo(_ingredientsRemoveFromSlotPoint);
-            Destroy(ingredientTweener.gameObject);
-        }
-
-        private void InitializeSlotsCollections()
-        {
-            _freeSlots = new Stack<AlchemyTableSlot>(_tableSlots);
-            _filledSlots = new Stack<AlchemyTableSlot>(_freeSlots.Count);
-            _ingredientTweeners = new Stack<IngredientTweener>(_freeSlots.Count);
-        }
-
+        
         private void Cleanup()
         {
             _filledSlots.Clear();
             _freeSlots.Clear();
-            _ingredientTweeners.Clear();
         }
     }
 }

@@ -6,6 +6,6 @@ namespace Code.Infrastructure.Services.Factories
 {
     public interface IAlchemyTableFactory
     {
-        public UniTask<AlchemyTable> CreateTableAsync(Vector3 position);
+        public UniTask<AlchemyTableComponent> CreateTableAsync(Vector3 position);
     }
 }

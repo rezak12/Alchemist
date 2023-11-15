@@ -20,7 +20,7 @@ namespace Code.Infrastructure.States.PotionMakingStates
         private readonly IAwaitingOverlay _awaitingOverlay;
         
         private PotionMakingPopup _potionMakingPopup;
-        private AlchemyTable _alchemyTable;
+        private AlchemyTableComponent _alchemyTable;
 
         public OrderStartedState(IStaticDataService staticDataService, 
             IAlchemyTableFactory tableFactory,

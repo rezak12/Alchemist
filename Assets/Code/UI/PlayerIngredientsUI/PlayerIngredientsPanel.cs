@@ -23,7 +23,7 @@ namespace Code.UI.PlayerIngredientsUI
         
         public async UniTask InitializeAsync(
             IEnumerable<IngredientData> playerIngredients, 
-            AlchemyTable alchemyTable)
+            AlchemyTableComponent alchemyTable)
         {
             var tasks = new List<UniTask>();
             foreach (IngredientData ingredient in playerIngredients)

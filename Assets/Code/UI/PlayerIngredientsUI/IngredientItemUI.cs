@@ -17,9 +17,9 @@ namespace Code.UI.PlayerIngredientsUI
         [SerializeField] private Button _useButton;
         
         private IngredientData _ingredient;
-        private AlchemyTable _alchemyTable;
+        private AlchemyTableComponent _alchemyTable;
 
-        public async UniTask InitializeAsync(IngredientData ingredient, AlchemyTable alchemyTable)
+        public async UniTask InitializeAsync(IngredientData ingredient, AlchemyTableComponent alchemyTable)
         {
             _ingredient = ingredient;
             _alchemyTable = alchemyTable;
