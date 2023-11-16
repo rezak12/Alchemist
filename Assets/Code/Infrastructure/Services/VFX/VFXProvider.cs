@@ -24,12 +24,17 @@ namespace Code.Infrastructure.Services.VFX
         {
             Transform parent = new GameObject("VFXProvider").transform;
 
-            var tasks = new List<UniTask>();
-            var configs = _staticDataService.GetAllVFXPoolObjectConfigs();
-            foreach ((PoolObjectType key, PoolObjectConfig config) in configs)
+            List<PoolObjectConfig> configs = new()
+            {
+                _staticDataService.GetPoolConfigByType(PoolObjectType.IngredientVFX),
+                _staticDataService.GetPoolConfigByType(PoolObjectType.PotionVFX)
+            };
+            
+            var tasks = new List<UniTask>(configs.Count);
+            foreach (PoolObjectConfig config in configs)
             {
                 var pool = new Pool<VFX>(_factory);
-                _pools.Add(key, pool);
+                _pools.Add(config.Type, pool);
 
                 UniTask task = pool.InitializeAsync(config.AssetReference, config.StartCapacity, config.Type, parent);
                 tasks.Add(task);
