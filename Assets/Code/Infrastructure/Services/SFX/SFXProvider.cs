@@ -20,6 +20,7 @@ namespace Code.Infrastructure.Services.SFX
         public async UniTask InitializeAsync()
         {
             Transform parent = new GameObject("SFXProvider").transform;
+            Object.DontDestroyOnLoad(parent);
             
             PoolObjectConfig poolConfig = _staticDataService.GetPoolConfigByType(PoolObjectType.SFXPlayer);
             await _pool.InitializeAsync(poolConfig.AssetReference, poolConfig.StartCapacity, poolConfig.Type, parent);

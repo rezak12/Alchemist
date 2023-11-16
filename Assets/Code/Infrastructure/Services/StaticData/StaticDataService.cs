@@ -30,7 +30,7 @@ namespace Code.Infrastructure.Services.StaticData
         {
             LoadPopupConfigs();
             LoadLevelConfigs();
-            LoadVFXPoolConfigs();
+            LoadPoolConfigs();
             LoadOrderTypes();
             LoadOrderDifficulties();
             return UniTask.CompletedTask;
@@ -88,10 +88,10 @@ namespace Code.Infrastructure.Services.StaticData
                 .ToDictionary(config => config.SceneName, config => config);
         }
 
-        private void LoadVFXPoolConfigs()
+        private void LoadPoolConfigs()
         {
             _poolObjectConfigsCache = Resources
-                .LoadAll<PoolObjectConfig>(ResourcesPaths.VFXObjectPoolConfigsPath)
+                .LoadAll<PoolObjectConfig>(ResourcesPaths.ObjectPoolConfigsPath)
                 .ToDictionary(config => config.Type, config => config);
         }
 

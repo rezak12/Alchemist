@@ -5,10 +5,12 @@ using Code.Infrastructure.Services.ProgressServices;
 using Code.Infrastructure.Services.RandomServices;
 using Code.Infrastructure.Services.SaveLoadService;
 using Code.Infrastructure.Services.SceneLoader;
+using Code.Infrastructure.Services.SFX;
 using Code.Infrastructure.Services.StaticData;
 using Code.Infrastructure.States.GameStates;
 using Code.UI.AwaitingOverlays;
 using Cysharp.Threading.Tasks;
+using UnityEngine.AddressableAssets;
 using Zenject;
 
 namespace Code.Infrastructure.Installers
@@ -25,6 +27,7 @@ namespace Code.Infrastructure.Installers
             BindStaticDataService();
             BindStatesFactory();
             BindUIFactory();
+            BindSFXProvider();
             BindAwaitingOverlay();
             BindGameStateMachine();
             BindBootstrapper();
@@ -60,14 +63,18 @@ namespace Code.Infrastructure.Installers
             Container.BindInterfacesTo<StaticDataService>().AsSingle();
         }
 
-        private void BindStatesFactory()
-        {
-            Container.BindInterfacesTo<StatesFactory>().AsSingle();
-        }
-
         private void BindUIFactory()
         {
             Container.BindInterfacesTo<UIFactory>().AsSingle();
+        }
+
+        public void BindSFXProvider()
+        {
+            Container
+                .BindFactory<AssetReferenceGameObject, UniTask<SFXPlayer>, SFXPlayer.Factory>()
+                .FromFactory<PrefabByReferenceAsyncFactory<SFXPlayer>>();
+            
+            Container.BindInterfacesTo<SFXProvider>().AsSingle();
         }
 
         private void BindAwaitingOverlay()
@@ -77,6 +84,11 @@ namespace Code.Infrastructure.Installers
                 .FromFactory<PrefabByAddressAsyncFactory<AwaitingOverlay>>();
 
             Container.BindInterfacesAndSelfTo<AwaitingOverlayProxy>().AsSingle();
+        }
+
+        private void BindStatesFactory()
+        {
+            Container.BindInterfacesTo<StatesFactory>().AsSingle();
         }
 
         private void BindGameStateMachine()
