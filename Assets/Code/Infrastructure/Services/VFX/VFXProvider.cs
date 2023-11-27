@@ -43,14 +43,14 @@ namespace Code.Infrastructure.Services.VFX
             await UniTask.WhenAll(tasks);
         }
 
-        public async UniTask<VFX> Get(PoolObjectType type, Vector3 position)
+        public async UniTask Play(PoolObjectType type, Vector3 position)
         {
-            return await _pools[type].Get(position);
-        }
-        
-        public void Return(PoolObjectType type, VFX vfx)
-        {
-            _pools[type].Return(vfx);
+            var pool = _pools[type];
+            
+            VFX vfx = await pool.Get(position);
+            await vfx.Play();
+            
+            pool.Return(vfx);
         }
     }
 }
