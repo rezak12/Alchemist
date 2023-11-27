@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Code.Animations;
 using Code.Infrastructure.Services.Factories;
 using Code.Infrastructure.Services.Pool;
+using Code.Infrastructure.Services.SFX;
 using Code.Infrastructure.Services.VFX;
 using Code.Logic.Potions;
 using Code.StaticData;
@@ -29,18 +30,21 @@ namespace Code.Logic.PotionMaking
         private IPotionFactory _potionFactory;
         private IIngredientFactory _ingredientFactory;
         private IVFXProvider _vfxProvider;
+        private ISFXProvider _sfxProvider;
 
         [Inject]
         private void Construct(
             IPotionInfoFactory potionInfoFactory,
             IIngredientFactory ingredientFactory,
             IPotionFactory potionFactory, 
-            IVFXProvider vfxProvider)
+            IVFXProvider vfxProvider,
+            ISFXProvider sfxProvider)
         {
             _alchemyTable = new AlchemyTable(potionInfoFactory, _tableSlots);
             _potionFactory = potionFactory;
             _ingredientFactory = ingredientFactory;
             _vfxProvider = vfxProvider;
+            _sfxProvider = sfxProvider;
         }
 
         public void Initialize()
@@ -73,7 +77,16 @@ namespace Code.Logic.PotionMaking
             await MoveAllIngredientsToPotionCreatingPoint();
             Cleanup();
             
-            return await CreatePotion(potionInfo);
+            Potion potion = await CreatePotion(potionInfo);
+            var tweener = potion.GetComponent<PotionTweener>();
+            Vector3 potionPosition = potion.transform.position;
+            
+            await UniTask.WhenAll(
+                tweener.PresentAfterCreating(),
+                _vfxProvider.Play(PoolObjectType.PotionVFX, potionPosition),
+                _sfxProvider.PlayOneShot(potion.SFXReference, potionPosition));
+
+            return potion;
         }
 
         private async UniTask<Potion> CreatePotion(PotionInfo potionInfo)
@@ -87,12 +100,10 @@ namespace Code.Logic.PotionMaking
                 ingredientData.PrefabReference, _ingredientsSpawnPoint.position);
             _ingredientTweeners.Push(ingredientTweener);
             
-            VFX vfx = await _vfxProvider.Get(PoolObjectType.IngredientVFX, slotTransform.position);
-            
             await ingredientTweener.JumpTo(slotTransform);
-            await vfx.Play();
-            
-            _vfxProvider.Return(PoolObjectType.IngredientVFX, vfx);
+            await UniTask.WhenAll(
+                _vfxProvider.Play(PoolObjectType.IngredientVFX, slotTransform.position),
+               _sfxProvider.PlayOneShot(ingredientData.AudioClip, ingredientTweener.transform.position));
         }
 
         private async UniTask MoveAllIngredientsToPotionCreatingPoint()

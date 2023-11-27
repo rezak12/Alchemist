@@ -1,9 +1,6 @@
-﻿using Code.Animations;
-using Code.Infrastructure.Services.Factories;
-using Code.Infrastructure.Services.Pool;
+﻿using Code.Infrastructure.Services.Factories;
 using Code.Infrastructure.Services.ProgressServices;
 using Code.Infrastructure.Services.SaveLoadService;
-using Code.Infrastructure.Services.VFX;
 using Code.Logic.Orders;
 using Code.Logic.PotionMaking;
 using Code.Logic.Potions;
@@ -22,7 +19,6 @@ namespace Code.Infrastructure.States.PotionMakingStates
         private readonly ISaveLoadService _saveLoadService;
         private readonly IUIFactory _uiFactory;
         private readonly IAwaitingOverlay _awaitingOverlay;
-        private readonly IVFXProvider _vfxProvider;
         
         private OrderCompletedPopup _orderCompletedPopup;
 
@@ -31,8 +27,7 @@ namespace Code.Infrastructure.States.PotionMakingStates
             IPersistentProgressService progressService, 
             ISaveLoadService saveLoadService,
             IUIFactory uiFactory,
-            IAwaitingOverlay awaitingOverlay, 
-            IVFXProvider vfxProvider)
+            IAwaitingOverlay awaitingOverlay)
         {
             _potionRater = new ResultPotionRater();
             _orderHolder = orderHolder;
@@ -40,13 +35,10 @@ namespace Code.Infrastructure.States.PotionMakingStates
             _saveLoadService = saveLoadService;
             _uiFactory = uiFactory;
             _awaitingOverlay = awaitingOverlay;
-            _vfxProvider = vfxProvider;
         }
 
         public async UniTask Enter(Potion payload1)
         { 
-            await PresentPotion(payload1);
-
             PotionOrder order = _orderHolder.SelectedOrder;
             var isRequirementsMatched = _potionRater.IsPotionSatisfyingRequirements(payload1, order);
 
@@ -69,18 +61,6 @@ namespace Code.Infrastructure.States.PotionMakingStates
         {
             await _awaitingOverlay.Show();
             Object.Destroy(_orderCompletedPopup.gameObject);
-        }
-
-        private async UniTask PresentPotion(Potion potion)
-        {
-            var potionAnimator = potion.GetComponent<PotionTweener>();
-
-            VFX vfx = await _vfxProvider.Get(PoolObjectType.PotionVFX, potionAnimator.transform.position);
-            await UniTask.WhenAll(
-                vfx.Play(),
-                potionAnimator.PresentAfterCreating());
-            
-            _vfxProvider.Return(PoolObjectType.PotionVFX, vfx);
         }
 
         private void GiveReward(PotionOrderReward reward)
