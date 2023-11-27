@@ -12,12 +12,14 @@ namespace Code.StaticData
         [SerializeField] private Sprite _icon;
         [SerializeField] private string _name;
         [SerializeField] private AssetReferenceGameObject _prefabReference;
+        [SerializeField] private AssetReferenceT<AudioClip> _audioClip;
         [FormerlySerializedAs("_characteristics")] 
         [SerializeField] private List<IngredientCharacteristicAmountPair> _characteristicAmountPairs;
 
         public Sprite Icon => _icon;
         public string Name => _name;
         public AssetReferenceGameObject PrefabReference => _prefabReference;
+        public AssetReferenceT<AudioClip> AudioClip => _audioClip;
         public List<IngredientCharacteristicAmountPair> CharacteristicAmountPairs => _characteristicAmountPairs;
     }
 }

@@ -1,11 +1,12 @@
 ﻿using Cysharp.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 namespace Code.Infrastructure.Services.SFX
 {
     public interface ISFXProvider
     {
         UniTask InitializeAsync();
-        UniTask PlayOneShot(AudioClip audioClip, Vector3 position);
+        UniTask PlayOneShot(AssetReferenceT<AudioClip> audioClipReference, Vector3 position);
     }
 }

@@ -1,8 +1,10 @@
-﻿using Code.Infrastructure.Services.Pool;
+﻿using Code.Infrastructure.Services.AssetProvider;
+using Code.Infrastructure.Services.Pool;
 using Code.Infrastructure.Services.StaticData;
 using Code.StaticData;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 namespace Code.Infrastructure.Services.SFX
 {
@@ -10,11 +12,13 @@ namespace Code.Infrastructure.Services.SFX
     {
         private Pool<SFXPlayer> _pool;
         private IStaticDataService _staticDataService;
+        private IAssetProvider _assetProvider;
 
-        public SFXProvider(SFXPlayer.Factory factory, IStaticDataService staticDataService)
+        public SFXProvider(SFXPlayer.Factory factory, IStaticDataService staticDataService, IAssetProvider assetProvider)
         {
             _pool = new Pool<SFXPlayer>(factory);
             _staticDataService = staticDataService;
+            _assetProvider = assetProvider;
         }
 
         public async UniTask InitializeAsync()
@@ -26,11 +30,12 @@ namespace Code.Infrastructure.Services.SFX
             await _pool.InitializeAsync(poolConfig.AssetReference, poolConfig.StartCapacity, poolConfig.Type, parent);
         }
 
-        public async UniTask PlayOneShot(AudioClip audioClip, Vector3 position)
+        public async UniTask PlayOneShot(AssetReferenceT<AudioClip> audioClipReference, Vector3 position)
         {
             SFXPlayer player = await _pool.Get(position);
+            var clip = await _assetProvider.LoadAsync<AudioClip>(audioClipReference);
             
-            await player.PlayOneShot(audioClip);
+            await player.PlayOneShot(clip);
             
             _pool.Return(player);
         }

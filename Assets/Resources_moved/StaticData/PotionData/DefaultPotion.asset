@@ -13,4 +13,8 @@ MonoBehaviour:
   m_Name: DefaultPotion
   m_EditorClassIdentifier: 
   _prefab: {fileID: 4602812130292515995, guid: fe4a0890225f895438c8c1759cc2d213, type: 3}
-  _sfx: {fileID: 8300000, guid: 60c30552b3cd93047a86625397fb955b, type: 3}
+  _sfx:
+    m_AssetGUID: 60c30552b3cd93047a86625397fb955b
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
