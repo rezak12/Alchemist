@@ -7,7 +7,6 @@ namespace Code.Infrastructure.Services.VFX
     public interface IVFXProvider
     {
         UniTask InitializeAsync();
-        UniTask<VFX> Get(PoolObjectType type, Vector3 position);
-        void Return(PoolObjectType type, VFX vfx);
+        UniTask Play(PoolObjectType type, Vector3 position);
     }
 }

@@ -108,7 +108,7 @@ namespace Tests.UnitTests
         private Potion CreatePotion(IEnumerable<PotionCharacteristicAmountPair> createdCharacteristicAmountPairs)
         {
             var potion = new GameObject("potion").AddComponent<Potion>();
-            potion.Initialize(new PotionInfo(createdCharacteristicAmountPairs));
+            potion.Initialize(new PotionInfo(createdCharacteristicAmountPairs), null);
             return potion;
         }
 

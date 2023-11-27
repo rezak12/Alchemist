@@ -9,12 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b2fc16601ac4ce4ac2cb907e855ba66, type: 3}
-  m_Name: DefaultPotion
+  m_Script: {fileID: 11500000, guid: 9fd1a0ab50e148d8b5f6f144ae5ca014, type: 3}
+  m_Name: IngredientVFXConfig
   m_EditorClassIdentifier: 
-  _prefab: {fileID: 4602812130292515995, guid: fe4a0890225f895438c8c1759cc2d213, type: 3}
-  _sfx:
-    m_AssetGUID: 60c30552b3cd93047a86625397fb955b
+  _type: 2
+  _startCapacity: 3
+  _assetReference:
+    m_AssetGUID: e859383d9fb42a7419df30c9afd4cf64
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0

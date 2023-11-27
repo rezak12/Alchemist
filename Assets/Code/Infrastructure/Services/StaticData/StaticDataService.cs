@@ -15,7 +15,7 @@ namespace Code.Infrastructure.Services.StaticData
     {
         private Dictionary<PopupType, PopupConfig> _popupConfigsCache;
         private Dictionary<string,LevelConfig> _levelConfigsCache;
-        private Dictionary<PoolObjectType, PoolObjectConfig> _vfxPoolObjectConfigsCache;
+        private Dictionary<PoolObjectType, PoolObjectConfig> _poolObjectConfigsCache;
         private PotionOrderType[] _orderTypesCache;
         private PotionOrderDifficulty[] _orderDifficultiesCache;
 
@@ -30,7 +30,7 @@ namespace Code.Infrastructure.Services.StaticData
         {
             LoadPopupConfigs();
             LoadLevelConfigs();
-            LoadVFXPoolConfigs();
+            LoadPoolConfigs();
             LoadOrderTypes();
             LoadOrderDifficulties();
             return UniTask.CompletedTask;
@@ -54,9 +54,14 @@ namespace Code.Infrastructure.Services.StaticData
             throw new NullReferenceException();
         }
 
-        public IEnumerable<KeyValuePair<PoolObjectType, PoolObjectConfig>> GetAllVFXPoolObjectConfigs()
+        public IEnumerable<KeyValuePair<PoolObjectType, PoolObjectConfig>> GetAllPoolObjectConfigs()
         {
-            return _vfxPoolObjectConfigsCache;
+            return _poolObjectConfigsCache;
+        }
+
+        public PoolObjectConfig GetPoolConfigByType(PoolObjectType type)
+        {
+            return _poolObjectConfigsCache[type];
         }
 
         public PotionOrderType GetRandomPotionOrderType()
@@ -83,10 +88,10 @@ namespace Code.Infrastructure.Services.StaticData
                 .ToDictionary(config => config.SceneName, config => config);
         }
 
-        private void LoadVFXPoolConfigs()
+        private void LoadPoolConfigs()
         {
-            _vfxPoolObjectConfigsCache = Resources
-                .LoadAll<PoolObjectConfig>(ResourcesPaths.VFXObjectPoolConfigsPath)
+            _poolObjectConfigsCache = Resources
+                .LoadAll<PoolObjectConfig>(ResourcesPaths.ObjectPoolConfigsPath)
                 .ToDictionary(config => config.Type, config => config);
         }
 

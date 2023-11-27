@@ -10,10 +10,11 @@ namespace Code.Infrastructure.Services.StaticData
     public interface IStaticDataService
     {
         UniTask InitializeAsync();
-        public PopupConfig GetPopupByType(PopupType type);
-        public PotionOrderType GetRandomPotionOrderType();
-        public PotionOrderDifficulty GetRandomPotionOrderDifficulty();
+        PopupConfig GetPopupByType(PopupType type);
+        PotionOrderType GetRandomPotionOrderType();
+        PotionOrderDifficulty GetRandomPotionOrderDifficulty();
         LevelConfig GetLevelConfigBySceneName(string sceneName);
-        IEnumerable<KeyValuePair<PoolObjectType, PoolObjectConfig>> GetAllVFXPoolObjectConfigs();
+        IEnumerable<KeyValuePair<PoolObjectType, PoolObjectConfig>> GetAllPoolObjectConfigs();
+        PoolObjectConfig GetPoolConfigByType(PoolObjectType type);
     }
 }

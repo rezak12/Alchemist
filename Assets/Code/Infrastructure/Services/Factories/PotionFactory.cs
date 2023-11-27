@@ -21,20 +21,20 @@ namespace Code.Infrastructure.Services.Factories
 
         public async UniTask<Potion> CreatePotionAsync(PotionInfo potionInfo, Vector3 position)
         {
-            Potion potionPrefab = await LoadPlayerPotionPrefab();
+            PotionData potionData = await LoadPlayerPotionData();
 
-            Potion potion = Object.Instantiate(potionPrefab, position, Quaternion.identity);
-            potion.Initialize(potionInfo);
+            Potion potion = Object.Instantiate(potionData.Prefab, position, Quaternion.identity);
+            potion.Initialize(potionInfo, potionData.SFX);
             
             return potion;
         }
         
-        private async UniTask<Potion> LoadPlayerPotionPrefab()
+        private async UniTask<PotionData> LoadPlayerPotionData()
         {
             var potionDataReference = _progressService.ChosenPotionDataReference;
             var potionData = await _assetProvider.LoadAsync<PotionData>(potionDataReference);
             
-            return potionData.Prefab;
+            return potionData;
         }
     }
 }
