@@ -10,24 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: UI
+  m_Name: IngredientPrefabs
   m_EditorClassIdentifier: 
-  m_GroupName: UI
+  m_GroupName: IngredientPrefabs
   m_Data:
     m_SerializedData: []
-  m_GUID: 93810ad97d14e594182e8a5f314a03f2
+  m_GUID: cd6303fe2ffba1d4abdd845c6492a278
   m_SerializeEntries:
-  - m_GUID: f2773cdee543cc143bff2a1e25611d72
-    m_Address: Window
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: ccc2ac51f7d9e6441a2cd89e5096390d
-    m_Address: Fantasy Wooden GUI  Free
+  - m_GUID: cfca5d7d14824b54faab74b113b38990
+    m_Address: Ingredient-OrangeBag
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 57256fe3aec1a7d4a8b5958d52870f88, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: 5e8310c50379646499679aeeeccf7882, type: 2}
-    - {fileID: 11400000, guid: 894ab964e74b6f94280efe29f61ae09f, type: 2}
+    - {fileID: 11400000, guid: ffc508090d424c34d8d6a373b4cf7f70, type: 2}
+    - {fileID: 11400000, guid: 4072020ab899374498f11adfac6ffb39, type: 2}

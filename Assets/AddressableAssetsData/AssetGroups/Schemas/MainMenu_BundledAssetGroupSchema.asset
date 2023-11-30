@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e5d17a21594effb4e9591490b009e7aa, type: 3}
-  m_Name: Infrastructure_BundledAssetGroupSchema
+  m_Name: MainMenu_BundledAssetGroupSchema
   m_EditorClassIdentifier: 
-  m_Group: {fileID: 11400000, guid: abe16778f7745234898f5f6e0fa647a4, type: 2}
+  m_Group: {fileID: 11400000, guid: 05c1138cb8f9e924d8e14b3498ed0569, type: 2}
   m_InternalBundleIdMode: 1
   m_Compression: 1
   m_IncludeAddressInCatalog: 1

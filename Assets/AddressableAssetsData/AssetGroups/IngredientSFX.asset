@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Infrastructure
+  m_Name: IngredientSFX
   m_EditorClassIdentifier: 
-  m_GroupName: Infrastructure
+  m_GroupName: IngredientSFX
   m_Data:
     m_SerializedData: []
-  m_GUID: 54fad80b80ee50c4fa192b9e763d8796
+  m_GUID: 817fbc926b2aac74db75f12cfaa67c12
   m_SerializeEntries:
-  - m_GUID: af6cd98af56403e4ba03eba06b8c9c9e
-    m_Address: SFXPlayer
+  - m_GUID: e6ca8af040e86524fb3ee087eabf8992
+    m_Address: Ingredient-slap-sfx
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 57256fe3aec1a7d4a8b5958d52870f88, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: d7ea631358551ef4aa7ad62df1de7764, type: 2}
-    - {fileID: 11400000, guid: a8c2616837e998043a52836077c6e5b0, type: 2}
+    - {fileID: 11400000, guid: 14dba34fc1ed47d45be7881ccdd76402, type: 2}
+    - {fileID: 11400000, guid: a679435f720c99a4fb2ec5a9e8c33356, type: 2}

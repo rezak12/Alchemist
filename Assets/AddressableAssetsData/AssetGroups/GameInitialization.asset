@@ -10,24 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Scenes
+  m_Name: GameInitialization
   m_EditorClassIdentifier: 
-  m_GroupName: Scenes
+  m_GroupName: GameInitialization
   m_Data:
     m_SerializedData: []
-  m_GUID: adedfcc92533ca443ac26fcd057d374f
+  m_GUID: 84384fc3918a7c545b06dea5bf7c250f
   m_SerializeEntries:
-  - m_GUID: 98f288ea4698b0443bee0ebe128a94e6
-    m_Address: PotionMaking
+  - m_GUID: 0c8d243db23ad204185fd8662997b2bb
+    m_Address: AwaitingOverlay
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 9664500042127f64c9d0e3d4f894eeb2
-    m_Address: MainMenu
+  - m_GUID: af6cd98af56403e4ba03eba06b8c9c9e
+    m_Address: SFXPlayer
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 57256fe3aec1a7d4a8b5958d52870f88, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: 4a2cb057f1b54e340b00c6c5675470f9, type: 2}
-    - {fileID: 11400000, guid: 38c2fe1cad9779a4ebf9a4bccfde28a4, type: 2}
+    - {fileID: 11400000, guid: 47a0f29e6cf68dd4ab878af98d5316ea, type: 2}
+    - {fileID: 11400000, guid: 019837c0d1ccaa240ba9bf83670b5aea, type: 2}
