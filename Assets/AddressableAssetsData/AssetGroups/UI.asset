@@ -20,31 +20,38 @@ MonoBehaviour:
   - m_GUID: e8f9081dc9c06484db4032b5e7948d64
     m_Address: OrderRewardContainer
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - PotionMaking
   - m_GUID: 012e7d42759c15b4f9ee1b4560a6a8b8
     m_Address: OrderPunishmentContainer
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - PotionMaking
   - m_GUID: 874b3026b910ab54bb6d4c594bfb70e2
     m_Address: PotionCharacteristicItem
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - PotionMaking
   - m_GUID: 03c4610f5bd25774c9d4a2655355fedc
     m_Address: OrdersSelectorPopup
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - PotionMaking
   - m_GUID: 81a65d3d2f2a11d45b48d26eff00f201
     m_Address: OrderInfoPanel
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - PotionMaking
   - m_GUID: cc127546ab40dab43bbe0ef2743bf0e8
     m_Address: PlayerProgressContainer
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - PotionMaking
   - m_GUID: d500e44532a204c4a8af9c1aac5074e1
     m_Address: AlchemyTableInteractionPanel
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - PotionMaking
   - m_GUID: f2773cdee543cc143bff2a1e25611d72
     m_Address: Window
     m_ReadOnly: 0
@@ -52,23 +59,28 @@ MonoBehaviour:
   - m_GUID: beef59ad5d961db46b311795c0dab6fb
     m_Address: IngredientItem
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - PotionMaking
   - m_GUID: 03d067110ac626345b28a7c8d5ffa7a2
     m_Address: PlayerIngredientsPanel
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - PotionMaking
   - m_GUID: 3e70c8d149367d24a82972c837d1ae99
     m_Address: PotionCharacteristicsContainer
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - PotionMaking
   - m_GUID: b13788d1f1934174c9bfd96d977707a7
     m_Address: PotionMakingPopup
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - PotionMaking
   - m_GUID: 0399fc5cd0212304f8626cceb6f32a78
     m_Address: OrderCompletedPopup
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - PotionMaking
   - m_GUID: c181fc871ab9b3742a22fd07f8ae1db3
     m_Address: MainMenuPopup
     m_ReadOnly: 0

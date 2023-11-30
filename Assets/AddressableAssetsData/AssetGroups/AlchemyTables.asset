@@ -20,7 +20,8 @@ MonoBehaviour:
   - m_GUID: 8674daa91fa6494468bc568deac813e0
     m_Address: DeffaultTable
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - PotionMaking
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 57256fe3aec1a7d4a8b5958d52870f88, type: 2}
   m_SchemaSet:

@@ -20,27 +20,33 @@ MonoBehaviour:
   - m_GUID: 8d3affa544e212a4480fcd4536254f3c
     m_Address: Blessing
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - Characteristics
   - m_GUID: 7c0cabd78e1a52c47b8f9c72d20f462b
     m_Address: Heal
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - Characteristics
   - m_GUID: 3f7e3e27950b1c34996dab158d291426
     m_Address: Poisoning
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - Characteristics
   - m_GUID: 413ae81cc3964ab439c73e8e76955b52
     m_Address: Cough
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - Characteristics
   - m_GUID: de963e4a5f43ead468d3da6852c72812
     m_Address: Immunity
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - Characteristics
   - m_GUID: 0a341f286ee933e4f8a1f62d3c1c3d06
     m_Address: Curse
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - Characteristics
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 57256fe3aec1a7d4a8b5958d52870f88, type: 2}
   m_SchemaSet:

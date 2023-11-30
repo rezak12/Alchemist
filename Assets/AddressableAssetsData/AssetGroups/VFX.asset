@@ -20,11 +20,13 @@ MonoBehaviour:
   - m_GUID: e859383d9fb42a7419df30c9afd4cf64
     m_Address: IngredientVFX
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - PotionMaking
   - m_GUID: bf0e56a097b1e8e41819c3d039977632
     m_Address: PotionVFX
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - PotionMaking
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 57256fe3aec1a7d4a8b5958d52870f88, type: 2}
   m_SchemaSet:

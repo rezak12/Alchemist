@@ -97,6 +97,7 @@ MonoBehaviour:
     - default
     - Characteristics
     - Ingredients
+    - PotionMaking
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: f6d93897da77fe44985911bd797a15d8, type: 2}
