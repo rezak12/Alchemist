@@ -1,7 +1,6 @@
 ﻿using Code.Infrastructure.Services.Factories;
 using Code.Infrastructure.States.GameStates;
 using Cysharp.Threading.Tasks;
-using UnityEngine;
 using Zenject;
 
 namespace Code.Infrastructure.Bootstrappers

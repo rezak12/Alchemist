@@ -9,7 +9,6 @@ using Code.Logic.PotionMaking;
 using Code.Logic.Potions;
 using Code.StaticData;
 using Code.UI;
-using Code.UI.AwaitingOverlays;
 using Code.UI.MainMenuUI;
 using Code.UI.OrderCompletedUI;
 using Code.UI.PlayerIngredientsUI;

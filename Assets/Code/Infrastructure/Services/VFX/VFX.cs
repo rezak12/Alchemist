@@ -15,7 +15,5 @@ namespace Code.Infrastructure.Services.VFX
             _particleSystem.Play();
             await UniTask.WaitUntil(() => !_particleSystem.IsAlive());
         }
-
-        public class Factory : PlaceholderFactory<AssetReferenceGameObject, UniTask<VFX>> { }
     }
 }

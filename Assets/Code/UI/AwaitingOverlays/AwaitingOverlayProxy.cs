@@ -1,21 +1,22 @@
 using Code.Data;
+using Code.Infrastructure.Services.Factories;
 using Cysharp.Threading.Tasks;
 
 namespace Code.UI.AwaitingOverlays
 {
     public class AwaitingOverlayProxy : IAwaitingOverlay
     {
-        private readonly AwaitingOverlay.Factory _uiFactory;
+        private readonly IPrefabFactory _factory;
         private IAwaitingOverlay _overlay;
 
-        public AwaitingOverlayProxy(AwaitingOverlay.Factory factory)
+        public AwaitingOverlayProxy(NonCachePrefabFactory factory)
         {
-            _uiFactory = factory;
+            _factory = factory;
         }
 
         public async UniTask InitializeAsync()
         {
-            _overlay = await _uiFactory.Create(ResourcesPaths.AwaitingOverlayAddress);
+            _overlay = await _factory.Create<AwaitingOverlay>(ResourcesPaths.AwaitingOverlayAddress);
         }
 
         public async UniTask Show(string message = "Loading...")

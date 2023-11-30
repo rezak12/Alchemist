@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Code.Infrastructure.Services.Factories;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -8,7 +9,7 @@ namespace Code.Infrastructure.Services.Pool
 {
     public class Pool<T> where T : MonoBehaviour
     {
-        private readonly PlaceholderFactory<AssetReferenceGameObject, UniTask<T>> _factory;
+        private readonly IPrefabFactory _factory;
         
         public PoolObjectType Type { get; private set; }
         private AssetReferenceGameObject _objectReference;
@@ -16,7 +17,7 @@ namespace Code.Infrastructure.Services.Pool
         
         private Stack<T> _entries;
 
-        public Pool(PlaceholderFactory<AssetReferenceGameObject, UniTask<T>> factory)
+        public Pool(IPrefabFactory factory)
         {
             _factory = factory;
         }
@@ -66,7 +67,7 @@ namespace Code.Infrastructure.Services.Pool
 
         private async UniTask AddObject()
         {
-            T newObject = await _factory.Create(_objectReference);
+            T newObject = await _factory.Create<T>(_objectReference);
             
             newObject.gameObject.SetActive(false);
             newObject.transform.SetParent(_parent);

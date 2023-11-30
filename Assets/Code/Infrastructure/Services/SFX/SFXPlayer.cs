@@ -14,7 +14,5 @@ namespace Code.Infrastructure.Services.SFX
             _audioSource.PlayOneShot(audioClip);
             await UniTask.WaitUntil(() => !_audioSource.isPlaying);
         }
-        
-        public class Factory : PlaceholderFactory<AssetReferenceGameObject, UniTask<SFXPlayer>> { }
     }
 }
