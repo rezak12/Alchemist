@@ -32,6 +32,10 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Ingredients
+  - m_GUID: cfca5d7d14824b54faab74b113b38990
+    m_Address: Ingredient-OrangeBag
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 57256fe3aec1a7d4a8b5958d52870f88, type: 2}
   m_SchemaSet:
