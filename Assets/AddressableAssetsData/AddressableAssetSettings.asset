@@ -19,7 +19,7 @@ MonoBehaviour:
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 0
   m_BundleLocalCatalog: 0
-  m_CatalogRequestsTimeout: 0
+  m_CatalogRequestsTimeout: 5
   m_DisableCatalogUpdateOnStart: 0
   m_IgnoreUnsupportedFilesInBuild: 0
   m_UniqueBundleIds: 0
@@ -27,11 +27,11 @@ MonoBehaviour:
   m_CCDEnabled: 0
   m_maxConcurrentWebRequests: 500
   m_ContiguousBundles: 1
-  m_StripUnityVersionFromBundleBuild: 0
+  m_StripUnityVersionFromBundleBuild: 1
   m_DisableVisibleSubAssetRepresentations: 0
   m_ShaderBundleNaming: 0
   m_ShaderBundleCustomNaming: 
-  m_MonoScriptBundleNaming: 0
+  m_MonoScriptBundleNaming: 1
   m_MonoScriptBundleCustomNaming: 
   m_RemoteCatalogBuildPath:
     m_Id: 
@@ -39,7 +39,7 @@ MonoBehaviour:
     m_Id: 
   m_ContentStateBuildPath: 
   m_BuildAddressablesWithPlayerBuild: 0
-  m_overridePlayerVersion: 
+  m_overridePlayerVersion: '[UnityEditor.PlayerSettings.bundleVersion]'
   m_GroupAssets:
   - {fileID: 11400000, guid: 477db4a28e691114a965938008bb31e2, type: 2}
   - {fileID: 11400000, guid: c27b0e72a56ba694d99068cd0369a253, type: 2}
