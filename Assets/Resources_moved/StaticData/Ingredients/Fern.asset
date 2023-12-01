@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a63dcd5ebafc4719949f509766ae6076, type: 3}
-  m_Name: BlackMushroom
+  m_Name: Fern
   m_EditorClassIdentifier: 
-  _icon: {fileID: 21300000, guid: e9d4143c19529834981ac6821a04aecd, type: 3}
-  _name: Black Mushroom
+  _icon: {fileID: 21300000, guid: f73f68fe6815f5548a6c2a61b9e49add, type: 3}
+  _name: Fern
   _prefabReference:
-    m_AssetGUID: cfca5d7d14824b54faab74b113b38990
+    m_AssetGUID: 667a5257b374c8b4f97221394acdf004
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
-  _audioClip:
+  _audioClipReference:
     m_AssetGUID: e6ca8af040e86524fb3ee087eabf8992
     m_SubObjectName: 
     m_SubObjectType: 
@@ -30,10 +30,16 @@ MonoBehaviour:
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
-    _amount: 17
+    _amount: 3
   - _characteristic:
       m_AssetGUID: 0a341f286ee933e4f8a1f62d3c1c3d06
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
-    _amount: 4
+    _amount: 5
+  - _characteristic:
+      m_AssetGUID: 7c0cabd78e1a52c47b8f9c72d20f462b
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    _amount: 2

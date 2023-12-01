@@ -21,6 +21,18 @@ MonoBehaviour:
     m_Address: Ingredient-OrangeBag
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: bddadfa1910975c49913f0e7de5f535e
+    m_Address: Ingredient-Bottle
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: af0b08ce416dd9347b1a8884069d4359
+    m_Address: Ingredient-GreenPowder
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 667a5257b374c8b4f97221394acdf004
+    m_Address: Ingredient-Fern
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 57256fe3aec1a7d4a8b5958d52870f88, type: 2}
   m_SchemaSet:

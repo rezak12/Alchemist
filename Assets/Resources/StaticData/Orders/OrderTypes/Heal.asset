@@ -23,11 +23,7 @@ MonoBehaviour:
     m_SubObjectType: 
     m_EditorAssetChanged: 0
   _possibleRewardIngredients:
-  - m_AssetGUID: bfd0b883c42aecc45b5f5d2ef637100d
-    m_SubObjectName: 
-    m_SubObjectType: 
-    m_EditorAssetChanged: 0
-  - m_AssetGUID: b81578e330ff9c243a0288f1bd162017
+  - m_AssetGUID: 4a1fcf6774d1c15428b462086ef5ff48
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0

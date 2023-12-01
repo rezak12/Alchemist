@@ -13,17 +13,17 @@ MonoBehaviour:
   m_Name: FirstSaveData
   m_EditorClassIdentifier: 
   _coinsAmount: 200
-  _reputationAmount: 75
+  _reputationAmount: 200
   _ingredients:
-  - m_AssetGUID: 1276afffdbf147a48ad5d82e8c7ceee8
+  - m_AssetGUID: 4404b6444ad79be4b807276eb3f4b975
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
-  - m_AssetGUID: bfd0b883c42aecc45b5f5d2ef637100d
+  - m_AssetGUID: 90e380da76bb8cd41b85bf2438528994
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
-  - m_AssetGUID: b81578e330ff9c243a0288f1bd162017
+  - m_AssetGUID: 4a1fcf6774d1c15428b462086ef5ff48
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0

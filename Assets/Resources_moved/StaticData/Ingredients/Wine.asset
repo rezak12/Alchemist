@@ -10,23 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a63dcd5ebafc4719949f509766ae6076, type: 3}
-  m_Name: Reed
+  m_Name: Wine
   m_EditorClassIdentifier: 
-  _icon: {fileID: 21300000, guid: e9d4143c19529834981ac6821a04aecd, type: 3}
-  _name: Reed
+  _icon: {fileID: 21300000, guid: f26fa8880b3aeef4b8516c82dc12f2a5, type: 3}
+  _name: Wine
   _prefabReference:
-    m_AssetGUID: cfca5d7d14824b54faab74b113b38990
+    m_AssetGUID: bddadfa1910975c49913f0e7de5f535e
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
-  _audioClip:
+  _audioClipReference:
     m_AssetGUID: e6ca8af040e86524fb3ee087eabf8992
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
   _characteristicAmountPairs:
   - _characteristic:
-      m_AssetGUID: 413ae81cc3964ab439c73e8e76955b52
+      m_AssetGUID: de963e4a5f43ead468d3da6852c72812
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
