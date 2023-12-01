@@ -50,6 +50,12 @@ namespace Code.Infrastructure.Services.AssetProvider
             return await LoadAsync<T>(assetKeys);
         }
 
+        public async UniTask WarmupByLabelAsync(string label)
+        {
+            var assetsList = await GetAssetsListByLabel(label);
+            await LoadAsync<object>(assetsList);
+        }
+
         public async UniTask<GameObject> InstantiateAsync(string key) =>
              await Addressables.InstantiateAsync(key).ToUniTask();
         

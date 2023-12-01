@@ -12,7 +12,10 @@ namespace Code.Infrastructure.States.GameStates
         private readonly IAssetProvider _assetProvider;
         private readonly IAwaitingOverlay _awaitingOverlay;
 
-        public PotionMakingState(ISceneLoader sceneLoader, IAssetProvider assetProvider, IAwaitingOverlay awaitingOverlay)
+        public PotionMakingState(
+            ISceneLoader sceneLoader, 
+            IAssetProvider assetProvider, 
+            IAwaitingOverlay awaitingOverlay)
         {
             _sceneLoader = sceneLoader;
             _assetProvider = assetProvider;

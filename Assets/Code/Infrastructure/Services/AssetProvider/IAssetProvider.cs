@@ -13,6 +13,7 @@ namespace Code.Infrastructure.Services.AssetProvider
         UniTask<T> LoadAsync<T>(AssetReference assetReference) where T : class;
         UniTask<T[]> LoadAsync<T>(IEnumerable<string> assetKeys) where T : class;
         UniTask<T[]> LoadAsync<T>(IEnumerable<AssetReference> assetReferences) where T : class;
+        UniTask WarmupByLabelAsync(string label);
         UniTask<GameObject> InstantiateAsync(string key);
         UniTask<GameObject> InstantiateAsync(AssetReference reference);
         void Cleanup();
