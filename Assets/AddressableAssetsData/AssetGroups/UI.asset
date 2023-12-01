@@ -25,6 +25,10 @@ MonoBehaviour:
     m_Address: Fantasy Wooden GUI  Free
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 2c7e69cdf1f13db43b2f95399a56e91a
+    m_Address: Fonts
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 57256fe3aec1a7d4a8b5958d52870f88, type: 2}
   m_SchemaSet:
