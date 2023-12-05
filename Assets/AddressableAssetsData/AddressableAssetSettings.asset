@@ -56,6 +56,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 05c1138cb8f9e924d8e14b3498ed0569, type: 2}
   - {fileID: 11400000, guid: 4509266c2b133084d9461ae94025881c, type: 2}
   - {fileID: 11400000, guid: e0920ec1614485d45a8b2f825c8201d5, type: 2}
+  - {fileID: 11400000, guid: f58b8fb5b87b53f42b7179fb99e2eaaf, type: 2}
+  - {fileID: 11400000, guid: 102b696aef7bcc349a3075dbc2b71c57, type: 2}
+  - {fileID: 11400000, guid: eec55c25031ae4842ab41b178e338686, type: 2}
+  - {fileID: 11400000, guid: 3a53520900acb624e9651511f69bae74, type: 2}
+  - {fileID: 11400000, guid: 283d8d15eaec30f4db3c5a00668ee0fe, type: 2}
   - {fileID: 11400000, guid: 48d314dd2df8381488064276cb2edc3f, type: 2}
   m_BuildSettings:
     m_CompileScriptsInVirtualMode: 0
@@ -101,6 +106,7 @@ MonoBehaviour:
     - Characteristics
     - Ingredients
     - PotionMaking
+    - Configs
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: f6d93897da77fe44985911bd797a15d8, type: 2}

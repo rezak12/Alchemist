@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: PopupConfigs
+  m_EditorClassIdentifier: 
+  m_GroupName: PopupConfigs
+  m_Data:
+    m_SerializedData: []
+  m_GUID: cfd74f012e2ec064296c245280220c42
+  m_SerializeEntries:
+  - m_GUID: da5757f5be0a3e74b8761618f87854aa
+    m_Address: PotionMakingPopup
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Configs
+  - m_GUID: b6cc67262776c774583c9e1c23396c79
+    m_Address: MainMenuConfigs
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Configs
+  - m_GUID: eb7346a636cdd3a498fd81b7a405633a
+    m_Address: PotionOrderCompletedPopup
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Configs
+  - m_GUID: 53ac22d9c32d43e4da74a3c0a42235a1
+    m_Address: SelectPotionOrderPopup
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Configs
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 57256fe3aec1a7d4a8b5958d52870f88, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 438a95c24b643184c899226b48ed03c8, type: 2}
+    - {fileID: 11400000, guid: e36c9db388c613744a506334183a256b, type: 2}
