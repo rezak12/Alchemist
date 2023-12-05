@@ -23,7 +23,7 @@ namespace Code.Infrastructure.States.GameStates
         }
         public async UniTask Enter()
         {
-            await _sceneLoader.LoadAsync(ResourcesPaths.PotionMakingSceneAddress);
+            await _sceneLoader.LoadAsync(ResourcesAddresses.PotionMakingSceneAddress);
         }
 
         public async UniTask Exit()

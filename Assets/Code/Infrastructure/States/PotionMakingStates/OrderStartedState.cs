@@ -50,7 +50,7 @@ namespace Code.Infrastructure.States.PotionMakingStates
             await WarmupAssets();
             
             _selectedOrderHolder.PutOrder(payload);
-            LevelConfig levelConfig = _staticDataService.GetLevelConfigBySceneName(ResourcesPaths.PotionMakingSceneAddress);
+            LevelConfig levelConfig = _staticDataService.GetLevelConfigBySceneName(ResourcesAddresses.PotionMakingSceneAddress);
             
             _alchemyTable = await _tableFactory.CreateTableAsync(levelConfig.TablePosition);
             _potionMakingPopup = await _uiFactory.CreatePotionMakingPopup(_alchemyTable);

@@ -118,7 +118,7 @@ namespace Code.Infrastructure.Services.Factories
             AlchemyTableComponent alchemyTable,
             Transform parent)
         {
-            var prefab = await _assetProvider.LoadAsync<GameObject>(ResourcesPaths.IngredientItemUIAddress);
+            var prefab = await _assetProvider.LoadAsync<GameObject>(ResourcesAddresses.IngredientItemUIAddress);
 
             var item = _instantiator.InstantiatePrefabForComponent<IngredientItemUI>(prefab, parent);
             await item.InitializeAsync(
@@ -133,7 +133,7 @@ namespace Code.Infrastructure.Services.Factories
             Transform parent)
         {
             var prefab = await _assetProvider.LoadAsync<GameObject>
-                (ResourcesPaths.PotionCharacteristicItemUIAddress);
+                (ResourcesAddresses.PotionCharacteristicItemUIAddress);
             
             var characteristic = await _assetProvider
                 .LoadAsync<PotionCharacteristic>(characteristicAmountPair.CharacteristicReference);
@@ -149,7 +149,7 @@ namespace Code.Infrastructure.Services.Factories
             Transform parent)
         {
             var prefab = await _assetProvider.LoadAsync<GameObject>
-                (ResourcesPaths.PotionCharacteristicItemUIAddress);
+                (ResourcesAddresses.PotionCharacteristicItemUIAddress);
             
             var item = _instantiator.InstantiatePrefabForComponent<PotionCharacteristicItemUI>(prefab, parent);
             item.Initialize(characteristicAmountPair.Characteristic.Icon, characteristicAmountPair.PointsAmount);

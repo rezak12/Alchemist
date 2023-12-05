@@ -45,7 +45,7 @@ namespace Code.Infrastructure.States.GameStates
             PlayerProgress progress = _saveLoadService.LoadProgress();
             if (progress != null) return progress;
             
-            var newSaveData = await _assetProvider.LoadAsync<FirstSaveData>(ResourcesPaths.NewSaveDataAddress);
+            var newSaveData = await _assetProvider.LoadAsync<FirstSaveData>(ResourcesAddresses.NewSaveDataAddress);
             progress = new PlayerProgress(
                 newSaveData.CoinsAmount,
                 newSaveData.ReputationAmount,
