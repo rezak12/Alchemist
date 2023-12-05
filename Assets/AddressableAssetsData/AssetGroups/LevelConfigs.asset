@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: LevelConfigs
+  m_EditorClassIdentifier: 
+  m_GroupName: LevelConfigs
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 7d01245522ee31f4ab6dc16dcfa23fd2
+  m_SerializeEntries:
+  - m_GUID: 0edf5410b79a40a46bcb203a9718f8a1
+    m_Address: PotionMakingLevel
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Configs
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 57256fe3aec1a7d4a8b5958d52870f88, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 20b4714ae960c374389a5deac948f2d1, type: 2}
+    - {fileID: 11400000, guid: 307e47d45099c1146a7d534d2c77e499, type: 2}

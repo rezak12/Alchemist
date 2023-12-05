@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Cysharp.Threading.Tasks;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -7,82 +9,81 @@ namespace Code.Infrastructure.Services.AssetProvider
 {
     public class AssetProvider : IAssetProvider
     {
-        private readonly Dictionary<string, AsyncOperationHandle> _completedCache = new();
-        private readonly Dictionary<string, List<AsyncOperationHandle>> _handles = new();
+        private readonly Dictionary<string, AsyncOperationHandle> _handles = new();
 
-        public async UniTask InitializeAsync()
-        {
+        public async UniTask InitializeAsync() =>
             await Addressables.InitializeAsync().ToUniTask();
-        }
         
-        public async UniTask<T> LoadAsync<T>(AssetReference assetReference) where T : class
+        public async UniTask<T> LoadAsync<T>(string key, bool cacheHandle = true) where T : class
         {
-            if (_completedCache.TryGetValue(assetReference.AssetGUID, out AsyncOperationHandle cache))
+            if (!cacheHandle)
             {
-                if(cache.IsValid())
-                    return cache.Result as T;
+                return await Addressables.LoadAssetAsync<T>(key);
             }
             
-            return await RunWithCacheOnComplete(
-                Addressables.LoadAssetAsync<T>(assetReference), 
-                assetReference.AssetGUID);
-        }
-
-        public async UniTask<T> LoadAsync<T>(string address) where T : class
-        {
-            if (_completedCache.TryGetValue(address, out AsyncOperationHandle cache))
+            if (!_handles.TryGetValue(key, out AsyncOperationHandle handle))
             {
-                if(cache.IsValid())
-                    return cache.Result as T;
+                handle = Addressables.LoadAssetAsync<T>(key);
+                _handles.Add(key, handle);
             }
 
-            return await RunWithCacheOnComplete(
-                Addressables.LoadAssetAsync<T>(address), 
-                address);
+            await handle.ToUniTask();
+            
+            return handle.Result as T;
         }
 
-        public async UniTask<T[]> LoadAsync<T>(IEnumerable<AssetReference> assetReferences) where T : class
+        public async UniTask<T> LoadAsync<T>(AssetReference assetReference, bool cacheHandle = true) where T : class =>
+             await LoadAsync<T>(assetReference.AssetGUID, cacheHandle);
+
+        public async UniTask<T[]> LoadAsync<T>(IReadOnlyCollection<string> assetKeys, bool cacheHandle = true) 
+            where T : class
         {
-            var tasks = new List<UniTask<T>>();
-            foreach (AssetReference reference in assetReferences)
+            var tasks = new List<UniTask<T>>(assetKeys.Count);
+            foreach (var key in assetKeys)
             {
-                var task = LoadAsync<T>(reference);
-                tasks.Add(task);
+                tasks.Add(LoadAsync<T>(key, cacheHandle));
             }
 
             return await UniTask.WhenAll(tasks);
         }
 
-        private async UniTask<T> RunWithCacheOnComplete<T>(AsyncOperationHandle<T> handle, string cacheKey) where T : class
+        public async UniTask<T[]> LoadAsync<T>(IEnumerable<AssetReference> assetReferences, bool cacheHandle = true) 
+            where T : class
         {
-            handle.Completed += h => _completedCache[cacheKey] = h;
-
-            AddHandle(cacheKey, handle);
-
-            return await handle.ToUniTask();
+            var assetKeys = assetReferences.Select(reference => reference.AssetGUID).ToList();
+            return await LoadAsync<T>(assetKeys, cacheHandle);
         }
 
-        private void AddHandle<T>(string key, AsyncOperationHandle<T> handle) where T : class
+        public async UniTask WarmupByLabelAsync(string label)
         {
-            if (!_handles.TryGetValue(key, out List<AsyncOperationHandle> handles))
+            var assetsList = await GetAssetsListByLabel(label);
+            await LoadAsync<object>(assetsList);
+        }
+
+        public async UniTask<List<string>> GetAssetsListByLabel<TAsset>(string label) => 
+            await GetAssetsListByLabel(label, typeof(TAsset));
+        
+        private async UniTask<List<string>> GetAssetsListByLabel(string label, Type type = null)
+        {
+            var operationHandle = Addressables.LoadResourceLocationsAsync(label, type);
+            var locations = await operationHandle.ToUniTask();
+
+            List<string> assetKeys = new List<string>(locations.Count);
+            foreach (var location in locations)
             {
-                handles = new List<AsyncOperationHandle>();
-                _handles[key] = handles;
+                assetKeys.Add(location.PrimaryKey);
             }
 
-            handles.Add(handle);
+            Addressables.Release(operationHandle);
+            return assetKeys;
         }
 
         public void Cleanup()
         {
-            foreach (List<AsyncOperationHandle> handles in _handles.Values)
+            foreach (var asyncOperationHandle in _handles)
             {
-                foreach (AsyncOperationHandle handle in handles)
-                {
-                    Addressables.Release(handle);
-                }
+                Addressables.Release(asyncOperationHandle.Value);
             }
-            _completedCache.Clear();
             _handles.Clear();
         }
     }

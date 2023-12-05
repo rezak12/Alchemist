@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: PotionOrderDifficulties
+  m_EditorClassIdentifier: 
+  m_GroupName: PotionOrderDifficulties
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 9f2fa11d03cbcb143bad477950edc217
+  m_SerializeEntries:
+  - m_GUID: 71c3714cf1f8c57439393c88e9f03fb9
+    m_Address: Hard
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Configs
+  - m_GUID: c4a71649439fa834babda22303403eaa
+    m_Address: Medium
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Configs
+  - m_GUID: 0a8f6888543282a408412fd2be6e46d2
+    m_Address: Easy
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Configs
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 57256fe3aec1a7d4a8b5958d52870f88, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 34e7d5e4f28479e42875b62fb04c973c, type: 2}
+    - {fileID: 11400000, guid: 5329178e7231fff44aff45512563ac6c, type: 2}

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Code.Infrastructure.Services.Factories;
 using Code.Infrastructure.Services.Pool;
 using Code.Infrastructure.Services.StaticData;
 using Code.StaticData;
@@ -9,12 +10,12 @@ namespace Code.Infrastructure.Services.VFX
 {
     public class VFXProvider : IVFXProvider
     {
-        private readonly VFX.Factory _factory;
+        private readonly CachePrefabFactory _factory;
         private readonly IStaticDataService _staticDataService;
 
         private readonly Dictionary<PoolObjectType, Pool<VFX>> _pools = new();
         
-        public VFXProvider(VFX.Factory factory, IStaticDataService staticDataService)
+        public VFXProvider(CachePrefabFactory factory, IStaticDataService staticDataService)
         {
             _factory = factory;
             _staticDataService = staticDataService;

@@ -25,6 +25,7 @@ namespace Code.Infrastructure.Installers
             BindSaveLoadService();
             BindSceneLoader();
             BindStaticDataService();
+            BindPrefabFactories();
             BindStatesFactory();
             BindUIFactory();
             BindSFXProvider();
@@ -70,20 +71,18 @@ namespace Code.Infrastructure.Installers
 
         public void BindSFXProvider()
         {
-            Container
-                .BindFactory<AssetReferenceGameObject, UniTask<SFXPlayer>, SFXPlayer.Factory>()
-                .FromFactory<PrefabByReferenceAsyncFactory<SFXPlayer>>();
-            
             Container.BindInterfacesTo<SFXProvider>().AsSingle();
         }
 
         private void BindAwaitingOverlay()
         {
-            Container
-                .BindFactory<string, UniTask<AwaitingOverlay>, AwaitingOverlay.Factory>()
-                .FromFactory<PrefabByAddressAsyncFactory<AwaitingOverlay>>();
-
             Container.BindInterfacesAndSelfTo<AwaitingOverlayProxy>().AsSingle();
+        }
+
+        private void BindPrefabFactories()
+        {
+            Container.Bind<CachePrefabFactory>().AsSingle();
+            Container.Bind<NonCachePrefabFactory>().AsSingle();
         }
 
         private void BindStatesFactory()

@@ -1,4 +1,5 @@
 ﻿using Code.Infrastructure.Services.AssetProvider;
+using Code.Infrastructure.Services.Factories;
 using Code.Infrastructure.Services.Pool;
 using Code.Infrastructure.Services.StaticData;
 using Code.StaticData;
@@ -14,7 +15,7 @@ namespace Code.Infrastructure.Services.SFX
         private IStaticDataService _staticDataService;
         private IAssetProvider _assetProvider;
 
-        public SFXProvider(SFXPlayer.Factory factory, IStaticDataService staticDataService, IAssetProvider assetProvider)
+        public SFXProvider(NonCachePrefabFactory factory, IStaticDataService staticDataService, IAssetProvider assetProvider)
         {
             _pool = new Pool<SFXPlayer>(factory);
             _staticDataService = staticDataService;

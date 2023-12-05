@@ -16,7 +16,8 @@ namespace Code.Infrastructure.States.PotionMakingStates
         
         private SelectPotionOrderPopup _selectPotionOrderPopup;
 
-        public OrderSelectionState(IUIFactory uiFactory, 
+        public OrderSelectionState(
+            IUIFactory uiFactory, 
             IStaticDataService staticDataService, 
             IPotionOrderFactory potionOrderFactory,
             IAwaitingOverlay awaitingOverlay)

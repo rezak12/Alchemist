@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Code.Data;
+using Code.Infrastructure.Services.AssetProvider;
 using Code.Infrastructure.Services.Pool;
 using Code.Infrastructure.Services.RandomServices;
 using Code.StaticData;
 using Code.UI;
 using Cysharp.Threading.Tasks;
-using UnityEngine;
 
 namespace Code.Infrastructure.Services.StaticData
 {
@@ -20,89 +19,67 @@ namespace Code.Infrastructure.Services.StaticData
         private PotionOrderDifficulty[] _orderDifficultiesCache;
 
         private readonly IRandomService _randomService;
-        
-        public StaticDataService(IRandomService randomService)
+        private readonly IAssetProvider _assetProvider;
+
+        public StaticDataService(IRandomService randomService, IAssetProvider assetProvider)
         {
             _randomService = randomService;
+            _assetProvider = assetProvider;
         }
 
-        public UniTask InitializeAsync()
+        public async UniTask InitializeAsync()
         {
-            LoadPopupConfigs();
-            LoadLevelConfigs();
-            LoadPoolConfigs();
-            LoadOrderTypes();
-            LoadOrderDifficulties();
-            return UniTask.CompletedTask;
+            await UniTask.WhenAll(
+                LoadPopupConfigs(),
+                LoadLevelConfigs(),
+                LoadPoolConfigs(),
+                LoadOrderTypes(),
+                LoadOrderDifficulties());
         }
 
-        public PopupConfig GetPopupByType(PopupType type)
+        public PopupConfig GetPopupByType(PopupType type) => _popupConfigsCache[type];
+
+        public LevelConfig GetLevelConfigBySceneName(string sceneName) => _levelConfigsCache[sceneName];
+
+        public PoolObjectConfig GetPoolConfigByType(PoolObjectType type) => _poolObjectConfigsCache[type];
+
+        public PotionOrderType GetRandomPotionOrderType() =>
+            _orderTypesCache[_randomService.Next(0, _orderTypesCache.Length)];
+
+        public PotionOrderDifficulty GetRandomPotionOrderDifficulty() =>
+            _orderDifficultiesCache[_randomService.Next(0, _orderDifficultiesCache.Length)];
+
+        private async UniTask LoadPopupConfigs()
         {
-            if (_popupConfigsCache.TryGetValue(type, out PopupConfig config))
-            {
-                return config;
-            }
-            throw new NullReferenceException();
+            var configsList = await LoadConfigs<PopupConfig>();
+            _popupConfigsCache = configsList.ToDictionary(config => config.Type, config => config);
         }
 
-        public LevelConfig GetLevelConfigBySceneName(string sceneName)
+        private async UniTask LoadLevelConfigs()
         {
-            if (_levelConfigsCache.TryGetValue(sceneName, out LevelConfig config))
-            {
-                return config;
-            }
-            throw new NullReferenceException();
+            var configsList = await LoadConfigs<LevelConfig>();
+            _levelConfigsCache = configsList.ToDictionary(config => config.SceneName, config => config);
         }
 
-        public IEnumerable<KeyValuePair<PoolObjectType, PoolObjectConfig>> GetAllPoolObjectConfigs()
+        private async UniTask LoadPoolConfigs()
         {
-            return _poolObjectConfigsCache;
+            var configsList = await LoadConfigs<PoolObjectConfig>();
+            _poolObjectConfigsCache = configsList.ToDictionary(config => config.Type, config => config);
         }
 
-        public PoolObjectConfig GetPoolConfigByType(PoolObjectType type)
+        private async UniTask LoadOrderTypes() =>
+            _orderTypesCache = await LoadConfigs<PotionOrderType>();
+
+        private async UniTask LoadOrderDifficulties() =>
+            _orderDifficultiesCache = await LoadConfigs<PotionOrderDifficulty>();
+
+        private async UniTask<TConfig[]> LoadConfigs<TConfig>() where TConfig : class
         {
-            return _poolObjectConfigsCache[type];
+            var keys = await GetConfigKeys<TConfig>();
+            return await _assetProvider.LoadAsync<TConfig>(keys, cacheHandle: false);
         }
 
-        public PotionOrderType GetRandomPotionOrderType()
-        {
-            return _orderTypesCache[_randomService.Next(0, _orderTypesCache.Length)];
-        }
-
-        public PotionOrderDifficulty GetRandomPotionOrderDifficulty()
-        { 
-            return _orderDifficultiesCache[_randomService.Next(0, _orderDifficultiesCache.Length)];
-        }
-
-        private void LoadPopupConfigs()
-        {
-            _popupConfigsCache = Resources
-                .LoadAll<PopupConfig>(ResourcesPaths.PopupConfigsPath)
-                .ToDictionary(config => config.Type, config => config);
-        }
-
-        private void LoadLevelConfigs()
-        {
-            _levelConfigsCache = Resources
-                .LoadAll<LevelConfig>(ResourcesPaths.LevelConfigsPath)
-                .ToDictionary(config => config.SceneName, config => config);
-        }
-
-        private void LoadPoolConfigs()
-        {
-            _poolObjectConfigsCache = Resources
-                .LoadAll<PoolObjectConfig>(ResourcesPaths.ObjectPoolConfigsPath)
-                .ToDictionary(config => config.Type, config => config);
-        }
-
-        private void LoadOrderTypes()
-        {
-            _orderTypesCache = Resources.LoadAll<PotionOrderType>(ResourcesPaths.OrderTypesPath);
-        }
-
-        private void LoadOrderDifficulties()
-        {
-            _orderDifficultiesCache = Resources.LoadAll<PotionOrderDifficulty>(ResourcesPaths.OrderDifficultiesPath);
-        }
+        private async UniTask<List<string>> GetConfigKeys<TConfig>() => 
+            await _assetProvider.GetAssetsListByLabel<TConfig>(ResourcesLabels.Configs);
     }
 }

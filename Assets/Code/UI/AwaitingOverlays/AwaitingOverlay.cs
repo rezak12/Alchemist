@@ -3,7 +3,6 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using Zenject;
 
 namespace Code.UI.AwaitingOverlays
 {
@@ -17,6 +16,7 @@ namespace Code.UI.AwaitingOverlays
         private void Awake()
         {
             _canvas.enabled = false;
+            DontDestroyOnLoad(gameObject);
         }
 
         public async UniTask Show(string message = "Loading...")
@@ -47,7 +47,5 @@ namespace Code.UI.AwaitingOverlays
                     .WithCancellation(this.GetCancellationTokenOnDestroy())
             );
         }
-        
-        public class Factory : PlaceholderFactory<string, UniTask<AwaitingOverlay>> { }
     }
 }

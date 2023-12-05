@@ -103,7 +103,7 @@ namespace Code.Logic.PotionMaking
             await ingredientTweener.JumpTo(slotTransform);
             await UniTask.WhenAll(
                 _vfxProvider.Play(PoolObjectType.IngredientVFX, slotTransform.position),
-               _sfxProvider.PlayOneShot(ingredientData.AudioClip, ingredientTweener.transform.position));
+               _sfxProvider.PlayOneShot(ingredientData.AudioClipReference, ingredientTweener.transform.position));
         }
 
         private async UniTask MoveAllIngredientsToPotionCreatingPoint()

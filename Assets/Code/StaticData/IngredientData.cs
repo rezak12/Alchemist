@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
-using Code.Animations;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityEngine.Serialization;
 
 namespace Code.StaticData
 {
@@ -12,14 +10,13 @@ namespace Code.StaticData
         [SerializeField] private Sprite _icon;
         [SerializeField] private string _name;
         [SerializeField] private AssetReferenceGameObject _prefabReference;
-        [SerializeField] private AssetReferenceT<AudioClip> _audioClip;
-        [FormerlySerializedAs("_characteristics")] 
+        [SerializeField] private AssetReferenceT<AudioClip> _audioClipReference;
         [SerializeField] private List<IngredientCharacteristicAmountPair> _characteristicAmountPairs;
 
         public Sprite Icon => _icon;
         public string Name => _name;
         public AssetReferenceGameObject PrefabReference => _prefabReference;
-        public AssetReferenceT<AudioClip> AudioClip => _audioClip;
+        public AssetReferenceT<AudioClip> AudioClipReference => _audioClipReference;
         public List<IngredientCharacteristicAmountPair> CharacteristicAmountPairs => _characteristicAmountPairs;
     }
 }
