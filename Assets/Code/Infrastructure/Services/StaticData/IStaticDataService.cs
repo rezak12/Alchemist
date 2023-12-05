@@ -14,7 +14,6 @@ namespace Code.Infrastructure.Services.StaticData
         PotionOrderType GetRandomPotionOrderType();
         PotionOrderDifficulty GetRandomPotionOrderDifficulty();
         LevelConfig GetLevelConfigBySceneName(string sceneName);
-        IEnumerable<KeyValuePair<PoolObjectType, PoolObjectConfig>> GetAllPoolObjectConfigs();
         PoolObjectConfig GetPoolConfigByType(PoolObjectType type);
     }
 }

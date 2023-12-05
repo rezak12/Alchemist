@@ -14,6 +14,8 @@ namespace Code.Infrastructure.Services.AssetProvider
         UniTask<T[]> LoadAsync<T>(IReadOnlyCollection<string> assetKeys, bool cacheHandle = true) where T : class;
         UniTask<T[]> LoadAsync<T>(IEnumerable<AssetReference> assetReferences, bool cacheHandle = true) where T : class;
         UniTask WarmupByLabelAsync(string label);
+        UniTask<List<string>> GetAssetsListByLabel<TAsset>(string label);
+        UniTask<List<string>> GetAssetsListByLabel(string label, Type type = null);
         UniTask<GameObject> InstantiateAsync(string key);
         UniTask<GameObject> InstantiateAsync(AssetReference reference);
         void Cleanup();
