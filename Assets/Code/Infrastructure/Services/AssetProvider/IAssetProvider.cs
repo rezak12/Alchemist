@@ -9,10 +9,10 @@ namespace Code.Infrastructure.Services.AssetProvider
     public interface IAssetProvider
     {
         UniTask InitializeAsync();
-        UniTask<T> LoadAsync<T>(string key) where T : class;
-        UniTask<T> LoadAsync<T>(AssetReference assetReference) where T : class;
-        UniTask<T[]> LoadAsync<T>(IEnumerable<string> assetKeys) where T : class;
-        UniTask<T[]> LoadAsync<T>(IEnumerable<AssetReference> assetReferences) where T : class;
+        UniTask<T> LoadAsync<T>(string key, bool cacheHandle = true) where T : class;
+        UniTask<T> LoadAsync<T>(AssetReference assetReference, bool cacheHandle = true) where T : class;
+        UniTask<T[]> LoadAsync<T>(IReadOnlyCollection<string> assetKeys, bool cacheHandle = true) where T : class;
+        UniTask<T[]> LoadAsync<T>(IEnumerable<AssetReference> assetReferences, bool cacheHandle = true) where T : class;
         UniTask WarmupByLabelAsync(string label);
         UniTask<GameObject> InstantiateAsync(string key);
         UniTask<GameObject> InstantiateAsync(AssetReference reference);

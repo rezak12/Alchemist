@@ -11,14 +11,17 @@ namespace Code.Infrastructure.Services.AssetProvider
     public class AssetProvider : IAssetProvider
     {
         private readonly Dictionary<string, AsyncOperationHandle> _handles = new();
-        private readonly Dictionary<string, List<AsyncOperationHandle>> _loadedByLabelHandles = new();
 
         public async UniTask InitializeAsync() =>
             await Addressables.InitializeAsync().ToUniTask();
         
-
-        public async UniTask<T> LoadAsync<T>(string key) where T : class
+        public async UniTask<T> LoadAsync<T>(string key, bool cacheHandle = true) where T : class
         {
+            if (!cacheHandle)
+            {
+                return await Addressables.LoadAssetAsync<T>(key);
+            }
+            
             if (!_handles.TryGetValue(key, out AsyncOperationHandle handle))
             {
                 handle = Addressables.LoadAssetAsync<T>(key);
@@ -30,24 +33,26 @@ namespace Code.Infrastructure.Services.AssetProvider
             return handle.Result as T;
         }
 
-        public async UniTask<T> LoadAsync<T>(AssetReference assetReference) where T : class =>
-             await LoadAsync<T>(assetReference.AssetGUID);
+        public async UniTask<T> LoadAsync<T>(AssetReference assetReference, bool cacheHandle = true) where T : class =>
+             await LoadAsync<T>(assetReference.AssetGUID, cacheHandle);
 
-        public async UniTask<T[]> LoadAsync<T>(IEnumerable<string> assetKeys) where T : class
+        public async UniTask<T[]> LoadAsync<T>(IReadOnlyCollection<string> assetKeys, bool cacheHandle = true) 
+            where T : class
         {
-            var tasks = new List<UniTask<T>>();
+            var tasks = new List<UniTask<T>>(assetKeys.Count);
             foreach (var key in assetKeys)
             {
-                tasks.Add(LoadAsync<T>(key));
+                tasks.Add(LoadAsync<T>(key, cacheHandle));
             }
 
             return await UniTask.WhenAll(tasks);
         }
 
-        public async UniTask<T[]> LoadAsync<T>(IEnumerable<AssetReference> assetReferences) where T : class
+        public async UniTask<T[]> LoadAsync<T>(IEnumerable<AssetReference> assetReferences, bool cacheHandle = true) 
+            where T : class
         {
-            var assetKeys = assetReferences.Select(reference => reference.AssetGUID);
-            return await LoadAsync<T>(assetKeys);
+            var assetKeys = assetReferences.Select(reference => reference.AssetGUID).ToList();
+            return await LoadAsync<T>(assetKeys, cacheHandle);
         }
 
         public async UniTask WarmupByLabelAsync(string label)
