@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
-using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
@@ -64,7 +63,7 @@ namespace Code.Infrastructure.Services.AssetProvider
         public async UniTask<List<string>> GetAssetsListByLabel<TAsset>(string label) => 
             await GetAssetsListByLabel(label, typeof(TAsset));
         
-        public async UniTask<List<string>> GetAssetsListByLabel(string label, Type type = null)
+        private async UniTask<List<string>> GetAssetsListByLabel(string label, Type type = null)
         {
             var operationHandle = Addressables.LoadResourceLocationsAsync(label, type);
             var locations = await operationHandle.ToUniTask();
@@ -78,12 +77,6 @@ namespace Code.Infrastructure.Services.AssetProvider
             Addressables.Release(operationHandle);
             return assetKeys;
         }
-
-        public async UniTask<GameObject> InstantiateAsync(string key) =>
-             await Addressables.InstantiateAsync(key).ToUniTask();
-
-        public async UniTask<GameObject> InstantiateAsync(AssetReference reference) =>
-             await Addressables.InstantiateAsync(reference).ToUniTask();
 
         public void Cleanup()
         {
