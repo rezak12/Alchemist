@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Code.Infrastructure.Services.AssetProvider;
+﻿using Code.Infrastructure.Services.AssetProvider;
 using Code.Infrastructure.Services.SFX;
 using Code.Infrastructure.Services.StaticData;
 using Code.UI.AwaitingOverlays;
@@ -13,7 +12,7 @@ namespace Code.Infrastructure.States.GameStates
         private readonly IStaticDataService _staticDataService;
         private readonly AwaitingOverlayProxy _awaitingOverlay;
         private readonly GameStateMachine _stateMachine;
-        private ISFXProvider _sfxProvider;
+        private readonly ISFXProvider _sfxProvider;
 
         public GameBootstrapState(
             IAssetProvider assetProvider, 
@@ -40,9 +39,6 @@ namespace Code.Infrastructure.States.GameStates
             await _stateMachine.Enter<LoadProgressState>();
         }
 
-        public UniTask Exit()
-        {
-            return UniTask.CompletedTask;
-        }
+        public UniTask Exit() => UniTask.CompletedTask;
     }
 }

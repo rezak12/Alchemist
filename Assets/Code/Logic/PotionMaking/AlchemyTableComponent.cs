@@ -35,8 +35,8 @@ namespace Code.Logic.PotionMaking
         [Inject]
         private void Construct(
             IPotionInfoFactory potionInfoFactory,
-            IIngredientFactory ingredientFactory,
             IPotionFactory potionFactory, 
+            IIngredientFactory ingredientFactory,
             IVFXProvider vfxProvider,
             ISFXProvider sfxProvider)
         {
@@ -47,10 +47,8 @@ namespace Code.Logic.PotionMaking
             _sfxProvider = sfxProvider;
         }
 
-        public void Initialize()
-        {
+        public void Initialize() => 
             _ingredientTweeners = new Stack<IngredientTweener>(_tableSlots.Length);
-        }
 
         public void AddIngredient(IngredientData ingredient)
         {
@@ -89,10 +87,8 @@ namespace Code.Logic.PotionMaking
             return potion;
         }
 
-        private async UniTask<Potion> CreatePotion(PotionInfo potionInfo)
-        {
-            return await _potionFactory.CreatePotionAsync(potionInfo, _potionSpawnPoint.position);
-        }
+        private async UniTask<Potion> CreatePotion(PotionInfo potionInfo) => 
+            await _potionFactory.CreatePotionAsync(potionInfo, _potionSpawnPoint.position);
 
         private async UniTaskVoid MoveNewIngredientToSlot(IngredientData ingredientData, Transform slotTransform)
         {

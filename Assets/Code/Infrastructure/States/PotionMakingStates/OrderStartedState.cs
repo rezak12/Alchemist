@@ -53,7 +53,7 @@ namespace Code.Infrastructure.States.PotionMakingStates
             LevelConfig levelConfig = _staticDataService.GetLevelConfigBySceneName(ResourcesAddresses.PotionMakingSceneAddress);
             
             _alchemyTable = await _tableFactory.CreateTableAsync(levelConfig.TablePosition);
-            _potionMakingPopup = await _uiFactory.CreatePotionMakingPopup(_alchemyTable);
+            _potionMakingPopup = await _uiFactory.CreatePotionMakingPopupAsync(_alchemyTable);
            
             _awaitingOverlay.Hide().Forget();
         }

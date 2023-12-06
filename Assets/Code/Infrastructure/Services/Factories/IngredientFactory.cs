@@ -10,13 +10,11 @@ namespace Code.Infrastructure.Services.Factories
     {
         private readonly IAssetProvider _assetProvider;
 
-        public IngredientFactory(IAssetProvider assetProvider)
-        {
-            _assetProvider = assetProvider;
-        }
+        public IngredientFactory(IAssetProvider assetProvider) => _assetProvider = assetProvider;
 
         public async UniTask<IngredientTweener> CreateIngredientAsync(
-            AssetReferenceGameObject ingredientDataPrefabReference, Vector3 position)
+            AssetReferenceGameObject ingredientDataPrefabReference, 
+            Vector3 position)
         {
             var prefab = await _assetProvider.LoadAsync<GameObject>(ingredientDataPrefabReference);
             GameObject ingredientGameObject = Object.Instantiate(prefab, position, Quaternion.identity);

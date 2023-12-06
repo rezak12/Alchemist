@@ -112,7 +112,7 @@ namespace Tests.UnitTests
             return potion;
         }
 
-        private PotionOrder CreateOrder(IEnumerable<PotionCharacteristicAmountPair> requirementCharacteristicAmountPairs)
+        private PotionOrder CreateOrder(IReadOnlyCollection<PotionCharacteristicAmountPair> requirementCharacteristicAmountPairs)
         {
             return new PotionOrder(null, null, requirementCharacteristicAmountPairs, null, null);
         }

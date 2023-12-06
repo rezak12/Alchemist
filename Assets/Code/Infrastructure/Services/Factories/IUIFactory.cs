@@ -16,9 +16,10 @@ namespace Code.Infrastructure.Services.Factories
 {
     public interface IUIFactory
     {
-        UniTask<SelectPotionOrderPopup> CreateSelectPotionOrderPopupAsync(
+        UniTask<SelectPotionOrderPopup> CreatePotionOrderSelectionPopupAsync(
             PotionOrdersHandler potionOrdersHandler);
-        UniTask<PotionMakingPopup> CreatePotionMakingPopup(AlchemyTableComponent alchemyTable);
+        
+        UniTask<PotionMakingPopup> CreatePotionMakingPopupAsync(AlchemyTableComponent alchemyTable);
 
         UniTask<OrderCompletedPopup> CreateOrderCompletedPopupAsync(
             Potion result, 

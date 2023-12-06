@@ -12,23 +12,17 @@ namespace Code.Infrastructure.Services.Factories
     {
         private readonly IAssetProvider _assetProvider;
 
-        public PotionInfoFactory(IAssetProvider assetProvider)
-        {
-            _assetProvider = assetProvider;
-        }
+        public PotionInfoFactory(IAssetProvider assetProvider) => _assetProvider = assetProvider;
 
         public async UniTask<PotionInfo> CreatePotionInfoAsync(IEnumerable<IngredientData> ingredients)
         {
-            var characteristics = await CalculatePotionCharacteristicsAsync(ingredients);
+            PotionCharacteristicAmountPair[] characteristics = await CalculatePotionCharacteristicsAsync(ingredients);
             return new PotionInfo(characteristics);
         }
         
         private async UniTask<PotionCharacteristicAmountPair[]> CalculatePotionCharacteristicsAsync
-            (IEnumerable<IngredientData> ingredients)
-        {
-            var groupedCharacteristics = GroupCharacteristics(ingredients);
-            return await CreateCharacteristicAmountPairsAsync(groupedCharacteristics);;
-        }
+            (IEnumerable<IngredientData> ingredients) =>
+            await CreateCharacteristicAmountPairsAsync(GroupCharacteristics(ingredients));
 
         private Dictionary<AssetReferenceT<PotionCharacteristic>, int> GroupCharacteristics(
             IEnumerable<IngredientData> ingredients)
@@ -38,8 +32,8 @@ namespace Code.Infrastructure.Services.Factories
             {
                 foreach (IngredientCharacteristicAmountPair pair in ingredient.CharacteristicAmountPairs)
                 {
-                    var characteristicGuid = pair.CharacteristicReference.AssetGUID;
-                    var pointsAmount = pair.PointsAmount;
+                    string characteristicGuid = pair.CharacteristicReference.AssetGUID;
+                    int pointsAmount = pair.PointsAmount;
 
                     if (characteristicGuidAmountPairs.ContainsKey(characteristicGuid))
                     {
@@ -61,18 +55,19 @@ namespace Code.Infrastructure.Services.Factories
         private async UniTask<PotionCharacteristicAmountPair[]> CreateCharacteristicAmountPairsAsync(
             Dictionary<AssetReferenceT<PotionCharacteristic>, int> groupedCharacteristics)
         {
-            var characteristics = await UniTask.WhenAll(groupedCharacteristics
-                .Select(pair => _assetProvider.LoadAsync<PotionCharacteristic>(pair.Key)));
+            PotionCharacteristic[] characteristics = await UniTask.WhenAll(
+                groupedCharacteristics.Select(pair => _assetProvider.LoadAsync<PotionCharacteristic>(pair.Key)));
             
-            var pointAmountForEachPair = groupedCharacteristics.Select(pair => pair.Value).ToArray();
+            int[] pointAmountForEachPair = groupedCharacteristics.Select(pair => pair.Value).ToArray();
 
             var result = new PotionCharacteristicAmountPair[characteristics.Length];
             for (var i = 0; i < groupedCharacteristics.Count; i++)
             {
                 PotionCharacteristic characteristic = characteristics[i];
-                var pointsAmount = pointAmountForEachPair[i];
+                int pointsAmount = pointAmountForEachPair[i];
                 result[i] = new PotionCharacteristicAmountPair(characteristic, pointsAmount);
             }
+            
             return result;
         }
     }

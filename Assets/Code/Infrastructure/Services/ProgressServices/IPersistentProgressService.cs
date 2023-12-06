@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Code.Logic.PotionMaking;
-using Code.Logic.Potions;
 using Code.StaticData;
 using UnityEngine.AddressableAssets;
 

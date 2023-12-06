@@ -46,14 +46,8 @@ namespace Code.UI.SelectionPotionOrderUI
             _openMenuButton.onClick.RemoveListener(OpenMenu);
         }
 
-        private void OpenStore()
-        {
-            _uiFactory.CreateStorePopupAsync();
-        }
+        private void OpenStore() => _uiFactory.CreateStorePopupAsync();
 
-        private void OpenMenu()
-        {
-            _stateMachine.Enter<MainMenuState>().Forget();
-        }
+        private void OpenMenu() => _stateMachine.Enter<MainMenuState>().Forget();
     }
 }

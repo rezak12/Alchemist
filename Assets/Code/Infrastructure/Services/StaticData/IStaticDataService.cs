@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using Code.Infrastructure.Services.Pool;
-using Code.Infrastructure.Services.VFX;
+﻿using Code.Infrastructure.Services.Pool;
 using Code.StaticData;
 using Code.UI;
 using Cysharp.Threading.Tasks;

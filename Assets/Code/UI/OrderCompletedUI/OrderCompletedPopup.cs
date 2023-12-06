@@ -26,14 +26,11 @@ namespace Code.UI.OrderCompletedUI
         private UnityAction _openMenuAction;
 
         [Inject]
-        private void Construct(PotionMakingLevelStateMachine stateMachine)
-        {
-            _gameStateMachine = stateMachine;
-        }
+        private void Construct(PotionMakingLevelStateMachine stateMachine) => _gameStateMachine = stateMachine;
 
         public async UniTask InitializeAsync(
-            IEnumerable<PotionCharacteristicAmountPair> resultCharacteristics,
-            IEnumerable<PotionCharacteristicAmountPair> requirementCharacteristics,
+            IReadOnlyCollection<PotionCharacteristicAmountPair> resultCharacteristics,
+            IReadOnlyCollection<PotionCharacteristicAmountPair> requirementCharacteristics,
             PotionOrderReward reward)
         {
             UniTask fillCharacteristicsTask = FillCharacteristicItemsContainers(
@@ -46,8 +43,8 @@ namespace Code.UI.OrderCompletedUI
         }
 
         public async UniTask InitializeAsync(
-            IEnumerable<PotionCharacteristicAmountPair> resultCharacteristics,
-            IEnumerable<PotionCharacteristicAmountPair> requirementCharacteristics,
+            IReadOnlyCollection<PotionCharacteristicAmountPair> resultCharacteristics,
+            IReadOnlyCollection<PotionCharacteristicAmountPair> requirementCharacteristics,
             PotionOrderPunishment punishment
             )
         {
@@ -60,14 +57,11 @@ namespace Code.UI.OrderCompletedUI
             await fillCharacteristicsTask;
         }
 
-        private void OnDestroy()
-        {
-            _openMenuButton.onClick.RemoveListener(_openMenuAction);
-        }
+        private void OnDestroy() => _openMenuButton.onClick.RemoveListener(_openMenuAction);
 
         private async UniTask FillCharacteristicItemsContainers(
-            IEnumerable<PotionCharacteristicAmountPair> resultCharacteristics, 
-            IEnumerable<PotionCharacteristicAmountPair> requirementCharacteristics)
+            IReadOnlyCollection<PotionCharacteristicAmountPair> resultCharacteristics, 
+            IReadOnlyCollection<PotionCharacteristicAmountPair> requirementCharacteristics)
         {
             UniTask resultCharacteristicItemsTask = _resultCharacteristics
                 .CreateCharacteristicItemsAsync(resultCharacteristics);
@@ -98,9 +92,6 @@ namespace Code.UI.OrderCompletedUI
             _openMenuButton.onClick.AddListener(_openMenuAction);
         }
 
-        private async UniTaskVoid OpenOrderSelectionState()
-        {
-            await _gameStateMachine.Enter<OrderSelectionState>();
-        }
+        private async UniTaskVoid OpenOrderSelectionState() => await _gameStateMachine.Enter<OrderSelectionState>();
     }
 }

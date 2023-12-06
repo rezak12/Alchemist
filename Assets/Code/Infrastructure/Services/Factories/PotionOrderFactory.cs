@@ -24,8 +24,8 @@ namespace Code.Infrastructure.Services.Factories
 
         public async UniTask<PotionOrder> CreateOrderAsync(PotionOrderDifficulty orderDifficulty, PotionOrderType orderType)
         {
-            var orderDifficultyName = orderDifficulty.Name;
-            var orderTypeName = orderType.Name;
+            string orderDifficultyName = orderDifficulty.Name;
+            string orderTypeName = orderType.Name;
             
             List<PotionCharacteristicAmountPair> requirementCharacteristics = 
                 await CreateRequirementCharacteristicsAsync(orderDifficulty, orderType);
@@ -39,20 +39,20 @@ namespace Code.Infrastructure.Services.Factories
         private async UniTask<List<PotionCharacteristicAmountPair>> CreateRequirementCharacteristicsAsync
             (PotionOrderDifficulty orderDifficulty, PotionOrderType orderType)
         {
-            var characteristicsAmount = orderDifficulty.RequirementCharacteristicsAmount;
+            int characteristicsAmount = orderDifficulty.RequirementCharacteristicsAmount;
             
-            var characteristicsReferences = orderType
+            IEnumerable<AssetReferenceT<PotionCharacteristic>> characteristicsReferences = orderType
                 .PossibleRequirementPotionCharacteristicsReferences
                 .Shuffle()
                 .Take(characteristicsAmount);
             
-            var characteristics = await _assetProvider
+            PotionCharacteristic[] characteristics = await _assetProvider
                 .LoadAsync<PotionCharacteristic>(characteristicsReferences);
 
             var result = new List<PotionCharacteristicAmountPair>(characteristicsAmount);
             foreach (PotionCharacteristic characteristic in characteristics)
             {
-                var characteristicPointsAmount = _randomService.Next(
+                int characteristicPointsAmount = _randomService.Next(
                     orderDifficulty.MinRequirementCharacteristicPointsAmount,
                     orderDifficulty.MaxRequirementCharacteristicPointsAmount);
 
@@ -67,10 +67,10 @@ namespace Code.Infrastructure.Services.Factories
 
         private PotionOrderReward CreateReward(PotionOrderDifficulty orderDifficulty, PotionOrderType orderType)
         {
-            var coinsAmount = _randomService
+            int coinsAmount = _randomService
                 .Next(orderDifficulty.MinCoinsAmountReward, orderDifficulty.MaxCoinsAmountReward);
             
-            var reputationAmount = _randomService
+            int reputationAmount = _randomService
                 .Next(orderDifficulty.MinReputationAmountReward, orderDifficulty.MaxReputationAmountReward);
             
             AssetReferenceT<IngredientData> ingredientReference;
@@ -90,7 +90,7 @@ namespace Code.Infrastructure.Services.Factories
 
         private PotionOrderPunishment CreatePunishment(PotionOrderDifficulty orderDifficulty)
         {
-            var reputationAmount = _randomService
+            int reputationAmount = _randomService
                 .Next(orderDifficulty.MinReputationAmountPunishment, orderDifficulty.MaxReputationAmountPunishment);
 
             return new PotionOrderPunishment(reputationAmount);

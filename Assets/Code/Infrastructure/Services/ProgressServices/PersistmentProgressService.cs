@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Code.Logic.PotionMaking;
-using Code.Logic.Potions;
 using Code.StaticData;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -35,11 +33,8 @@ namespace Code.Infrastructure.Services.ProgressServices
             ChosenAlchemyTablePrefabReference = new AssetReferenceGameObject(progress.PlayerAlchemyTablePrefabGUID);
         }
 
-        public PlayerProgress GetProgress()
-        {
-            return _playerProgress;
-        }
-        
+        public PlayerProgress GetProgress() => _playerProgress;
+
         public void AddCoins(int amount)
         {
             if (amount < 0)
@@ -92,14 +87,8 @@ namespace Code.Infrastructure.Services.ProgressServices
             ReputationAmountChanged?.Invoke();
         }
 
-        public bool IsCoinsEnoughFor(int itemPrice)
-        {
-            return CoinsAmount >= itemPrice;
-        }
-        
-        public bool IsReputationEnoughFor(int itemPrice)
-        {
-            return ReputationAmount >= itemPrice;
-        }
+        public bool IsCoinsEnoughFor(int itemPrice) => CoinsAmount >= itemPrice;
+
+        public bool IsReputationEnoughFor(int itemPrice) => ReputationAmount >= itemPrice;
     }
 }

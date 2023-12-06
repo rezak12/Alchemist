@@ -11,7 +11,7 @@ namespace Code.Infrastructure.Services.SaveLoadService
 
         public void SaveProgress(PlayerProgress progress)
         {
-            var json = progress.ToJson();
+            string json = progress.ToJson();
             File.WriteAllText(_saveFilePath, json);
         }
         

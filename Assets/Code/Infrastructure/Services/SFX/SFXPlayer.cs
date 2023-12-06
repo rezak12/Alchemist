@@ -1,7 +1,5 @@
 ﻿using Cysharp.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
-using Zenject;
 
 namespace Code.Infrastructure.Services.SFX
 {

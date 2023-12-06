@@ -18,11 +18,8 @@ namespace Code.UI.SelectionPotionOrderUI
         private UnityAction _onButtonClickAction;
 
         [Inject]
-        private void Construct(PotionMakingLevelStateMachine stateMachine)
-        {
-            _stateMachine = stateMachine;
-        }
-        
+        private void Construct(PotionMakingLevelStateMachine stateMachine) => _stateMachine = stateMachine;
+
         public void Initialize(PotionOrdersHandler ordersHandler)
         {
             _potionOrderHandler = ordersHandler;
@@ -31,10 +28,7 @@ namespace Code.UI.SelectionPotionOrderUI
             _button.onClick.AddListener(_onButtonClickAction);
         }
 
-        private void OnDestroy()
-        {
-            _button.onClick.RemoveListener(_onButtonClickAction);
-        }
+        private void OnDestroy() => _button.onClick.RemoveListener(_onButtonClickAction);
 
         private async UniTaskVoid EnterPotionMakingState()
         {

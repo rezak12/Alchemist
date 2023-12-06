@@ -40,23 +40,22 @@ namespace Code.Animations
         {
             Vector3 transformPosition = transform.position;
             var positionToMove = new Vector3(transformPosition.x, transformPosition.y + _moveUpPoints, transformPosition.z);
-            
-            var rotationCancelSource = new CancellationTokenSource();
+
+            using var rotationCancelSource = new CancellationTokenSource();
             CancellationToken cancellationToken = rotationCancelSource.Token;
-            
+
             await UniTask.WhenAny(
                 transform
                     .DOMove(positionToMove, _moveUpDuration)
                     .WithCancellation(this.GetCancellationTokenOnDestroy()),
 
                 transform
-                    .DORotate(new Vector3(0,360,0), _oneRotateDuration, RotateMode.FastBeyond360)
+                    .DORotate(new Vector3(0, 360, 0), _oneRotateDuration, RotateMode.FastBeyond360)
                     .SetEase(_rotationEase)
                     .SetLoops(-1)
                     .WithCancellation(cancellationToken));
             
             rotationCancelSource.Cancel();
-            rotationCancelSource.Dispose();
         }
 
         private async UniTask MoveToCamera()

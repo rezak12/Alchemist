@@ -1,6 +1,7 @@
-using System;
 using Cysharp.Threading.Tasks;
 using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
+using UnityEngine.ResourceManagement.ResourceProviders;
 using UnityEngine.SceneManagement;
 
 namespace Code.Infrastructure.Services.SceneLoader
@@ -9,7 +10,7 @@ namespace Code.Infrastructure.Services.SceneLoader
     {
         public async UniTask LoadAsync(string sceneName)
         {
-            var handler = Addressables.LoadSceneAsync(
+            AsyncOperationHandle<SceneInstance> handler = Addressables.LoadSceneAsync(
                 sceneName, 
                 LoadSceneMode.Single, 
                 false);

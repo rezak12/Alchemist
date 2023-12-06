@@ -75,7 +75,7 @@ namespace Code.Infrastructure.Services.StaticData
 
         private async UniTask<TConfig[]> LoadConfigs<TConfig>() where TConfig : class
         {
-            var keys = await GetConfigKeys<TConfig>();
+            List<string> keys = await GetConfigKeys<TConfig>();
             return await _assetProvider.LoadAsync<TConfig>(keys, cacheHandle: false);
         }
 

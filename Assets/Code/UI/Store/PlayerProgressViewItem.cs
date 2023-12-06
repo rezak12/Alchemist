@@ -13,11 +13,8 @@ namespace Code.UI.Store
         private IPersistentProgressService _progressService;
 
         [Inject]
-        private void Construct(IPersistentProgressService progressService)
-        {
-            _progressService = progressService;
-        }
-        
+        private void Construct(IPersistentProgressService progressService) => _progressService = progressService;
+
         private void Start()
         {
             _progressService.CoinsAmountChanged += OnCoinsAmountChanged;
@@ -33,14 +30,9 @@ namespace Code.UI.Store
             _progressService.ReputationAmountChanged -= OnReputationAmountChanged;
         }
 
-        private void OnCoinsAmountChanged()
-        {
-            _coinsAmountText.text = _progressService.CoinsAmount.ToString();
-        }
+        private void OnCoinsAmountChanged() => _coinsAmountText.text = _progressService.CoinsAmount.ToString();
 
-        private void OnReputationAmountChanged()
-        {
+        private void OnReputationAmountChanged() => 
             _reputationAmountText.text = _progressService.ReputationAmount.ToString();
-        }
     }
 }

@@ -1,31 +1,29 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Code.Logic.Orders;
 using Code.Logic.Potions;
+using Code.StaticData;
 
 namespace Code.Logic.PotionMaking
 {
     public class ResultPotionRater
     {
-        public bool IsPotionSatisfyingRequirements(Potion potion, PotionOrder order)
-        {
-            var characteristicsRequirementsSatisfied = IsPotionSatisfiedCharacteristicsRequirements(order, potion);
+        public bool IsPotionSatisfyingRequirements(Potion potion, PotionOrder order) => 
+            IsPotionSatisfyingCharacteristicsRequirements(order, potion);
 
-            return characteristicsRequirementsSatisfied;
-        }
-
-        private static bool IsPotionSatisfiedCharacteristicsRequirements(PotionOrder order, Potion potion)
+        private static bool IsPotionSatisfyingCharacteristicsRequirements(PotionOrder order, Potion potion)
         {
-            var requirementCharacteristicAmountPairs = order
+            Dictionary<PotionCharacteristic, int> requirementCharacteristicAmountPairs = order
                 .RequirementCharacteristics
                 .ToDictionary(pair => pair.Characteristic, pair => pair.PointsAmount);
 
-            var createdCharacteristicAmountPairs = potion
+            Dictionary<PotionCharacteristic, int> createdCharacteristicAmountPairs = potion
                 .CharacteristicAmountPairs
                 .ToDictionary(pair => pair.Characteristic, pair => pair.PointsAmount);
 
-            var characteristicsRequirementsSatisfied = requirementCharacteristicAmountPairs.All(requirementPair =>
+            bool characteristicsRequirementsSatisfied = requirementCharacteristicAmountPairs.All(requirementPair =>
             {
-                if (!createdCharacteristicAmountPairs.TryGetValue(requirementPair.Key, out var amount))
+                if (!createdCharacteristicAmountPairs.TryGetValue(requirementPair.Key, out int amount))
                 {
                     return false;
                 }

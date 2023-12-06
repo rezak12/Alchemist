@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Threading.Tasks;
 using Code.Infrastructure.Services.Factories;
 using Code.Logic.PotionMaking;
 using Code.StaticData;
@@ -16,11 +15,8 @@ namespace Code.UI.PlayerIngredientsUI
         private IUIFactory _uiFactory;
 
         [Inject]
-        private void Construct(IUIFactory uiFactory)
-        {
-            _uiFactory = uiFactory;
-        }
-        
+        private void Construct(IUIFactory uiFactory) => _uiFactory = uiFactory;
+
         public async UniTask InitializeAsync(
             IEnumerable<IngredientData> playerIngredients, 
             AlchemyTableComponent alchemyTable)
@@ -28,8 +24,7 @@ namespace Code.UI.PlayerIngredientsUI
             var tasks = new List<UniTask>();
             foreach (IngredientData ingredient in playerIngredients)
             {
-                var task = _uiFactory.CreateIngredientItemUIAsync(ingredient, alchemyTable, _ingredientItemsContainer);
-                tasks.Add(task);
+                tasks.Add(_uiFactory.CreateIngredientItemUIAsync(ingredient, alchemyTable, _ingredientItemsContainer));
             }
 
             await UniTask.WhenAll(tasks);

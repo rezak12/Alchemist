@@ -1,8 +1,5 @@
-﻿using Code.Infrastructure.Services.Pool;
-using Cysharp.Threading.Tasks;
+﻿using Cysharp.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
-using Zenject;
 
 namespace Code.Infrastructure.Services.VFX
 {

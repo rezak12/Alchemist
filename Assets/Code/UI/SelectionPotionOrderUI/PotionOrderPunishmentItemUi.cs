@@ -8,9 +8,7 @@ namespace Code.UI.SelectionPotionOrderUI
     {
         [SerializeField] private TextMeshProUGUI _reputationAmountText;
 
-        public void SetPunishment(PotionOrderPunishment punishment)
-        {
+        public void SetPunishment(PotionOrderPunishment punishment) => 
             _reputationAmountText.text = punishment.ReputationAmount.ToString();
-        }
     }
 }

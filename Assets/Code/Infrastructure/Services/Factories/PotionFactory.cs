@@ -31,7 +31,7 @@ namespace Code.Infrastructure.Services.Factories
         
         private async UniTask<PotionData> LoadPlayerPotionData()
         {
-            var potionDataReference = _progressService.ChosenPotionDataReference;
+            AssetReferenceT<PotionData> potionDataReference = _progressService.ChosenPotionDataReference;
             var potionData = await _assetProvider.LoadAsync<PotionData>(potionDataReference);
             
             return potionData;

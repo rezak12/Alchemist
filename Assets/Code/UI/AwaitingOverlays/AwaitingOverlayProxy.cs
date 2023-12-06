@@ -6,27 +6,16 @@ namespace Code.UI.AwaitingOverlays
 {
     public class AwaitingOverlayProxy : IAwaitingOverlay
     {
-        private readonly IPrefabFactory _factory;
         private IAwaitingOverlay _overlay;
+        private readonly IPrefabFactory _factory;
 
-        public AwaitingOverlayProxy(NonCachePrefabFactory factory)
-        {
-            _factory = factory;
-        }
+        public AwaitingOverlayProxy(NonCachePrefabFactory factory) => _factory = factory;
 
-        public async UniTask InitializeAsync()
-        {
+        public async UniTask InitializeAsync() => 
             _overlay = await _factory.Create<AwaitingOverlay>(ResourcesAddresses.AwaitingOverlayAddress);
-        }
 
-        public async UniTask Show(string message = "Loading...")
-        {
-            await _overlay.Show(message);
-        }
+        public async UniTask Show(string message = "Loading...") => await _overlay.Show(message);
 
-        public async UniTask Hide()
-        {
-            await _overlay.Hide();
-        }
+        public async UniTask Hide() => await _overlay.Hide();
     }
 }

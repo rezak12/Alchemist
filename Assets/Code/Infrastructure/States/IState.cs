@@ -4,6 +4,6 @@ namespace Code.Infrastructure.States
 {
     public interface IState : IExitableState
     {
-        public UniTask Enter();
+        UniTask Enter();
     }
 }

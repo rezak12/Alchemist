@@ -35,10 +35,7 @@ namespace Code.Infrastructure.States.GameStates
             await _stateMachine.Enter<MainMenuState>();
         }
 
-        public UniTask Exit()
-        {
-            return UniTask.CompletedTask;
-        }
+        public UniTask Exit() => UniTask.CompletedTask;
 
         private async UniTask<PlayerProgress> LoadOrCreateNewSave()
         {
