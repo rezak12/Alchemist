@@ -1,6 +1,5 @@
 using Code.Infrastructure.Services.Factories;
 using Code.Infrastructure.Services.StaticData;
-using Code.Infrastructure.Services.VFX;
 using Code.Logic.Orders;
 using Code.UI.AwaitingOverlays;
 using Code.UI.SelectionPotionOrderUI;
@@ -14,7 +13,6 @@ namespace Code.Infrastructure.States.PotionMakingStates
         private readonly IUIFactory _uiFactory;
         private readonly IAwaitingOverlay _awaitingOverlay;
         private readonly PotionOrdersHandler _potionOrdersHandler;
-        private readonly IVFXProvider _vfxProvider;
         
         private SelectPotionOrderPopup _selectPotionOrderPopup;
 
@@ -22,20 +20,17 @@ namespace Code.Infrastructure.States.PotionMakingStates
             IUIFactory uiFactory, 
             IStaticDataService staticDataService, 
             IPotionOrderFactory potionOrderFactory,
-            IAwaitingOverlay awaitingOverlay, 
-            IVFXProvider vfxProvider)
+            IAwaitingOverlay awaitingOverlay)
         {
             _uiFactory = uiFactory;
             _awaitingOverlay = awaitingOverlay;
-            _vfxProvider = vfxProvider;
             _potionOrdersHandler = new PotionOrdersHandler(potionOrderFactory, staticDataService);
         }
 
         public async UniTask Enter()
         {
             await _potionOrdersHandler.HandleNewOrder();
-            _selectPotionOrderPopup = await _uiFactory.CreateSelectPotionOrderPopupAsync(_potionOrdersHandler);
-            await _vfxProvider.InitializeAsync();
+            _selectPotionOrderPopup = await _uiFactory.CreatePotionOrderSelectionPopupAsync(_potionOrdersHandler);
             await _awaitingOverlay.Hide();
         }
 

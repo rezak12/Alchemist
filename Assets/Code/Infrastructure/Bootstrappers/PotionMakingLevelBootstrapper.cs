@@ -21,8 +21,9 @@ namespace Code.Infrastructure.Bootstrappers
             _stateMachine.RegisterState(_statesFactory.Create<OrderSelectionState>());
             _stateMachine.RegisterState(_statesFactory.Create<OrderStartedState>());
             _stateMachine.RegisterState(_statesFactory.Create<OrderCompletedState>());
+            _stateMachine.RegisterState(_statesFactory.Create<PotionMakingLevelBootstrapState>());
             
-            _stateMachine.Enter<OrderSelectionState>().Forget();
+            _stateMachine.Enter<PotionMakingLevelBootstrapState>().Forget();
         }
     }
 }
