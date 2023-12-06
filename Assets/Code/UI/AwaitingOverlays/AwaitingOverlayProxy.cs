@@ -1,6 +1,7 @@
 using Code.Data;
 using Code.Infrastructure.Services.Factories;
 using Cysharp.Threading.Tasks;
+using UnityEngine;
 
 namespace Code.UI.AwaitingOverlays
 {
@@ -12,7 +13,7 @@ namespace Code.UI.AwaitingOverlays
         public AwaitingOverlayProxy(NonCachePrefabFactory factory) => _factory = factory;
 
         public async UniTask InitializeAsync() => 
-            _overlay = await _factory.Create<AwaitingOverlay>(ResourcesAddresses.AwaitingOverlayAddress);
+            _overlay = await _factory.Create<AwaitingOverlay>(ResourcesAddresses.AwaitingOverlayAddress, Vector3.zero);
 
         public async UniTask Show(string message = "Loading...") => await _overlay.Show(message);
 
