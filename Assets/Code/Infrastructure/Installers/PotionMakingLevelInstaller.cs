@@ -3,14 +3,18 @@ using Code.Infrastructure.Services.Factories;
 using Code.Infrastructure.Services.VFX;
 using Code.Infrastructure.States.PotionMakingStates;
 using Code.Logic.Orders;
+using UnityEngine;
 using Zenject;
 
 namespace Code.Infrastructure.Installers
 {
     public class PotionMakingLevelInstaller : MonoInstaller
     {
+        [SerializeField] private Camera _camera;
+
         public override void InstallBindings()
         {
+            BindCamera();
             BindStatesFactory();
             BindSelectedPotionOrderHolder();
             BindAlchemyTableFactory();
@@ -23,6 +27,8 @@ namespace Code.Infrastructure.Installers
             BindStateMachine();
             BindBootstrapper();
         }
+
+        private void BindCamera() => Container.Bind<Camera>().FromInstance(_camera);
 
         private void BindStatesFactory() => Container.BindInterfacesTo<StatesFactory>().AsSingle();
 

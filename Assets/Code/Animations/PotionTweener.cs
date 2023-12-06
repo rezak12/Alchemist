@@ -2,6 +2,7 @@
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
+using Zenject;
 
 namespace Code.Animations
 {
@@ -24,10 +25,8 @@ namespace Code.Animations
 
         private Camera _camera;
 
-        private void Start()
-        {
-            _camera = Camera.main;
-        }
+        [Inject]
+        private void Construct(Camera camera) => _camera = camera;
 
         public async UniTask PresentAfterCreating()
         {
