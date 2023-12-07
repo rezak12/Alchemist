@@ -1,5 +1,4 @@
 ﻿using Code.Infrastructure.Services.Factories;
-using Code.Infrastructure.Services.VFX;
 using Code.Infrastructure.States.PotionMakingStates;
 using Cysharp.Threading.Tasks;
 using Zenject;
@@ -10,16 +9,11 @@ namespace Code.Infrastructure.Bootstrappers
     {
         private readonly PotionMakingLevelStateMachine _stateMachine;
         private readonly IStatesFactory _statesFactory;
-        private readonly IVFXProvider _vfxProvider;
-
-        public PotionMakingLevelBootstrapper(
-            PotionMakingLevelStateMachine stateMachine, 
-            IStatesFactory statesFactory,
-            IVFXProvider vfxProvider)
+        
+        public PotionMakingLevelBootstrapper(PotionMakingLevelStateMachine stateMachine, IStatesFactory statesFactory)
         {
             _stateMachine = stateMachine;
             _statesFactory = statesFactory;
-            _vfxProvider = vfxProvider;
         }
 
         public void Initialize()
@@ -27,10 +21,9 @@ namespace Code.Infrastructure.Bootstrappers
             _stateMachine.RegisterState(_statesFactory.Create<OrderSelectionState>());
             _stateMachine.RegisterState(_statesFactory.Create<OrderStartedState>());
             _stateMachine.RegisterState(_statesFactory.Create<OrderCompletedState>());
-
-            _vfxProvider.InitializeAsync().Forget();
+            _stateMachine.RegisterState(_statesFactory.Create<PotionMakingLevelBootstrapState>());
             
-            _stateMachine.Enter<OrderSelectionState>().Forget();
+            _stateMachine.Enter<PotionMakingLevelBootstrapState>().Forget();
         }
     }
 }

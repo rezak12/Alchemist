@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 
 namespace Code.Infrastructure.States
 {
     public abstract class StateMachine
     {
-        private readonly Dictionary<System.Type, IExitableState> _registeredStates = new();
+        private readonly Dictionary<Type, IExitableState> _registeredStates = new();
         private IExitableState _currentState;
 
         public async UniTask Enter<TState>() where TState : class, IState
@@ -27,10 +28,8 @@ namespace Code.Infrastructure.States
             await newState.Enter(payload1, payload2);
         }
 
-        public void RegisterState<TState>(TState state) where TState : IExitableState
-        {
+        public void RegisterState<TState>(TState state) where TState : IExitableState => 
             _registeredStates.Add(typeof(TState), state);
-        }
 
         private async UniTask<TState> ChangeState<TState>() where TState : class, IExitableState
         {
@@ -45,9 +44,7 @@ namespace Code.Infrastructure.States
             return state;
         }
 
-        private TState GetState<TState>() where TState : class, IExitableState
-        {
-            return _registeredStates[typeof(TState)] as TState;
-        }
+        private TState GetState<TState>() where TState : class, IExitableState => 
+            _registeredStates[typeof(TState)] as TState;
     }
 }

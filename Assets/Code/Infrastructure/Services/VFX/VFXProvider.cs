@@ -46,7 +46,7 @@ namespace Code.Infrastructure.Services.VFX
 
         public async UniTask Play(PoolObjectType type, Vector3 position)
         {
-            var pool = _pools[type];
+            Pool<VFX> pool = _pools[type];
             
             VFX vfx = await pool.Get(position);
             await vfx.Play();

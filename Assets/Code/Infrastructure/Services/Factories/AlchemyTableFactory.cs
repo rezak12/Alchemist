@@ -25,12 +25,15 @@ namespace Code.Infrastructure.Services.Factories
         
         public async UniTask<AlchemyTableComponent> CreateTableAsync(Vector3 position)
         {
-            var prefab = await _assetProvider
-                .LoadAsync<GameObject>(_progressService.ChosenAlchemyTablePrefabReference);
-
-            var table = _instantiator.InstantiatePrefabForComponent<AlchemyTableComponent>(prefab, position, Quaternion.identity, null);
-            table.Initialize();
+            var prefab = await _assetProvider.LoadAsync<GameObject>(_progressService.ChosenAlchemyTablePrefabReference);
             
+            var table = _instantiator.InstantiatePrefabForComponent<AlchemyTableComponent>(
+                prefab, 
+                position, 
+                Quaternion.identity, 
+                null);
+            
+            table.Initialize();
             return table;
         }
     }

@@ -12,20 +12,11 @@ namespace Code.UI.MainMenuUI
         private GameStateMachine _stateMachine;
 
         [Inject]
-        private void Construct(GameStateMachine stateMachine)
-        {
-            _stateMachine = stateMachine;
-        }
+        private void Construct(GameStateMachine stateMachine) => _stateMachine = stateMachine;
 
-        public void Initialize()
-        {
-            _playButton.onClick.AddListener(OpenPotionMakingScene);
-        }
+        public void Initialize() => _playButton.onClick.AddListener(OpenPotionMakingScene);
 
-        private void OnDestroy()
-        {
-            _playButton.onClick.RemoveListener(OpenPotionMakingScene);
-        }
+        private void OnDestroy() => _playButton.onClick.RemoveListener(OpenPotionMakingScene);
 
         private void OpenPotionMakingScene()
         {

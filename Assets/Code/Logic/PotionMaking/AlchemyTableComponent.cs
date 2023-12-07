@@ -28,29 +28,27 @@ namespace Code.Logic.PotionMaking
         private Stack<IngredientTweener> _ingredientTweeners;
         
         private IPotionFactory _potionFactory;
-        private IIngredientFactory _ingredientFactory;
+        private IPrefabFactory _prefabFactory;
         private IVFXProvider _vfxProvider;
         private ISFXProvider _sfxProvider;
 
         [Inject]
         private void Construct(
             IPotionInfoFactory potionInfoFactory,
-            IIngredientFactory ingredientFactory,
             IPotionFactory potionFactory, 
+            CachePrefabFactory prefabFactory,
             IVFXProvider vfxProvider,
             ISFXProvider sfxProvider)
         {
             _alchemyTable = new AlchemyTable(potionInfoFactory, _tableSlots);
             _potionFactory = potionFactory;
-            _ingredientFactory = ingredientFactory;
+            _prefabFactory = prefabFactory;
             _vfxProvider = vfxProvider;
             _sfxProvider = sfxProvider;
         }
 
-        public void Initialize()
-        {
+        public void Initialize() => 
             _ingredientTweeners = new Stack<IngredientTweener>(_tableSlots.Length);
-        }
 
         public void AddIngredient(IngredientData ingredient)
         {
@@ -89,14 +87,12 @@ namespace Code.Logic.PotionMaking
             return potion;
         }
 
-        private async UniTask<Potion> CreatePotion(PotionInfo potionInfo)
-        {
-            return await _potionFactory.CreatePotionAsync(potionInfo, _potionSpawnPoint.position);
-        }
+        private async UniTask<Potion> CreatePotion(PotionInfo potionInfo) => 
+            await _potionFactory.CreatePotionAsync(potionInfo, _potionSpawnPoint.position);
 
         private async UniTaskVoid MoveNewIngredientToSlot(IngredientData ingredientData, Transform slotTransform)
         {
-            IngredientTweener ingredientTweener = await _ingredientFactory.CreateIngredientAsync(
+            var ingredientTweener = await _prefabFactory.CreateAsync<IngredientTweener>(
                 ingredientData.PrefabReference, _ingredientsSpawnPoint.position);
             _ingredientTweeners.Push(ingredientTweener);
             

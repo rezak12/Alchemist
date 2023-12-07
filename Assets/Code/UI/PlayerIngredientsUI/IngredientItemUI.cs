@@ -1,5 +1,4 @@
-﻿using Code.Infrastructure.Services.Factories;
-using Code.Logic.PotionMaking;
+﻿using Code.Logic.PotionMaking;
 using Code.StaticData;
 using Code.UI.PotionCharacteristicsUI;
 using Cysharp.Threading.Tasks;
@@ -27,8 +26,7 @@ namespace Code.UI.PlayerIngredientsUI
             _nameText.text = ingredient.Name;
             _iconImage.sprite = ingredient.Icon;
             
-            await _characteristicItemsContainer.CreateCharacteristicItemsAsync(
-                ingredient.CharacteristicAmountPairs);
+            await _characteristicItemsContainer.CreateCharacteristicItemsAsync(ingredient.CharacteristicAmountPairs);
 
             _alchemyTable.FilledSlotsAmountChanged += OnFilledSlotAmountChanged;
             _useButton.onClick.AddListener(UseIngredient);
@@ -52,9 +50,6 @@ namespace Code.UI.PlayerIngredientsUI
             }
         }
 
-        private void UseIngredient()
-        {
-            _alchemyTable.AddIngredient(_ingredient);
-        }
+        private void UseIngredient() => _alchemyTable.AddIngredient(_ingredient);
     }
 }

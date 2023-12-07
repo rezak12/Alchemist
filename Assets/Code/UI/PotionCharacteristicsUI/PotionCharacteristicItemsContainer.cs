@@ -15,17 +15,14 @@ namespace Code.UI.PotionCharacteristicsUI
         private IUIFactory _uiFactory;
 
         [Inject]
-        private void Construct(IUIFactory uiFactory)
-        {
-            _uiFactory = uiFactory;
-        }
-        
+        private void Construct(IUIFactory uiFactory) => _uiFactory = uiFactory;
+
         public async UniTask CreateCharacteristicItemsAsync(
-            IEnumerable<IngredientCharacteristicAmountPair> characteristicAmountPairs)
+            IReadOnlyCollection<IngredientCharacteristicAmountPair> characteristicAmountPairs)
         {
             Cleanup();
             
-            var tasks = new List<UniTask>();
+            var tasks = new List<UniTask>(characteristicAmountPairs.Count);
             foreach (IngredientCharacteristicAmountPair characteristicAmountPair in characteristicAmountPairs)
             {
                 UniTask task = _uiFactory.CreatePotionCharacteristicItemUIAsync(
@@ -37,11 +34,11 @@ namespace Code.UI.PotionCharacteristicsUI
         }
 
         public async UniTask CreateCharacteristicItemsAsync(
-            IEnumerable<PotionCharacteristicAmountPair> characteristicAmountPairs)
+            IReadOnlyCollection<PotionCharacteristicAmountPair> characteristicAmountPairs)
         {
             Cleanup();
             
-            var tasks = new List<UniTask>();
+            var tasks = new List<UniTask>(characteristicAmountPairs.Count);
             foreach (PotionCharacteristicAmountPair characteristicAmountPair in characteristicAmountPairs)
             {
                 UniTask task = _uiFactory.CreatePotionCharacteristicItemUIAsync(
@@ -58,7 +55,6 @@ namespace Code.UI.PotionCharacteristicsUI
             {
                 Destroy(item.gameObject);
             }
-            
             _items.Clear();
         }
     }

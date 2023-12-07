@@ -1,6 +1,7 @@
 ﻿using Code.Data;
 using Code.Infrastructure.Services.AssetProvider;
 using Code.Infrastructure.Services.SceneLoader;
+using Code.Infrastructure.Services.VFX;
 using Code.UI.AwaitingOverlays;
 using Cysharp.Threading.Tasks;
 
@@ -11,7 +12,7 @@ namespace Code.Infrastructure.States.GameStates
         private readonly ISceneLoader _sceneLoader;
         private readonly IAssetProvider _assetProvider;
         private readonly IAwaitingOverlay _awaitingOverlay;
-
+        
         public PotionMakingState(
             ISceneLoader sceneLoader, 
             IAssetProvider assetProvider, 
@@ -23,7 +24,7 @@ namespace Code.Infrastructure.States.GameStates
         }
         public async UniTask Enter()
         {
-            await _sceneLoader.LoadAsync(ResourcesPaths.PotionMakingSceneAddress);
+            await _sceneLoader.LoadAsync(ResourcesAddresses.PotionMakingSceneAddress);
         }
 
         public async UniTask Exit()

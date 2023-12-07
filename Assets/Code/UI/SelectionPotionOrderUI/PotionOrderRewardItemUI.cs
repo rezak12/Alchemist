@@ -21,11 +21,8 @@ namespace Code.UI.SelectionPotionOrderUI
         private IAssetProvider _assetProvider;
 
         [Inject]
-        private void Construct(IAssetProvider assetProvider)
-        {
-            _assetProvider = assetProvider;
-        }
-        
+        private void Construct(IAssetProvider assetProvider) => _assetProvider = assetProvider;
+
         public async UniTaskVoid SetReward(PotionOrderReward reward)
         {
             _coinsAmountText.text = reward.CoinsAmount.ToString();

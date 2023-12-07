@@ -6,9 +6,7 @@ namespace Code.Logic.Potions
     {
         public IEnumerable<PotionCharacteristicAmountPair> CharacteristicsAmountPairs { get; }
 
-        public PotionInfo(IEnumerable<PotionCharacteristicAmountPair> characteristicsAmountPairs)
-        {
+        public PotionInfo(IEnumerable<PotionCharacteristicAmountPair> characteristicsAmountPairs) => 
             CharacteristicsAmountPairs = characteristicsAmountPairs;
-        }
     }
 }

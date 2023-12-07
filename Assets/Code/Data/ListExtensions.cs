@@ -8,7 +8,7 @@ namespace Code.Data
         {
             var result = new List<TPayload>(list);
             
-            var resultListCount = result.Count;
+            int resultListCount = result.Count;
             for (int i = 0; i < resultListCount-1; i++)
             {
                 TPayload oldVal = result[i];
@@ -22,7 +22,7 @@ namespace Code.Data
 
         public static void ShuffleNonAlloc<TPayload>(this List<TPayload> list)
         {
-            var listCount = list.Count;
+            int listCount = list.Count;
             for (int i = 0; i < listCount-1; i++)
             {
                 TPayload oldVal = list[i];

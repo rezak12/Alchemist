@@ -20,10 +20,7 @@ namespace Code.UI.SelectionPotionOrderUI
         private UnityAction _skipOrderAction;
 
         [Inject]
-        private void Construct(IPersistentProgressService progressService)
-        {
-            _progressService = progressService;
-        }
+        private void Construct(IPersistentProgressService progressService) => _progressService = progressService;
 
         public void Initialize(
             PotionOrdersHandler ordersHandler, 
@@ -55,9 +52,7 @@ namespace Code.UI.SelectionPotionOrderUI
             await _ordersHandler.HandleNewOrder();
         }
 
-        private void OnReputationAmountChanged()
-        {
+        private void OnReputationAmountChanged() => 
             _button.interactable = _progressService.IsReputationEnoughFor(_skipOrderCostInReputation);
-        }
     }
 }

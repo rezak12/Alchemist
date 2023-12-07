@@ -7,14 +7,14 @@ namespace Code.Logic.Orders
     {
         public string OrderDifficultyName { get; }
         public string OrderTypeName { get; }
-        public IEnumerable<PotionCharacteristicAmountPair> RequirementCharacteristics { get; }
+        public IReadOnlyCollection<PotionCharacteristicAmountPair> RequirementCharacteristics { get; }
         public PotionOrderReward Reward { get; }
         public PotionOrderPunishment Punishment { get; }
 
         public PotionOrder(
             string orderDifficultyName, 
             string orderTypeName, 
-            IEnumerable<PotionCharacteristicAmountPair> requirementCharacteristics, 
+            IReadOnlyCollection<PotionCharacteristicAmountPair> requirementCharacteristics, 
             PotionOrderReward reward, 
             PotionOrderPunishment punishment)
         {

@@ -6,7 +6,6 @@ namespace Code.Logic.PotionMaking
     public class AlchemyTableSlot : MonoBehaviour
     {
         public bool IsFilled => CurrentIngredient != null;
-
         public IngredientData CurrentIngredient { get; private set; }
 
         public void Fill(IngredientData ingredient)

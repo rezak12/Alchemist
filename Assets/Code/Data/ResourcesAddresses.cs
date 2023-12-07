@@ -1,13 +1,7 @@
 namespace Code.Data
 {
-    public class ResourcesPaths
+    public class ResourcesAddresses
     {
-        public const string PopupConfigsPath = "StaticData/PopupConfigs";
-        public const string OrderTypesPath = "StaticData/Orders/OrderTypes";
-        public const string OrderDifficultiesPath = "StaticData/Orders/OrderDifficulties";
-        public const string LevelConfigsPath = "StaticData/LevelConfigs";
-        public const string ObjectPoolConfigsPath = "StaticData/ObjectPoolConfigs";
-
         public const string NewSaveDataAddress = "FirstSaveData";
         public const string IngredientItemUIAddress = "IngredientItem";
         public const string PotionCharacteristicItemUIAddress = "PotionCharacteristicItem";

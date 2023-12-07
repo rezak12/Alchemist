@@ -30,7 +30,7 @@ namespace Code.Infrastructure.States.PotionMakingStates
         public async UniTask Enter()
         {
             await _potionOrdersHandler.HandleNewOrder();
-            _selectPotionOrderPopup = await _uiFactory.CreateSelectPotionOrderPopupAsync(_potionOrdersHandler);
+            _selectPotionOrderPopup = await _uiFactory.CreatePotionOrderSelectionPopupAsync(_potionOrdersHandler);
             await _awaitingOverlay.Hide();
         }
 

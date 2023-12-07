@@ -9,8 +9,6 @@ using Code.Infrastructure.Services.SFX;
 using Code.Infrastructure.Services.StaticData;
 using Code.Infrastructure.States.GameStates;
 using Code.UI.AwaitingOverlays;
-using Cysharp.Threading.Tasks;
-using UnityEngine.AddressableAssets;
 using Zenject;
 
 namespace Code.Infrastructure.Installers
@@ -34,50 +32,24 @@ namespace Code.Infrastructure.Installers
             BindBootstrapper();
         }
 
-        private void BindAssetProvider()
-        {
-            Container.BindInterfacesTo<AssetProvider>().AsSingle();
-        }
+        private void BindAssetProvider() => Container.BindInterfacesTo<AssetProvider>().AsSingle();
 
-        private void BindPersistentProgressService()
-        {
+        private void BindPersistentProgressService() => 
             Container.BindInterfacesTo<PersistentProgressService>().AsSingle();
-        }
 
-        private void BindRandomService()
-        {
-            Container.BindInterfacesTo<UnityRandomService>().AsSingle();
-        }
+        private void BindRandomService() => Container.BindInterfacesTo<UnityRandomService>().AsSingle();
 
-        private void BindSaveLoadService()
-        {
-            Container.BindInterfacesTo<SaveLoadService>().AsSingle();
-        }
+        private void BindSaveLoadService() => Container.BindInterfacesTo<SaveLoadService>().AsSingle();
 
-        private void BindSceneLoader()
-        {
-            Container.BindInterfacesTo<SceneLoader>().AsSingle();
-        }
+        private void BindSceneLoader() => Container.BindInterfacesTo<SceneLoader>().AsSingle();
+        
+        private void BindStaticDataService() => Container.BindInterfacesTo<StaticDataService>().AsSingle();
 
-        private void BindStaticDataService()
-        {
-            Container.BindInterfacesTo<StaticDataService>().AsSingle();
-        }
+        private void BindUIFactory() => Container.BindInterfacesTo<UIFactory>().AsSingle();
 
-        private void BindUIFactory()
-        {
-            Container.BindInterfacesTo<UIFactory>().AsSingle();
-        }
+        public void BindSFXProvider() => Container.BindInterfacesTo<SFXProvider>().AsSingle();
 
-        public void BindSFXProvider()
-        {
-            Container.BindInterfacesTo<SFXProvider>().AsSingle();
-        }
-
-        private void BindAwaitingOverlay()
-        {
-            Container.BindInterfacesAndSelfTo<AwaitingOverlayProxy>().AsSingle();
-        }
+        private void BindAwaitingOverlay() => Container.BindInterfacesAndSelfTo<AwaitingOverlayProxy>().AsSingle();
 
         private void BindPrefabFactories()
         {
@@ -85,19 +57,10 @@ namespace Code.Infrastructure.Installers
             Container.Bind<NonCachePrefabFactory>().AsSingle();
         }
 
-        private void BindStatesFactory()
-        {
-            Container.BindInterfacesTo<StatesFactory>().AsSingle();
-        }
+        private void BindStatesFactory() => Container.BindInterfacesTo<StatesFactory>().AsSingle();
 
-        private void BindGameStateMachine()
-        {
-            Container.Bind<GameStateMachine>().AsSingle();
-        }
+        private void BindGameStateMachine() => Container.Bind<GameStateMachine>().AsSingle();
 
-        private void BindBootstrapper()
-        {
-            Container.BindInterfacesAndSelfTo<GameBootstrapper>().AsSingle().NonLazy();
-        }
+        private void BindBootstrapper() => Container.BindInterfacesAndSelfTo<GameBootstrapper>().AsSingle().NonLazy();
     }
 }

@@ -3,7 +3,7 @@
 namespace Code.Infrastructure.States
 {
     public interface IExitableState
-    {
-        public UniTask Exit();
+    { 
+        UniTask Exit();
     }
 }
