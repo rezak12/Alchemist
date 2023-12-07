@@ -28,7 +28,7 @@ namespace Code.Logic.PotionMaking
         private Stack<IngredientTweener> _ingredientTweeners;
         
         private IPotionFactory _potionFactory;
-        private IIngredientFactory _ingredientFactory;
+        private IPrefabFactory _prefabFactory;
         private IVFXProvider _vfxProvider;
         private ISFXProvider _sfxProvider;
 
@@ -36,13 +36,13 @@ namespace Code.Logic.PotionMaking
         private void Construct(
             IPotionInfoFactory potionInfoFactory,
             IPotionFactory potionFactory, 
-            IIngredientFactory ingredientFactory,
+            CachePrefabFactory prefabFactory,
             IVFXProvider vfxProvider,
             ISFXProvider sfxProvider)
         {
             _alchemyTable = new AlchemyTable(potionInfoFactory, _tableSlots);
             _potionFactory = potionFactory;
-            _ingredientFactory = ingredientFactory;
+            _prefabFactory = prefabFactory;
             _vfxProvider = vfxProvider;
             _sfxProvider = sfxProvider;
         }
@@ -92,7 +92,7 @@ namespace Code.Logic.PotionMaking
 
         private async UniTaskVoid MoveNewIngredientToSlot(IngredientData ingredientData, Transform slotTransform)
         {
-            IngredientTweener ingredientTweener = await _ingredientFactory.CreateIngredientAsync(
+            var ingredientTweener = await _prefabFactory.CreateAsync<IngredientTweener>(
                 ingredientData.PrefabReference, _ingredientsSpawnPoint.position);
             _ingredientTweeners.Push(ingredientTweener);
             

@@ -66,7 +66,7 @@ namespace Code.Infrastructure.Services.Pool
 
         private async UniTask AddObject()
         {
-            var newObject = await _factory.Create<TComponent>(_objectReference, _parent.transform.position, _parent);
+            var newObject = await _factory.CreateAsync<TComponent>(_objectReference, _parent.transform.position, _parent);
             newObject.gameObject.SetActive(false);
             _entries.Push(newObject);
         }

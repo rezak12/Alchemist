@@ -13,7 +13,7 @@ namespace Code.UI.AwaitingOverlays
         public AwaitingOverlayProxy(NonCachePrefabFactory factory) => _factory = factory;
 
         public async UniTask InitializeAsync() => 
-            _overlay = await _factory.Create<AwaitingOverlay>(ResourcesAddresses.AwaitingOverlayAddress, Vector3.zero);
+            _overlay = await _factory.CreateAsync<AwaitingOverlay>(ResourcesAddresses.AwaitingOverlayAddress, Vector3.zero);
 
         public async UniTask Show(string message = "Loading...") => await _overlay.Show(message);
 

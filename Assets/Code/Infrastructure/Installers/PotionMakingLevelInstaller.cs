@@ -18,7 +18,6 @@ namespace Code.Infrastructure.Installers
             BindStatesFactory();
             BindSelectedPotionOrderHolder();
             BindAlchemyTableFactory();
-            BindIngredientFactory();
             BindPotionInfoFactory();
             BindPotionFactory();
             BindPotionOrderFactory();
@@ -36,9 +35,7 @@ namespace Code.Infrastructure.Installers
             Container.BindInterfacesAndSelfTo<SelectedPotionOrderHolder>().AsSingle();
 
         private void BindAlchemyTableFactory() => Container.BindInterfacesTo<AlchemyTableFactory>().AsSingle();
-
-        private void BindIngredientFactory() => Container.BindInterfacesTo<IngredientFactory>().AsSingle();
-
+        
         private void BindPotionInfoFactory() => Container.BindInterfacesTo<PotionInfoFactory>().AsSingle();
 
         private void BindPotionFactory() => Container.BindInterfacesTo<PotionFactory>().AsSingle();

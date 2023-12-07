@@ -4,7 +4,6 @@ using Code.Logic.Potions;
 using Code.StaticData;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using Zenject;
 
 namespace Code.Infrastructure.Services.Factories
@@ -27,7 +26,7 @@ namespace Code.Infrastructure.Services.Factories
 
         public async UniTask<Potion> CreatePotionAsync(PotionInfo potionInfo, Vector3 position)
         {
-            PotionData potionData = await LoadPlayerPotionData();
+            PotionData potionData = await LoadPotionData();
 
             var potion = _instantiator.InstantiatePrefabForComponent<Potion>(
                 potionData.Prefab, 
@@ -39,12 +38,7 @@ namespace Code.Infrastructure.Services.Factories
             return potion;
         }
         
-        private async UniTask<PotionData> LoadPlayerPotionData()
-        {
-            AssetReferenceT<PotionData> potionDataReference = _progressService.ChosenPotionDataReference;
-            var potionData = await _assetProvider.LoadAsync<PotionData>(potionDataReference);
-            
-            return potionData;
-        }
+        private async UniTask<PotionData> LoadPotionData() => 
+            await _assetProvider.LoadAsync<PotionData>(_progressService.ChosenPotionDataReference);
     }
 }

@@ -18,15 +18,15 @@ namespace Code.Infrastructure.States.PotionMakingStates
 {
     public class OrderStartedState : IPayloadState<PotionOrder>
     {
+        private PotionMakingPopup _potionMakingPopup;
+        private AlchemyTableComponent _alchemyTable;
+        
         private readonly SelectedPotionOrderHolder _selectedOrderHolder;
         private readonly IStaticDataService _staticDataService;
         private readonly IAlchemyTableFactory _tableFactory;
         private readonly IUIFactory _uiFactory;
         private readonly IAwaitingOverlay _awaitingOverlay;
         private readonly IAssetProvider _assetProvider;
-        
-        private PotionMakingPopup _potionMakingPopup;
-        private AlchemyTableComponent _alchemyTable;
         private readonly IPersistentProgressService _progressService;
 
         public OrderStartedState(IStaticDataService staticDataService, 
@@ -80,10 +80,10 @@ namespace Code.Infrastructure.States.PotionMakingStates
 
         private async UniTask WarmupIngredients()
         {
-            var ingredients = await _assetProvider
+            IngredientData[] ingredients = await _assetProvider
                 .LoadAsync<IngredientData>(_progressService.PlayerIngredientsAssetReferences);
             
-            var dependencies = GetDependenciesFromIngredients(ingredients);
+            IEnumerable<AssetReference> dependencies = GetDependenciesFromIngredients(ingredients);
             await _assetProvider.LoadAsync<object>(dependencies);
         }
 
