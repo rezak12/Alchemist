@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a63dcd5ebafc4719949f509766ae6076, type: 3}
   m_Name: Fern
   m_EditorClassIdentifier: 
-  _icon: {fileID: 21300000, guid: f73f68fe6815f5548a6c2a61b9e49add, type: 3}
+  _icon: {fileID: -1638779584, guid: b77d4c74d11030642aa70909f0d827f0, type: 3}
   _name: Fern
   _prefabReference:
     m_AssetGUID: 667a5257b374c8b4f97221394acdf004
