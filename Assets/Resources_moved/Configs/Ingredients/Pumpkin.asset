@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a63dcd5ebafc4719949f509766ae6076, type: 3}
-  m_Name: Fern
+  m_Name: Pumpkin
   m_EditorClassIdentifier: 
-  _icon: {fileID: -1638779584, guid: b77d4c74d11030642aa70909f0d827f0, type: 3}
-  _name: Fern
+  _icon: {fileID: 502834522, guid: b77d4c74d11030642aa70909f0d827f0, type: 3}
+  _name: Pumpkin
   _prefabReference:
-    m_AssetGUID: 5e35c1135652c0341a813bd21f4869c3
+    m_AssetGUID: c25f34fa586ec744fbb8cc55bd9aa9ce
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
@@ -26,20 +26,8 @@ MonoBehaviour:
     m_EditorAssetChanged: 0
   _characteristicAmountPairs:
   - _characteristic:
-      m_AssetGUID: 413ae81cc3964ab439c73e8e76955b52
+      m_AssetGUID: de963e4a5f43ead468d3da6852c72812
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
-    _amount: 3
-  - _characteristic:
-      m_AssetGUID: 0a341f286ee933e4f8a1f62d3c1c3d06
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-    _amount: 5
-  - _characteristic:
-      m_AssetGUID: 7c0cabd78e1a52c47b8f9c72d20f462b
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-    _amount: 2
+    _amount: 21
