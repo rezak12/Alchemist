@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Cough
   m_EditorClassIdentifier: 
   _name: Cough
-  _icon: {fileID: 21300000, guid: f73f68fe6815f5548a6c2a61b9e49add, type: 3}
+  _icon: {fileID: 1864513737, guid: 06e65cec115a6874e9a1fb72f747e98e, type: 3}

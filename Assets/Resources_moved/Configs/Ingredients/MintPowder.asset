@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a63dcd5ebafc4719949f509766ae6076, type: 3}
   m_Name: MintPowder
   m_EditorClassIdentifier: 
-  _icon: {fileID: 21300000, guid: f26fa8880b3aeef4b8516c82dc12f2a5, type: 3}
+  _icon: {fileID: 393815179, guid: b77d4c74d11030642aa70909f0d827f0, type: 3}
   _name: Mint Powder
   _prefabReference:
     m_AssetGUID: af0b08ce416dd9347b1a8884069d4359
