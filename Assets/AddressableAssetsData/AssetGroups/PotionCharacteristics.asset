@@ -41,6 +41,42 @@ MonoBehaviour:
     m_Address: Curse
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 78a850907ed3cdb4d9ca20858f9053a3
+    m_Address: Fatigue
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 3fcefae7de68621478c18d06cd701c19
+    m_Address: Hyperactivity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: fbc3f5fb1b5887246a4a03def0e5c142
+    m_Address: Weakness
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: e4cb476206f55ed4cb3109cdadab823a
+    m_Address: Fever
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 3dda228ec6e960f45a6cc6a152df7c8e
+    m_Address: MemoryImprovement
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 0fda235a94310854398533f8b3720897
+    m_Address: Addiction
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 4f5b314639708754d9f6d4b5906864cf
+    m_Address: Aggression
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 4b4cbdaae7fecb7409a4ac165b9a15df
+    m_Address: Nausea
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 4b0145c9d2753b84282b16b631d47425
+    m_Address: Dizziness
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 57256fe3aec1a7d4a8b5958d52870f88, type: 2}
   m_SchemaSet:
