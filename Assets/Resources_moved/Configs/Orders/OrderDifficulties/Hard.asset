@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _name: Hard
   _requirementCharacteristicsAmount: 4
-  _minRequirementCharacteristicPointsAmount: 35
-  _maxRequirementCharacteristicPointsAmount: 50
+  _minRequirementCharacteristicPointsAmount: 25
+  _maxRequirementCharacteristicPointsAmount: 30
   _minCoinsAmountReward: 70
   _maxCoinsAmountReward: 120
   _minReputationAmountReward: 50
