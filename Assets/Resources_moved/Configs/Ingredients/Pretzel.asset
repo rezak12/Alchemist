@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a63dcd5ebafc4719949f509766ae6076, type: 3}
+  m_Name: Pretzel
+  m_EditorClassIdentifier: 
+  _icon: {fileID: 863107050, guid: b77d4c74d11030642aa70909f0d827f0, type: 3}
+  _name: Pretzel
+  _prefabReference:
+    m_AssetGUID: e1dc5edb88eea2e49b812c9badfd752f
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  _audioClipReference:
+    m_AssetGUID: 60c30552b3cd93047a86625397fb955b
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  _characteristicAmountPairs:
+  - _characteristic:
+      m_AssetGUID: e4cb476206f55ed4cb3109cdadab823a
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    _amount: 10
+  - _characteristic:
+      m_AssetGUID: 78a850907ed3cdb4d9ca20858f9053a3
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    _amount: 7

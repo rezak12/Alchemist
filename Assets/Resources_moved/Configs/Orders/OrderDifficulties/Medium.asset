@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _name: Medium
   _requirementCharacteristicsAmount: 3
-  _minRequirementCharacteristicPointsAmount: 20
-  _maxRequirementCharacteristicPointsAmount: 35
+  _minRequirementCharacteristicPointsAmount: 15
+  _maxRequirementCharacteristicPointsAmount: 25
   _minCoinsAmountReward: 40
   _maxCoinsAmountReward: 70
   _minReputationAmountReward: 25

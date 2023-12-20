@@ -33,6 +33,34 @@ MonoBehaviour:
     m_Address: GroundOrange
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 51791e3698c5eaa4787631f40f9522fa
+    m_Address: Rose
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 68fb0c7ab2f7c1e4a8b457b0614609b9
+    m_Address: Beer
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: a423b07ea14760949a3476db5098c480
+    m_Address: RedApple
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 6940c08e659fa1b42995e070425738db
+    m_Address: Pretzel
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: fe8a93b021320d445b3ebb45e5878cfc
+    m_Address: Ash
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: e11e3c389b7288845af00e840ec38085
+    m_Address: Pumpkin
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 922315aa05d09e64aa6718a022c658d4
+    m_Address: Lavender
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 57256fe3aec1a7d4a8b5958d52870f88, type: 2}
   m_SchemaSet:

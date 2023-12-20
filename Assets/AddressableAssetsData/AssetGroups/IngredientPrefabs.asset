@@ -29,8 +29,36 @@ MonoBehaviour:
     m_Address: Ingredient-GreenPowder
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 667a5257b374c8b4f97221394acdf004
+  - m_GUID: 5e35c1135652c0341a813bd21f4869c3
     m_Address: Ingredient-Fern
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 7f2d17faeec5e784e83bf7070475e4c5
+    m_Address: Ingredient-Beer
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 13bc7e8dc4a1fce4fb5bd7665ebc3013
+    m_Address: Ingredient-RedApple
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: f5f7c978faa52f54ea07ce39457b00ad
+    m_Address: Ingredient-Rose
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: a61ab20a61ab2e445a18e9949e56fb0e
+    m_Address: Ingredient-Lavender
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 6fd90fadd53751f45bb792d1676c678a
+    m_Address: Ingredient-Ash
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: e1dc5edb88eea2e49b812c9badfd752f
+    m_Address: Ingredient-Pretzel
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: c25f34fa586ec744fbb8cc55bd9aa9ce
+    m_Address: Ingredient-Pumpkin
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0

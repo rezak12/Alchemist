@@ -14,7 +14,7 @@ namespace Editor.Code
             PlayerPrefs.Save();
         }
 
-        [MenuItem("Tools/DeleteSaveFile")]
+        [MenuItem("Tools/Delete Save File")]
         public static void DeleteSaveFile()
         {
             var path = $"{Application.persistentDataPath}/{Constants.SaveFileName}";
