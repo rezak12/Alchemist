@@ -22,8 +22,20 @@ MonoBehaviour:
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
+  - m_AssetGUID: de963e4a5f43ead468d3da6852c72812
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  - m_AssetGUID: 3fcefae7de68621478c18d06cd701c19
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  - m_AssetGUID: 3dda228ec6e960f45a6cc6a152df7c8e
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
   _possibleRewardIngredients:
-  - m_AssetGUID: 4a1fcf6774d1c15428b462086ef5ff48
+  - m_AssetGUID: 68fb0c7ab2f7c1e4a8b457b0614609b9
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
