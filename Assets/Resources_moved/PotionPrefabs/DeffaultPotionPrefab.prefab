@@ -124,12 +124,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e8bbb0bada7486093e379e338f3e7ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveUpPoints: 1
-  _moveUpDuration: 3
-  _oneRotateDuration: 3
-  _rotationEase: 0
-  _moveToCameraDuration: 4
-  _cameraZOffset: 2
-  _moveToCameraEase: 20
-  _scaleDuration: 2
-  _scaleEase: 12
+  _tween: {fileID: 11400000, guid: a89e8ac5d12517a4cae2e5c7d2ee446a, type: 2}
