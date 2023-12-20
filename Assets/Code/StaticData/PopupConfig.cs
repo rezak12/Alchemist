@@ -4,7 +4,7 @@ using UnityEngine.AddressableAssets;
 
 namespace Code.StaticData
 {
-    [CreateAssetMenu(fileName = "PopupConfig", menuName = "StaticData/Popups/PopupConfig")]
+    [CreateAssetMenu(fileName = "PopupConfig", menuName = "StaticData/PopupConfig")]
     public class PopupConfig : ScriptableObject
     {
         [SerializeField] private PopupType _type;

@@ -2,7 +2,7 @@
 
 namespace Code.StaticData
 {
-    [CreateAssetMenu(fileName = "CharacteristicData", menuName = "StaticData/PotionCharacteristics")]
+    [CreateAssetMenu(fileName = "CharacteristicData", menuName = "StaticData/PotionCharacteristic")]
     public class PotionCharacteristic : ScriptableObject
     {
         [SerializeField] private string _name;

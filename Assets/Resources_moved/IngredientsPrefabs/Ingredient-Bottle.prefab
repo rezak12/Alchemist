@@ -96,6 +96,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72eb670eb5d04cee979d11580f7e8d04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _jumpDurationInSeconds: 1
-  _jumpPower: 1
-  _jumpingEase: 5
+  _tween: {fileID: 11400000, guid: 87a183d390f472048854f7e2234456a7, type: 2}
