@@ -30,4 +30,16 @@ MonoBehaviour:
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
-    _amount: 18
+    _amount: 12
+  - _characteristic:
+      m_AssetGUID: 4b0145c9d2753b84282b16b631d47425
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    _amount: 5
+  - _characteristic:
+      m_AssetGUID: 3fcefae7de68621478c18d06cd701c19
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    _amount: 10
