@@ -17,6 +17,7 @@ namespace Code.Infrastructure.Services.StaticData
         private Dictionary<PoolObjectType, PoolObjectConfig> _poolObjectConfigsCache;
         private PotionOrderType[] _orderTypesCache;
         private PotionOrderDifficulty[] _orderDifficultiesCache;
+        private AmbientReferencesCatalog _ambientReferencesCatalog;
 
         private readonly IRandomService _randomService;
         private readonly IAssetProvider _assetProvider;
@@ -34,7 +35,8 @@ namespace Code.Infrastructure.Services.StaticData
                 LoadLevelConfigs(),
                 LoadPoolConfigs(),
                 LoadOrderTypes(),
-                LoadOrderDifficulties());
+                LoadOrderDifficulties(),
+                LoadAmbientReferencesCatalog());
         }
 
         public PopupConfig GetPopupByType(PopupType type) => _popupConfigsCache[type];
@@ -49,21 +51,23 @@ namespace Code.Infrastructure.Services.StaticData
         public PotionOrderDifficulty GetRandomPotionOrderDifficulty() =>
             _orderDifficultiesCache[_randomService.Next(0, _orderDifficultiesCache.Length)];
 
+        public AmbientReferencesCatalog GetAmbientReferencesCatalog() => _ambientReferencesCatalog;
+
         private async UniTask LoadPopupConfigs()
         {
-            var configsList = await LoadConfigs<PopupConfig>();
+            PopupConfig[] configsList = await LoadConfigs<PopupConfig>();
             _popupConfigsCache = configsList.ToDictionary(config => config.Type, config => config);
         }
 
         private async UniTask LoadLevelConfigs()
         {
-            var configsList = await LoadConfigs<LevelConfig>();
+            LevelConfig[] configsList = await LoadConfigs<LevelConfig>();
             _levelConfigsCache = configsList.ToDictionary(config => config.SceneName, config => config);
         }
 
         private async UniTask LoadPoolConfigs()
         {
-            var configsList = await LoadConfigs<PoolObjectConfig>();
+            PoolObjectConfig[] configsList = await LoadConfigs<PoolObjectConfig>();
             _poolObjectConfigsCache = configsList.ToDictionary(config => config.Type, config => config);
         }
 
@@ -72,6 +76,12 @@ namespace Code.Infrastructure.Services.StaticData
 
         private async UniTask LoadOrderDifficulties() =>
             _orderDifficultiesCache = await LoadConfigs<PotionOrderDifficulty>();
+        
+        private async UniTask LoadAmbientReferencesCatalog()
+        {
+            AmbientReferencesCatalog[] loadedConfigArray = await LoadConfigs<AmbientReferencesCatalog>();
+            _ambientReferencesCatalog = loadedConfigArray.First();
+        }
 
         private async UniTask<TConfig[]> LoadConfigs<TConfig>() where TConfig : class
         {

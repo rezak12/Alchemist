@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Ambients
+  m_EditorClassIdentifier: 
+  m_GroupName: Ambients
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 5e8b3b35a98fbd54da1eed31484edf10
+  m_SerializeEntries:
+  - m_GUID: 87e32452d3801e046b4461f3f41f28de
+    m_Address: AmbientReferencesCatalog
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Configs
+  - m_GUID: 6a7a312f6ba9d5146b577df32a544233
+    m_Address: Ambient 3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 8565e63b63f15654ead1dbcec56e0b4d
+    m_Address: Ambient 5
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: bdbfa33426ec26747b29a1215f698f44
+    m_Address: Ambient 2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 574804a34f08fbc4eb9470a494bf21fd
+    m_Address: Ambient 1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: ec58028bc3343c448a7cf08bd3ab754d
+    m_Address: Ambient 6
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 57256fe3aec1a7d4a8b5958d52870f88, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: d159c265415e42d4b895ee53c0a8b944, type: 2}
+    - {fileID: 11400000, guid: a35130be83bbf4644931f9743eb15380, type: 2}
