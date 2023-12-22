@@ -6,5 +6,7 @@ namespace Code.Infrastructure.Services.Settings
     public class GameSettings
     {
         public VolumeSettings VolumeSettings;
+
+        public GameSettings(VolumeSettings volumeSettings) => VolumeSettings = volumeSettings;
     }
 }
