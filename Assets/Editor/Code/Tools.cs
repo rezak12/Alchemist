@@ -17,7 +17,7 @@ namespace Editor.Code
         [MenuItem("Tools/Delete Save File")]
         public static void DeleteSaveFile()
         {
-            var path = $"{Application.persistentDataPath}/{Constants.SaveFileName}";
+            var path = $"{Application.persistentDataPath}/{Constants.ProgressSaveFileName}";
             if(!File.Exists(path)) return;
             File.Delete(path);
         }

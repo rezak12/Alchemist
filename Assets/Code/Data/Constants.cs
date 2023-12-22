@@ -2,6 +2,7 @@
 {
     public class Constants
     {
-        public const string SaveFileName = "GameSave.json";
+        public const string ProgressSaveFileName = "GameSave.json";
+        public const string SettingsSaveFileName = "Settings.json";
     }
 }
