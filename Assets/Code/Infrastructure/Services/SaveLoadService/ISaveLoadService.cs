@@ -1,11 +1,14 @@
 ﻿using Code.Infrastructure.Services.ProgressServices;
-using JetBrains.Annotations;
+using Code.Infrastructure.Services.Settings;
+using Cysharp.Threading.Tasks;
 
 namespace Code.Infrastructure.Services.SaveLoadService
 {
     public interface ISaveLoadService
     {
-        void SaveProgress(PlayerProgress progress);
-        [CanBeNull] PlayerProgress LoadProgress();
+        UniTask SaveProgress(PlayerProgress progress);
+        UniTask SaveSettings(GameSettings settings);
+        UniTask<PlayerProgress> LoadProgress();
+        UniTask<GameSettings> LoadSettings();
     }
 }

@@ -35,8 +35,8 @@ namespace Code.Infrastructure.States.GameStates
         public async UniTask Exit()
         {
             await _awaitingOverlay.Show();
+            await _saveLoadService.SaveProgress(_progressService.GetProgress());
             _assetProvider.Cleanup();
-            _saveLoadService.SaveProgress(_progressService.GetProgress());
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Code.Infrastructure.Services.ProgressServices;
 using Code.Infrastructure.Services.SaveLoadService;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Zenject;
 
@@ -22,20 +23,20 @@ namespace Code.Infrastructure.Services.LifecycleObservers
         {
             if (pauseStatus)
             {
-                SaveProgress();
+                SaveProgress().Forget();
             }
         }
         #endif
 
         #if UNITY_STANDALONE_WIN
-        private void OnApplicationQuit() => SaveProgress();
+        private void OnApplicationQuit() => SaveProgress().Forget();
         #endif
         
         #if UNITY_EDITOR
-        private void OnApplicationQuit() => SaveProgress();
+        private void OnApplicationQuit() => SaveProgress().Forget();
         #endif
 
-        private void SaveProgress() => 
-            _saveLoadService.SaveProgress(_progressService.GetProgress());
+        private async UniTaskVoid SaveProgress() => 
+            await _saveLoadService.SaveProgress(_progressService.GetProgress());
     }
 }

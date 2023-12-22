@@ -39,7 +39,7 @@ namespace Code.Infrastructure.States.GameStates
 
         private async UniTask<PlayerProgress> LoadOrCreateNewSave()
         {
-            PlayerProgress progress = _saveLoadService.LoadProgress();
+            PlayerProgress progress = await _saveLoadService.LoadProgress();
             if (progress != null) return progress;
             
             var newSaveData = await _assetProvider.LoadAsync<FirstSaveData>(ResourcesAddresses.NewSaveDataAddress);
