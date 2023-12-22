@@ -1,4 +1,5 @@
 using Code.Infrastructure.Bootstrappers;
+using Code.Infrastructure.Services.Ambient;
 using Code.Infrastructure.Services.AssetProvider;
 using Code.Infrastructure.Services.Factories;
 using Code.Infrastructure.Services.ProgressServices;
@@ -24,6 +25,7 @@ namespace Code.Infrastructure.Installers
             BindSceneLoader();
             BindStaticDataService();
             BindPrefabFactories();
+            BindAmbientPlayer();
             BindStatesFactory();
             BindUIFactory();
             BindSFXProvider();
@@ -42,20 +44,22 @@ namespace Code.Infrastructure.Installers
         private void BindSaveLoadService() => Container.BindInterfacesTo<SaveLoadService>().AsSingle();
 
         private void BindSceneLoader() => Container.BindInterfacesTo<SceneLoader>().AsSingle();
-        
+
         private void BindStaticDataService() => Container.BindInterfacesTo<StaticDataService>().AsSingle();
 
         private void BindUIFactory() => Container.BindInterfacesTo<UIFactory>().AsSingle();
-
-        public void BindSFXProvider() => Container.BindInterfacesTo<SFXProvider>().AsSingle();
-
-        private void BindAwaitingOverlay() => Container.BindInterfacesAndSelfTo<AwaitingOverlayProxy>().AsSingle();
 
         private void BindPrefabFactories()
         {
             Container.Bind<CachePrefabFactory>().AsSingle();
             Container.Bind<NonCachePrefabFactory>().AsSingle();
         }
+
+        public void BindSFXProvider() => Container.BindInterfacesTo<SFXProvider>().AsSingle();
+
+        private void BindAwaitingOverlay() => Container.BindInterfacesAndSelfTo<AwaitingOverlayProxy>().AsSingle();
+
+        private void BindAmbientPlayer() => Container.BindInterfacesTo<AmbientPlayerProxy>().AsSingle();
 
         private void BindStatesFactory() => Container.BindInterfacesTo<StatesFactory>().AsSingle();
 
