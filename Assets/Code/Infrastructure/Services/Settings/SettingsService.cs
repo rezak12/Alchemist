@@ -9,8 +9,9 @@ namespace Code.Infrastructure.Services.Settings
     {
         public float AmbientVolume => _settings.VolumeSettings.AmbientVolume;
         public float SfxVolume => _settings.VolumeSettings.SfxVolume;
-        private GameSettings _settings;
+        
         private AudioMixer _audioMixer;
+        private GameSettings _settings;
 
         private readonly ISaveLoadService _saveLoadService;
 
@@ -55,8 +56,8 @@ namespace Code.Infrastructure.Services.Settings
         private VolumeSettings CreateVolumeSettings()
         {
             var settings = new VolumeSettings();
-            _audioMixer.GetFloat(Constants.AmbientVolumeParameter, out _settings.VolumeSettings.AmbientVolume);
-            _audioMixer.GetFloat(Constants.SfxVolumeParameter, out _settings.VolumeSettings.SfxVolume);
+            _audioMixer.GetFloat(Constants.AmbientVolumeParameter, out settings.AmbientVolume);
+            _audioMixer.GetFloat(Constants.SfxVolumeParameter, out settings.SfxVolume);
             return settings;
         }
     }

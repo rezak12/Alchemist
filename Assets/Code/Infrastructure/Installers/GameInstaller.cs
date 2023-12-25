@@ -6,6 +6,7 @@ using Code.Infrastructure.Services.ProgressServices;
 using Code.Infrastructure.Services.RandomServices;
 using Code.Infrastructure.Services.SaveLoadService;
 using Code.Infrastructure.Services.SceneLoader;
+using Code.Infrastructure.Services.Settings;
 using Code.Infrastructure.Services.SFX;
 using Code.Infrastructure.Services.StaticData;
 using Code.Infrastructure.States.GameStates;
@@ -22,13 +23,14 @@ namespace Code.Infrastructure.Installers
             BindPersistentProgressService();
             BindRandomService();
             BindSaveLoadService();
+            BindSettingsService();
             BindSceneLoader();
             BindStaticDataService();
             BindPrefabFactories();
             BindAmbientPlayer();
             BindStatesFactory();
             BindUIFactory();
-            BindSFXProvider();
+            BindSfxProvider();
             BindAwaitingOverlay();
             BindGameStateMachine();
             BindBootstrapper();
@@ -42,6 +44,8 @@ namespace Code.Infrastructure.Installers
         private void BindRandomService() => Container.BindInterfacesTo<UnityRandomService>().AsSingle();
 
         private void BindSaveLoadService() => Container.BindInterfacesTo<SaveLoadService>().AsSingle();
+        
+        private void BindSettingsService() => Container.BindInterfacesTo<SettingsService>().AsSingle();
 
         private void BindSceneLoader() => Container.BindInterfacesTo<SceneLoader>().AsSingle();
 
@@ -49,13 +53,14 @@ namespace Code.Infrastructure.Installers
 
         private void BindUIFactory() => Container.BindInterfacesTo<UIFactory>().AsSingle();
 
+
         private void BindPrefabFactories()
         {
             Container.Bind<CachePrefabFactory>().AsSingle();
             Container.Bind<NonCachePrefabFactory>().AsSingle();
         }
 
-        public void BindSFXProvider() => Container.BindInterfacesTo<SFXProvider>().AsSingle();
+        private void BindSfxProvider() => Container.BindInterfacesTo<SFXProvider>().AsSingle();
 
         private void BindAwaitingOverlay() => Container.BindInterfacesAndSelfTo<AwaitingOverlayProxy>().AsSingle();
 
