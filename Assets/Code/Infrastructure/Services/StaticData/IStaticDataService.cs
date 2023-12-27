@@ -13,5 +13,6 @@ namespace Code.Infrastructure.Services.StaticData
         PotionOrderDifficulty GetRandomPotionOrderDifficulty();
         LevelConfig GetLevelConfigBySceneName(string sceneName);
         PoolObjectConfig GetPoolConfigByType(PoolObjectType type);
+        AmbientReferencesCatalog GetAmbientReferencesCatalog();
     }
 }

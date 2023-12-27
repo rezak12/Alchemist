@@ -17,8 +17,16 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 817fbc926b2aac74db75f12cfaa67c12
   m_SerializeEntries:
-  - m_GUID: e6ca8af040e86524fb3ee087eabf8992
-    m_Address: Ingredient-slap-sfx
+  - m_GUID: b2d338805760f3545b1cc8d47dd1f37b
+    m_Address: SFX-Bag
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: ca00dcc3b9231c546b89df712056bdef
+    m_Address: SFX-Bottle
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 5cd563411bc2fbd4ab6ac0d578f7d322
+    m_Address: SFX-SolidObject
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0

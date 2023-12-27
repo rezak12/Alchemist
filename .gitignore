@@ -143,6 +143,8 @@ sysinfo.txt
 *.aab
 *.unitypackage
 *.app
+Assets/AddressableAssetsData/link.xml
+Assets/AddressableAssetsData/link.xml.meta
 
 # Crashlytics generated file
 

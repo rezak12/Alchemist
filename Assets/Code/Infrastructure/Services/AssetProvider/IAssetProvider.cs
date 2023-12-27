@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using UnityEngine;
 using UnityEngine.AddressableAssets;
 
 namespace Code.Infrastructure.Services.AssetProvider
@@ -15,6 +16,7 @@ namespace Code.Infrastructure.Services.AssetProvider
             where TAsset : class;
         UniTask WarmupByLabelAsync(string label);
         UniTask<List<string>> GetAssetsListByLabel<TAsset>(string label);
+        void Release(AssetReference assetReference);
         void Cleanup();
     }
 }

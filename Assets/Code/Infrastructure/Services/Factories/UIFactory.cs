@@ -16,6 +16,7 @@ using Code.UI.PlayerIngredientsUI;
 using Code.UI.PotionCharacteristicsUI;
 using Code.UI.PotionMakingUI;
 using Code.UI.SelectionPotionOrderUI;
+using Code.UI.SettingsScreen;
 using Code.UI.Store;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -114,6 +115,16 @@ namespace Code.Infrastructure.Services.Factories
             var popup = _instantiator.InstantiatePrefabForComponent<MainMenuPopup>(prefab);
             
             popup.Initialize();
+            return popup;
+        }
+
+        public async UniTask<SettingsPopup> CreateSettingsScreen()
+        {
+            PopupConfig config = _staticDataService.GetPopupByType(PopupType.SettingsPopup);
+
+            var prefab = await _assetProvider.LoadAsync<GameObject>(config.PrefabReference);
+            var popup = _instantiator.InstantiatePrefabForComponent<SettingsPopup>(prefab);
+
             return popup;
         }
 

@@ -6,6 +6,8 @@ namespace Code.Data
         public const string IngredientItemUIAddress = "IngredientItem";
         public const string PotionCharacteristicItemUIAddress = "PotionCharacteristicItem";
         public const string AwaitingOverlayAddress = "AwaitingOverlay";
+        public const string AmbientPlayerAddress = "AmbientPlayer";
+        public const string AudioMixerAddress = "AudioMixer";
 
         public const string MainMenuSceneAddress = "MainMenu";
         public const string PotionMakingSceneAddress = "PotionMaking";

@@ -4,6 +4,7 @@ using System.Linq;
 using Cysharp.Threading.Tasks;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
+using UnityEngine.ResourceManagement.ResourceLocations;
 
 namespace Code.Infrastructure.Services.AssetProvider
 {
@@ -62,14 +63,20 @@ namespace Code.Infrastructure.Services.AssetProvider
 
         public async UniTask<List<string>> GetAssetsListByLabel<TAsset>(string label) => 
             await GetAssetsListByLabel(label, typeof(TAsset));
-        
+
+        public void Release(AssetReference assetReference)
+        {
+            Addressables.Release(_handles[assetReference.AssetGUID]);
+            _handles.Remove(assetReference.AssetGUID);
+        }
+
         private async UniTask<List<string>> GetAssetsListByLabel(string label, Type type = null)
         {
             var operationHandle = Addressables.LoadResourceLocationsAsync(label, type);
-            var locations = await operationHandle.ToUniTask();
+            IList<IResourceLocation> locations = await operationHandle.ToUniTask();
 
-            List<string> assetKeys = new List<string>(locations.Count);
-            foreach (var location in locations)
+            var assetKeys = new List<string>(locations.Count);
+            foreach (IResourceLocation location in locations)
             {
                 assetKeys.Add(location.PrimaryKey);
             }

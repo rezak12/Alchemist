@@ -50,7 +50,7 @@ namespace Code.Infrastructure.States.PotionMakingStates
             {
                 GivePunishment(order.Punishment);
             }
-            SaveProgress();
+            await SaveProgress();
             
             await CreateUIWindow(payload1, order, isRequirementsMatched);
             
@@ -73,20 +73,16 @@ namespace Code.Infrastructure.States.PotionMakingStates
             }
         }
 
-        private void GivePunishment(PotionOrderPunishment punishment)
-        {
+        private void GivePunishment(PotionOrderPunishment punishment) => 
             _progressService.RemoveReputation(punishment.ReputationAmount);
-        }
 
-        private void SaveProgress()
-        {
-            _saveLoadService.SaveProgress(_progressService.GetProgress());
-        }
+        private async UniTask SaveProgress() => 
+            await _saveLoadService.SaveProgress(_progressService.GetProgress());
 
-        private async UniTask CreateUIWindow(Potion resultPotion, PotionOrder order, bool isCharacteristicsMatched)
-        {
-            _orderCompletedPopup = await _uiFactory
-                .CreateOrderCompletedPopupAsync(resultPotion, order, isCharacteristicsMatched);
-        }
+        private async UniTask CreateUIWindow(Potion resultPotion, PotionOrder order, bool isCharacteristicsMatched) =>
+            _orderCompletedPopup = await _uiFactory.CreateOrderCompletedPopupAsync(
+                resultPotion, 
+                order, 
+                isCharacteristicsMatched);
     }
 }

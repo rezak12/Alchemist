@@ -8,5 +8,6 @@
         OrderCompletedPopup = 3,
         StorePopup = 4,
         MainMenuPopup = 5,
+        SettingsPopup = 6,
     }
 }

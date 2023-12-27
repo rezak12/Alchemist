@@ -25,6 +25,14 @@ MonoBehaviour:
     m_Address: SFXPlayer
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 98888d71c27123b47bcd852c55d913b2
+    m_Address: AmbientPlayer
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: efb0fe1c21b98ea479f9c1b420f66152
+    m_Address: AudioMixer
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 57256fe3aec1a7d4a8b5958d52870f88, type: 2}
   m_SchemaSet:
