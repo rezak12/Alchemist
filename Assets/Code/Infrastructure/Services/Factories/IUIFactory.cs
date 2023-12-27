@@ -1,4 +1,5 @@
-﻿using Code.Logic.Orders;
+﻿using System.Threading.Tasks;
+using Code.Logic.Orders;
 using Code.Logic.PotionMaking;
 using Code.Logic.Potions;
 using Code.StaticData;
@@ -8,6 +9,7 @@ using Code.UI.PlayerIngredientsUI;
 using Code.UI.PotionCharacteristicsUI;
 using Code.UI.PotionMakingUI;
 using Code.UI.SelectionPotionOrderUI;
+using Code.UI.SettingsScreen;
 using Code.UI.Store;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -29,6 +31,8 @@ namespace Code.Infrastructure.Services.Factories
         UniTask<StorePopup> CreateStorePopupAsync();
         
         UniTask<MainMenuPopup> CreateMainMenuPopupAsync();
+
+        UniTask<SettingsPopup> CreateSettingsScreen();
 
         UniTask<IngredientItemUI> CreateIngredientItemUIAsync(
             IngredientData ingredient, 
