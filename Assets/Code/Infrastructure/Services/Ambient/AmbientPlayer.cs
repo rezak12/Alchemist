@@ -40,7 +40,7 @@ namespace Code.Infrastructure.Services.Ambient
             _cancellationToken = this.GetCancellationTokenOnDestroy();
             LoadCatalog();
             
-            await PrepareNextClip(_cancellationToken);
+            await PrepareNextClip();
         }
 
         public async UniTaskVoid StartPlayingLoop()
@@ -49,19 +49,19 @@ namespace Code.Infrastructure.Services.Ambient
             
             while(true)
             {
-                await PlayNextClip(_cancellationToken);
-                await PrepareNextClip(_cancellationToken);
+                await PlayNextClip();
+                await PrepareNextClip();
                 await UniTask.WaitUntil(waitUntil, cancellationToken: _cancellationToken);
             }
         }
 
-        private async UniTask PlayNextClip(CancellationToken token)
+        private async UniTask PlayNextClip()
         {
-            AudioClip clip = await TakeNextClip(token);
+            AudioClip clip = await TakeNextClip();
             _audioSource.PlayOneShot(clip);
         }
 
-        private async UniTask<AudioClip> TakeNextClip(CancellationToken token)
+        private async UniTask<AudioClip> TakeNextClip()
         {
             AssetReferenceT<AudioClip> previousClipReference = _currentClipReference;
             _currentClipReference = _nextClipReference;
@@ -73,7 +73,7 @@ namespace Code.Infrastructure.Services.Ambient
             return await _assetProvider.LoadAsync<AudioClip>(_currentClipReference);
         }
 
-        private async UniTask PrepareNextClip(CancellationToken token)
+        private async UniTask PrepareNextClip()
         {
             _nextClipReference = TakeRandomReference();
             await _assetProvider.LoadAsync<AudioClip>(_nextClipReference);

@@ -10,7 +10,9 @@ namespace Code.Infrastructure.Services.VFX
         public async UniTask Play()
         {
             _particleSystem.Play();
-            await UniTask.WaitUntil(() => !_particleSystem.IsAlive());
+            await UniTask.WaitUntil(
+                () => !_particleSystem.IsAlive(), 
+                cancellationToken: this.GetCancellationTokenOnDestroy());
         }
     }
 }
