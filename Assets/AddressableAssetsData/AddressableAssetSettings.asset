@@ -25,7 +25,7 @@ MonoBehaviour:
   m_UniqueBundleIds: 0
   m_NonRecursiveBuilding: 1
   m_CCDEnabled: 0
-  m_maxConcurrentWebRequests: 500
+  m_maxConcurrentWebRequests: 20
   m_ContiguousBundles: 1
   m_StripUnityVersionFromBundleBuild: 1
   m_DisableVisibleSubAssetRepresentations: 0
@@ -100,7 +100,7 @@ MonoBehaviour:
       - m_Id: 8da854e228fdf084a8f9e9130dfe7454
         m_Value: ServerData/[BuildTarget]
       - m_Id: 346dd06da3354d643923f15cc9ebe32f
-        m_Value: http://[PrivateIpAddress]:[HostingServicePort]
+        m_Value: http://[PrivateIpAddress_1]:[HostingServicePort]
     m_ProfileEntryNames:
     - m_Id: af78d3f3f79e1da42ad898f2bd79e780
       m_Name: BuildTarget
@@ -140,7 +140,36 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f5261bbd134833e4bb4b2a80a9494e47, type: 2}
   m_ActiveProfileId: cb721fc65c2db8c4d849a7485eb93c83
   m_HostingServicesManager:
-    m_HostingServiceInfos: []
+    m_HostingServiceInfos:
+    - classRef: UnityEditor.AddressableAssets.HostingServices.HttpHostingService,
+        Unity.Addressables.Editor
+      dataStore:
+        m_SerializedData:
+        - m_AssemblyName: mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+          m_ClassName: System.Int32
+          m_Data: 52177
+          m_Key: HostingServicePort
+        - m_AssemblyName: mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+          m_ClassName: System.Int32
+          m_Data: 1000
+          m_Key: HostingServiceUploadSpeed
+        - m_AssemblyName: mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+          m_ClassName: System.String
+          m_Data: Library/com.unity.addressables/aa/Android/Android;ServerData/Android
+          m_Key: ContentRoot
+        - m_AssemblyName: mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+          m_ClassName: System.Boolean
+          m_Data: False
+          m_Key: IsEnabled
+        - m_AssemblyName: mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+          m_ClassName: System.String
+          m_Data: Local Hosting 3
+          m_Key: DescriptiveName
+        - m_AssemblyName: mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+          m_ClassName: System.Int32
+          m_Data: 3
+          m_Key: InstanceId
     m_Settings: {fileID: 11400000}
-    m_NextInstanceId: 0
-    m_RegisteredServiceTypeRefs: []
+    m_NextInstanceId: 6
+    m_RegisteredServiceTypeRefs:
+    - UnityEditor.AddressableAssets.HostingServices.HttpHostingService, Unity.Addressables.Editor
