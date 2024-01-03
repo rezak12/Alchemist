@@ -29,6 +29,18 @@ MonoBehaviour:
     m_Address: Fonts
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: b77d4c74d11030642aa70909f0d827f0
+    m_Address: IngredientsAtlas
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 06e65cec115a6874e9a1fb72f747e98e
+    m_Address: CharacteriticsAtlas
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 6c953bbdb641bfa40a64477e1015d572
+    m_Address: AtlasUI
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 57256fe3aec1a7d4a8b5958d52870f88, type: 2}
   m_SchemaSet:
