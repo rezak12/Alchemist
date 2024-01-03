@@ -11,13 +11,13 @@ namespace Code.Infrastructure.Services.SFX
 {
     public class SFXProvider : ISFXProvider
     {
-        private Pool<SFXPlayer> _pool;
+        private Pool<SfxPlayer> _pool;
         private IStaticDataService _staticDataService;
         private IAssetProvider _assetProvider;
 
         public SFXProvider(NonCachePrefabFactory factory, IStaticDataService staticDataService, IAssetProvider assetProvider)
         {
-            _pool = new Pool<SFXPlayer>(factory);
+            _pool = new Pool<SfxPlayer>(factory);
             _staticDataService = staticDataService;
             _assetProvider = assetProvider;
         }
@@ -33,7 +33,7 @@ namespace Code.Infrastructure.Services.SFX
 
         public async UniTask PlayOneShot(AssetReferenceT<AudioClip> audioClipReference, Vector3 position)
         {
-            SFXPlayer player = await _pool.Get(position);
+            SfxPlayer player = await _pool.Get(position);
             var clip = await _assetProvider.LoadAsync<AudioClip>(audioClipReference);
             
             await player.PlayOneShot(clip);
