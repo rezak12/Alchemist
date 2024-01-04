@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: VFX_ContentUpdateGroupSchema
   m_EditorClassIdentifier: 
   m_Group: {fileID: 11400000, guid: e658f26c4356fd245896724a1c5993f4, type: 2}
-  m_StaticContent: 0
+  m_StaticContent: 1

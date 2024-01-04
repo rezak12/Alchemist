@@ -28,11 +28,7 @@ namespace Code.Infrastructure.Services.LifecycleObservers
         }
         #endif
 
-        #if UNITY_STANDALONE_WIN
-        private void OnApplicationQuit() => SaveProgress().Forget();
-        #endif
-        
-        #if UNITY_EDITOR
+        #if UNITY_STANDALONE_WIN || UNITY_EDITOR
         private void OnApplicationQuit() => SaveProgress().Forget();
         #endif
 

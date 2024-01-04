@@ -8,6 +8,7 @@ using Code.StaticData;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 using Zenject;
 
 namespace Code.Infrastructure.Services.Ambient
@@ -15,8 +16,9 @@ namespace Code.Infrastructure.Services.Ambient
     public class AmbientPlayer : MonoBehaviour, IAmbientPlayer
     {
         [SerializeField] private AudioSource _audioSource;
-        private AssetReferenceT<AudioClip> _currentClipReference;
-        private AssetReferenceT<AudioClip> _nextClipReference;
+        
+        private AsyncOperationHandle<AudioClip> _currentClipHandle;
+        private AsyncOperationHandle<AudioClip> _nextClipHandle;
         private AmbientReferencesCatalog _ambientReferencesCatalog;
         private CancellationToken _cancellationToken;
 
@@ -63,20 +65,23 @@ namespace Code.Infrastructure.Services.Ambient
 
         private async UniTask<AudioClip> TakeNextClip()
         {
-            AssetReferenceT<AudioClip> previousClipReference = _currentClipReference;
-            _currentClipReference = _nextClipReference;
+            AsyncOperationHandle<AudioClip> previousClipHandle = _currentClipHandle;
+            _currentClipHandle = _nextClipHandle;
 
-            if (previousClipReference != null)
+            if (previousClipHandle.IsValid())
             {
-                _assetProvider.Release(previousClipReference);
+                _assetProvider.Release(previousClipHandle);
             }
-            return await _assetProvider.LoadAsync<AudioClip>(_currentClipReference);
+
+            await _currentClipHandle.ToUniTask();
+            return _currentClipHandle.Result;
         }
 
         private async UniTask PrepareNextClip()
         {
-            _nextClipReference = TakeRandomReference();
-            await _assetProvider.LoadAsync<AudioClip>(_nextClipReference);
+            AssetReferenceT<AudioClip> nextClipReference = TakeRandomReference();
+            _nextClipHandle = _assetProvider.GetLoadingHandle<AudioClip>(nextClipReference);
+            await _nextClipHandle.ToUniTask();
         }
 
         private void LoadCatalog() => 

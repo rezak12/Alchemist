@@ -19,7 +19,7 @@ namespace Code.Infrastructure.Services.AssetProvider
         {
             if (!cacheHandle)
             {
-                return await Addressables.LoadAssetAsync<TAsset>(key);
+                return await GetLoadingHandle<TAsset>(key);
             }
             
             if (!_handles.TryGetValue(key, out AsyncOperationHandle handle))
@@ -55,11 +55,11 @@ namespace Code.Infrastructure.Services.AssetProvider
             return await LoadAsync<TAsset>(assetKeys, cacheHandle);
         }
 
-        public async UniTask WarmupByLabelAsync(string label)
-        {
-            List<string> assetsList = await GetAssetsListByLabel(label);
-            await LoadAsync<object>(assetsList);
-        }
+        public AsyncOperationHandle<TAsset> GetLoadingHandle<TAsset>(string key) where TAsset : class => 
+            Addressables.LoadAssetAsync<TAsset>(key);
+
+        public AsyncOperationHandle<TAsset> GetLoadingHandle<TAsset>(AssetReference reference) where TAsset : class => 
+            GetLoadingHandle<TAsset>(reference.AssetGUID);
 
         public async UniTask<List<string>> GetAssetsListByLabel<TAsset>(string label) => 
             await GetAssetsListByLabel(label, typeof(TAsset));
@@ -69,6 +69,8 @@ namespace Code.Infrastructure.Services.AssetProvider
             Addressables.Release(_handles[assetReference.AssetGUID]);
             _handles.Remove(assetReference.AssetGUID);
         }
+
+        public void Release(AsyncOperationHandle handle) => Addressables.Release(handle);
 
         private async UniTask<List<string>> GetAssetsListByLabel(string label, Type type = null)
         {

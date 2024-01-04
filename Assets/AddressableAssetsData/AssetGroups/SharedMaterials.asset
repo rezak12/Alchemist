@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: SharedMaterials
+  m_EditorClassIdentifier: 
+  m_GroupName: SharedMaterials
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 770935307a9f9f345a9778180cd6917b
+  m_SerializeEntries:
+  - m_GUID: 270fd5c64f7118c4495be93b7ce2530c
+    m_Address: PolygonFantasyKingdom_Texture_01_A
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: b24b57e0cfed05643be34b0256df875e
+    m_Address: Dungeons_Texture_01
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: b8f889a91be35174bbbb38d1057b6493
+    m_Address: PolyAdventureTexture_01
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 71e41e43b459a244abaf5acca76b89ee
+    m_Address: PolygonFantasyKingdom_Mat_01_A
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: fa9e67520e3a0c04996a1f31dd165bb9
+    m_Address: FX_Standard
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 42b64fdb315e3054ea757d8d1c4bcfa7
+    m_Address: Dungeon_Material_01
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: fa8eda4ec55ee1a4e99ca991c5828dbf
+    m_Address: PolyAdventureMaterial_01
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 57256fe3aec1a7d4a8b5958d52870f88, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 8b2d0fcb0fdc0c543ae7c7dc94468680, type: 2}
+    - {fileID: 11400000, guid: 17e60ccfabbe6e74090abe6530f91270, type: 2}
