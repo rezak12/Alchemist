@@ -14,5 +14,6 @@ namespace Code.Infrastructure.Services.StaticData
         LevelConfig GetLevelConfigBySceneName(string sceneName);
         PoolObjectConfig GetPoolConfigByType(PoolObjectType type);
         AmbientReferencesCatalog GetAmbientReferencesCatalog();
+        VersionInfo GetVersionInfo();
     }
 }

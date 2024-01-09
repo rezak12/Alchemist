@@ -18,6 +18,7 @@ namespace Code.Infrastructure.Services.StaticData
         private PotionOrderType[] _orderTypesCache;
         private PotionOrderDifficulty[] _orderDifficultiesCache;
         private AmbientReferencesCatalog _ambientReferencesCatalog;
+        private VersionInfo _versionInfo;
 
         private readonly IRandomService _randomService;
         private readonly IAssetProvider _assetProvider;
@@ -36,7 +37,8 @@ namespace Code.Infrastructure.Services.StaticData
                 LoadPoolConfigs(),
                 LoadOrderTypes(),
                 LoadOrderDifficulties(),
-                LoadAmbientReferencesCatalog());
+                LoadAmbientReferencesCatalog(),
+                LoadVersionInfo());
         }
 
         public PopupConfig GetPopupByType(PopupType type) => _popupConfigsCache[type];
@@ -52,6 +54,8 @@ namespace Code.Infrastructure.Services.StaticData
             _orderDifficultiesCache[_randomService.Next(0, _orderDifficultiesCache.Length)];
 
         public AmbientReferencesCatalog GetAmbientReferencesCatalog() => _ambientReferencesCatalog;
+
+        public VersionInfo GetVersionInfo() => _versionInfo;
 
         private async UniTask LoadPopupConfigs()
         {
@@ -81,6 +85,12 @@ namespace Code.Infrastructure.Services.StaticData
         {
             AmbientReferencesCatalog[] loadedConfigArray = await LoadConfigs<AmbientReferencesCatalog>();
             _ambientReferencesCatalog = loadedConfigArray.First();
+        }
+        
+        private async UniTask LoadVersionInfo()
+        {
+             VersionInfo[] loadedArray = await LoadConfigs<VersionInfo>();
+             _versionInfo = loadedArray.First();
         }
 
         private async UniTask<TConfig[]> LoadConfigs<TConfig>() where TConfig : class
