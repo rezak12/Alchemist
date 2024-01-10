@@ -17,6 +17,7 @@ namespace Code.Infrastructure.Installers
             BindCamera();
             BindStatesFactory();
             BindSelectedPotionOrderHolder();
+            BindEnvironmentFactory();
             BindAlchemyTableFactory();
             BindPotionInfoFactory();
             BindPotionFactory();
@@ -50,5 +51,8 @@ namespace Code.Infrastructure.Installers
 
         private void BindBootstrapper() => 
             Container.BindInterfacesAndSelfTo<PotionMakingLevelBootstrapper>().AsSingle().NonLazy();
+
+        private void BindEnvironmentFactory() =>
+            Container.BindInterfacesTo<EnvironmentFactory>().AsSingle();
     }
 }

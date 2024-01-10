@@ -7,8 +7,10 @@ namespace Code.StaticData
     {
         [SerializeField] private string _sceneName;
         [SerializeField] private Vector3 _tablePosition;
+        [SerializeField] private Vector3 _environmentPosition;
 
         public string SceneName => _sceneName;
         public Vector3 TablePosition => _tablePosition;
+        public Vector3 EnvironmentPosition => _environmentPosition;
     }
 }

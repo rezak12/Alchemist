@@ -13,11 +13,13 @@ namespace Code.StaticData
         [SerializeField] private AssetReferenceT<IngredientData>[] _ingredients;
         [SerializeField] private AssetReferenceT<PotionData> _potionDataReference;
         [SerializeField] private AssetReferenceGameObject _alchemyTablePrefabReference;
+        [SerializeField] private AssetReferenceGameObject _environmentReference;
 
         public int CoinsAmount => _coinsAmount;
         public int ReputationAmount => _reputationAmount;
         public IEnumerable<string> IngredientsGUIDs => _ingredients.Select(reference => reference.AssetGUID);
         public string PotionDataGUID => _potionDataReference.AssetGUID;
         public string AlchemyTablePrefabGUID => _alchemyTablePrefabReference.AssetGUID;
+        public string EnvironmentPrefabGUID => _environmentReference.AssetGUID;
     }
 }

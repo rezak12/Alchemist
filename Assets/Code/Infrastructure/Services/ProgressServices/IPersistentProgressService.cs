@@ -12,6 +12,7 @@ namespace Code.Infrastructure.Services.ProgressServices
         List<AssetReferenceT<IngredientData>> PlayerIngredientsAssetReferences { get; }
         AssetReferenceT<PotionData> ChosenPotionDataReference { get; }
         AssetReferenceGameObject ChosenAlchemyTablePrefabReference { get; }
+        AssetReferenceGameObject ChosenEnvironmentPrefabReference { get; }
 
         event Action CoinsAmountChanged;
         event Action ReputationAmountChanged;

@@ -18,12 +18,14 @@ namespace Code.Infrastructure.States.PotionMakingStates
 {
     public class OrderStartedState : IPayloadState<PotionOrder>
     {
+        private GameObject _environmentPrefab;
         private PotionMakingPopup _potionMakingPopup;
         private AlchemyTableComponent _alchemyTable;
         
         private readonly SelectedPotionOrderHolder _selectedOrderHolder;
         private readonly IStaticDataService _staticDataService;
         private readonly IAlchemyTableFactory _tableFactory;
+        private readonly IEnvironmentFactory _environmentFactory;
         private readonly IUIFactory _uiFactory;
         private readonly IAwaitingOverlay _awaitingOverlay;
         private readonly IAssetProvider _assetProvider;
@@ -35,7 +37,8 @@ namespace Code.Infrastructure.States.PotionMakingStates
             IAwaitingOverlay awaitingOverlay,
             SelectedPotionOrderHolder selectedOrderHolder, 
             IAssetProvider assetProvider, 
-            IPersistentProgressService progressService)
+            IPersistentProgressService progressService, 
+            IEnvironmentFactory environmentFactory)
         {
             _uiFactory = uiFactory;
             _tableFactory = tableFactory;
@@ -44,6 +47,7 @@ namespace Code.Infrastructure.States.PotionMakingStates
             _selectedOrderHolder = selectedOrderHolder;
             _assetProvider = assetProvider;
             _progressService = progressService;
+            _environmentFactory = environmentFactory;
         }
         public async UniTask Enter(PotionOrder payload)
         {
@@ -51,7 +55,8 @@ namespace Code.Infrastructure.States.PotionMakingStates
             
             _selectedOrderHolder.PutOrder(payload);
             LevelConfig levelConfig = _staticDataService.GetLevelConfigBySceneName(ResourcesAddresses.PotionMakingSceneAddress);
-            
+
+            _environmentPrefab = await _environmentFactory.CreateEnvironmentAsync(levelConfig.EnvironmentPosition);
             _alchemyTable = await _tableFactory.CreateTableAsync(levelConfig.TablePosition);
             _potionMakingPopup = await _uiFactory.CreatePotionMakingPopupAsync(_alchemyTable);
            
@@ -60,6 +65,7 @@ namespace Code.Infrastructure.States.PotionMakingStates
 
         public UniTask Exit()
         {
+            Object.Destroy(_environmentPrefab);
             Object.Destroy(_alchemyTable.gameObject);
             Object.Destroy(_potionMakingPopup.gameObject);
             return UniTask.CompletedTask;
