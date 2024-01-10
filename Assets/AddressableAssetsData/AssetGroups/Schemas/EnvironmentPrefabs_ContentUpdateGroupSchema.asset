@@ -9,9 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63c43ea270f74d21aad2954912d8d06f, type: 3}
-  m_Name: PotionMakingLevel
+  m_Script: {fileID: 11500000, guid: 5834b5087d578d24c926ce20cd31e6d6, type: 3}
+  m_Name: EnvironmentPrefabs_ContentUpdateGroupSchema
   m_EditorClassIdentifier: 
-  _sceneName: PotionMaking
-  _tablePosition: {x: 0, y: 0.018, z: 0}
-  _environmentPosition: {x: 1.165, y: 0, z: -1.151}
+  m_Group: {fileID: 11400000, guid: 5a552cdbb3df81444979180206fb2035, type: 2}
+  m_StaticContent: 0

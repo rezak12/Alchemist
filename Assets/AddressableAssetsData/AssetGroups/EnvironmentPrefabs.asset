@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: AlchemyTables
+  m_Name: EnvironmentPrefabs
   m_EditorClassIdentifier: 
-  m_GroupName: AlchemyTables
+  m_GroupName: EnvironmentPrefabs
   m_Data:
     m_SerializedData: []
-  m_GUID: a74350e7d4d284549b4b2ee07902b2fe
+  m_GUID: 6146091f628d78d4b8af720dea769fd1
   m_SerializeEntries:
-  - m_GUID: 8674daa91fa6494468bc568deac813e0
-    m_Address: DefaultTable
+  - m_GUID: 68d90b04eb1dd4f41bf24c12256f7861
+    m_Address: DefaultEnvironment
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 57256fe3aec1a7d4a8b5958d52870f88, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: 3e985305d45e26e4a8429ab468147a4d, type: 2}
-    - {fileID: 11400000, guid: a9d8a59186e298a4c929ac38131b7481, type: 2}
+    - {fileID: 11400000, guid: 4ed7b1f95bc022d49a4cb44db2949903, type: 2}
+    - {fileID: 11400000, guid: 387032c148e4e9249970b5a5eced68da, type: 2}

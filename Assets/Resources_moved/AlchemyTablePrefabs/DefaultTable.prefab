@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: 4159919182489638817}
   - component: {fileID: 105686796226433039}
   m_Layer: 0
-  m_Name: DeffaultTable
+  m_Name: DefaultTable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
