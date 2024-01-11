@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
-namespace Code.StaticData
+namespace Code.StaticData.Ingredients
 {
     [CreateAssetMenu(fileName = "IngredientData", menuName = "StaticData/Ingredient")]
     public class IngredientData : ScriptableObject

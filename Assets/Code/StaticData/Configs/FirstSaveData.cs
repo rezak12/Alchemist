@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Code.StaticData.Ingredients;
+using Code.StaticData.Potions;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
-namespace Code.StaticData
+namespace Code.StaticData.Configs
 {
     [CreateAssetMenu(fileName = "FirstSave", menuName = "StaticData/FirstSaveData")]
     public class FirstSaveData : ScriptableObject

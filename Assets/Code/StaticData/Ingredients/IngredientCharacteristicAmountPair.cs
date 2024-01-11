@@ -1,8 +1,9 @@
 ﻿using System;
+using Code.StaticData.Potions;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
-namespace Code.StaticData
+namespace Code.StaticData.Ingredients
 {
     [Serializable]
     public class IngredientCharacteristicAmountPair

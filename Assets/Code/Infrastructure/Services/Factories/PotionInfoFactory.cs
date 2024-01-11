@@ -3,6 +3,8 @@ using System.Linq;
 using Code.Infrastructure.Services.AssetProvider;
 using Code.Logic.Potions;
 using Code.StaticData;
+using Code.StaticData.Ingredients;
+using Code.StaticData.Potions;
 using Cysharp.Threading.Tasks;
 using UnityEngine.AddressableAssets;
 

@@ -1,5 +1,6 @@
 ﻿using Code.Logic.PotionMaking;
 using Code.StaticData;
+using Code.StaticData.Ingredients;
 using Code.UI.PotionCharacteristicsUI;
 using Cysharp.Threading.Tasks;
 using TMPro;

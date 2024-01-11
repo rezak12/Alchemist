@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Code.StaticData
+namespace Code.StaticData.Potions
 {
     [CreateAssetMenu(fileName = "CharacteristicData", menuName = "StaticData/PotionCharacteristic")]
     public class PotionCharacteristic : ScriptableObject

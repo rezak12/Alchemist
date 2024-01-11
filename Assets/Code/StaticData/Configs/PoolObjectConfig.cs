@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
-namespace Code.StaticData
+namespace Code.StaticData.Configs
 {
     [CreateAssetMenu(fileName = "NewPoolObjectData", menuName = "StaticData/PoolObjectData")]
     public class PoolObjectConfig : ScriptableObject

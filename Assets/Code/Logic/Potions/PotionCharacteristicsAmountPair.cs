@@ -1,4 +1,5 @@
 ﻿using Code.StaticData;
+using Code.StaticData.Potions;
 
 namespace Code.Logic.Potions
 {

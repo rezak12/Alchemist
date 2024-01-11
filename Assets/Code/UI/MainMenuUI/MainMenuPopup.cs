@@ -1,6 +1,7 @@
 using Code.Infrastructure.Services.StaticData;
 using Code.Infrastructure.States.GameStates;
 using Code.StaticData;
+using Code.StaticData.Configs;
 using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;

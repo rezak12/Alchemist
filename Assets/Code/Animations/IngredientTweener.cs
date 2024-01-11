@@ -1,4 +1,5 @@
 ﻿using Code.StaticData;
+using Code.StaticData.Ingredients;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;

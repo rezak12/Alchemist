@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using Code.Logic.PotionMaking;
 using Code.StaticData;
+using Code.StaticData.Configs;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;

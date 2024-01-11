@@ -3,6 +3,7 @@ using System.Linq;
 using Code.Logic.Orders;
 using Code.Logic.Potions;
 using Code.StaticData;
+using Code.StaticData.Potions;
 
 namespace Code.Logic.PotionMaking
 {

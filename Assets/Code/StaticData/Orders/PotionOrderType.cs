@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
+using Code.StaticData.Ingredients;
+using Code.StaticData.Potions;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.Serialization;
 
-namespace Code.StaticData
+namespace Code.StaticData.Orders
 {
     [CreateAssetMenu(fileName = "PotionOrderDifficultyData", menuName = "StaticData/PotionOrders/OrderType")]
     public class PotionOrderType : ScriptableObject

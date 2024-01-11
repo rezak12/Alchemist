@@ -3,6 +3,7 @@ using Code.Infrastructure.Services.AssetProvider;
 using Code.Infrastructure.Services.ProgressServices;
 using Code.Infrastructure.Services.SaveLoadService;
 using Code.StaticData;
+using Code.StaticData.Configs;
 using Code.UI.AwaitingOverlays;
 using Cysharp.Threading.Tasks;
 

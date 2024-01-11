@@ -1,7 +1,7 @@
 ﻿using DG.Tweening;
 using UnityEngine;
 
-namespace Code.StaticData
+namespace Code.StaticData.Ingredients
 {
     [CreateAssetMenu(fileName = "NewIngredientTween", menuName = "StaticData/Tweens/Ingredient")]
     public class IngredientTween : ScriptableObject

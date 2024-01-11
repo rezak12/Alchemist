@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
-namespace Code.StaticData
+namespace Code.StaticData.Potions
 {
     [CreateAssetMenu(fileName = "NewPotionData", menuName = "StaticData/PotionData")]
     public class PotionData : ScriptableObject

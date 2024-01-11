@@ -1,5 +1,6 @@
 ﻿using System.Threading;
 using Code.StaticData;
+using Code.StaticData.Potions;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;

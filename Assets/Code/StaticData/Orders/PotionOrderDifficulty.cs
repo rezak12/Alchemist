@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace Code.StaticData
+namespace Code.StaticData.Orders
 {
     [CreateAssetMenu(fileName = "PotionOrderDifficultyData", menuName = "StaticData/PotionOrders/OrderDifficulty")]
     public class PotionOrderDifficulty : ScriptableObject

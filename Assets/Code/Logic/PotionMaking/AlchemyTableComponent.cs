@@ -7,6 +7,7 @@ using Code.Infrastructure.Services.SFX;
 using Code.Infrastructure.Services.VFX;
 using Code.Logic.Potions;
 using Code.StaticData;
+using Code.StaticData.Ingredients;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Zenject;

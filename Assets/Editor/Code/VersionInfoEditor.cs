@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Reflection;
 using Code.StaticData;
+using Code.StaticData.Configs;
 using UnityEditor;
 using UnityEngine;
 

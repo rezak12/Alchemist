@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
-namespace Code.StaticData
+namespace Code.StaticData.Configs
 {
     [CreateAssetMenu(fileName = "AmbientReferencesCatalog", menuName = "StaticData/AmbientReferences", order = 0)]
     public class AmbientReferencesCatalog : ScriptableObject

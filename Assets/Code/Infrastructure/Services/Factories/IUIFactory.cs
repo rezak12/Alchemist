@@ -3,6 +3,7 @@ using Code.Logic.Orders;
 using Code.Logic.PotionMaking;
 using Code.Logic.Potions;
 using Code.StaticData;
+using Code.StaticData.Ingredients;
 using Code.UI.MainMenuUI;
 using Code.UI.OrderCompletedUI;
 using Code.UI.PlayerIngredientsUI;

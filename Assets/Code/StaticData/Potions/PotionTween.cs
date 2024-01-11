@@ -1,7 +1,7 @@
 ﻿using DG.Tweening;
 using UnityEngine;
 
-namespace Code.StaticData
+namespace Code.StaticData.Potions
 {
     [CreateAssetMenu(fileName = "NewPotionTween", menuName = "StaticData/Tweens/Potion")]
     public class PotionTween : ScriptableObject

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Code.StaticData;
+using Code.StaticData.Ingredients;
+using Code.StaticData.Potions;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 

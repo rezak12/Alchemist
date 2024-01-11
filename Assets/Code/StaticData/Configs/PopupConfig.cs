@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
-namespace Code.StaticData
+namespace Code.StaticData.Configs
 {
     [CreateAssetMenu(fileName = "PopupConfig", menuName = "StaticData/PopupConfig")]
     public class PopupConfig : ScriptableObject

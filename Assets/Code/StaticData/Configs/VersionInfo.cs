@@ -1,7 +1,7 @@
 ﻿using Code.Attributes;
 using UnityEngine;
 
-namespace Code.StaticData
+namespace Code.StaticData.Configs
 {
     [CreateAssetMenu(fileName = "VersionInfo", menuName = "StaticData/VersionInfo")]
     public class VersionInfo : ScriptableObject

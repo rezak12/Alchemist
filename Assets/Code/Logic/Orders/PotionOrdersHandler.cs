@@ -2,6 +2,7 @@
 using Code.Infrastructure.Services.Factories;
 using Code.Infrastructure.Services.StaticData;
 using Code.StaticData;
+using Code.StaticData.Orders;
 using Cysharp.Threading.Tasks;
 
 namespace Code.Logic.Orders

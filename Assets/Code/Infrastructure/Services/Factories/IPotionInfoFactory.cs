@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Code.Logic.Potions;
 using Code.StaticData;
+using Code.StaticData.Ingredients;
 using Cysharp.Threading.Tasks;
 
 namespace Code.Infrastructure.Services.Factories

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Code.StaticData
+namespace Code.StaticData.Configs
 {
     [CreateAssetMenu(fileName = "LevelConfig", menuName = "StaticData/LevelConfigs")]
     public class LevelConfig : ScriptableObject
