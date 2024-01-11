@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Code.StaticData;
 using Code.StaticData.Ingredients;
 using Code.StaticData.Potions;
 using UnityEngine;
@@ -13,13 +12,24 @@ namespace Code.Infrastructure.Services.ProgressServices
     {
         public int CoinsAmount => _playerProgress.CoinsAmount;
         public int ReputationAmount => _playerProgress.ReputationAmount;
-        public List<AssetReferenceT<IngredientData>> PlayerIngredientsAssetReferences { get; private set; }
+
+        public IEnumerable<AssetReferenceT<IngredientData>> OwnedIngredientsAssetReferences =>
+            _ownedIngredientsAssetReferences;
         public AssetReferenceT<PotionData> ChosenPotionDataReference { get; private set; }
         public AssetReferenceGameObject ChosenAlchemyTablePrefabReference { get; private set; }
         public AssetReferenceGameObject ChosenEnvironmentPrefabReference { get; private set; }
 
+        public IReadOnlyCollection<AssetReferenceT<PotionData>> OwnedPotionsReferences => _ownedPotionsReferences;
+        public IReadOnlyCollection<AssetReferenceGameObject> OwnedTablesReferences => _ownedTablesReferences;
+        public IReadOnlyCollection<AssetReferenceGameObject> OwnedEnvironmentsReferences => _ownedEnvironmentReferences;
+
         public event Action CoinsAmountChanged;
         public event Action ReputationAmountChanged;
+        
+        private List<AssetReferenceT<IngredientData>> _ownedIngredientsAssetReferences;
+        private List<AssetReferenceT<PotionData>> _ownedPotionsReferences;
+        private List<AssetReferenceGameObject> _ownedTablesReferences;
+        private List<AssetReferenceGameObject> _ownedEnvironmentReferences;
         
         private PlayerProgress _playerProgress;
 
@@ -27,14 +37,27 @@ namespace Code.Infrastructure.Services.ProgressServices
         {
             _playerProgress = progress;
             
-            PlayerIngredientsAssetReferences = progress
-                .PlayerIngredientsGUIDs
+            _ownedIngredientsAssetReferences = progress
+                .IngredientsGuids
                 .Select(guid => new AssetReferenceT<IngredientData>(guid))
                 .ToList();
 
-            ChosenPotionDataReference = new AssetReferenceT<PotionData>(progress.PlayerPotionDataGUID);
-            ChosenAlchemyTablePrefabReference = new AssetReferenceGameObject(progress.PlayerAlchemyTablePrefabGUID);
-            ChosenEnvironmentPrefabReference = new AssetReferenceGameObject(progress.PlayerEnvironmentPrefabGUID);
+            _ownedPotionsReferences = progress.PlayerItems.PotionGuids
+                .Select(guid => new AssetReferenceT<PotionData>(guid))
+                .ToList();
+            _ownedTablesReferences = progress.PlayerItems.TableGuids
+                .Select(guid => new AssetReferenceGameObject(guid))
+                .ToList();
+            _ownedEnvironmentReferences = progress.PlayerItems.EnvironmentGuids
+                .Select(guid => new AssetReferenceGameObject(guid))
+                .ToList();
+            
+            ChosenPotionDataReference = _ownedPotionsReferences.Find(
+                reference => reference.AssetGUID == progress.PotionDataGuid);
+            ChosenAlchemyTablePrefabReference = _ownedTablesReferences.Find(
+                reference => reference.AssetGUID == progress.AlchemyTablePrefabGuid);
+            ChosenEnvironmentPrefabReference = _ownedEnvironmentReferences.Find(
+                reference => reference.AssetGUID == progress.EnvironmentPrefabGuid);
         }
 
         public PlayerProgress GetProgress() => _playerProgress;
@@ -65,13 +88,13 @@ namespace Code.Infrastructure.Services.ProgressServices
 
         public void AddNewIngredient(AssetReferenceT<IngredientData> ingredientReference)
         {
-            if (_playerProgress.PlayerIngredientsGUIDs.Contains(ingredientReference.AssetGUID))
+            if (_playerProgress.IngredientsGuids.Contains(ingredientReference.AssetGUID))
             {
                 return;
             }
             
-            _playerProgress.PlayerIngredientsGUIDs.Add(ingredientReference.AssetGUID);
-            PlayerIngredientsAssetReferences.Add(ingredientReference);
+            _playerProgress.IngredientsGuids.Add(ingredientReference.AssetGUID);
+            _ownedIngredientsAssetReferences.Add(ingredientReference);
         }
 
         public void RemoveCoins(int amount)
@@ -89,6 +112,42 @@ namespace Code.Infrastructure.Services.ProgressServices
         {
             _playerProgress.ReputationAmount -= amount;
             ReputationAmountChanged?.Invoke();
+        }
+
+        public void AddNewPotion(AssetReferenceT<PotionData> potionDataReference)
+        {
+            if (_playerProgress.PlayerItems.PotionGuids.Contains(potionDataReference.AssetGUID))
+            {
+                Debug.LogError($"Player already have such potion - {potionDataReference}");
+                return;
+            }
+            
+            _ownedPotionsReferences.Add(potionDataReference);
+            _playerProgress.PlayerItems.PotionGuids.Add(potionDataReference.AssetGUID);
+        }
+
+        public void AddNewTable(AssetReferenceGameObject alchemyTableReference)
+        {
+            if (_playerProgress.PlayerItems.TableGuids.Contains(alchemyTableReference.AssetGUID))
+            {
+                Debug.LogError($"Player already have such table - {alchemyTableReference}");
+                return;
+            }
+            
+            _ownedTablesReferences.Add(alchemyTableReference);
+            _playerProgress.PlayerItems.TableGuids.Add(alchemyTableReference.AssetGUID);
+        }
+
+        public void AddNewEnvironment(AssetReferenceGameObject environmentReference)
+        {
+            if (_playerProgress.PlayerItems.EnvironmentGuids.Contains(environmentReference.AssetGUID))
+            {
+                Debug.LogError($"Player already have such environment - {environmentReference}");
+                return;
+            }
+            
+            _ownedEnvironmentReferences.Add(environmentReference);
+            _playerProgress.PlayerItems.EnvironmentGuids.Add(environmentReference.AssetGUID);
         }
 
         public bool IsCoinsEnoughFor(int itemPrice) => CoinsAmount >= itemPrice;

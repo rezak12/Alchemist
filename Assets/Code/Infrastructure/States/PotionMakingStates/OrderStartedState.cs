@@ -90,7 +90,7 @@ namespace Code.Infrastructure.States.PotionMakingStates
         private async UniTask WarmupIngredients()
         {
             IngredientData[] ingredients = await _assetProvider
-                .LoadAsync<IngredientData>(_progressService.PlayerIngredientsAssetReferences);
+                .LoadAsync<IngredientData>(_progressService.OwnedIngredientsAssetReferences);
             
             IEnumerable<AssetReference> dependencies = GetDependenciesFromIngredients(ingredients);
             await _assetProvider.LoadAsync<object>(dependencies);

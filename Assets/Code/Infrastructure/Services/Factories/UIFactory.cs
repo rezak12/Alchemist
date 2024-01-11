@@ -66,8 +66,8 @@ namespace Code.Infrastructure.Services.Factories
             var popupPrefab = await _assetProvider
                 .LoadAsync<GameObject>(config.PrefabReference);
 
-            List<AssetReferenceT<IngredientData>> ingredientsReferences = _progressService
-                .PlayerIngredientsAssetReferences;
+            IEnumerable<AssetReferenceT<IngredientData>> ingredientsReferences = _progressService
+                .OwnedIngredientsAssetReferences;
             IngredientData[] ingredients = await _assetProvider.LoadAsync<IngredientData>(ingredientsReferences);
             
             var popup = _instantiator.InstantiatePrefabForComponent<PotionMakingPopup>(popupPrefab);

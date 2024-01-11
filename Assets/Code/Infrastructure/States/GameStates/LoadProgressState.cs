@@ -1,4 +1,5 @@
-﻿using Code.Data;
+﻿using System.Collections.Generic;
+using Code.Data;
 using Code.Infrastructure.Services.AssetProvider;
 using Code.Infrastructure.Services.ProgressServices;
 using Code.Infrastructure.Services.SaveLoadService;
@@ -44,13 +45,20 @@ namespace Code.Infrastructure.States.GameStates
             if (progress != null) return progress;
             
             var newSaveData = await _assetProvider.LoadAsync<FirstSaveData>(ResourcesAddresses.NewSaveDataAddress);
+
+            var ownedItems = new PlayerOwnedItems(
+                new List<string> { newSaveData.PotionDataGUID },
+                new List<string> { newSaveData.AlchemyTablePrefabGUID },
+                new List<string> { newSaveData.EnvironmentPrefabGUID });
+            
             progress = new PlayerProgress(
                 newSaveData.CoinsAmount,
                 newSaveData.ReputationAmount,
                 newSaveData.IngredientsGUIDs,
                 newSaveData.PotionDataGUID,
                 newSaveData.AlchemyTablePrefabGUID,
-                newSaveData.EnvironmentPrefabGUID);
+                newSaveData.EnvironmentPrefabGUID,
+                ownedItems);
 
             return progress;
         }
