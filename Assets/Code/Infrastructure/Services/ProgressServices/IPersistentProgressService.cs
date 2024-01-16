@@ -37,8 +37,15 @@ namespace Code.Infrastructure.Services.ProgressServices
         void AddNewPotion(AssetReferenceT<PotionData> potionDataReference);
         void AddNewTable(AssetReferenceGameObject alchemyTableReference);
         void AddNewEnvironment(AssetReferenceGameObject environmentReference);
+
+        void SetChosenPotion(AssetReferenceT<PotionData> potionDataReference);
+        void SetChosenTable(AssetReferenceGameObject alchemyTableReference);
+        void SetChosenEnvironment(AssetReferenceGameObject environmentReference);
         
         bool IsCoinsEnoughFor(int itemPrice);
         bool IsReputationEnoughFor(int itemPrice);
+        bool IsPlayerOwnPotion(AssetReference potionDataReference);
+        bool IsPlayerOwnTable(AssetReference alchemyTableReference);
+        bool IsPlayerOwnEnvironment(AssetReference environmentReference);
     }
 }

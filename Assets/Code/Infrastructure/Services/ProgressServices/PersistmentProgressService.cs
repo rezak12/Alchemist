@@ -116,7 +116,7 @@ namespace Code.Infrastructure.Services.ProgressServices
 
         public void AddNewPotion(AssetReferenceT<PotionData> potionDataReference)
         {
-            if (_playerProgress.PlayerItems.PotionGuids.Contains(potionDataReference.AssetGUID))
+            if (IsPlayerOwnPotion(potionDataReference))
             {
                 Debug.LogError($"Player already have such potion - {potionDataReference}");
                 return;
@@ -128,7 +128,7 @@ namespace Code.Infrastructure.Services.ProgressServices
 
         public void AddNewTable(AssetReferenceGameObject alchemyTableReference)
         {
-            if (_playerProgress.PlayerItems.TableGuids.Contains(alchemyTableReference.AssetGUID))
+            if (IsPlayerOwnTable(alchemyTableReference))
             {
                 Debug.LogError($"Player already have such table - {alchemyTableReference}");
                 return;
@@ -140,7 +140,7 @@ namespace Code.Infrastructure.Services.ProgressServices
 
         public void AddNewEnvironment(AssetReferenceGameObject environmentReference)
         {
-            if (_playerProgress.PlayerItems.EnvironmentGuids.Contains(environmentReference.AssetGUID))
+            if (IsPlayerOwnEnvironment(environmentReference))
             {
                 Debug.LogError($"Player already have such environment - {environmentReference}");
                 return;
@@ -149,6 +149,49 @@ namespace Code.Infrastructure.Services.ProgressServices
             _ownedEnvironmentReferences.Add(environmentReference);
             _playerProgress.PlayerItems.EnvironmentGuids.Add(environmentReference.AssetGUID);
         }
+
+        public void SetChosenPotion(AssetReferenceT<PotionData> potionDataReference)
+        {
+            if (!IsPlayerOwnPotion(potionDataReference))
+            {
+                Debug.LogError($"Player does not own such potion - {potionDataReference}");
+                return;
+            }
+            ChosenPotionDataReference = potionDataReference;
+            _playerProgress.PotionDataGuid = potionDataReference.AssetGUID;
+        }
+
+        public void SetChosenTable(AssetReferenceGameObject alchemyTableReference)
+        {
+            if (!IsPlayerOwnTable(alchemyTableReference))
+            {
+                Debug.LogError($"Player does not own such table - {alchemyTableReference}");
+                return;
+            }
+            ChosenAlchemyTablePrefabReference = alchemyTableReference;
+            _playerProgress.AlchemyTablePrefabGuid = alchemyTableReference.AssetGUID;
+        }
+
+        public void SetChosenEnvironment(AssetReferenceGameObject environmentReference)
+        {
+            if (!IsPlayerOwnEnvironment(environmentReference))
+            {
+                Debug.LogError($"Player does not own such environment - {environmentReference}");
+                return;
+            }
+            ChosenEnvironmentPrefabReference = environmentReference;
+            _playerProgress.EnvironmentPrefabGuid = environmentReference.AssetGUID;
+
+        }
+
+        public bool IsPlayerOwnPotion(AssetReference potionDataReference) => 
+            _playerProgress.PlayerItems.PotionGuids.Contains(potionDataReference.AssetGUID);
+
+        public bool IsPlayerOwnTable(AssetReference alchemyTableReference) => 
+            _playerProgress.PlayerItems.TableGuids.Contains(alchemyTableReference.AssetGUID);
+
+        public bool IsPlayerOwnEnvironment(AssetReference environmentReference) => 
+            _playerProgress.PlayerItems.EnvironmentGuids.Contains(environmentReference.AssetGUID);
 
         public bool IsCoinsEnoughFor(int itemPrice) => CoinsAmount >= itemPrice;
 
