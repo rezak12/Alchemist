@@ -6,5 +6,6 @@
         PotionVFX = 1,
         IngredientVFX = 2,
         SFXPlayer = 3,
+        ShopViewItem = 4,
     }
 }
