@@ -9,15 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d3685ca547544dfa6985cfc6628a048, type: 3}
-  m_Name: DefaultPotion
+  m_Script: {fileID: 11500000, guid: e75ed7aad07242998d7372197460a0ae, type: 3}
+  m_Name: DefaultTable
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: Default Potion
-  <Icon>k__BackingField: {fileID: 0}
+  <Name>k__BackingField: Default Table
+  <Icon>k__BackingField: {fileID: 173582802, guid: d02c93c074ad64743b6f48eef1524f45, type: 3}
   <RequiredCoins>k__BackingField: 0
   <RequiredReputation>k__BackingField: 0
-  <PotionReference>k__BackingField:
-    m_AssetGUID: 613bc55897be8714b894a48215683b41
+  <TableReference>k__BackingField:
+    m_AssetGUID: 8674daa91fa6494468bc568deac813e0
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0

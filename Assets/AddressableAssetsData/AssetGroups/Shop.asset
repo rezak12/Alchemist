@@ -30,6 +30,10 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Configs
+  - m_GUID: d02c93c074ad64743b6f48eef1524f45
+    m_Address: ShopIconsAtlas
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 57256fe3aec1a7d4a8b5958d52870f88, type: 2}
   m_SchemaSet:

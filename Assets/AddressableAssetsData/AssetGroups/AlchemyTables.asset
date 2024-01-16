@@ -21,6 +21,10 @@ MonoBehaviour:
     m_Address: DefaultTable
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 16d4298e1a46df2428007cebf89caa44
+    m_Address: ComfortableTable
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 57256fe3aec1a7d4a8b5958d52870f88, type: 2}
   m_SchemaSet:

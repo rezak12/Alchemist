@@ -9,15 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e75ed7aad07242998d7372197460a0ae, type: 3}
-  m_Name: DefaultTable
+  m_Script: {fileID: 11500000, guid: f27d81be31d44f1abe53993922bbeea3, type: 3}
+  m_Name: DefaultEnvironment
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: Default Table
-  <Icon>k__BackingField: {fileID: 0}
+  <Name>k__BackingField: Default Environment
+  <Icon>k__BackingField: {fileID: 423513697, guid: d02c93c074ad64743b6f48eef1524f45, type: 3}
   <RequiredCoins>k__BackingField: 0
   <RequiredReputation>k__BackingField: 0
-  <TableReference>k__BackingField:
-    m_AssetGUID: 8674daa91fa6494468bc568deac813e0
+  <EnvironmentReference>k__BackingField:
+    m_AssetGUID: 68d90b04eb1dd4f41bf24c12256f7861
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
