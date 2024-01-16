@@ -16,6 +16,7 @@ namespace Code.UI.Store
         [SerializeField] private Button _buyButton;
         [SerializeField] private Button _selectButton;
         [SerializeField] private Image _lockImage;
+        [SerializeField] private Image _selectLabel;
 
         private int _requiredCoinsAmount;
         private int _requiredReputationAmount;
@@ -78,8 +79,17 @@ namespace Code.UI.Store
             _selectButton.gameObject.SetActive(true);
         }
 
-        public void Select() => _selectButton.gameObject.SetActive(false);
-        public void Unselect() => _selectButton.gameObject.SetActive(true);
+        public void Select()
+        {
+            _selectButton.gameObject.SetActive(false);
+            _selectLabel.gameObject.SetActive(true);
+        }
+
+        public void Unselect()
+        {
+            _selectButton.gameObject.SetActive(true);
+            _selectLabel.gameObject.SetActive(false);
+        }
 
         private void OnPlayerProgressChanged()
         {

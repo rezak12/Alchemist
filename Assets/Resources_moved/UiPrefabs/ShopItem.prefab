@@ -669,6 +669,7 @@ MonoBehaviour:
   _buyButton: {fileID: 4204468444891357179}
   _selectButton: {fileID: 2655363672719552385}
   _lockImage: {fileID: 2895084350380167758}
+  _selectLabel: {fileID: 1852778240297408834}
 --- !u!1 &2340608589405631422
 GameObject:
   m_ObjectHideFlags: 0
