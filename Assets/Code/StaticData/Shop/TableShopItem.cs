@@ -10,6 +10,6 @@ namespace Code.StaticData.Shop
         [field: SerializeField] public Sprite Icon { get; private set; }
         [field: SerializeField] public int RequiredCoins { get; private set; }
         [field: SerializeField] public int RequiredReputation { get; private set; }
-        [field: SerializeField] public AssetReferenceGameObject Table { get; private set; }
+        [field: SerializeField] public AssetReferenceGameObject TableReference { get; private set; }
     }
 }
