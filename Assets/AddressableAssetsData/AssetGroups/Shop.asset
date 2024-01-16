@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Shop
+  m_EditorClassIdentifier: 
+  m_GroupName: Shop
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 47025e28060c16c4c92f761abdd5131e
+  m_SerializeEntries:
+  - m_GUID: 437892310ff2b024e9f7f3ac137096f2
+    m_Address: ShopPopup
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: c90454d04f6e8ca4d98c7f77d644b447
+    m_Address: ShopItem
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: ea865ecef72b86d4c8b609bad277c310
+    m_Address: ShopItemsCatalog
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Configs
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 57256fe3aec1a7d4a8b5958d52870f88, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 7bb31d23f4be41140878da6b8de6401e, type: 2}
+    - {fileID: 11400000, guid: 51f8e36489c9842429ede9859e333958, type: 2}
