@@ -29,7 +29,7 @@ namespace Code.Infrastructure.Services.Factories
             PotionOrder order, 
             bool isCharacteristicsMatched);
 
-        UniTask<StorePopup> CreateStorePopupAsync();
+        UniTask<ShopPopup> CreateStorePopupAsync();
         
         UniTask<MainMenuPopup> CreateMainMenuPopupAsync();
 

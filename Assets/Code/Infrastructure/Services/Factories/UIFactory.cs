@@ -105,9 +105,15 @@ namespace Code.Infrastructure.Services.Factories
             return popup;
         }
 
-        public UniTask<StorePopup> CreateStorePopupAsync()
+        public async UniTask<ShopPopup> CreateStorePopupAsync()
         {
-            throw new NotImplementedException();
+            PopupConfig config = _staticDataService.GetPopupByType(PopupType.StorePopup);
+            
+            var prefab = await _assetProvider.LoadAsync<GameObject>(config.PrefabReference);
+            var popup = _instantiator.InstantiatePrefabForComponent<ShopPopup>(prefab);
+            
+            await popup.InitializeAsync();
+            return popup;
         }
 
         public async UniTask<MainMenuPopup> CreateMainMenuPopupAsync()

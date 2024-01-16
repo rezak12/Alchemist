@@ -1,7 +1,6 @@
 ﻿using Code.Infrastructure.Services.Factories;
 using Code.Infrastructure.States.GameStates;
 using Code.Logic.Orders;
-using Code.UI.Store;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,7 +13,6 @@ namespace Code.UI.SelectionPotionOrderUI
         [SerializeField, Range(0, 100)] private int _skipOrderCostInReputation;
         [Space]
         [SerializeField] private OrderDetailsPanel _orderDetailsPanel;
-        [SerializeField] private PlayerProgressViewItem _progressViewItem;
         [SerializeField] private Button _openStoreButton;
         [SerializeField] private Button _openMenuButton;
         [SerializeField] private TakeOrderButton _takeOrderButton;
@@ -36,17 +34,22 @@ namespace Code.UI.SelectionPotionOrderUI
             _takeOrderButton.Initialize(ordersHandler);
             _skipOrderButton.Initialize(ordersHandler, _skipOrderCostInReputation);
             
-            _openStoreButton.onClick.AddListener(OpenStore);
+            _openStoreButton.onClick.AddListener(UniTask.UnityAction(async () => await OpenStore()));
             _openMenuButton.onClick.AddListener(OpenMenu);
         }
 
         private void OnDestroy()
         {
-            _openStoreButton.onClick.RemoveListener(OpenStore);
+            _openStoreButton.onClick.RemoveAllListeners();
             _openMenuButton.onClick.RemoveListener(OpenMenu);
         }
 
-        private void OpenStore() => _uiFactory.CreateStorePopupAsync();
+        private async UniTask OpenStore()
+        {
+            _openStoreButton.interactable = false;
+            await _uiFactory.CreateStorePopupAsync();
+            _openStoreButton.interactable = true;
+        }
 
         private void OpenMenu() => _stateMachine.Enter<MainMenuState>().Forget();
     }
