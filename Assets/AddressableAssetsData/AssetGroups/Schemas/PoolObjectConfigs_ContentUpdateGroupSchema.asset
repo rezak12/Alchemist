@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: PoolObjectConfigs_ContentUpdateGroupSchema
   m_EditorClassIdentifier: 
   m_Group: {fileID: 11400000, guid: 3a53520900acb624e9651511f69bae74, type: 2}
-  m_StaticContent: 0
+  m_StaticContent: 1

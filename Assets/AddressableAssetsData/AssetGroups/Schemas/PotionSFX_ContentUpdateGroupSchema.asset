@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: PotionSFX_ContentUpdateGroupSchema
   m_EditorClassIdentifier: 
   m_Group: {fileID: 11400000, guid: 21a1bcee41a6d284b9f0995a48ec4315, type: 2}
-  m_StaticContent: 0
+  m_StaticContent: 1
