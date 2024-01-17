@@ -176,7 +176,10 @@ namespace Code.UI.Store
         {
             foreach (ShopItemView shopItemView in _activeItems)
             {
-                shopItemView.Unselect();
+                if (shopItemView.IsSelected)
+                {
+                    shopItemView.Unselect();
+                }
             }
         }
 
