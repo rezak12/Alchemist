@@ -33,6 +33,11 @@ MonoBehaviour:
     m_Address: AudioMixer
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: b4db49053fe03c646a874b14acfef56b
+    m_Address: VersionInfo
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Configs
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 57256fe3aec1a7d4a8b5958d52870f88, type: 2}
   m_SchemaSet:

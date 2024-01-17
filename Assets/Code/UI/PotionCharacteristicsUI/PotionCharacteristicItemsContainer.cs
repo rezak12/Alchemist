@@ -2,6 +2,7 @@
 using Code.Infrastructure.Services.Factories;
 using Code.Logic.Potions;
 using Code.StaticData;
+using Code.StaticData.Ingredients;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Zenject;

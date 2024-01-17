@@ -21,6 +21,14 @@ MonoBehaviour:
     m_Address: DefaultPotion
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: becf85cfbd086534ea1211cd2af12635
+    m_Address: SacredVessel
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: a02c632e68591f44c9d7ddecd9ad00f1
+    m_Address: PoisonousFlask
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 57256fe3aec1a7d4a8b5958d52870f88, type: 2}
   m_SchemaSet:

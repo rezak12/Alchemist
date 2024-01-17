@@ -9,6 +9,9 @@ using Code.Logic.Orders;
 using Code.Logic.PotionMaking;
 using Code.Logic.Potions;
 using Code.StaticData;
+using Code.StaticData.Configs;
+using Code.StaticData.Ingredients;
+using Code.StaticData.Potions;
 using Code.UI;
 using Code.UI.MainMenuUI;
 using Code.UI.OrderCompletedUI;
@@ -63,8 +66,8 @@ namespace Code.Infrastructure.Services.Factories
             var popupPrefab = await _assetProvider
                 .LoadAsync<GameObject>(config.PrefabReference);
 
-            List<AssetReferenceT<IngredientData>> ingredientsReferences = _progressService
-                .PlayerIngredientsAssetReferences;
+            IEnumerable<AssetReferenceT<IngredientData>> ingredientsReferences = _progressService
+                .OwnedIngredientsAssetReferences;
             IngredientData[] ingredients = await _assetProvider.LoadAsync<IngredientData>(ingredientsReferences);
             
             var popup = _instantiator.InstantiatePrefabForComponent<PotionMakingPopup>(popupPrefab);
@@ -102,9 +105,15 @@ namespace Code.Infrastructure.Services.Factories
             return popup;
         }
 
-        public UniTask<StorePopup> CreateStorePopupAsync()
+        public async UniTask<ShopPopup> CreateStorePopupAsync()
         {
-            throw new NotImplementedException();
+            PopupConfig config = _staticDataService.GetPopupByType(PopupType.StorePopup);
+            
+            var prefab = await _assetProvider.LoadAsync<GameObject>(config.PrefabReference);
+            var popup = _instantiator.InstantiatePrefabForComponent<ShopPopup>(prefab);
+            
+            await popup.InitializeAsync();
+            return popup;
         }
 
         public async UniTask<MainMenuPopup> CreateMainMenuPopupAsync()

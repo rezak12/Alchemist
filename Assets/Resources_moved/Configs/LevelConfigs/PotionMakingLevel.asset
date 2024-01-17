@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: PotionMakingLevel
   m_EditorClassIdentifier: 
   _sceneName: PotionMaking
-  _tablePosition: {x: 0, y: 0, z: 0}
+  _tablePosition: {x: 0, y: 0.018, z: 0}
+  _environmentPosition: {x: 1.165, y: 0, z: -1.151}

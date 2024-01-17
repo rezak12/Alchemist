@@ -2,6 +2,7 @@
 using Code.Infrastructure.Services.Factories;
 using Code.Logic.PotionMaking;
 using Code.StaticData;
+using Code.StaticData.Ingredients;
 using NSubstitute;
 using NUnit.Framework;
 using UnityEngine;

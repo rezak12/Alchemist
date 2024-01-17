@@ -5,6 +5,7 @@ using Code.Infrastructure.Services.AssetProvider;
 using Code.Infrastructure.Services.RandomServices;
 using Code.Infrastructure.Services.StaticData;
 using Code.StaticData;
+using Code.StaticData.Configs;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;

@@ -3,6 +3,7 @@ using Code.Infrastructure.Services.Factories;
 using Code.Infrastructure.Services.Pool;
 using Code.Infrastructure.Services.StaticData;
 using Code.StaticData;
+using Code.StaticData.Configs;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;

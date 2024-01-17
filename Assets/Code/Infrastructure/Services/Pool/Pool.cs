@@ -41,16 +41,20 @@ namespace Code.Infrastructure.Services.Pool
             await UniTask.WhenAll(tasks);
         }
 
-        public async UniTask<TComponent> Get(Vector3 position)
+        public async UniTask<TComponent> Get(Vector3 position, Transform parent = null)
         {
             if (_entries.Count == 0)
             {
                 await AddObject();
             }
 
-            TComponent poolObject= _entries.Pop();
+            TComponent poolObject = _entries.Pop();
             
             poolObject.transform.position = position;
+            if (parent != null)
+            {
+                poolObject.transform.SetParent(parent);
+            }
             poolObject.gameObject.SetActive(true);
             
             return poolObject;
@@ -60,6 +64,7 @@ namespace Code.Infrastructure.Services.Pool
         {
             poolObject.gameObject.SetActive(false);
             poolObject.transform.position = _parent.transform.position;
+            poolObject.transform.SetParent(_parent);
             
             _entries.Push(poolObject);
         }

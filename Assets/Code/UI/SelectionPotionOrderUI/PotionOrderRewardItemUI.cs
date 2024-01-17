@@ -1,6 +1,7 @@
 ﻿using Code.Infrastructure.Services.AssetProvider;
 using Code.Logic.Orders;
 using Code.StaticData;
+using Code.StaticData.Ingredients;
 using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;

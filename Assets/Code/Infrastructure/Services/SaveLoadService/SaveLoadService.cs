@@ -9,8 +9,8 @@ namespace Code.Infrastructure.Services.SaveLoadService
 {
     public class SaveLoadService : ISaveLoadService
     {
-        private readonly string _progressFilePath = $"{Application.persistentDataPath}/{Constants.ProgressSaveFileName}";
-        private readonly string _settingsFilePath = $"{Application.persistentDataPath}/{Constants.SettingsSaveFileName}";
+        private readonly string _progressFilePath = Path.Combine(Application.persistentDataPath, Constants.ProgressSaveFileName);
+        private readonly string _settingsFilePath = Path.Combine(Application.persistentDataPath, Constants.SettingsSaveFileName);
 
         public UniTask SaveProgress(PlayerProgress progress) => SaveAsJson(_progressFilePath, progress);
 

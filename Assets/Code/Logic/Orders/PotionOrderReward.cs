@@ -1,4 +1,5 @@
 ﻿using Code.StaticData;
+using Code.StaticData.Ingredients;
 using UnityEngine.AddressableAssets;
 
 namespace Code.Logic.Orders

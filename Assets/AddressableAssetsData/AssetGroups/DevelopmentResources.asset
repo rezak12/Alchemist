@@ -49,6 +49,10 @@ MonoBehaviour:
     m_Address: TestPooledVFX
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 089cf7ab188d9bb44a1bc900f9808bf9
+    m_Address: TestPotionData
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 57256fe3aec1a7d4a8b5958d52870f88, type: 2}
   m_SchemaSet:
