@@ -17,7 +17,7 @@ MonoBehaviour:
   <RequiredCoins>k__BackingField: 90
   <RequiredReputation>k__BackingField: 175
   <PotionReference>k__BackingField:
-    m_AssetGUID: 
+    m_AssetGUID: becf85cfbd086534ea1211cd2af12635
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
