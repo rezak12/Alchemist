@@ -18,6 +18,8 @@ namespace Code.UI.Store
         [SerializeField] private Image _lockImage;
         [SerializeField] private Image _selectLabel;
 
+        public bool IsSelected => _selectLabel.gameObject.activeSelf;
+
         private int _requiredCoinsAmount;
         private int _requiredReputationAmount;
 

@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: PotionMakingLevel_ContentUpdateGroupSchema
   m_EditorClassIdentifier: 
   m_Group: {fileID: 11400000, guid: e0920ec1614485d45a8b2f825c8201d5, type: 2}
-  m_StaticContent: 0
+  m_StaticContent: 1

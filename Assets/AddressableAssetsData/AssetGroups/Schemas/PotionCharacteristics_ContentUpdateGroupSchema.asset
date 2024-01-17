@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: PotionCharacteristics_ContentUpdateGroupSchema
   m_EditorClassIdentifier: 
   m_Group: {fileID: 11400000, guid: d77d7d52f40d3504e9d5335c359770fa, type: 2}
-  m_StaticContent: 0
+  m_StaticContent: 1

@@ -1553,7 +1553,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2530379860354185207, guid: f2773cdee543cc143bff2a1e25611d72, type: 3}
       propertyPath: m_text
-      value: LET'S SEE WHAT YOU DID
+      value: LET'S SEE THE RESULT
+      objectReference: {fileID: 0}
+    - target: {fileID: 3951082494509785204, guid: f2773cdee543cc143bff2a1e25611d72, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.89400005
+      objectReference: {fileID: 0}
+    - target: {fileID: 3951082494509785204, guid: f2773cdee543cc143bff2a1e25611d72, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 3951082494509785204, guid: f2773cdee543cc143bff2a1e25611d72, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 7.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7868356535244293958, guid: f2773cdee543cc143bff2a1e25611d72, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8088661411812884588, guid: f2773cdee543cc143bff2a1e25611d72, type: 3}
       propertyPath: m_Pivot.x
