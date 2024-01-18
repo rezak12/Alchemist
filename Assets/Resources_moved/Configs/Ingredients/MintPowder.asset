@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a63dcd5ebafc4719949f509766ae6076, type: 3}
+  m_Name: MintPowder
+  m_EditorClassIdentifier: 
+  _icon: {fileID: 393815179, guid: b77d4c74d11030642aa70909f0d827f0, type: 3}
+  _name: Mint Powder
+  _prefabReference:
+    m_AssetGUID: af0b08ce416dd9347b1a8884069d4359
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  _audioClipReference:
+    m_AssetGUID: 5cd563411bc2fbd4ab6ac0d578f7d322
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  _characteristicAmountPairs:
+  - _characteristic:
+      m_AssetGUID: 7c0cabd78e1a52c47b8f9c72d20f462b
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    _amount: 7
+  - _characteristic:
+      m_AssetGUID: 8d3affa544e212a4480fcd4536254f3c
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    _amount: 2
+  - _characteristic:
+      m_AssetGUID: de963e4a5f43ead468d3da6852c72812
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    _amount: 9

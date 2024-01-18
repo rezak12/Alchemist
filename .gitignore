@@ -6,6 +6,7 @@
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
 
 # User-specific stuff
+.idea/
 .idea/**/workspace.xml
 .idea/**/tasks.xml
 .idea/**/usage.statistics.xml
@@ -91,6 +92,7 @@ fabric.properties
 /[Bb]uilds/
 /[Ll]ogs/
 /[Uu]ser[Ss]ettings/
+/[Ss]erver[Dd]ata/
 
 # MemoryCaptures can get excessive in size.
 # They also could contain extremely sensitive data
@@ -142,6 +144,8 @@ sysinfo.txt
 *.aab
 *.unitypackage
 *.app
+Assets/AddressableAssetsData/link.xml
+Assets/AddressableAssetsData/link.xml.meta
 
 # Crashlytics generated file
 

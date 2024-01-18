@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a63dcd5ebafc4719949f509766ae6076, type: 3}
+  m_Name: SecondIngredient
+  m_EditorClassIdentifier: 
+  _icon: {fileID: 0}
+  _name: Second
+  _prefabReference:
+    m_AssetGUID: bd83c39de64dac04294b0cd51d8fed4f
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  _characteristicAmountPairs:
+  - _characteristic:
+      m_AssetGUID: 2cf8ac6647ea4784896ce9bd00746860
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    _amount: 2
+  - _characteristic:
+      m_AssetGUID: 4d43f6cebd1222d4d9ccdada228e4834
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    _amount: 17

@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e02d14008b64d7889ffe0d55743ed29, type: 3}
+  m_Name: Medium
+  m_EditorClassIdentifier: 
+  _name: Medium
+  _requirementCharacteristicsAmount: 3
+  _minRequirementCharacteristicPointsAmount: 15
+  _maxRequirementCharacteristicPointsAmount: 25
+  _minCoinsAmountReward: 40
+  _maxCoinsAmountReward: 70
+  _minReputationAmountReward: 25
+  _maxReputationAmountReward: 50
+  _ingredientAsRewardChance: 35
+  _minReputationAmountPunishment: 20
+  _maxReputationAmountPunishment: 35

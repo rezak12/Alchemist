@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: PoolObjectConfigs
+  m_EditorClassIdentifier: 
+  m_GroupName: PoolObjectConfigs
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 76e1899b49677d0449d85f827065e408
+  m_SerializeEntries:
+  - m_GUID: d10d99ad6faba3647ad5500635263707
+    m_Address: PotionVFXConfig
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Configs
+  - m_GUID: 7d8dbf4d12a90f3478b13a4480d42a43
+    m_Address: IngredientVFXConfig
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Configs
+  - m_GUID: a509fb4ef5eafb348a60d05e8d40b7f4
+    m_Address: SFXPlayerConfig
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Configs
+  - m_GUID: 29a769c221e73124db5d6f065f65431e
+    m_Address: ShopItemConfig
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Configs
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 57256fe3aec1a7d4a8b5958d52870f88, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 29c900015b728e64c8b2d11f31bdd009, type: 2}
+    - {fileID: 11400000, guid: ad0fbd3754a74fc49a8ab9a202aaedba, type: 2}

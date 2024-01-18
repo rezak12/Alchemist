@@ -4,7 +4,11 @@
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
-        "Alchemist"
+        "Alchemist",
+        "Unity.Addressables",
+        "UniTask",
+        "Zenject",
+        "Zenject-TestFramework"
     ],
     "includePlatforms": [
         "Editor"

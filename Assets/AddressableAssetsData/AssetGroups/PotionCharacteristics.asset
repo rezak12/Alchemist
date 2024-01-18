@@ -1,0 +1,85 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: PotionCharacteristics
+  m_EditorClassIdentifier: 
+  m_GroupName: PotionCharacteristics
+  m_Data:
+    m_SerializedData: []
+  m_GUID: bdb67a6fc49837f44abaf803f4c48595
+  m_SerializeEntries:
+  - m_GUID: 8d3affa544e212a4480fcd4536254f3c
+    m_Address: Blessing
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 7c0cabd78e1a52c47b8f9c72d20f462b
+    m_Address: Heal
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 3f7e3e27950b1c34996dab158d291426
+    m_Address: Poisoning
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 413ae81cc3964ab439c73e8e76955b52
+    m_Address: Cough
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: de963e4a5f43ead468d3da6852c72812
+    m_Address: Immunity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 0a341f286ee933e4f8a1f62d3c1c3d06
+    m_Address: Curse
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 78a850907ed3cdb4d9ca20858f9053a3
+    m_Address: Fatigue
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 3fcefae7de68621478c18d06cd701c19
+    m_Address: Hyperactivity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: fbc3f5fb1b5887246a4a03def0e5c142
+    m_Address: Weakness
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: e4cb476206f55ed4cb3109cdadab823a
+    m_Address: Fever
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 3dda228ec6e960f45a6cc6a152df7c8e
+    m_Address: MemoryImprovement
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 0fda235a94310854398533f8b3720897
+    m_Address: Addiction
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 4f5b314639708754d9f6d4b5906864cf
+    m_Address: Aggression
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 4b4cbdaae7fecb7409a4ac165b9a15df
+    m_Address: Nausea
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 4b0145c9d2753b84282b16b631d47425
+    m_Address: Dizziness
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 57256fe3aec1a7d4a8b5958d52870f88, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 50496a60ac3232a499302566331c57aa, type: 2}
+    - {fileID: 11400000, guid: d26604d608cc528429e88b45b1daad37, type: 2}
