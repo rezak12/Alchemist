@@ -43,8 +43,15 @@ namespace Code.Infrastructure.Installers
 
         private void BindRandomService() => Container.BindInterfacesTo<UnityRandomService>().AsSingle();
 
-        private void BindSaveLoadService() => Container.BindInterfacesTo<SaveLoadService>().AsSingle();
-        
+        private void BindSaveLoadService()
+        {
+            #if UNITY_EDITOR || UNITY_STANDALONE_WIN
+            Container.BindInterfacesTo<FileSaveLoadService>().AsSingle();
+            #elif UNITY_WEBGL
+            Container.BindInterfacesTo<PrefsSaveLoadService>().AsSingle();
+            #endif
+        }
+
         private void BindSettingsService() => Container.BindInterfacesTo<SettingsService>().AsSingle();
 
         private void BindSceneLoader() => Container.BindInterfacesTo<SceneLoader>().AsSingle();

@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Code.Infrastructure.Services.SaveLoadService
 {
-    public class SaveLoadService : ISaveLoadService
+    public class FileSaveLoadService : ISaveLoadService
     {
         private readonly string _progressFilePath = Path.Combine(Application.persistentDataPath, Constants.ProgressSaveFileName);
         private readonly string _settingsFilePath = Path.Combine(Application.persistentDataPath, Constants.SettingsSaveFileName);
