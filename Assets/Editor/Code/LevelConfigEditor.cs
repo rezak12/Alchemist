@@ -52,7 +52,7 @@ namespace Editor.Code
         
         private void SetAlchemyTablePoint(LevelConfig config)
         {
-            var tableSpawnPoint = FindObjectOfType<AlchemyTableSpawnPoint>();
+            var tableSpawnPoint = FindFirstObjectByType<AlchemyTableSpawnPoint>();
             if (tableSpawnPoint == null)
             {
                 Debug.LogError("There are not AlchemyTableSpawnPoint in scene");
@@ -72,7 +72,7 @@ namespace Editor.Code
         
         private void SetEnvironmentPoint(LevelConfig config)
         {
-            var environmentSpawnPoint = FindObjectOfType<EnvironmentSpawnPoint>();
+            var environmentSpawnPoint = FindFirstObjectByType<EnvironmentSpawnPoint>();
             if (environmentSpawnPoint == null)
             {
                 Debug.LogError("There are not EnvironmentSpawnPoint in scene");
