@@ -8,7 +8,8 @@
         "Unity.Addressables",
         "UniTask",
         "Zenject",
-        "Zenject-TestFramework"
+        "Zenject-TestFramework",
+        "BoundfoxStudios.FluentAssertions"
     ],
     "includePlatforms": [
         "Editor"
