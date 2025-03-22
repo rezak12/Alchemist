@@ -4,6 +4,7 @@ using Code.Logic.PotionMaking;
 using Code.Logic.Potions;
 using Code.StaticData;
 using Code.StaticData.Potions;
+using FluentAssertions;
 using NUnit.Framework;
 using UnityEngine;
 
@@ -51,10 +52,10 @@ namespace Tests.UnitTests
             Potion potion = CreatePotion(createdCharacteristicAmountPairs);
             
             // Act.
-            var potionSatisfyingRequirements = _unitUnderTest.IsPotionSatisfyingRequirements(potion, order);
+            bool potionSatisfiesRequirements = _unitUnderTest.IsPotionSatisfyingRequirements(potion, order);
             
             // Assert.
-            Assert.That(potionSatisfyingRequirements, Is.True);
+            potionSatisfiesRequirements.Should().BeTrue();
         }
 
         [Test]
@@ -76,10 +77,10 @@ namespace Tests.UnitTests
             Potion potion = CreatePotion(createdCharacteristicAmountPairs);
             
             // Act.
-            var potionSatisfyingRequirements = _unitUnderTest.IsPotionSatisfyingRequirements(potion, order);
+            bool potionSatisfiesRequirements = _unitUnderTest.IsPotionSatisfyingRequirements(potion, order);
             
             // Assert.
-            Assert.That(potionSatisfyingRequirements, Is.False);
+            potionSatisfiesRequirements.Should().BeFalse();
         }
 
         [Test]
@@ -100,10 +101,10 @@ namespace Tests.UnitTests
             Potion potion = CreatePotion(createdCharacteristicAmountPairs);
             
             // Act.
-            var potionSatisfyingRequirements = _unitUnderTest.IsPotionSatisfyingRequirements(potion, order);
+            bool potionSatisfiesRequirements = _unitUnderTest.IsPotionSatisfyingRequirements(potion, order);
             
             // Assert.
-            Assert.That(potionSatisfyingRequirements, Is.False);
+            potionSatisfiesRequirements.Should().BeFalse();
         }
 
         private Potion CreatePotion(IEnumerable<PotionCharacteristicAmountPair> createdCharacteristicAmountPairs)

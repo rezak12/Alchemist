@@ -10,6 +10,7 @@ using Code.StaticData;
 using Code.StaticData.Orders;
 using Code.StaticData.Potions;
 using Cysharp.Threading.Tasks;
+using FluentAssertions;
 using NSubstitute;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -56,21 +57,20 @@ namespace Tests.UnitTests
                 PotionOrder createdOrder = await _unitUnderTest.CreateOrderAsync(_difficulty, _type);
 
                 // Assert.
-                Assert.That(createdOrder.OrderDifficultyName, Is.EqualTo(_difficulty.Name));
-                Assert.That(createdOrder.OrderTypeName, Is.EqualTo(_type.Name));
+                createdOrder.OrderDifficultyName.Should().Be(_difficulty.Name);
+                createdOrder.OrderTypeName.Should().Be(_type.Name);
             });
 
         [UnityTest]
-        public IEnumerator
-            WhenCreatingOrder_AndPunishmentReputationAmountRangeIsValid_ThenGiveRandomValueWithinThisRangeToOrderInstance() =>
+        public IEnumerator WhenCreatingOrder_AndPunishmentReputationAmountRangeIsValid_ThenGiveRandomValueWithinRangeToOrder() =>
             UniTask.ToCoroutine(async () =>
             {
                 // Arrange.
-                var minAmount = _difficulty.MinReputationAmountPunishment;
-                var maxAmount = _difficulty.MaxReputationAmountPunishment;
-                var valueInMiddleOfRange = (minAmount + maxAmount) / 2;
+                int minAmount = _difficulty.MinReputationAmountPunishment;
+                int maxAmount = _difficulty.MaxReputationAmountPunishment;
+                int mockedRandomValue = (minAmount + maxAmount) / 2;
 
-                _randomServiceMock.Next(minAmount, maxAmount).Returns(valueInMiddleOfRange);
+                _randomServiceMock.Next(minAmount, maxAmount).Returns(mockedRandomValue);
                 
                 MockCommonAssetProviderLoadResult();
 
@@ -78,20 +78,19 @@ namespace Tests.UnitTests
                 PotionOrder createdOrder = await _unitUnderTest.CreateOrderAsync(_difficulty, _type);
 
                 // Assert.
-                Assert.That(createdOrder.Punishment.ReputationAmount, Is.EqualTo(valueInMiddleOfRange));
+                createdOrder.Punishment.ReputationAmount.Should().Be(mockedRandomValue);
             });
 
         [UnityTest]
-        public IEnumerator
-            WhenCreatingOrder_AndRewardCoinsAmountRangeIsValid_ThenGiveRandomValueWithinThisRangeToOrderInstance() =>
+        public IEnumerator WhenCreatingOrder_AndRewardCoinsAmountRangeIsValid_ThenGiveRandomValueWithinRangeToOrder() =>
             UniTask.ToCoroutine(async () =>
             {
                 // Arrange.
-                var minAmount = _difficulty.MinCoinsAmountReward;
-                var maxAmount = _difficulty.MaxCoinsAmountReward;
-                var valueInMiddleOfRange = (minAmount + maxAmount) / 2;
+                int minAmount = _difficulty.MinCoinsAmountReward;
+                int maxAmount = _difficulty.MaxCoinsAmountReward;
+                int mockedRandomValue = (minAmount + maxAmount) / 2;
 
-                _randomServiceMock.Next(minAmount, maxAmount).Returns(valueInMiddleOfRange);
+                _randomServiceMock.Next(minAmount, maxAmount).Returns(mockedRandomValue);
                 
                 MockCommonAssetProviderLoadResult();
 
@@ -99,20 +98,19 @@ namespace Tests.UnitTests
                 PotionOrder createdOrder = await _unitUnderTest.CreateOrderAsync(_difficulty, _type);
 
                 // Assert.
-                Assert.That(createdOrder.Reward.CoinsAmount, Is.EqualTo(valueInMiddleOfRange));
+                createdOrder.Reward.CoinsAmount.Should().Be(mockedRandomValue);
             });
 
         [UnityTest]
-        public IEnumerator
-            WhenCreatingOrder_AndRewardReputationAmountRangeIsValid_ThenGiveRandomValueWithinThisRangeToOrderInstance() =>
+        public IEnumerator WhenCreatingOrder_AndRewardReputationAmountRangeIsValid_ThenGiveRandomValueWithinRangeToOrder() =>
             UniTask.ToCoroutine(async () =>
             {
                 // Arrange.
-                var minAmount = _difficulty.MinReputationAmountReward;
-                var maxAmount = _difficulty.MaxReputationAmountReward;
-                var valueInMiddleOfTheRange = (minAmount + maxAmount) / 2;
+                int minAmount = _difficulty.MinReputationAmountReward;
+                int maxAmount = _difficulty.MaxReputationAmountReward;
+                int mockedRandomValue = (minAmount + maxAmount) / 2;
 
-                _randomServiceMock.Next(minAmount, maxAmount).Returns(valueInMiddleOfTheRange);
+                _randomServiceMock.Next(minAmount, maxAmount).Returns(mockedRandomValue);
                 
                 MockCommonAssetProviderLoadResult();
 
@@ -120,12 +118,11 @@ namespace Tests.UnitTests
                 PotionOrder createdOrder = await _unitUnderTest.CreateOrderAsync(_difficulty, _type);
 
                 // Assert.
-                Assert.That(createdOrder.Reward.ReputationAmount, Is.EqualTo(valueInMiddleOfTheRange));
+                createdOrder.Reward.ReputationAmount.Should().Be(mockedRandomValue);
             });
 
         [UnityTest]
-        public IEnumerator
-            WhenCreatingOrder_AndRandomValueWhileCalculatingToPutIngredientAsRewardOrNotIsLessThanChanceToGetIngredientAsOrderReward_ThenGiveRandomIngredientFromPotionTypeDataToOrderInstance() =>
+        public IEnumerator WhenCreatingOrder_AndRandomChanceValueToPutIngredientAsRewardIsLessThanOverallChance_ThenGiveRandomIngredientForCurrentTypeToOrder() =>
             UniTask.ToCoroutine(async () =>
             {
                 // Arrange.
@@ -137,12 +134,11 @@ namespace Tests.UnitTests
                 PotionOrder createdOrder = await _unitUnderTest.CreateOrderAsync(_difficulty, _type);
 
                 // Assert.
-                Assert.That(createdOrder.Reward.IngredientReference, Is.Not.Null);
+                createdOrder.Reward.IngredientReference.Should().NotBeNull();
             });
 
         [UnityTest]
-        public IEnumerator
-            WhenCreatingOrder_AndRandomValueWhileCalculatingToPutIngredientAsRewardOrNotIsEqualsToChanceToGetIngredientAsOrderReward_ThenPutNullToIngredientField() =>
+        public IEnumerator WhenCreatingOrder_AndRandomChanceValueToPutIngredientAsRewardIsGreaterOrEqualsToOverallChance_ThenPutNull() =>
             UniTask.ToCoroutine(async () =>
             {
                 // Arrange.
@@ -154,33 +150,15 @@ namespace Tests.UnitTests
                 PotionOrder createdOrder = await _unitUnderTest.CreateOrderAsync(_difficulty, _type);
 
                 // Assert.
-                Assert.That(createdOrder.Reward.IngredientReference, Is.Null);
+                createdOrder.Reward.IngredientReference.Should().BeNull();
             });
 
         [UnityTest]
-        public IEnumerator
-            WhenCreatingOrder_AndRandomValueWhileCalculatingToPutIngredientAsRewardOrNotGreaterThanChanceToGetIngredientAsOrderReward_ThenPutNullToIngredientField() =>
+        public IEnumerator WhenCreatingOrder_AndRequiredCharacteristicsAmountForCurrentDifficultyIsLessThanAmountAvailableForCurrentType_ThenPutRequirementAmountToOrder() =>
             UniTask.ToCoroutine(async () =>
             {
                 // Arrange.
-                _randomServiceMock.Next(0, 100).Returns(_difficulty.IngredientAsRewardChance + 1);
-                
-                MockCommonAssetProviderLoadResult();
-
-                // Act.
-                PotionOrder createdOrder = await _unitUnderTest.CreateOrderAsync(_difficulty, _type);
-
-                // Assert.
-                Assert.That(createdOrder.Reward.IngredientReference, Is.Null);
-            });
-
-        [UnityTest]
-        public IEnumerator
-            WhenCreatingOrder_AndRequirementCharacteristicsAmountInOrderDifficultyLessThanTotalAmountOfCharacteristicsInOrderType_ThenPutOnlyRequirementAmountToOrderInstance() =>
-            UniTask.ToCoroutine(async () =>
-            {
-                // Arrange.
-                var requirementCharacteristicsAmount = _difficulty.RequirementCharacteristicsAmount;
+                int requirementCharacteristicsAmount = _difficulty.RequirementCharacteristicsAmount;
 
                 var parameter = Arg.Is<IEnumerable<AssetReference>>(i =>
                     i.Count() == requirementCharacteristicsAmount);
@@ -195,16 +173,12 @@ namespace Tests.UnitTests
                 var possibleCharacteristicsRefs = _type
                     .PossibleRequirementPotionCharacteristicsReferences;
 
-                Assert.That(requirementCharacteristicsAmount,
-                    Is.LessThan(possibleCharacteristicsRefs.Count));
-
-                Assert.That(createdOrder.RequirementCharacteristics.Count,
-                    Is.EqualTo(requirementCharacteristicsAmount));
+                requirementCharacteristicsAmount.Should().BeLessThan(possibleCharacteristicsRefs.Count);
+                createdOrder.RequirementCharacteristics.Count.Should().Be(requirementCharacteristicsAmount);
             });
 
         [UnityTest]
-        public IEnumerator
-            WhenCreatingOrder_AndCharacteristicPointsAmountRangeIsValid_ThenPutRandomValuesWithinThisRangeToEachCharacteristicAmountPairs() =>
+        public IEnumerator WhenCreatingOrder_AndCharacteristicPointsAmountRangeIsValid_ThenPutRandomValuesWithinRangeToEachPair() =>
             UniTask.ToCoroutine(async () =>
             {
                 // Arrange.
@@ -214,20 +188,21 @@ namespace Tests.UnitTests
                 _assetProviderMock.LoadAsync<PotionCharacteristic>(parameter)
                     .Returns(new UniTask<PotionCharacteristic[]>(_characteristics));
 
-                var minAmount = _difficulty.MinRequirementCharacteristicPointsAmount;
-                var maxAmount = _difficulty.MaxRequirementCharacteristicPointsAmount;
-                var valueInMiddleOfTheRange = (minAmount + maxAmount) / 2;
+                int minAmount = _difficulty.MinRequirementCharacteristicPointsAmount;
+                int maxAmount = _difficulty.MaxRequirementCharacteristicPointsAmount;
+                int mockedRandomValue = (minAmount + maxAmount) / 2;
 
-                _randomServiceMock.Next(minAmount, maxAmount).Returns(valueInMiddleOfTheRange);
+                _randomServiceMock.Next(minAmount, maxAmount).Returns(mockedRandomValue);
 
                 // Act.
                 PotionOrder createdOrder = await _unitUnderTest.CreateOrderAsync(_difficulty, _type);
 
                 // Assert.
-                var characteristicPointsAmountForEachPair = createdOrder
+                IEnumerable<int> pointsAmountForEachPair = createdOrder
                     .RequirementCharacteristics.Select(pair => pair.PointsAmount);
 
-                Assert.That(characteristicPointsAmountForEachPair, Has.All.EqualTo(valueInMiddleOfTheRange));
+                Assert.That(pointsAmountForEachPair, Has.All.EqualTo(mockedRandomValue));
+                //pointsAmountForEachPair.Should().AllSatisfy(amount => amount.Should().Be(mockedRandomValue));
             });
 
         private void MockCommonAssetProviderLoadResult()

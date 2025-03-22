@@ -7,6 +7,7 @@ using Code.Logic.Potions;
 using Code.StaticData;
 using Code.StaticData.Ingredients;
 using Cysharp.Threading.Tasks;
+using FluentAssertions;
 using NSubstitute;
 using NUnit.Framework;
 using UnityEngine;
@@ -50,13 +51,11 @@ namespace Tests.UnitTests
                 var ingredients = new List<IngredientData>() { ingredient };
 
                 // Act.
-                var createdPotion = await _unitUnderTest.CreatePotionInfoAsync(ingredients);
+                PotionInfo createdPotion = await _unitUnderTest.CreatePotionInfoAsync(ingredients);
 
                 // Assert.
-                var characteristicsAmountPairs = createdPotion
-                    .CharacteristicsAmountPairs.ToHashSet();
-
-                Assert.That(characteristicsAmountPairs, Has.Count.EqualTo(1));
+                HashSet<PotionCharacteristicAmountPair> characteristicsPairs = createdPotion.CharacteristicsAmountPairs.ToHashSet();
+                characteristicsPairs.Should().HaveCount(1);
             });
 
         [UnityTest]
@@ -65,21 +64,18 @@ namespace Tests.UnitTests
             UniTask.ToCoroutine(async () =>
             {
                 // Arrange.
+                const int uniqueCharacteristicsAmount = 3;
+                
                 IngredientData firstIngredient = _ingredientWithOneCharacteristic;
                 IngredientData secondIngredient = _secondIngredientWithTwoCharacteristics;
                 var ingredients = new List<IngredientData>() { firstIngredient, secondIngredient };
 
                 // Act.
-                var createdPotion = await _unitUnderTest.CreatePotionInfoAsync(ingredients);
+                PotionInfo createdPotion = await _unitUnderTest.CreatePotionInfoAsync(ingredients);
 
                 // Assert.
-                var potionCharacteristics = createdPotion
-                    .CharacteristicsAmountPairs
-                    .ToHashSet();
-
-                var puttedUniqueCharacteristicsAmount = 3;
-
-                Assert.That(potionCharacteristics, Has.Count.EqualTo(puttedUniqueCharacteristicsAmount));
+                HashSet<PotionCharacteristicAmountPair> characteristicsPairs = createdPotion.CharacteristicsAmountPairs.ToHashSet();
+                characteristicsPairs.Should().HaveCount(uniqueCharacteristicsAmount);
             });
 
         [UnityTest]
@@ -88,29 +84,26 @@ namespace Tests.UnitTests
             UniTask.ToCoroutine(async () =>
             {
                 // Arrange.
+                const int expectedCharacteristicsAmount = 2;
+                
                 IngredientData firstIngredient = _ingredientWithOneCharacteristic;
                 IngredientData secondIngredient = _ingredientWithTwoCharacteristics;
                 var ingredients = new List<IngredientData>() { firstIngredient, secondIngredient };
 
                 // Act.
-                var createdPotion = await _unitUnderTest.CreatePotionInfoAsync(ingredients);
+                PotionInfo createdPotion = await _unitUnderTest.CreatePotionInfoAsync(ingredients);
 
                 // Assert.
-                var createdCharacteristicsAmountPairs = createdPotion
-                    .CharacteristicsAmountPairs
-                    .ToHashSet();
+                HashSet<PotionCharacteristicAmountPair> characteristicsPairs = createdPotion.CharacteristicsAmountPairs.ToHashSet();
 
-                var expectedCollectionCount = 2;
+                PotionCharacteristicAmountPair pairWithCombinedPoints = characteristicsPairs.First();
 
-                PotionCharacteristicAmountPair characteristicWithCombinedPoints =
-                    createdCharacteristicsAmountPairs.First();
+                int pointsFromFirstIngredient = firstIngredient.CharacteristicAmountPairs.First().PointsAmount;
+                int pointsFromSecondIngredient = secondIngredient.CharacteristicAmountPairs.First().PointsAmount;
+                int expectedPointsAmount = pointsFromFirstIngredient + pointsFromSecondIngredient;
 
-                var charPointsFromFirstIngredient = firstIngredient.CharacteristicAmountPairs.First().PointsAmount;
-                var charPointsFromSecondIngredient = secondIngredient.CharacteristicAmountPairs.First().PointsAmount;
-                var expectedPointsAmount = charPointsFromFirstIngredient + charPointsFromSecondIngredient;
-
-                Assert.That(createdCharacteristicsAmountPairs, Has.Count.EqualTo(expectedCollectionCount));
-                Assert.That(characteristicWithCombinedPoints.PointsAmount, Is.EqualTo(expectedPointsAmount));
+                characteristicsPairs.Should().HaveCount(expectedCharacteristicsAmount);
+                pairWithCombinedPoints.PointsAmount.Should().Be(expectedPointsAmount);
             });
     }
 }
