@@ -1,11 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Code.Infrastructure.Services.Factories;
 using Code.Logic.PotionMaking;
-using Code.StaticData;
+using Code.Logic.Potions;
 using Code.StaticData.Ingredients;
+using Cysharp.Threading.Tasks;
+using FluentAssertions;
 using NSubstitute;
 using NUnit.Framework;
 using UnityEngine;
+using UnityEngine.TestTools;
 
 namespace Tests.UnitTests
 {
@@ -18,7 +24,8 @@ namespace Tests.UnitTests
         private IngredientData _firstIngredient;
         private IngredientData _secondIngredient;
 
-        private AlchemyTable _unitUnderTest;
+        private AlchemyTable _tableUnderTest;
+        private IPotionInfoFactory _potionInfoFactoryStub;
 
         [SetUp]
         public void Setup()
@@ -26,21 +33,24 @@ namespace Tests.UnitTests
             _firstIngredient = Resources.Load<IngredientData>(FirstIngredientPath);
             _secondIngredient = Resources.Load<IngredientData>(SecondIngredientPath);
 
-            var createdSlots = CreateSlots(4);
-            var potionInfoFactoryStub = Substitute.For<IPotionInfoFactory>();
-            _unitUnderTest = new AlchemyTable(potionInfoFactoryStub, createdSlots);
+            List<AlchemyTableSlot> createdSlots = CreateSlots(4);
+            _potionInfoFactoryStub = Substitute.For<IPotionInfoFactory>();
+            _tableUnderTest = new AlchemyTable(_potionInfoFactoryStub, createdSlots);
         }
 
         [Test]
-        public void WhenAddingIngredient_AndTableHaveFreeSlots_ThenFillOneFreeSlot()
+        public void WhenAddingIngredient_AndTableHasFreeSlots_ThenFillOneFreeSlot()
         {
             // Arrange.
 
             // Act.
-            _unitUnderTest.FillSlot(_firstIngredient);
+            _tableUnderTest.FillSlot(_firstIngredient);
 
             // Assert.
-            Assert.That(_unitUnderTest.IsAllSlotsFree, Is.False);
+            bool areAllSlotsFree = _tableUnderTest.IsAllSlotsFree;
+            areAllSlotsFree
+                .Should()
+                .BeFalse("an ingredient was added");
         }
 
         [Test]
@@ -49,11 +59,14 @@ namespace Tests.UnitTests
             //Arrange
 
             // Act.
-            _unitUnderTest.FillSlot(_firstIngredient);
-            _unitUnderTest.ReleaseLastSlot();
+            _tableUnderTest.FillSlot(_firstIngredient);
+            _tableUnderTest.ReleaseLastSlot();
 
             // Assert.
-            Assert.That(_unitUnderTest.IsAllSlotsFree, Is.True);
+            bool areAllSlotsFree = _tableUnderTest.IsAllSlotsFree;
+            areAllSlotsFree
+                .Should()
+                .BeTrue("only one element was added, after it's removal all slots should be free");
         }
 
         [Test]
@@ -62,10 +75,12 @@ namespace Tests.UnitTests
             // Arrange.
 
             // Act.
-            TestDelegate attemptToRemoveIngredient = _unitUnderTest.ReleaseLastSlot;
+            Action attemptToRemoveIngredient = _tableUnderTest.ReleaseLastSlot;
 
             // Assert.
-            Assert.That(attemptToRemoveIngredient, Throws.Exception);
+            attemptToRemoveIngredient
+                .Should()
+                .Throw<InvalidOperationException>("all slots are free and the stack for filled slots is empty");
         }
 
         [Test]
@@ -74,41 +89,51 @@ namespace Tests.UnitTests
             // Arrange.
 
             // Act.
-            _unitUnderTest.FillSlot(_secondIngredient);
-            _unitUnderTest.FillSlot(_firstIngredient);
-            _unitUnderTest.FillSlot(_secondIngredient);
-            _unitUnderTest.FillSlot(_firstIngredient);
+            _tableUnderTest.FillSlot(_secondIngredient);
+            _tableUnderTest.FillSlot(_firstIngredient);
+            _tableUnderTest.FillSlot(_secondIngredient);
+            _tableUnderTest.FillSlot(_firstIngredient);
 
-            TestDelegate attemptToAddIngredient = () => _unitUnderTest.FillSlot(_firstIngredient);
-
-            // Assert.
-            Assert.That(attemptToAddIngredient, Throws.Exception);
-        }
-
-        [Test]
-        public void WhenHandlingResult_AndAnySlotAreFilled_ThenCreatePotion()
-        {
-            // Arrange.
-
-            // Act.
-            _unitUnderTest.FillSlot(_secondIngredient);
-            TestDelegate attemptToHandleResult = async () => await _unitUnderTest.CreatePotionInfo();
+            Action attemptToAddIngredient = () => _tableUnderTest.FillSlot(_firstIngredient);
 
             // Assert.
-            Assert.That(attemptToHandleResult, Throws.Nothing);
+            attemptToAddIngredient
+                .Should()
+                .Throw<InvalidOperationException>("all slots are filled and the stack for them is empty");
         }
 
-        [Test]
-        public void WhenHandlingResult_AndAllSlotsAreFree_ThenCreatePotionWithoutAnyCharacteristic()
-        {
-            // Arrange.
+        [UnityTest]
+        public IEnumerator WhenHandlingResult_AndAnySlotIsFilled_ThenCreatePotion() => 
+            UniTask.ToCoroutine(async () =>
+            {
+                // Arrange.
 
-            // Act.
-            TestDelegate attemptToHandleResult = async () => await _unitUnderTest.CreatePotionInfo();
+                // Act.
+                _tableUnderTest.FillSlot(_secondIngredient);
+                Func<Task<PotionInfo>> attemptToCreate = async () => await _tableUnderTest.CreatePotionInfo();
 
-            // Assert.
-            Assert.That(attemptToHandleResult, Throws.Nothing);
-        }
+                // Assert.
+                await attemptToCreate.Should().NotThrowAsync();
+                
+                var expectedIngredientsList = Arg.Is<List<IngredientData>>(list => list.Count == 1 && list.Contains(_secondIngredient));
+                _potionInfoFactoryStub.Received().CreatePotionInfoAsync(expectedIngredientsList);
+            });
+
+        [UnityTest]
+        public IEnumerator WhenHandlingResult_AndAllSlotsAreFree_ThenCreatePotionWithoutAnyCharacteristic() =>
+            UniTask.ToCoroutine(async () => 
+            {
+                // Arrange.
+
+                // Act.
+                Func<Task<PotionInfo>> attemptToCreate = async () => await _tableUnderTest.CreatePotionInfo();
+                    
+                // Assert.
+                await attemptToCreate.Should().NotThrowAsync();
+                    
+                var expectedIngredientsList = Arg.Is<List<IngredientData>>(list => list.Count == 0);
+                _potionInfoFactoryStub.Received().CreatePotionInfoAsync(expectedIngredientsList);
+            });
 
         private List<AlchemyTableSlot> CreateSlots(int amount)
         {
